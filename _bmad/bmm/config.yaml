@@ -11,6 +11,6 @@ project_knowledge: "{project-root}/docs"
 # Core Configuration Values
 user_name: Chbul
 project_name: G82-bull-knold-skjerven
-communication_language: English
-document_output_language: English
+communication_language: Norwegian
+document_output_language: Norwegian
 output_folder: _bmad-output
