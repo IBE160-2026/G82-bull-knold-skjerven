@@ -9,4 +9,4 @@ Repoet inneholder gruppens applikasjon og dokumentasjon av utvikling, testing og
 - Christian R Bull
 - Henrik L Knold
 - Martin Skjerven
-- Navn ikke oppgitt (medlem 1)
+- Magnus Gjerstad
