@@ -27,7 +27,7 @@ En webapp der studenter laster opp forelesningsnotater under egne emner og får 
 8. **Dekningsgrad og historikk.** Et spørsmål er dekket når det er besvart riktig og ikke ligger i feilbanken. Dekningen regnes samlet per nivå, også på tvers av quizer. Dekningsgraden for et notat er 20 % × lett + 30 % × middels + 50 % × vanskelig. Historikken viser alle forsøk med dato og poengsum.
 9. **Sletting** av et notat fjerner filen og alle data som hører til.
 
-Quiz, feilbank og historikk fungerer på mobilskjerm. Genereringen gjøres av Claude Sonnet 5.5, og modellen kan byttes i konfigurasjonen. Nøkkelen ligger i `.env`, og repoet har `.env.example`. **Testmodus** bruker mock-svar som er lagret fra ekte kjøringer på faste testdokumenter. Den har også en testbruker, slik at hele flyten kan kjøres uten API-nøkkel.
+Quiz, feilbank og historikk fungerer på mobilskjerm. Genereringen gjøres av Claude Sonnet 5.5, og modellen kan byttes i konfigurasjonen. Nøkkelen ligger i `.env`, og repoet har `.env.example`. **Testmodus** bruker mock-svar som er lagret fra ekte kjøringer på faste testdokumenter. Den har også en testbruker, slik at sensor kan kjøre hele flyten uten API-nøkkel, slik faglærer har bedt om. README-en beskriver hvordan sensor eventuelt kan legge inn sin egen nøkkel for å teste med ekte modell.
 
 ## Hva gjør dette annerledes
 
@@ -55,7 +55,7 @@ Studenter generelt, men appen designes og testes med medstudenter. Grensesnittet
 
 **Inn i v1:** Alt under Løsningen.
 
-**Ut av v1:** Kurs-FAQ-chatbot, Feide/SSO, PPTX og bilder (studenten eksporterer til PDF), bakgrunnsjobb, ZIP-opplasting, intervall-repetisjon, flagging av spørsmål, automatisk faktasjekk og offentlig hosting **[ASSUMPTION: lokal kjøring, avklares med faglærer]**.
+**Ut av v1:** Kurs-FAQ-chatbot, Feide/SSO, PPTX og bilder (studenten eksporterer til PDF), bakgrunnsjobb, ZIP-opplasting, intervall-repetisjon, flagging av spørsmål, automatisk faktasjekk og offentlig hosting. Appen kjøres lokalt etter README, slik faglærers kriterium for kjørbarhet krever.
 
 ## Visjon
 
@@ -72,9 +72,7 @@ Målet for semesteret er en solid, testet og dokumentert app som sensor kan kjø
 
 ## Åpne spørsmål
 
-- **Til faglærer:** Er testmodus med mock-svar nok, og kan det være valgfritt for sensor å legge inn egen nøkkel?
-- **Til faglærer:** Er lokal kjøring nok, eller forventes en hostet versjon?
-- **Til faglærer:** Hva er den eksakte fristen? Vi antar 15. desember 2026.
+- **Hva er den eksakte fristen?** Vi antar 15. desember 2026. Det må sjekkes i emneplanen.
 - **Hva er billigst og best:** å sende hele PDF-en eller å hente ut teksten? Og holder Haiku 5.5 kvaliteten mot Sonnet 5.5? Begge deler avgjøres i testfasen.
 - **Hvordan regnes dekningsgraden for et emne?** **[ASSUMPTION: snittet av notatene]**
 - **Hvilke testdokumenter kan brukes uten å bryte opphavsretten?**
