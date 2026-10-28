@@ -7,6 +7,7 @@ Repoet inneholder gruppens applikasjon og dokumentasjon av utvikling, testing og
 ## Medlemmer
 
 - Christian R Bull
-- Henrik L Knold
 - Martin Skjerven
 - Magnus Gjerstad
+
+Changelog: Fjernet Henrik L Knold ettersom han fortsatt ikke har gitt en lyd fra seg :/
