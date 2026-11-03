@@ -54,4 +54,4 @@ Hvis v1 fungerer godt: feilbanken videreutvikles til ekte intervall-repetisjon, 
 3. **Prøv, avvis kun nesten tekstløse dokumenter** (~200 tegn/side). Lysbilde-PDF-er er det vanligste studentene har; å stoppe på dem ville rammet det typiske tilfellet.
 4. **Trinnvis visning, ingen bakgrunnsjobb.** Sammendrag vises mens quiz genereres, med «prøv igjen» ved timeout; lagring utover lukket fane er bare verdt det om vi uansett trenger en bakgrunnsjobb, noe som ikke er avgjort.
 5. **Mellomambisiøs: emne → notat → quiz-forsøk.** Emnet opprettes manuelt (ingen ZIP nødvendig); forsøk lagres med dato/poengsum, og dekningsgrad beregnes per notat/emne, uten eget nivå for oppfølgingsrunder.
-6. **Åpen for alle studenter**, med to kostnadssperrer: bruksgrense per bruker per døgn og et utgiftstak hos KI-leverandøren.
+6. **Åpen for alle studenter, med to kostnadssperrer:** bruksgrense per bruker per døgn og et utgiftstak hos KI-leverandøren.
