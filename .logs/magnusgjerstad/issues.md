@@ -16,3 +16,6 @@
 - [x] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — rename av emne (FR-5): skjema på S4 eller egen side, må besluttes (løst 2026-11-14: skjema på S4)
 - [x] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — økt-utløp midt i quiz (UJ-3): egen tilstand i v1, eller er lagrede svar nok? (løst 2026-11-14: ingen egen side, åpnes på spørsmålet etter innlogging)
 - [ ] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — engelske seksjonsoverskrifter i DESIGN.md og EXPERIENCE.md: oversette til norsk, eller beholde som i malen
+- [ ] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — juridisk avklaring: KI-forordningen vedlegg III punkt 3 (utdanning) og art. 50(2) maskinlesbar merking
+- [ ] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — GDPR: personvernerklæring, databehandleravtale med Anthropic og overføring utenfor EØS. Vilkårene alene er ikke nok
+- [ ] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — kjøre axe og tastaturtest på prototype/index.html
