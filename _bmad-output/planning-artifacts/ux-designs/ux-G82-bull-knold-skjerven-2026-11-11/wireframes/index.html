@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframes kjerneflyt – FåreQuiz</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0; padding: 24px; font-family: ui-sans-serif, system-ui, sans-serif; background: #F3F4F6; color: #111827; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  p.intro { margin: 0 0 24px; color: #4B5563; font-size: 14px; max-width: 70ch; }
+  .grid { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+  .screen { width: 360px; background: #FFFFFF; border: 2px solid #6B7280; border-radius: 8px; overflow: hidden; }
+  .screen h2 { font-size: 13px; margin: 0; padding: 6px 12px; background: #111827; color: #FFFFFF; font-weight: 600; }
+  .screen .body { padding: 12px; font-size: 14px; }
+  .bar { display: flex; justify-content: space-between; border-bottom: 1px solid #E5E7EB; padding: 8px 12px; font-size: 13px; }
+  .crumb { font-size: 12px; color: #4B5563; padding: 6px 12px 0; }
+  .box { border: 1px solid #6B7280; border-radius: 6px; padding: 10px; margin: 8px 0; }
+  .btn { display: block; width: 100%; box-sizing: border-box; text-align: center; border: 1px solid #111827; border-radius: 6px; padding: 10px; margin: 8px 0; background: #FFFFFF; font-size: 14px; }
+  .btn.primary { background: #B85636; border-color: #B85636; color: #FFFFFF; }
+  .btn.locked { border-style: dashed; color: #4B5563; }
+  .note { font-size: 12px; color: #4B5563; margin: 4px 0; }
+  .ki { font-size: 12px; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; display: inline-block; }
+  .meter { height: 8px; background: #E5E7EB; border-radius: 9999px; overflow: hidden; margin: 4px 0; }
+  .meter span { display: block; height: 100%; background: #B85636; }
+  .opt { border: 1px solid #6B7280; border-radius: 6px; padding: 10px; margin: 6px 0; }
+  .opt.sel { border: 2px solid #111827; }
+  .steps li { margin: 6px 0; }
+  .err { border: 1px solid #B91C1C; color: #B91C1C; border-radius: 6px; padding: 8px; margin: 8px 0; font-size: 13px; }
+  .ok { color: #15803D; font-weight: 600; }
+  .test { background: #F3F4F6; border: 1px dashed #6B7280; font-size: 12px; padding: 4px 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  td, th { border-bottom: 1px solid #E5E7EB; text-align: left; padding: 4px; }
+  h3 { font-size: 15px; margin: 24px 0 8px; }
+</style>
+</head>
+<body>
+
+<h1>Wireframes: kjerneflyt</h1>
+<p class="intro">Lavoppløselige skisser av skjermbildene S3, S4, S6, S7, S8, S9 og S11 i <code>EXPERIENCE.md</code>. Alt er vist i 360 px bredde, som er minste krav i NFR-1. Farger og plassering er ikke endelige. Kommentarer legges i filen eller i samtalen.</p>
+
+<div class="grid">
+
+  <!-- S3 Emner -->
+  <section class="screen" aria-label="S3 Emner">
+    <h2>S3 · Emner (startside)</h2>
+    <div class="bar"><strong>FåreQuiz</strong><span>Logg ut</span></div>
+    <div class="test">Testmodus er på</div>
+    <div class="body">
+      <h3 style="margin-top:8px">Emner</h3>
+      <div class="box"><strong>Webutvikling</strong><div class="note">4 notater · dekningsgrad 62 %</div><div class="meter"><span style="width:62%"></span></div></div>
+      <div class="box"><strong>Databaser</strong><div class="note">Ingen notater</div></div>
+      <div class="box" style="border-style:dashed"><strong>Nytt emne</strong>
+        <label class="note" for="n3">Navn på emnet</label>
+        <input id="n3" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #6B7280;border-radius:6px" value="">
+        <div class="note">[Feil: Navnet kan ikke være tomt.]</div>
+        <button class="btn">Opprett emne</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4 Emne -->
+  <section class="screen" aria-label="S4 Emne">
+    <h2>S4 · Emne</h2>
+    <div class="bar"><strong>FåreQuiz</strong><span>Logg ut</span></div>
+    <div class="crumb">‹ Emner</div>
+    <div class="body">
+      <h3 style="margin-top:4px">Webutvikling</h3>
+      <div class="meter"><span style="width:62%"></span></div>
+      <div class="note">Dekningsgrad 62 %</div>
+      <button class="btn primary">Last opp notat</button>
+      <div class="box"><strong>HTML-forelesning.pdf</strong><div class="note">Lastet opp 12. nov · dekning 21 % · 3 i feilbanken</div></div>
+      <div class="box"><strong>CSS-forelesning.docx</strong><div class="note">Lastet opp 14. nov · dekning 0 %</div></div>
+      <div class="note">[Gi nytt navn] · [Slett emne]</div>
+    </div>
+  </section>
+
+  <!-- S6 Last opp -->
+  <section class="screen" aria-label="S6 Last opp notat">
+    <h2>S6 · Last opp notat</h2>
+    <div class="bar"><strong>FåreQuiz</strong><span>Logg ut</span></div>
+    <div class="crumb">‹ Webutvikling</div>
+    <div class="body">
+      <h3 style="margin-top:4px">Last opp notat</h3>
+      <p class="note">Godkjente formater: PDF, DOCX og TXT. Maks 5 MB.</p>
+      <div class="box">
+        <label class="note" for="f6">Velg fil</label>
+        <input id="f6" type="file" style="width:100%">
+        <div class="err">Formatet støttes ikke. Bruk PDF, DOCX eller TXT.</div>
+      </div>
+      <p class="note">Innholdet sendes til en ekstern KI-tjeneste (Anthropic).</p>
+      <button class="btn primary">Last opp</button>
+    </div>
+  </section>
+
+  <!-- S7 Notat -->
+  <section class="screen" aria-label="S7 Notat">
+    <h2>S7 · Notat</h2>
+    <div class="bar"><strong>FåreQuiz</strong><span>Logg ut</span></div>
+    <div class="crumb">‹ Webutvikling</div>
+    <div class="body">
+      <h3 style="margin-top:4px">HTML-forelesning.pdf</h3>
+      <div class="meter"><span style="width:21%"></span></div>
+      <div class="note">Dekning 21 % · vektet etter vanskelighetsgrad</div>
+      <button class="btn">Øv på feil (3)</button>
+      <div class="box">
+        <strong>Ny quiz</strong>
+        <fieldset style="border:0;padding:0;margin:6px 0">
+          <legend class="note">Vanskelighetsgrad</legend>
+          <label><input type="radio" name="v" > Lett</label><br>
+          <label><input type="radio" name="v" checked> Middels</label><br>
+          <label><input type="radio" name="v"> Vanskelig</label>
+        </fieldset>
+        <label class="note" for="a7">Antall spørsmål (5–30)</label>
+        <input id="a7" type="number" min="5" max="30" value="10" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #6B7280;border-radius:6px">
+        <button class="btn primary">Lag quiz</button>
+      </div>
+      <div class="box">
+        <strong>Quiz middels, 10 spørsmål</strong> <span class="ki">Laget av KI</span>
+        <div class="note">12. nov · Påbegynt – spørsmål 5 av 10</div>
+        <button class="btn">Fortsett</button>
+      </div>
+      <div class="box">
+        <strong>Historikk</strong>
+        <table><tr><th>Dato</th><th>Quiz</th><th>Poeng</th></tr>
+        <tr><td>12. nov</td><td>Middels, 10</td><td>7/10</td></tr></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- S8 Generering -->
+  <section class="screen" aria-label="S8 Generering">
+    <h2>S8 · Generering</h2>
+    <div class="bar"><strong>FåreQuiz</strong><span>Logg ut</span></div>
+    <div class="body">
+      <h3 style="margin-top:4px">Lager quiz</h3>
+      <ol class="steps">
+        <li><span class="ok">✓</span> Leser filen</li>
+        <li>… Lager spørsmål (pågår)</li>
+        <li>Sjekker quizen (venter)</li>
+      </ol>
+      <p class="note">Dette kan ta en stund. Du kan lukke fanen og komme tilbake.</p>
+      <button class="btn locked" aria-disabled="true">Lag quiz</button>
+      <div class="err">KI-tjenesten svarte ikke. Prøv igjen.</div>
+      <button class="btn primary">Prøv igjen</button>
+    </div>
+  </section>
+
+  <!-- S9 Ta quiz -->
+  <section class="screen" aria-label="S9 Ta quiz">
+    <h2>S9 · Ta quiz</h2>
+    <div class="bar"><strong>FåreQuiz</strong><span>Logg ut</span></div>
+    <div class="test">Laget av KI (Claude Sonnet 5.5). Spørsmålene kan inneholde feil.</div>
+    <div class="body">
+      <div class="note">Spørsmål 3 av 10</div>
+      <div class="meter"><span style="width:30%"></span></div>
+      <h3 style="margin-top:8px">Hva er HTML?</h3>
+      <div class="opt sel">○ Et programmeringsspråk</div>
+      <div class="opt">○ Et merkespråk for strukturen i en side</div>
+      <div class="opt">○ En nettleser</div>
+      <button class="btn primary">Neste</button>
+      <button class="btn">Forrige</button>
+      <div class="note">Gå til oversikt for å levere.</div>
+    </div>
+  </section>
+
+  <!-- S11 Resultat -->
+  <section class="screen" aria-label="S11 Resultat">
+    <h2>S11 · Resultat</h2>
+    <div class="bar"><strong>FåreQuiz</strong><span>Logg ut</span></div>
+    <div class="body">
+      <div style="font-size:36px;font-weight:700;line-height:1.1">7 av 10 riktige</div>
+      <p class="note">3 spørsmål er lagt i feilbanken.</p>
+      <div class="box"><strong>1. Hva er HTML?</strong><div class="note">Ditt svar: Et programmeringsspråk</div><div>✕ Feil</div></div>
+      <div class="box"><strong>2. Hva brukes &lt;a&gt; til?</strong><div class="note">Ditt svar: Lenke</div><div>✓ Riktig</div></div>
+      <button class="btn primary">Øv på feil (3)</button>
+      <button class="btn">Tilbake til notatet</button>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
