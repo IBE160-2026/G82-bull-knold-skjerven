@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FåreQuiz – utkast til design</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#innhold">Hopp til innhold</a>
+
+<header class="topbar">
+  <a class="brand" href="#s3">FåreQuiz</a>
+  <a class="meta" href="#s1">Logg ut</a>
+</header>
+
+<div class="test-banner" role="note">Testmodus: quizene bruker mock-svar, ingen KI kalles.</div>
+
+<main id="innhold">
+
+<!-- S1 Logg inn -->
+<section class="screen" id="s1" aria-labelledby="t-s1">
+  <div class="page" id="innhold">
+    <h1 id="t-s1">Logg inn</h1>
+    <form action="#s3">
+      <div class="field">
+        <label for="e1">E-post</label>
+        <input id="e1" type="email" name="email" autocomplete="email" value="test@farequiz.test">
+      </div>
+      <div class="field">
+        <label for="p1">Passord</label>
+        <input id="p1" type="password" name="passord" autocomplete="current-password" value="Testpassord123">
+      </div>
+      <button class="btn btn-primary" type="submit">Logg inn</button>
+    </form>
+    <p class="meta">Har du ikke konto? <a href="#s2">Registrer deg</a></p>
+    <div class="alert" hidden>Feil e-post eller passord.</div>
+  </div>
+</section>
+
+<!-- S2 Registrer -->
+<section class="screen" id="s2" aria-labelledby="t-s2">
+  <div class="page">
+    <h1 id="t-s2">Registrer deg</h1>
+    <form action="#s3">
+      <div class="field">
+        <label for="e2">E-post</label>
+        <input id="e2" type="email" autocomplete="email" aria-describedby="h2e">
+        <span class="hint" id="h2e">Bruk en gyldig e-postadresse.</span>
+      </div>
+      <div class="field">
+        <label for="p2">Passord</label>
+        <input id="p2" type="password" autocomplete="new-password" aria-describedby="h2p">
+        <span class="hint" id="h2p">Minst 8 tegn.</span>
+      </div>
+      <button class="btn btn-primary" type="submit">Registrer deg</button>
+    </form>
+    <p class="meta">Har du allerede konto? <a href="#s1">Logg inn</a></p>
+    <div class="alert" role="alert">Det finnes allerede en konto med denne e-posten.</div>
+  </div>
+</section>
+
+<!-- S3 Emner (startside) -->
+<section class="screen default" id="s3" aria-labelledby="t-s3">
+  <div class="page">
+    <h1 id="t-s3">Emner</h1>
+    <a class="card" href="#s4">
+      <div class="card-head"><h3>Webutvikling</h3><span class="meta">4 notater</span></div>
+      <div class="coverage">
+        <div class="coverage-bar" aria-hidden="true"><span style="width:62%"></span></div>
+        <span class="coverage-value">62 %</span>
+      </div>
+    </a>
+    <a class="card" href="#s4">
+      <div class="card-head"><h3>Databaser</h3><span class="meta">Ingen notater</span></div>
+    </a>
+
+    <h2>Nytt emne</h2>
+    <form action="#s3">
+      <div class="field">
+        <label for="n3">Navn på emnet</label>
+        <input id="n3" type="text">
+      </div>
+      <button class="btn btn-primary" type="submit">Opprett emne</button>
+    </form>
+    <div class="alert" role="alert">Navnet kan ikke være tomt.</div>
+    <p class="hint">Har du ingen emner ennå? Opprett ditt første over.</p>
+  </div>
+</section>
+
+<!-- S4 Emne -->
+<section class="screen" id="s4" aria-labelledby="t-s4">
+  <div class="page">
+    <p class="crumb"><a href="#s3">‹ Emner</a></p>
+    <h1 id="t-s4">Webutvikling</h1>
+    <div class="coverage">
+      <div class="coverage-bar" aria-hidden="true"><span style="width:62%"></span></div>
+      <span class="coverage-value">62 %</span>
+    </div>
+    <p class="meta">Dekningsgrad for emnet</p>
+
+    <a class="btn btn-primary" href="#s5">Last opp notat</a>
+
+    <h2>Notater</h2>
+    <a class="card" href="#s7">
+      <div class="card-head"><h3>HTML-forelesning.pdf</h3><span class="meta">Dekning 21 %</span></div>
+      <p class="meta">Lastet opp 12. nov · 3 i feilbanken</p>
+    </a>
+    <a class="card" href="#s7">
+      <div class="card-head"><h3>CSS-forelesning.docx</h3><span class="meta">Dekning 0 %</span></div>
+      <p class="meta">Lastet opp 14. nov</p>
+    </a>
+
+    <details class="box">
+      <summary><strong>Gi nytt navn</strong></summary>
+      <form action="#s4">
+        <div class="field">
+          <label for="r4">Nytt navn på emnet</label>
+          <input id="r4" type="text" value="Webutvikling">
+        </div>
+        <button class="btn" type="submit">Lagre navn</button>
+      </form>
+    </details>
+
+    <p><a href="#s13">Slett emne</a></p>
+  </div>
+</section>
+
+<!-- S5 Vilkår -->
+<section class="screen" id="s5" aria-labelledby="t-s5">
+  <div class="page">
+    <p class="crumb"><a href="#s4">‹ Webutvikling</a></p>
+    <h1 id="t-s5">Før du laster opp første notat</h1>
+    <p>Du må godta vilkårene før du kan laste opp notater.</p>
+    <ul>
+      <li>Notatet du laster opp sendes til en ekstern KI-tjeneste (Anthropic) for å lage quiz.</li>
+      <li>Du er selv ansvarlig for at notatene ikke inneholder personopplysninger du ikke har lov til å dele. Det gjelder etter personopplysningsloven og GDPR. Fjern navn, fødselsnummer og andre opplysninger om andre personer før du laster opp.</li>
+      <li>Quizene er laget av KI og kan inneholde feil. Sjekk dem mot pensum.</li>
+      <li>Vi lagrer tidspunktet for godkjenningen.</li>
+    </ul>
+    <a class="btn btn-primary" href="#s6">Godta og fortsett</a>
+    <a class="btn" href="#s4">Avbryt</a>
+  </div>
+</section>
+
+<!-- S6 Last opp -->
+<section class="screen" id="s6" aria-labelledby="t-s6">
+  <div class="page">
+    <p class="crumb"><a href="#s4">‹ Webutvikling</a></p>
+    <h1 id="t-s6">Last opp notat</h1>
+    <form action="#s7">
+      <div class="field">
+        <label for="f6">Velg fil</label>
+        <input id="f6" type="file" accept=".pdf,.docx,.txt" aria-describedby="h6">
+        <span class="hint" id="h6">PDF, DOCX eller TXT. Maks 5 MB.</span>
+      </div>
+      <p class="ai-notice">Innholdet i filen sendes til en ekstern KI-tjeneste for å lage quiz.</p>
+      <button class="btn btn-primary" type="submit">Last opp</button>
+    </form>
+    <div class="alert" role="alert">Formatet støttes ikke. Bruk PDF, DOCX eller TXT.</div>
+  </div>
+</section>
+
+<!-- S7 Notat -->
+<section class="screen" id="s7" aria-labelledby="t-s7">
+  <div class="page">
+    <p class="crumb"><a href="#s4">‹ Webutvikling</a></p>
+    <h1 id="t-s7">HTML-forelesning.pdf</h1>
+
+    <h2>Dekningsgrad</h2>
+    <div class="coverage">
+      <div class="coverage-bar" aria-hidden="true"><span style="width:21%"></span></div>
+      <span class="coverage-value">21 %</span>
+    </div>
+    <p class="meta">Vanskelige spørsmål teller mest (50 %).</p>
+
+    <a class="btn" href="#s12">Øv på feil (3)</a>
+
+    <h2>Lag ny quiz</h2>
+    <form action="#s8">
+      <fieldset>
+        <legend>Vanskelighetsgrad</legend>
+        <label class="radio-option"><input type="radio" name="v" value="lett"> Lett</label>
+        <label class="radio-option"><input type="radio" name="v" value="middels" checked> Middels</label>
+        <label class="radio-option"><input type="radio" name="v" value="vanskelig"> Vanskelig</label>
+      </fieldset>
+      <div class="field">
+        <label for="a7">Antall spørsmål</label>
+        <input id="a7" type="number" min="5" max="30" value="10" aria-describedby="h7">
+        <span class="hint" id="h7">Fra 5 til 30.</span>
+      </div>
+      <button class="btn btn-primary" type="submit">Lag quiz</button>
+    </form>
+
+    <h2>Quizer</h2>
+    <a class="card" href="#s9">
+      <div class="card-head"><h3>Middels, 10 spørsmål</h3><span class="ai-badge">Laget av KI</span></div>
+      <p class="meta">12. nov · Påbegynt – spørsmål 5 av 10</p>
+      <span class="btn btn-inline" aria-hidden="true">Fortsett</span>
+    </a>
+    <a class="card" href="#s9">
+      <div class="card-head"><h3>Lett, 5 spørsmål</h3><span class="ai-badge">Laget av KI</span></div>
+      <p class="meta">10. nov · 4 av 5 riktige</p>
+    </a>
+
+    <h2>Historikk</h2>
+    <div class="history-mobile">
+      <div class="box"><strong>12. nov</strong> · Middels, 10 · 7/10</div>
+      <div class="box"><strong>10. nov</strong> · Lett, 5 · 4/5</div>
+    </div>
+    <table class="history-table">
+      <caption class="meta" style="text-align:left">Forsøk, nyeste først</caption>
+      <thead><tr><th scope="col">Dato</th><th scope="col">Quiz</th><th scope="col">Poeng</th></tr></thead>
+      <tbody>
+        <tr><td>12. nov</td><td>Middels, 10</td><td>7/10</td></tr>
+        <tr><td>10. nov</td><td>Lett, 5</td><td>4/5</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- S8 Generering -->
+<section class="screen" id="s8" aria-labelledby="t-s8">
+  <div class="page">
+    <p class="crumb"><a href="#s7">‹ HTML-forelesning.pdf</a></p>
+    <h1 id="t-s8">Lager quiz</h1>
+    <ol class="steps" aria-live="polite">
+      <li><span class="step-mark mark-correct" aria-hidden="true">✓</span><span>Leser filen (ferdig)</span></li>
+      <li><span class="step-mark" aria-hidden="true">…</span><span>Lager spørsmål (pågår)</span></li>
+      <li><span class="step-mark" aria-hidden="true">○</span><span>Sjekker quizen (venter)</span></li>
+    </ol>
+    <p class="meta">Dette kan ta en stund. Du kan lukke fanen og komme tilbake.</p>
+    <button class="btn" type="button" aria-disabled="true">Lag quiz</button>
+  </div>
+</section>
+
+<!-- S8b Generering, feil -->
+<section class="screen" id="s8b" aria-labelledby="t-s8b">
+  <div class="page">
+    <p class="crumb"><a href="#s7">‹ HTML-forelesning.pdf</a></p>
+    <h1 id="t-s8b">Lager quiz</h1>
+    <div class="alert" role="alert" tabindex="-1" id="feil8b">KI-tjenesten svarte ikke. Prøv igjen.</div>
+    <p class="meta">Filen er lagret, så du trenger ikke laste den opp på nytt.</p>
+    <a class="btn btn-primary" href="#s8">Prøv igjen</a>
+  </div>
+</section>
+
+<!-- S9 Ta quiz -->
+<section class="screen" id="s9" aria-labelledby="t-s9">
+  <div class="page">
+    <p class="crumb"><a href="#s7">‹ Middels, 10 spørsmål</a></p>
+    <h1 id="t-s9" class="sr-only">Ta quiz</h1>
+    <p class="ai-notice">Laget av KI (Claude Sonnet 5.5). Spørsmålene kan inneholde feil.</p>
+
+    <p class="progress-text">Spørsmål 3 av 10</p>
+    <div class="progress" aria-hidden="true"><span style="width:30%"></span></div>
+
+    <fieldset>
+      <legend class="question">Hva er HTML?</legend>
+      <label class="radio-option"><input type="radio" name="q3" value="a"> Et programmeringsspråk</label>
+      <label class="radio-option"><input type="radio" name="q3" value="b"> Et merkespråk for strukturen i en side</label>
+      <label class="radio-option"><input type="radio" name="q3" value="c"> En nettleser</label>
+    </fieldset>
+
+    <div class="question-nav">
+      <a class="btn" href="#s9">Forrige</a>
+      <a class="btn btn-primary" href="#s9">Neste</a>
+    </div>
+    <p class="meta"><a href="#s10">Se over og lever</a></p>
+  </div>
+</section>
+
+<!-- S10 Se over og lever -->
+<section class="screen" id="s10" aria-labelledby="t-s10">
+  <div class="page">
+    <p class="crumb"><a href="#s9">‹ Tilbake til quizen</a></p>
+    <h1 id="t-s10">Se over før du leverer</h1>
+    <ol class="number-grid">
+      <li><a href="#s9">1 <small>Besvart</small></a></li>
+      <li><a href="#s9">2 <small>Besvart</small></a></li>
+      <li><a href="#s9">3 <small>Besvart</small></a></li>
+      <li><a href="#s9">4 <small>Ikke besvart</small></a></li>
+      <li><a href="#s9">5 <small>Besvart</small></a></li>
+    </ol>
+    <p class="alert" style="border-color:var(--ink-secondary);color:var(--ink)">Du har ikke svart på spørsmål 4 og 7.</p>
+    <button class="btn btn-primary" type="button" aria-disabled="true">Lever</button>
+    <p class="hint">Du kan levere når alle spørsmålene er besvart.</p>
+  </div>
+</section>
+
+<!-- S11 Resultat -->
+<section class="screen" id="s11" aria-labelledby="t-s11">
+  <div class="page">
+    <h1 id="t-s11">Resultat</h1>
+    <p class="score">7 av 10 riktige</p>
+    <p class="meta">3 spørsmål er lagt i feilbanken.</p>
+
+    <h2>Svar</h2>
+    <ol class="steps">
+      <li><span class="step-mark mark-wrong" aria-hidden="true">✕</span><span><strong>1. Hva er HTML?</strong><br><span class="meta">Ditt svar: Et programmeringsspråk</span><br><strong class="mark-wrong">Feil</strong></span></li>
+      <li><span class="step-mark mark-correct" aria-hidden="true">✓</span><span><strong>2. Hva brukes &lt;a&gt; til?</strong><br><span class="meta">Ditt svar: Lenke</span><br><strong class="mark-correct">Riktig</strong></span></li>
+    </ol>
+
+    <a class="btn btn-primary" href="#s12">Øv på feil (3)</a>
+    <a class="btn" href="#s7">Tilbake til notatet</a>
+  </div>
+</section>
+
+<!-- S12 Øv på feil -->
+<section class="screen" id="s12" aria-labelledby="t-s12">
+  <div class="page">
+    <p class="crumb"><a href="#s7">‹ HTML-forelesning.pdf</a></p>
+    <h1 id="t-s12">Øv på feil</h1>
+    <p class="ai-notice">Laget av KI (Claude Sonnet 5.5). Spørsmålene kan inneholde feil.</p>
+    <p class="progress-text">Spørsmål 1 av 3</p>
+    <div class="progress" aria-hidden="true"><span style="width:33%"></span></div>
+    <fieldset>
+      <legend class="question">Hva brukes &lt;a&gt; til?</legend>
+      <label class="radio-option"><input type="radio" name="q12" value="a"> Lenke</label>
+      <label class="radio-option"><input type="radio" name="q12" value="b"> Bilde</label>
+      <label class="radio-option"><input type="radio" name="q12" value="c"> Tabell</label>
+    </fieldset>
+    <div class="question-nav">
+      <a class="btn" href="#s12">Forrige</a>
+      <a class="btn btn-primary" href="#s12">Neste</a>
+    </div>
+    <p class="meta"><a href="#s11">Se resultat</a></p>
+  </div>
+</section>
+
+<!-- S13 Slett emne -->
+<section class="screen" id="s13" aria-labelledby="t-s13">
+  <div class="page">
+    <p class="crumb"><a href="#s4">‹ Webutvikling</a></p>
+    <h1 id="t-s13">Slette emnet «Webutvikling»?</h1>
+    <p>Dette sletter 4 notater, 9 quizer og all historikk. Det kan ikke angres.</p>
+    <a class="btn" href="#s4">Avbryt</a>
+    <a class="btn btn-danger" href="#s3">Slett emnet og alt innhold</a>
+  </div>
+</section>
+
+<!-- S14 Ikke funnet -->
+<section class="screen" id="s14" aria-labelledby="t-s14">
+  <div class="page">
+    <h1 id="t-s14">Fant ikke siden</h1>
+    <p>Siden finnes ikke, eller du har ikke tilgang til den.</p>
+    <a class="btn btn-primary" href="#s3">Gå til Emner</a>
+  </div>
+</section>
+
+</main>
+
+<nav class="review-nav" aria-label="Skjermbilder (kun for gjennomgang)">
+  <p><strong>Gjennomgang:</strong> alle skjermbildene. Dette er ikke en del av appen.</p>
+  <ul>
+    <li><a href="#s1">S1 Logg inn</a></li>
+    <li><a href="#s2">S2 Registrer</a></li>
+    <li><a href="#s3">S3 Emner</a></li>
+    <li><a href="#s4">S4 Emne</a></li>
+    <li><a href="#s5">S5 Vilkår</a></li>
+    <li><a href="#s6">S6 Last opp</a></li>
+    <li><a href="#s7">S7 Notat</a></li>
+    <li><a href="#s8">S8 Generering</a></li>
+    <li><a href="#s8b">S8 feil</a></li>
+    <li><a href="#s9">S9 Ta quiz</a></li>
+    <li><a href="#s10">S10 Se over</a></li>
+    <li><a href="#s11">S11 Resultat</a></li>
+    <li><a href="#s12">S12 Øv på feil</a></li>
+    <li><a href="#s13">S13 Slett emne</a></li>
+    <li><a href="#s14">S14 Ikke funnet</a></li>
+  </ul>
+</nav>
+
+</body>
+</html>
