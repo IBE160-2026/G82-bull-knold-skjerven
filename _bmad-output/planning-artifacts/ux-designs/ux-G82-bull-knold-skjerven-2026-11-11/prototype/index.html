@@ -12,7 +12,7 @@
 
 <header class="topbar">
   <a class="brand" href="#s3">FåreQuiz</a>
-  <a class="meta" href="#s1">Logg ut</a>
+  <a class="meta logout" href="#s1">Logg ut</a>
 </header>
 
 <div class="test-banner" role="note">Testmodus: quizene bruker mock-svar, ingen KI kalles.</div>
@@ -64,6 +64,13 @@
 <!-- S3 Emner (startside) -->
 <section class="screen default" id="s3" aria-labelledby="t-s3">
   <div class="page">
+    <div class="continue">
+      <p class="meta">Fortsett der du slapp</p>
+      <p><strong>Middels, 10 spørsmål</strong></p>
+      <p class="meta">Webutvikling · HTML-forelesning · spørsmål 5 av 10</p>
+      <a class="btn btn-primary" href="#s9">Fortsett quizen</a>
+    </div>
+
     <h1 id="t-s3">Emner</h1>
     <a class="card" href="#s4">
       <div class="card-head"><h3>Webutvikling</h3><span class="meta">4 notater</span></div>
@@ -313,6 +320,7 @@
     <p class="crumb"><a href="#s7">‹ HTML-forelesning.pdf</a></p>
     <h1 id="t-s12">Øv på feil</h1>
     <p class="ai-notice">Laget av KI (Claude Sonnet 5.5). Spørsmålene kan inneholde feil.</p>
+    <p class="learn"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span></span><span>Riktig én gang. Ett riktig svar til, så er spørsmålet lært.</span></p>
     <p class="progress-text">Spørsmål 1 av 3</p>
     <div class="progress" aria-hidden="true"><span style="width:33%"></span></div>
     <fieldset>

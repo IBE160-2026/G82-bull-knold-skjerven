@@ -156,7 +156,7 @@ Minste bredde som støttes er 320px (WCAG 1.4.10), og PRD-ens 360px (NFR-1) er d
 
 Gruppa har ikke nevnt forbilder. Det som er valgt bort, følger av ordene «effektiv, enkel, seriøs»:
 
-- **Valgt bort: streaker, merker, konfetti og lyder.** FåreQuiz er et verktøy, ikke et spill (PRD SM-C1, SM-C3).
+- **Valgt bort: konfetti, lyder og maskoter.** Fremgangen vises med markører som peker mot «lært» (FR-23), ikke med belønninger som ikke har med læringen å gjøre. Designet er ikke begrunnet i PRD-en, men er en designbeslutning, og den kan endres av gruppa.
 - **Valgt bort: tidsgrense per spørsmål.** Den gir stress, er et WCAG-problem (2.2.1) og passer ikke med at Tore skal kunne bli avbrutt.
 - **Valgt bort: alle spørsmål på én side.** Gruppa valgte ett spørsmål om gangen, fordi det passer bedre på mobil.
 

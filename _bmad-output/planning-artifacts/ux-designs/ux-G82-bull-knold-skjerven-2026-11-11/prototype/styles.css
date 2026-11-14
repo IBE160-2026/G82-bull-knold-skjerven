@@ -8,9 +8,9 @@
   --border-control: #6B7280;
   --ink: #111827;
   --ink-secondary: #4B5563;
-  --accent: #D97757;
-  --accent-strong: #B85636;
-  --accent-hover: #9C4A2B;
+  --accent: #14B8A6;
+  --accent-strong: #0F766E;
+  --accent-hover: #115E59;
   --success: #15803D;
   --error: #B91C1C;
 
@@ -293,3 +293,37 @@ legend { font-weight: 600; margin-bottom: 8px; padding: 0; }
   color: var(--ink-secondary);
 }
 .review-nav ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+
+/* Logg ut vises ikke før innlogging */
+body:has(#s1:target) .logout,
+body:has(#s2:target) .logout { display: none; }
+
+/* Neste steg på startsiden */
+.continue {
+  margin: 0 0 24px;
+  padding: 16px;
+  border: 1px solid var(--border-subtle);
+  border-left: 6px solid var(--accent);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+}
+.continue h2 { margin: 4px 0 4px; }
+
+/* Lært-markør: to riktige på rad etter feilbanken (FR-23) */
+.learn { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; font-size: 0.9375rem; }
+.dots { display: inline-flex; gap: 6px; flex: none; }
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  border: 2px solid var(--accent-strong);
+  background: var(--surface);
+}
+.dot.on { background: var(--accent-strong); }
+
+/* Bevegelse, som kan slås av i systeminnstillingene */
+.progress span { transition: width 300ms ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .progress span { transition: none; }
+  html { scroll-behavior: auto; }
+}

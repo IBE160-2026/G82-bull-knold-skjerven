@@ -16,9 +16,9 @@ colors:
   border-control: '#6B7280'       # gray-500, 4.83:1, kanter på inndatafelt og alternativer
   ink: '#111827'                  # gray-900, 17.7:1
   ink-secondary: '#4B5563'        # gray-600, 7.6:1
-  accent: '#D97757'               # Claude-oransje, 3.12:1, bare til flater, ikoner og stor tekst
-  accent-strong: '#B85636'        # 4.75:1, knapper, lenker, fokusring, dekningsstolpe
-  accent-hover: '#9C4A2B'         # 6.13:1, hover og trykk
+  accent: '#14B8A6'               # Lys grønn-blå, 2.49:1, bare dekorativt (testmodus-linje), aldri tekst
+  accent-strong: '#0F766E'        # 5.47:1, knapper, lenker, fokusring, dekningsstolpe
+  accent-hover: '#115E59'         # 7.58:1, hover og trykk
   success: '#15803D'              # green-700, 5.02:1
   error: '#B91C1C'                # red-700, 6.47:1
 typography:
@@ -122,7 +122,7 @@ components:
 
 ## Brand & Style
 
-FåreQuiz skal føles **effektiv, enkel og seriøs**. Den er et arbeidsverktøy for studenter som skal lære noe, ikke et spill. Flatene er hvite og gråtonede, og det er mye luft rundt innholdet. Én varm aksentfarge viser hva som er neste handling og hvor langt studenten har kommet. Det er ingen konfetti, maskoter, streaker eller feiringer. Fremgangen er belønningen.
+FåreQuiz skal føles **effektiv, enkel og seriøs, med litt mer liv enn et skjema**. Den er et verktøy for studenter som skal lære noe. Flatene er hvite og gråtonede, og det er mye luft rundt innholdet. Én grønn aksentfarge viser hva som er neste handling og hvor langt studenten har kommet. Startsiden peker alltid mot det neste studenten kan gjøre. Det er ingen konfetti eller maskoter. Fremgangen vises med tydelige markører, for eksempel lært-prikkene under «Øv på feil».
 
 Appen bruker Tailwind CSS i Django-maler og arver Tailwinds standarder for farger, avstand og skygger. Dette dokumentet beskriver bare avvikene: aksentfargen, typografien, minstestørrelser og noen få egne komponenter. Den ferdige CSS-filen fra Tailwind committes i repoet, slik at sensor ikke trenger Node eller et byggesteg.
 
@@ -131,13 +131,13 @@ Appen bruker Tailwind CSS i Django-maler og arver Tailwinds standarder for farge
 Paletten er hvit og grå med én aksentfarge.
 
 - **Hvit (`{colors.surface}`)** er bakgrunnen for alt innhold. **Gray-50 (`{colors.surface-muted}`)** brukes bak kort på emne- og notatsidene, slik at kortene skiller seg ut uten skygge.
-- **Claude-oransje (`{colors.accent}`, `#D97757`)** er aksentfargen. Kontrasten mot hvitt er 3,1:1, så den brukes **bare** til flater, ikoner, store tall og den tynne linjen under testmodus-banneret. Den brukes aldri til vanlig tekst.
-- **Mørk oransje (`{colors.accent-strong}`, `#B85636`)** er den brukbare varianten med 4,75:1. Den brukes på hovedknapper (hvit tekst), lenker, fokusringen, valgt svaralternativ og dekningsstolpen. Ved hover blir den **`{colors.accent-hover}`**.
+- **Lys grønn-blå (`{colors.accent}`, `#14B8A6`)** er dekorativ. Kontrasten mot hvitt er 2,5:1, så den brukes **bare** til den tynne linjen under testmodus-banneret og til flater som ikke er tekst. Den brukes aldri til tekst.
+- **Mørk grønn-blå (`{colors.accent-strong}`, `#0F766E`)** er den brukbare varianten med 5,47:1 mot hvitt. Den brukes på hovedknapper (hvit tekst), lenker, fokusringen, valgt svaralternativ og dekningsstolpen. Ved hover blir den **`{colors.accent-hover}`** (`#115E59`, 7,58:1).
 - **Tekst:** Vanlig tekst bruker `{colors.ink}`. Hjelpetekst og metadata som dato, antall og modellnavn bruker `{colors.ink-secondary}`, med 7,6:1.
 - **Kanter:** Inndatafelt og svaralternativer bruker `{colors.border-control}` (4,8:1), fordi WCAG 1.4.11 krever minst 3:1 for kanter som viser hvor man kan klikke. `{colors.border-subtle}` brukes bare til skillelinjer og kortkanter som ikke er klikkbare.
 - **Riktig og feil:** `{colors.success}` og `{colors.error}` brukes bare i resultater og feilmeldinger, og alltid sammen med ikon og tekst.
 
-Unngå gradienter, flere aksentfarger og oransje bak tekst. V1 har ikke mørk modus.
+Unngå gradienter, flere aksentfarger og farget bakgrunn bak tekst. V1 har ikke mørk modus.
 
 ## Typography
 
@@ -174,7 +174,7 @@ Hjørnene er avrundet, men forsiktig. Inndatafelt har `{rounded.sm}`, knapper `{
 - **Svaralternativ (`option-card`):** Hele kortet er en radioknapp med etikett. Et valgt alternativ får tykkere `{colors.accent-strong}`-kant, grå bakgrunn og en fylt radioknapp. Valget vises altså med form og ikke bare med farge. Det er tre alternativer, og de står under hverandre på alle skjermer.
 - **Dekningsstolpe (`coverage-bar`):** Stolpen er 8px høy, og prosenttallet står alltid som tekst ved siden av. På notatsiden vises en liten stolpe for hvert nivå (lett, middels og vanskelig) under totalen.
 - **KI-merke (`ai-badge`):** Et grått merke med et lite ikon og teksten «Laget av KI». På quizsidene står den fulle teksten (se EXPERIENCE.md).
-- **Testmodus-banner (`test-mode-banner`):** Et grått felt med teksten «Testmodus: quizene bruker mock-svar, ingen KI kalles». Det ligger under toppfeltet på alle sider når testmodus er på, med en tynn oransje linje under.
+- **Testmodus-banner (`test-mode-banner`):** Et grått felt med teksten «Testmodus: quizene bruker mock-svar, ingen KI kalles». Det ligger under toppfeltet på alle sider når testmodus er på, med en tynn grønn-blå linje under.
 - **Resultatmerke (`result-mark-*`):** Ikonene ✓ eller ✗ (SVG) sammen med teksten «Riktig» eller «Feil», i `{colors.success}` eller `{colors.error}`.
 - **Kort (`card`):** For emner, notater og quizer i lister. Hele kortet er én lenke.
 - **Fokusring (`focus-ring`):** 2px `{colors.accent-strong}` med 2px avstand, på alle elementer som kan få fokus. Den fjernes aldri (`outline: none` er forbudt).
@@ -183,9 +183,9 @@ Hjørnene er avrundet, men forsiktig. Inndatafelt har `{rounded.sm}`, knapper `{
 
 | Gjør | Ikke gjør |
 |---|---|
-| Bruk `{colors.accent-strong}` til tekst, knapper og fokus | Bruk `{colors.accent}` (#D97757) til tekst eller som bakgrunn bak hvit tekst |
+| Bruk `{colors.accent-strong}` til tekst, knapper og fokus | Bruk `{colors.accent}` (#14B8A6) til tekst eller som bakgrunn bak hvit tekst |
 | Vis prosent som tekst ved siden av hver stolpe | La farge eller stolpelengde være eneste informasjon |
 | Vis riktig og feil med ikon, tekst og farge | Vis riktig og feil bare med grønt og rødt |
-| Ha høyst én hovedknapp per skjermbilde | Ha flere oransje knapper som konkurrerer |
+| Ha høyst én hovedknapp per skjermbilde | Ha flere farget knapper som konkurrerer |
 | Gi knapper og alternativer minst 44px høyde | Bruk små tekstlenker som eneste handling på mobil |
 | Hold deg til hvitt, grått og én aksentfarge | Bruk gradienter, illustrasjoner, konfetti eller maskoter |
