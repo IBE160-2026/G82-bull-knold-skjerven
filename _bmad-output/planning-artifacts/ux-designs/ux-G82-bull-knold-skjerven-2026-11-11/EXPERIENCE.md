@@ -95,6 +95,11 @@ Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under 
 | E-posten finnes alt | S2 | «Det finnes allerede en konto med denne e-posten.» (FR-1). |
 | Annen brukers data | S14 | Siden «Fant ikke siden» med statuskode 404 (FR-3). |
 | Testmodus | Alle | Testmodus-banneret vises. På S1 står i tillegg testbrukerens e-post og passord (FR-28). |
+| Ugyldig e-post eller kort passord | S2 | Feilmelding ved feltet, for eksempel «Passordet må ha minst 8 tegn.», og fokus flyttes dit (FR-1). |
+| Emnenavn tomt eller tatt | S3, S4 | «Navnet kan ikke være tomt.» eller «Du har allerede et emne med dette navnet.» ved feltet, og fokus flyttes dit (FR-4). Samme gjelder nytt navn (FR-5), når det er avgjort hvordan det vises. |
+| Ingen forsøk | S7 | «Ingen forsøk ennå. Ta en quiz for å se historikken.» der historikken skulle stå (FR-26). |
+| KI-tjenesten svarer ikke | S8 | «KI-tjenesten svarte ikke. Prøv igjen.» og knappen «Prøv igjen», som bruker samme fil og valg (FR-12, FR-15). |
+| Ingen fil valgt | S6 | «Velg en fil først.» ved filvelgeren, og fokus flyttes dit (FR-8). |
 
 ## Interaction Primitives
 
