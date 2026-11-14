@@ -55,7 +55,7 @@ Teksten i appen er på norsk bokmål og bruker «du». Den er kort og saklig, ut
 | «Genereringen tok for lang tid. Filen er lagret, så du kan prøve igjen.» | «Timeout (504)» |
 | «Du har ikke svart på spørsmål 4 og 7.» | «Skjemaet er ufullstendig» |
 | «Ingen notater ennå. Last opp det første.» | «Her var det tomt!» |
-| «Laget av KI (Claude Sonnet 5.5). Spørsmålene kan inneholde feil.» | Å skjule modellnavnet eller kalle det «smart quiz» |
+| «Laget av KI (modellnavnet). Spørsmålene kan inneholde feil.» Modellnavnet hentes fra quizen (NFR-7), og står ikke fast i teksten. | Å skjule modellnavnet eller kalle det «smart quiz» |
 
 ## Component Patterns
 
@@ -64,7 +64,7 @@ Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under 
 | Komponent | Brukes på | Regler |
 |---|---|---|
 | Emnekort | S3 | Hele kortet er en lenke til S4. Viser emnenavn, antall notater og dekningsgrad i prosent med stolpe. Et emne uten notater viser «Ingen notater» i stedet for prosent (FR-25). |
-| Gi nytt navn | S4 | Skjema på emnesiden, som åpnes med knappen «Gi nytt navn». Feltet har emnets nåværende navn. Samme feilmeldinger som ved nytt emne (FR-4, FR-5). Lagring endrer bare navnet, ikke notater eller historikk. |
+| Gi nytt navn | S4 | Skjema på emnesiden, som åpnes med knappen «Gi nytt navn». Feltet har emnets nåværende navn. Samme feilmeldinger som ved nytt emne (FR-4, FR-5). Knappen er «Lagre navn». Lagring endrer bare navnet, ikke notater eller historikk. |
 | Notatkort | S4 | Lenke til S7. Viser filnavn, opplastingsdato, dekningsgrad og antall spørsmål i feilbanken. |
 | Quizkort | S7 | Viser vanskelighetsgrad, antall spørsmål, dato og KI-merke. Har et påbegynt forsøk merket «Påbegynt – spørsmål 5 av 10», og knappen er «Fortsett». Ellers er knappen «Ta quiz» eller «Ta på nytt» (FR-18, FR-20). |
 | Skjema for ny quiz | S7 | Vanskelighetsgrad er en gruppe med tre radioknapper (lett, middels, vanskelig). Middels er valgt på forhånd. Antall er et tallfelt (min 5, maks 30, standard 10) med forklarende tekst. Knappen er «Lag quiz» (FR-11). |

@@ -174,7 +174,7 @@ Hjørnene er avrundet, men forsiktig. Inndatafelt har `{rounded.sm}`, knapper `{
 - **Svaralternativ (`option-card`):** Hele kortet er en radioknapp med etikett. Et valgt alternativ får tykkere `{colors.accent-strong}`-kant, grå bakgrunn og en fylt radioknapp. Valget vises altså med form og ikke bare med farge. Det er tre alternativer, og de står under hverandre på alle skjermer.
 - **Dekningsstolpe (`coverage-bar`):** Stolpen er 8px høy, og prosenttallet står alltid som tekst ved siden av. På notatsiden vises en liten stolpe for hvert nivå (lett, middels og vanskelig) under totalen.
 - **KI-merke (`ai-badge`):** Et grått merke med et lite ikon og teksten «Laget av KI». På quizsidene står den fulle teksten (se EXPERIENCE.md).
-- **Testmodus-banner (`test-mode-banner`):** Et grått felt med teksten «Testmodus: quizene er forhåndslagret, ingen KI kalles». Det ligger under toppfeltet på alle sider når testmodus er på, med en tynn oransje linje under.
+- **Testmodus-banner (`test-mode-banner`):** Et grått felt med teksten «Testmodus: quizene bruker mock-svar, ingen KI kalles». Det ligger under toppfeltet på alle sider når testmodus er på, med en tynn oransje linje under.
 - **Resultatmerke (`result-mark-*`):** Ikonene ✓ eller ✗ (SVG) sammen med teksten «Riktig» eller «Feil», i `{colors.success}` eller `{colors.error}`.
 - **Kort (`card`):** For emner, notater og quizer i lister. Hele kortet er én lenke.
 - **Fokusring (`focus-ring`):** 2px `{colors.accent-strong}` med 2px avstand, på alle elementer som kan få fokus. Den fjernes aldri (`outline: none` er forbudt).
