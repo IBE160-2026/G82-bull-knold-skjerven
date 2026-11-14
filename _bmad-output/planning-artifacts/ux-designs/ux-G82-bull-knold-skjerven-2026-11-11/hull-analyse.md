@@ -21,7 +21,7 @@ Gått gjennom FR-, NFR- og UJ-krav i `prd.md` mot `EXPERIENCE.md` og `DESIGN.md`
 - Dekningsgraden for emne uten notater er dekket på S3 og S4.
 - Testmodus er dekket på alle sider, også S1 med testbrukerens påloggingsdata.
 
-## Åpne spørsmål til gruppa
+## Avgjort 14.11.2026
 
-1. Skal rename være et skjema på S4, eller en egen side? (Punkt 3.)
-2. Skal økt-utløp være med i v1? (Punkt 7.)
+1. **Rename (punkt 3):** Skjema på S4, ikke egen side. Lagt inn i `EXPERIENCE.md` og `wireframes/index.html`.
+2. **Økt utløpt (punkt 7):** Ingen egen side i v1. Etter innlogging åpnes spørsmålet du var på, med lagrede svar. Lagt inn i `EXPERIENCE.md`.

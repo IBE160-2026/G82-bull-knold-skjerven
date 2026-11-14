@@ -64,6 +64,7 @@ Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under 
 | Komponent | Brukes på | Regler |
 |---|---|---|
 | Emnekort | S3 | Hele kortet er en lenke til S4. Viser emnenavn, antall notater og dekningsgrad i prosent med stolpe. Et emne uten notater viser «Ingen notater» i stedet for prosent (FR-25). |
+| Gi nytt navn | S4 | Skjema på emnesiden, som åpnes med knappen «Gi nytt navn». Feltet har emnets nåværende navn. Samme feilmeldinger som ved nytt emne (FR-4, FR-5). Lagring endrer bare navnet, ikke notater eller historikk. |
 | Notatkort | S4 | Lenke til S7. Viser filnavn, opplastingsdato, dekningsgrad og antall spørsmål i feilbanken. |
 | Quizkort | S7 | Viser vanskelighetsgrad, antall spørsmål, dato og KI-merke. Har et påbegynt forsøk merket «Påbegynt – spørsmål 5 av 10», og knappen er «Fortsett». Ellers er knappen «Ta quiz» eller «Ta på nytt» (FR-18, FR-20). |
 | Skjema for ny quiz | S7 | Vanskelighetsgrad er en gruppe med tre radioknapper (lett, middels, vanskelig). Middels er valgt på forhånd. Antall er et tallfelt (min 5, maks 30, standard 10) med forklarende tekst. Knappen er «Lag quiz» (FR-11). |
@@ -92,6 +93,7 @@ Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under 
 | Tom feilbank | S7, S11 | «Øv på feil» er låst og viser «Ingen spørsmål i feilbanken» (FR-22). |
 | Alt lært i en økt | S12 resultat | «Alle spørsmålene er lært. Feilbanken er tom.» og lenke tilbake til notatet. |
 | Feil innlogging | S1 | «Feil e-post eller passord.» Teksten er den samme uansett hva som var feil (FR-2). |
+| Økt utløpt | S1 | «Du er logget ut. Logg inn igjen for å fortsette.» Etter innlogging åpnes spørsmålet du var på, med de lagrede svarene (UJ-3, FR-18). Det er ingen egen side for dette i v1. |
 | E-posten finnes alt | S2 | «Det finnes allerede en konto med denne e-posten.» (FR-1). |
 | Annen brukers data | S14 | Siden «Fant ikke siden» med statuskode 404 (FR-3). |
 | Testmodus | Alle | Testmodus-banneret vises. På S1 står i tillegg testbrukerens e-post og passord (FR-28). |
