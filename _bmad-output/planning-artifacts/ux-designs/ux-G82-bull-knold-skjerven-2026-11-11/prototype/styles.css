@@ -12,6 +12,10 @@
   --accent-strong: #0F766E;
   --accent-hover: #115E59;
   --success: #15803D;
+  --surface-inverse: #111827;
+  --ink-inverse: #F9FAFB;
+  --ink-inverse-secondary: #D1D5DB;
+  --focus-inverse: #5EEAD4;
   --error: #B91C1C;
 
   --radius-sm: 4px;
@@ -76,11 +80,12 @@ a:hover { color: var(--accent-hover); }
   align-items: center;
   min-height: 56px;
   padding: 0 var(--gutter);
-  background: var(--surface);
-  border-bottom: 1px solid var(--border-subtle);
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  background: var(--surface-inverse);
+  border-bottom: 1px solid var(--surface-inverse);
 }
-.brand { font-weight: 700; color: var(--ink); text-decoration: none; font-size: 1.125rem; }
+.brand { font-weight: 700; color: var(--ink-inverse); text-decoration: none; font-size: 1.125rem; }
+.topbar a:focus-visible { outline-color: var(--focus-inverse); }
+.topbar a.meta { color: var(--ink-inverse-secondary); }
 .test-banner {
   background: var(--surface-sunken);
   color: var(--ink);
@@ -327,3 +332,14 @@ body:has(#s2:target) .logout { display: none; }
   .progress span { transition: none; }
   html { scroll-behavior: auto; }
 }
+
+/* Tallfliser på emnesiden */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.stat {
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  background: var(--surface-inverse);
+  color: var(--ink-inverse);
+}
+.stat-value { font-size: 2.25rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat-label { font-size: 0.875rem; color: var(--ink-inverse-secondary); }

@@ -21,6 +21,10 @@ colors:
   accent-hover: '#115E59'         # 7.58:1, hover og trykk
   success: '#15803D'              # green-700, 5.02:1
   error: '#B91C1C'                # red-700, 6.47:1
+  surface-inverse: '#111827'      # gray-900, mørk topp og tallfliser. Ingen mørk modus i v1
+  ink-inverse: '#F9FAFB'          # 16.98:1 mot surface-inverse
+  ink-inverse-secondary: '#D1D5DB' # gray-300, 12.04:1 mot surface-inverse
+  focus-inverse: '#5EEAD4'        # teal-300, 11.99:1 mot surface-inverse, fokusring i toppfeltet
 typography:
   # Systemfonter (Tailwinds font-sans). Ingen nettfonter, så appen virker uten nett.
   page-title:
@@ -137,7 +141,7 @@ Paletten er hvit og grå med én aksentfarge.
 - **Kanter:** Inndatafelt og svaralternativer bruker `{colors.border-control}` (4,8:1), fordi WCAG 1.4.11 krever minst 3:1 for kanter som viser hvor man kan klikke. `{colors.border-subtle}` brukes bare til skillelinjer og kortkanter som ikke er klikkbare.
 - **Riktig og feil:** `{colors.success}` og `{colors.error}` brukes bare i resultater og feilmeldinger, og alltid sammen med ikon og tekst.
 
-Unngå gradienter, flere aksentfarger og farget bakgrunn bak tekst. V1 har ikke mørk modus.
+Den eneste mørke flaten er toppfeltet og tallfliene (`{colors.surface-inverse}`). Resten av siden er lys. Det gir et moderne uttrykk uten mørk modus, som gruppa sa nei til for v1. Unngå gradienter, flere aksentfarger og farget bakgrunn bak tekst. V1 har ikke mørk modus.
 
 ## Typography
 
@@ -177,7 +181,9 @@ Hjørnene er avrundet, men forsiktig. Inndatafelt har `{rounded.sm}`, knapper `{
 - **Testmodus-banner (`test-mode-banner`):** Et grått felt med teksten «Testmodus: quizene bruker mock-svar, ingen KI kalles». Det ligger under toppfeltet på alle sider når testmodus er på, med en tynn grønn-blå linje under.
 - **Resultatmerke (`result-mark-*`):** Ikonene ✓ eller ✗ (SVG) sammen med teksten «Riktig» eller «Feil», i `{colors.success}` eller `{colors.error}`.
 - **Kort (`card`):** For emner, notater og quizer i lister. Hele kortet er én lenke.
-- **Fokusring (`focus-ring`):** 2px `{colors.accent-strong}` med 2px avstand, på alle elementer som kan få fokus. Den fjernes aldri (`outline: none` er forbudt).
+- **Fokusring (`focus-ring`):** 2px `{colors.accent-strong}` med 2px avstand, på alle elementer som kan få fokus. I toppfeltet brukes `{colors.focus-inverse}`, fordi den mørke fargen ikke har nok kontrast der. Den fjernes aldri (`outline: none` er forbudt).
+- **Toppfelt (`topbar`):** `{colors.surface-inverse}` med `{colors.ink-inverse}`-tekst. «Logg ut» er `{colors.ink-inverse-secondary}`.
+- **Tallflis (`stat-tile`):** `{colors.surface-inverse}` med tallet i `{typography.score}` og en kort tekst under. Brukes på emnesiden for dekning og antall i feilbanken.
 
 ## Do's and Don'ts
 

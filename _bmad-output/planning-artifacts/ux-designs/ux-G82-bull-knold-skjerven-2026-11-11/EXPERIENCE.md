@@ -35,7 +35,7 @@ Utseendet står i [DESIGN.md](DESIGN.md). Begrepene følger ordlisten i PRD-en (
 | S13 | Slett emne | «Slett emne» på S4 | Bekreftelsesside som viser hva som slettes | FR-6 |
 | S14 | Ikke funnet | Ukjent eller annen brukers ID | «Fant ikke siden» med lenke til Emner | FR-3 |
 
-**Navigasjon:** Toppfeltet viser «FåreQuiz» (lenke til S3) til venstre og «Logg ut» til høyre. Under toppfeltet står en brødsmulesti, for eksempel «Emner › Webutvikling › HTML-forelesning». Appen har ingen sidemeny og ingen hamburgermeny, fordi strukturen bare er tre nivåer dyp. Når testmodus er på, ligger testmodus-banneret mellom toppfeltet og brødsmulestien på alle sider.
+**Navigasjon:** Toppfeltet er mørkt og viser «FåreQuiz» (lenke til S3) til venstre og «Logg ut» til høyre. «Logg ut» vises ikke på S1 og S2. Under toppfeltet står en brødsmulesti, for eksempel «Emner › Webutvikling › HTML-forelesning». Appen har ingen sidemeny og ingen hamburgermeny, fordi strukturen bare er tre nivåer dyp. Når testmodus er på, ligger testmodus-banneret mellom toppfeltet og brødsmulestien på alle sider.
 
 **Bekreftelser og vilkår** vises som egne sider (S5, S13), ikke som popup-vinduer. Det er enklere å gjøre tilgjengelig og virker uten JavaScript.
 
