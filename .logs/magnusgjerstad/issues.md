@@ -11,5 +11,7 @@
 - [ ] 2026-11-11 [prd-v1](997-2026-11-11-21-40-00-prd-v1.md) — testfasen: hvilke testdokumenter som kan brukes uten å bryte opphavsretten
 - [ ] 2026-11-11 [prd-v1](997-2026-11-11-21-40-00-prd-v1.md) — testfasen: typisk genereringstid for 30 spørsmål sammenlignet med timeout på 120 s (FR-15)
 - [ ] 2026-11-11 [prd-v1](997-2026-11-11-21-40-00-prd-v1.md) — språkvasken av PRD-en med bmad-review (structure og prose) ble ikke kjørt
-- [ ] 2026-11-11 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — HTML-skisser av nøkkelskjermbilder («Ta quiz» på mobil, «Notat») ble ikke laget
+- [x] 2026-11-11 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — HTML-skisser av nøkkelskjermbilder («Ta quiz» på mobil, «Notat») ble ikke laget (løst 2026-11-14: wireframes/index.html på forslag-design-martin)
 - [ ] 2026-11-11 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — kvalitetssjekken av UX-dokumentene og språkvasken med bmad-review ble ikke kjørt
+- [ ] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — rename av emne (FR-5): skjema på S4 eller egen side, må besluttes
+- [ ] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — økt-utløp midt i quiz (UJ-3): egen tilstand i v1, eller er lagrede svar nok? Spørsmål til gruppa
