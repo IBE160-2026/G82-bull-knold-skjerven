@@ -43,8 +43,8 @@ html { font-size: 100%; scroll-padding-top: 72px; }
 body {
   margin: 0;
   background-color: var(--page-bg);
-  background-image: url("vehicles.svg");
-  background-size: 240px 160px;
+  background-image: url("kart.svg");
+  background-size: 360px 360px;
   background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font);
@@ -92,7 +92,7 @@ a:hover { color: var(--accent-hover); }
   border-bottom: 1px solid var(--surface-inverse);
 }
 .brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; letter-spacing: -0.01em; color: var(--ink-inverse); text-decoration: none; font-size: 1.125rem; }
-.brand-mark { width: 28px; height: 28px; flex: none; }
+.brand-mark { width: 32px; height: 32px; flex: none; color: var(--ink-inverse); }
 .topbar a:focus-visible { outline-color: var(--focus-inverse); }
 .topbar a.meta { color: var(--ink-inverse-secondary); }
 .test-banner {
@@ -271,15 +271,31 @@ legend { font-weight: 600; margin-bottom: 8px; padding: 0; }
 /* Quiz */
 .question { font-size: 1.25rem; line-height: 1.45; font-weight: 500; margin: 16px 0; }
 .progress-text { font-weight: 600; font-variant-numeric: tabular-nums; }
-.progress { position: relative; height: 8px; background: var(--border-subtle); border-radius: 9999px; margin: 20px 0 16px; }
-.progress span { border-radius: 9999px; }
+.progress {
+  position: relative;
+  height: 8px;
+  margin: 36px 0 24px;
+  background-image: radial-gradient(circle, var(--accent-strong) 1.3px, transparent 1.8px);
+  background-size: 12px 8px;
+  background-repeat: repeat-x;
+  background-position: center;
+}
+.progress span { display: block; height: 100%; border-radius: 9999px; background: var(--accent-strong); }
 .progress-car {
   position: absolute;
-  top: -14px;
-  width: 32px;
-  height: 16px;
+  top: -28px;
+  width: 36px;
+  height: 36px;
+  color: var(--accent-strong);
   transform: translateX(-50%);
   transition: left 300ms ease-out;
+}
+.progress-flag {
+  position: absolute;
+  right: -10px;
+  top: -20px;
+  width: 22px;
+  height: 22px;
 }
 .progress span { display: block; height: 100%; background: var(--accent-strong); }
 

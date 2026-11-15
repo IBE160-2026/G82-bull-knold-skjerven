@@ -131,13 +131,15 @@ components:
 
 FåreQuiz skal føles **effektiv, enkel og seriøs, med litt mer liv enn et skjema**. Den er et verktøy for studenter som skal lære noe. Flatene er kremhvite og varme beige, og det er mye luft rundt innholdet. Terrakotta viser hva som er neste handling, og ochre gir små lekne detaljer. Startsiden peker alltid mot det neste studenten kan gjøre. Det er ingen konfetti eller maskoter. Fremgangen vises med tydelige markører, for eksempel lært-prikkene under «Øv på feil».
 
+Tema: oppdagelsesreise og kart. Temaet er kjønnsnøytralt, pedagogisk og eventyrlystent, og det passer med de beige og brune jordfargene. Det viser seg i kartlinjene, ruten og fåret i ballongen.
+
 Appen bruker Tailwind CSS i Django-maler og arver Tailwinds standarder for farger, avstand og skygger. Dette dokumentet beskriver bare avvikene: aksentfargen, typografien, minstestørrelser og noen få egne komponenter. Den ferdige CSS-filen fra Tailwind committes i repoet, slik at sensor ikke trenger Node eller et byggesteg.
 
 ## Colors
 
 Paletten er varm og holder seg til sand, krem og brunt. Kaffebrun er hovedfargen, latte er detaljen, og terrakotta og salvie brukes bare til tilbakemelding om svar. Den erstatter den kalde grå-, svarte og grønne fargen, og den er valgt for å være varm og innbydende.
 
-- **Tonet bakgrunn (`{colors.page-bg}`)** er bakgrunnen for siden, fra topp til bunn. Den har et mønster av små biler og lastebiler i `{colors.border-subtle}`, tegnet som SVG-bakgrunn (`vehicles.svg`) med en rute på 240×160px. Mønsteret viser sedan, sportsbil, F1-bil, stasjonsvogn, pickup, SUV, cabriolet, planbil, semitrailer og vogntog. Mønsteret er rolig og lavt i kontrast, så det gir tekstur uten å konkurrere med innholdet. Bilene er dekor og har ingen informasjon.
+- **Tonet bakgrunn (`{colors.page-bg}`)** er bakgrunnen for siden, fra topp til bunn. Den har svake høydekoter i `{colors.border-subtle}` (`kart.svg`), en stiplet rute i `{colors.accent}` og en diskret kompassrose. Kartlinjene gir tekstur og dybde, men de skal ikke konkurrere med kortene.
 - **Krem (`{colors.surface}`)** er bakgrunnen for kort og flashcard. Kortene har en brunlig skygge (`rgba(62, 39, 35, 0.12)`), slik at de løfter seg frem.
 - **Tekst:** Vanlig tekst bruker `{colors.ink}` (espressobrun, 15,25:1). Hjelpetekst og metadata bruker `{colors.ink-secondary}`, med 8,17:1.
 - **Kaffebrun (`{colors.accent-strong}`)** er hovedknapper (med krem tekst), lenker, fokusring, fremdriftslinje og valgt svaralternativ. Hover-tilstand på knapper er `{colors.accent-hover}`.
@@ -182,7 +184,7 @@ Hjørnene er avrundet, men forsiktig. Inndatafelt har `{rounded.sm}`, knapper `{
 - **Sekundærknapp (`button-secondary`):** Kremhvit med brun kant, for «Forrige», «Avbryt» og «Gi nytt navn».
 - **Fareknapp (`button-danger`):** Rød med hvit tekst. Brukes bare på bekreftelsessiden for sletting av emne.
 - **Svaralternativ (`option-card`):** Hele kortet er en radioknapp med etikett. Et valgt alternativ får tykkere `{colors.accent-strong}`-kant, beige bakgrunn og en fylt radioknapp. Valget vises altså med form og ikke bare med farge. Det er tre alternativer, og de står under hverandre på alle skjermer.
-- **Fremdriftslinje med sportsbil (`progress`):** Stolpen er 8px høy i `{colors.border-subtle}`, med fyll i `{colors.accent-strong}`. En sportsbil i `{colors.accent-strong}` står på enden av fyllet og flyttes med fremdriften. Den er dekorativ (`aria-hidden`), og «Spørsmål 3 av 10» gir informasjonen i tekst.
+- **Fremdriftslinje som reiserute (`progress`):** Ruten er stiplet i `{colors.accent-strong}`. Fyllet er en heltrukket linje. Et flagg i enden markerer målet, og en miniversjon av fåret i ballongen flyr langs ruten. Fåret står på enden av fyllet og flyttes med fremdriften. Det er dekorativt (`aria-hidden`), og «Spørsmål 3 av 10» gir informasjonen i tekst.
 - **Dekningsstolpe (`coverage-bar`):** Stolpen er 8px høy, og prosenttallet står alltid som tekst ved siden av. På notatsiden vises en liten stolpe for hvert nivå (lett, middels og vanskelig) under totalen.
 - **KI-merke (`ai-badge`):** Et beige merke med et lite ikon og teksten «Laget av KI». På quizsidene står den fulle teksten (se EXPERIENCE.md).
 - **Testmodus-banner (`test-mode-banner`):** Et beige felt med teksten «Testmodus: quizene bruker mock-svar, ingen KI kalles». Det ligger under toppfeltet på alle sider når testmodus er på, med en tynn `{colors.accent}`-linje under.
@@ -191,7 +193,7 @@ Hjørnene er avrundet, men forsiktig. Inndatafelt har `{rounded.sm}`, knapper `{
 - **Flashcard (`flashcard`):** Spørsmålet i quizen og «Øv på feil». Kortet står midt på siden, maks 560px bredt, med større skygge enn `card`. Svaralternativene står under kortet, i en egen liste.
 - **Svaralternativ, hover (`option-card:hover`):** Bakgrunnen blir `{colors.card-hover}` (latte), kanten blir `{colors.accent-strong}`, og alternativet løftes 1px. Teksten beholder full kontrast.
 - **Fokusring (`focus-ring`):** 2px `{colors.accent-strong}` med 2px avstand, på alle elementer som kan få fokus. I toppfeltet brukes `{colors.focus-inverse}`, fordi den mørke fargen ikke har nok kontrast der. Den fjernes aldri (`outline: none` er forbudt).
-- **Logo (`brand`):** Et lite flashcard-merke, to kort på skrå, i `{colors.accent}` og `{colors.surface}`, foran navnet «FåreQuiz». Navnet er i fet skrift med tettere bokstavavstand. Merket er bare dekorativt.
+- **Logo (`brand`):** Fåret i varmluftsballongen (`favicon.svg` og symbolet `faar-ballong`). Fåret er kremhvitt med kaffebrunt ansikt, og ballongen er latte med kaffebrun kurv. Strekene er rene og enkle, så ikonet også fungerer som fane-ikon (favikon). I toppfeltet farges kurv og strek i krem, for å være synlig på mørk flate.
 - **Toppfelt (`topbar`):** `{colors.surface-inverse}` med `{colors.ink-inverse}`-tekst. «Logg ut» er `{colors.ink-inverse-secondary}`.
 - **Tallflis (`stat-tile`):** `{colors.surface-inverse}` med tallet i `{typography.score}` og en kort tekst under. Brukes på emnesiden for dekning og antall i feilbanken.
 
@@ -204,7 +206,7 @@ Hjørnene er avrundet, men forsiktig. Inndatafelt har `{rounded.sm}`, knapper `{
 | Vis riktig og feil med ikon, tekst og farge | Vis riktig og feil bare med grønt og rødt |
 | Ha høyst én hovedknapp per skjermbilde | Ha flere farget knapper som konkurrerer |
 | Gi knapper og alternativer minst 44px høyde | Bruk små tekstlenker som eneste handling på mobil |
-| Hold deg til sand, krem og brunt, med latte som detalj | Bruk gradienter, illustrasjoner, konfetti eller maskoter |
+| Hold deg til sand, krem og brunt, med latte som detalj | Bruk gradienter, konfetti eller flere figurer. Fåret i ballongen er den eneste figuren. |
 
 ## Forside (S1)
 
