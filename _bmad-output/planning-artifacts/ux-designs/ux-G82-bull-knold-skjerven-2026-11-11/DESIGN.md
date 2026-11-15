@@ -136,7 +136,7 @@ Appen bruker Tailwind CSS i Django-maler og arver Tailwinds standarder for farge
 
 Paletten er hvit og grå med én aksentfarge.
 
-- **Tonet bakgrunn (`{colors.page-bg}`)** er bakgrunnen for siden. Den er rolig nok til at innholdet skiller seg ut. **Hvit (`{colors.surface}`)** er bakgrunnen for kort og flashcard.
+- **Tonet bakgrunn (`{colors.page-bg}`)** er bakgrunnen for siden. Den har et diskret prikkemønster (dot-grid): `{colors.accent-strong}` med 14 % opasitet, 1px prikker i et 20px rutenett. Mønsteret gir tekstur uten å konkurrere med innholdet. Teksten har fortsatt full kontrast mot bakgrunnen (16,34:1 for `{colors.ink}`). **Hvit (`{colors.surface}`)** er bakgrunnen for kort og flashcard.
 - **Lys grønn-blå (`{colors.accent}`, `#14B8A6`)** er dekorativ. Kontrasten mot hvitt er 2,5:1, så den brukes **bare** til den tynne linjen under testmodus-banneret og til flater som ikke er tekst. Den brukes aldri til tekst.
 - **Mørk grønn-blå (`{colors.accent-strong}`, `#0F766E`)** er den brukbare varianten med 5,47:1 mot hvitt. Den brukes på hovedknapper (hvit tekst), lenker, fokusringen, valgt svaralternativ og dekningsstolpen. Ved hover blir den **`{colors.accent-hover}`** (`#115E59`, 7,58:1).
 - **Tekst:** Vanlig tekst bruker `{colors.ink}`. Hjelpetekst og metadata som dato, antall og modellnavn bruker `{colors.ink-secondary}`, med 7,6:1.

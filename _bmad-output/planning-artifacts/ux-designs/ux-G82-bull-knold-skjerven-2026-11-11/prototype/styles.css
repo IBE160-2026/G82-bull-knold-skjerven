@@ -42,7 +42,10 @@ html { font-size: 100%; scroll-padding-top: 72px; }
 
 body {
   margin: 0;
-  background: var(--page-bg);
+  background-color: var(--page-bg);
+  background-image: radial-gradient(circle, rgb(15 118 110 / 0.14) 1px, transparent 1.5px);
+  background-size: 20px 20px;
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font);
   font-size: 1rem;
