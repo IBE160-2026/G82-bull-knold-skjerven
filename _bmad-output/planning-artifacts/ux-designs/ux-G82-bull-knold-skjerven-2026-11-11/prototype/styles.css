@@ -227,13 +227,18 @@ legend { font-weight: 600; margin-bottom: 8px; padding: 0; }
 .score { font-size: 2.25rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .coverage { display: flex; align-items: center; gap: 12px; margin: 8px 0; }
 .coverage-bar {
+  position: relative;
   flex: 1;
   height: 8px;
-  background: var(--border-subtle);
-  border-radius: 9999px;
-  overflow: hidden;
+  margin: 20px 0 4px;
+  background-image: radial-gradient(circle, var(--accent-strong) 1.3px, transparent 1.8px);
+  background-size: 12px 8px;
+  background-repeat: repeat-x;
+  background-position: center;
 }
-.coverage-bar span { display: block; height: 100%; background: var(--accent-strong); }
+.coverage-bar span { display: block; height: 100%; border-radius: 9999px; background: var(--accent-strong); }
+.coverage-bar .progress-car { width: 30px; height: 30px; top: -19px; }
+.coverage-bar .progress-flag { width: 18px; height: 18px; top: -15px; right: -8px; }
 .coverage-value { min-width: 3.5em; text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
 
 /* KI-merke og merking */
