@@ -271,7 +271,16 @@ legend { font-weight: 600; margin-bottom: 8px; padding: 0; }
 /* Quiz */
 .question { font-size: 1.25rem; line-height: 1.45; font-weight: 500; margin: 16px 0; }
 .progress-text { font-weight: 600; font-variant-numeric: tabular-nums; }
-.progress { height: 8px; background: var(--border-subtle); border-radius: 9999px; overflow: hidden; margin: 8px 0 16px; }
+.progress { position: relative; height: 8px; background: var(--border-subtle); border-radius: 9999px; margin: 20px 0 16px; }
+.progress span { border-radius: 9999px; }
+.progress-car {
+  position: absolute;
+  top: -14px;
+  width: 32px;
+  height: 16px;
+  transform: translateX(-50%);
+  transition: left 300ms ease-out;
+}
 .progress span { display: block; height: 100%; background: var(--accent-strong); }
 
 .question-nav { display: grid; gap: 8px; }
@@ -348,7 +357,7 @@ body:has(#s2:target) .logout { display: none; }
 /* Bevegelse, som kan slås av i systeminnstillingene */
 .progress span { transition: width 300ms ease-out; }
 @media (prefers-reduced-motion: reduce) {
-  .progress span, .card, .radio-option { transition: none; }
+  .progress span, .progress-car, .card, .radio-option { transition: none; }
   .card:hover, .radio-option:hover { transform: none; }
   html { scroll-behavior: auto; }
 }

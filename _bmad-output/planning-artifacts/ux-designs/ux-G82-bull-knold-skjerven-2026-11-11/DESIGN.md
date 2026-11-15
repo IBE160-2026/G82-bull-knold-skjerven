@@ -182,6 +182,7 @@ Hjørnene er avrundet, men forsiktig. Inndatafelt har `{rounded.sm}`, knapper `{
 - **Sekundærknapp (`button-secondary`):** Kremhvit med brun kant, for «Forrige», «Avbryt» og «Gi nytt navn».
 - **Fareknapp (`button-danger`):** Rød med hvit tekst. Brukes bare på bekreftelsessiden for sletting av emne.
 - **Svaralternativ (`option-card`):** Hele kortet er en radioknapp med etikett. Et valgt alternativ får tykkere `{colors.accent-strong}`-kant, beige bakgrunn og en fylt radioknapp. Valget vises altså med form og ikke bare med farge. Det er tre alternativer, og de står under hverandre på alle skjermer.
+- **Fremdriftslinje med sportsbil (`progress`):** Stolpen er 8px høy i `{colors.border-subtle}`, med fyll i `{colors.accent-strong}`. En sportsbil i `{colors.accent-strong}` står på enden av fyllet og flyttes med fremdriften. Den er dekorativ (`aria-hidden`), og «Spørsmål 3 av 10» gir informasjonen i tekst.
 - **Dekningsstolpe (`coverage-bar`):** Stolpen er 8px høy, og prosenttallet står alltid som tekst ved siden av. På notatsiden vises en liten stolpe for hvert nivå (lett, middels og vanskelig) under totalen.
 - **KI-merke (`ai-badge`):** Et beige merke med et lite ikon og teksten «Laget av KI». På quizsidene står den fulle teksten (se EXPERIENCE.md).
 - **Testmodus-banner (`test-mode-banner`):** Et beige felt med teksten «Testmodus: quizene bruker mock-svar, ingen KI kalles». Det ligger under toppfeltet på alle sider når testmodus er på, med en tynn `{colors.accent}`-linje under.
