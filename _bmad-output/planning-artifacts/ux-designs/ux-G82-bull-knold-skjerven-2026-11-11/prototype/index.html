@@ -11,7 +11,7 @@
 <a class="skip-link" href="#innhold">Hopp til innhold</a>
 
 <header class="topbar">
-  <a class="brand" href="#s3"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="7" cy="12" r="4.5" fill="#D9A21B"/><circle cx="12" cy="8.5" r="5" fill="#D9A21B"/><circle cx="17" cy="12" r="4.5" fill="#D9A21B"/><circle cx="12" cy="15.5" r="4" fill="#D9A21B"/></svg>FåreQuiz</a>
+  <a class="brand" href="#s3"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2" y="3" width="13" height="16" rx="2" fill="#D5BC96" transform="rotate(-8 8.5 11)"/><rect x="8" y="5" width="13" height="16" rx="2" fill="#FAF7F2"/><rect x="11" y="10" width="7" height="1.6" rx="0.8" fill="#5C3A21"/><rect x="11" y="13.5" width="5" height="1.6" rx="0.8" fill="#5C3A21"/></svg>FåreQuiz</a>
   <a class="meta logout" href="#s1">Logg ut</a>
 </header>
 
@@ -22,7 +22,26 @@
 <!-- S1 Logg inn -->
 <section class="screen" id="s1" aria-labelledby="t-s1">
   <div class="page" id="innhold">
-    <h1 id="t-s1">Logg inn</h1>
+    <div class="hero">
+      <div>
+        <h1 id="t-s1">Øv på forelesningene dine</h1>
+        <p class="lead">Last opp et notat, få en quiz laget av KI, og øv på det du svarer feil. Det tar et par minutter.</p>
+        <a class="btn btn-primary btn-inline" href="#s2">Registrer deg</a>
+      </div>
+      <div class="hero-stack" aria-hidden="true">
+        <div class="hero-card c1">Hva er HTML?</div>
+        <div class="hero-card c2">Hva brukes &lt;a&gt; til?</div>
+        <div class="hero-card c3">Hva er en nettleser?</div>
+      </div>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><span class="info-num" aria-hidden="true">1</span><h2 class="info-title">Last opp notatet</h2><p class="meta">PDF, DOCX eller TXT, opptil 5 MB.</p></div>
+      <div class="info-card"><span class="info-num" aria-hidden="true">2</span><h2 class="info-title">Ta quizen</h2><p class="meta">Ett spørsmål om gangen, med svaralternativene under kortet.</p></div>
+      <div class="info-card"><span class="info-num" aria-hidden="true">3</span><h2 class="info-title">Øv på feilene</h2><p class="meta">Svar du bommet på, kommer tilbake til de er lært.</p></div>
+    </div>
+
+    <h2>Logg inn</h2>
     <form action="#s3">
       <div class="field">
         <label for="e1">E-post</label>

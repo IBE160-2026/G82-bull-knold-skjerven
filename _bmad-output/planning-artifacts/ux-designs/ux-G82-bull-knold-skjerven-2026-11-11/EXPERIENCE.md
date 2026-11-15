@@ -20,7 +20,7 @@ Utseendet står i [DESIGN.md](DESIGN.md). Begrepene følger ordlisten i PRD-en (
 
 | # | Skjermbilde | Nås fra | Formål | Krav |
 |---|---|---|---|---|
-| S1 | Logg inn | Åpne appen uten å være innlogget | E-post og passord | FR-2 |
+| S1 | Forside og logg inn | Åpne appen uten å være innlogget | Hero med «Registrer deg», tre informasjonskort, og e-post og passord under | FR-2 |
 | S2 | Registrer | Lenke på S1 | Ny konto | FR-1 |
 | S3 | **Emner** (startside) | Innlogging, logoen «FåreQuiz» | Alle emner med dekningsgrad, «Nytt emne» | FR-4, FR-25 |
 | S4 | Emne | Kort på S3 | Notatene i emnet med dekningsgrad, «Last opp notat», «Gi nytt navn», «Slett emne» | FR-5, FR-6, FR-24, FR-25 |
