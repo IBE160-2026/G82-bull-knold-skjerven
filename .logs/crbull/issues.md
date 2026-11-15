@@ -8,5 +8,9 @@
 - [ ] 2026-10-28 [product-brief-v2](999-2026-10-28-19-22-39-product-brief-v2.md) — Velg mellom Sonnet 5.5 og Haiku 5.5 ut fra kvalitetssjekken
 - [ ] 2026-10-28 [product-brief-v2](999-2026-10-28-19-22-39-product-brief-v2.md) — Bestem testdokumenter som kan brukes uten å bryte opphavsrett
 - [ ] 2026-11-15 [ux-design-christian](998-2026-11-15-13-51-39-ux-design-christian.md) — Avklar antakelsene i Christians EXPERIENCE.md (quiz etter generering, enkle skjemaer, testmodus-stripe, meldinger ved lagringsfeil/tom feilbank)
-- [ ] 2026-11-15 [ux-design-christian](998-2026-11-15-13-51-39-ux-design-christian.md) — Velg CSS-rammeverk (vanlig CSS eller Tailwind) for Christians UX-versjon
+- [x] 2026-11-15 [ux-design-christian](998-2026-11-15-13-51-39-ux-design-christian.md) — Velg CSS-rammeverk (vanlig CSS eller Tailwind) for Christians UX-versjon (løst 2026-11-15: Tailwind v4, se arkitektur)
 - [ ] 2026-11-15 [ux-design-christian](998-2026-11-15-13-51-39-ux-design-christian.md) — Sammenlign Christians UX med gruppeversjonen og bestem hva som går inn i felles UX
+- [ ] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Oppdater PRD: presiser FR-25 (notat uten quiz utenfor emnets snitt) og legg til begrunnelse per spørsmål
+- [ ] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Avklar faglærers PRD-punkter 4.1 (melde spørsmål som feil) og 4.4 (kuttrekkefølge) før epics
+- [ ] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Oppdater Christians DESIGN.md: CSS-rammeverk er Tailwind v4 (@theme)
+- [ ] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Mål genereringstid og sett effort i testfasen mot grensen på 120 s
