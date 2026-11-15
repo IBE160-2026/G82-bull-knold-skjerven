@@ -137,7 +137,7 @@ Appen bruker Tailwind CSS i Django-maler og arver Tailwinds standarder for farge
 
 Paletten er varm og holder seg til sand, krem og brunt. Kaffebrun er hovedfargen, latte er detaljen, og terrakotta og salvie brukes bare til tilbakemelding om svar. Den erstatter den kalde grå-, svarte og grønne fargen, og den er valgt for å være varm og innbydende.
 
-- **Tonet bakgrunn (`{colors.page-bg}`)** er bakgrunnen for siden, fra topp til bunn. Den har et mønster av små biler i `{colors.border-subtle}`, med bilene tegnet som SVG-bakgrunn og en rute på 96×64px. Mønsteret er rolig og lavt i kontrast, så det gir tekstur uten å konkurrere med innholdet. Bilene er dekor og har ingen informasjon.
+- **Tonet bakgrunn (`{colors.page-bg}`)** er bakgrunnen for siden, fra topp til bunn. Den har et mønster av små biler og lastebiler i `{colors.border-subtle}`, tegnet som SVG-bakgrunn (`vehicles.svg`) med en rute på 240×160px. Mønsteret viser sedan, sportsbil, F1-bil, stasjonsvogn, pickup, SUV, cabriolet, planbil, semitrailer og vogntog. Mønsteret er rolig og lavt i kontrast, så det gir tekstur uten å konkurrere med innholdet. Bilene er dekor og har ingen informasjon.
 - **Krem (`{colors.surface}`)** er bakgrunnen for kort og flashcard. Kortene har en brunlig skygge (`rgba(62, 39, 35, 0.12)`), slik at de løfter seg frem.
 - **Tekst:** Vanlig tekst bruker `{colors.ink}` (espressobrun, 15,25:1). Hjelpetekst og metadata bruker `{colors.ink-secondary}`, med 8,17:1.
 - **Kaffebrun (`{colors.accent-strong}`)** er hovedknapper (med krem tekst), lenker, fokusring, fremdriftslinje og valgt svaralternativ. Hover-tilstand på knapper er `{colors.accent-hover}`.

@@ -43,8 +43,8 @@ html { font-size: 100%; scroll-padding-top: 72px; }
 body {
   margin: 0;
   background-color: var(--page-bg);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='32' viewBox='0 0 48 32'%3E%3Cpath fill='%23DFD2BE' d='M6 22 L11 11 Q12.5 8 16 8 H32 Q35.5 8 37 11 L42 22 Q45 22.5 45 25 V27 H3 V25 Q3 22.5 6 22 Z'/%3E%3Ccircle cx='12' cy='27' r='4' fill='%23C9B79C'/%3E%3Ccircle cx='36' cy='27' r='4' fill='%23C9B79C'/%3E%3C/svg%3E");
-  background-size: 96px 64px;
+  background-image: url("vehicles.svg");
+  background-size: 240px 160px;
   background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font);
