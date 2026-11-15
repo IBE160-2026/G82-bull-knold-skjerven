@@ -1,27 +1,27 @@
 /* Utkast til visuelt design for FåreQuiz. Verdiene følger DESIGN.md. */
 
 :root {
-  --surface: #FFFFFF;
-  --surface-muted: #F9FAFB;
-  --surface-sunken: #F3F4F6;
-  --border-subtle: #E5E7EB;
-  --border-control: #6B7280;
-  --ink: #111827;
-  --ink-secondary: #4B5563;
-  --accent: #14B8A6;
-  --accent-strong: #0F766E;
-  --accent-hover: #115E59;
-  --success: #15803D;
-  --surface-inverse: #111827;
-  --ink-inverse: #F9FAFB;
-  --ink-inverse-secondary: #D1D5DB;
-  --focus-inverse: #5EEAD4;
-  --page-bg: #F0F7F6;
-  --card-hover: #F0FDFA;
-  --shadow-card: 0 4px 12px rgb(17 24 39 / 0.08), 0 1px 2px rgb(17 24 39 / 0.06);
-  --shadow-card-hover: 0 8px 20px rgb(17 24 39 / 0.12);
-  --shadow-flashcard: 0 12px 32px rgb(17 24 39 / 0.14), 0 2px 6px rgb(17 24 39 / 0.08);
+  --surface: #FFFDF9;
+  --surface-muted: #FBF7F1;
+  --surface-sunken: #EFE6D8;
+  --page-bg: #F6F1EA;
+  --border-subtle: #E5DDD0;
+  --border-control: #7A6456;
+  --ink: #2C1E16;
+  --ink-secondary: #6B5A4E;
+  --accent: #D9A21B;
+  --accent-strong: #B04A26;
+  --accent-hover: #8E3A1C;
+  --card-hover: #FBE9B7;
+  --success: #3F5F0F;
   --error: #B91C1C;
+  --surface-inverse: #2C1E16;
+  --ink-inverse: #FFFDF9;
+  --ink-inverse-secondary: #E5DDD0;
+  --focus-inverse: #F4D03F;
+  --shadow-card: 0 4px 12px rgb(44 30 22 / 0.09), 0 1px 2px rgb(44 30 22 / 0.06);
+  --shadow-card-hover: 0 8px 20px rgb(44 30 22 / 0.14);
+  --shadow-flashcard: 0 12px 32px rgb(44 30 22 / 0.16), 0 2px 6px rgb(44 30 22 / 0.09);
 
   --radius-sm: 4px;
   --radius-md: 6px;
@@ -43,7 +43,7 @@ html { font-size: 100%; scroll-padding-top: 72px; }
 body {
   margin: 0;
   background-color: var(--page-bg);
-  background-image: radial-gradient(circle, rgb(15 118 110 / 0.14) 1px, transparent 1.5px);
+  background-image: radial-gradient(circle, #E5DDD0 1px, transparent 1.5px);
   background-size: 20px 20px;
   background-attachment: fixed;
   color: var(--ink);
@@ -189,7 +189,7 @@ legend { font-weight: 600; margin-bottom: 8px; padding: 0; }
 .radio-option:hover {
   background: var(--card-hover);
   border-color: var(--accent-strong);
-  box-shadow: 0 4px 10px rgb(17 24 39 / 0.08);
+  box-shadow: 0 4px 10px rgb(44 30 22 / 0.08);
   transform: translateY(-1px);
 }
 .radio-option:has(input:checked) {
