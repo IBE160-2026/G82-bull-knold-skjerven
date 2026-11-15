@@ -21,6 +21,8 @@ colors:
   accent-hover: '#115E59'         # 7.58:1, hover og trykk
   success: '#15803D'              # green-700, 5.02:1
   error: '#B91C1C'                # red-700, 6.47:1
+  page-bg: '#F0F7F6'              # tonet bakgrunn for hele siden. Kort er hvite og løftes med skygge
+  card-hover: '#F0FDFA'           # teal-50, bakgrunn på svaralternativ når musepekeren er over
   surface-inverse: '#111827'      # gray-900, mørk topp og tallfliser. Ingen mørk modus i v1
   ink-inverse: '#F9FAFB'          # 16.98:1 mot surface-inverse
   ink-inverse-secondary: '#D1D5DB' # gray-300, 12.04:1 mot surface-inverse
@@ -134,7 +136,7 @@ Appen bruker Tailwind CSS i Django-maler og arver Tailwinds standarder for farge
 
 Paletten er hvit og grå med én aksentfarge.
 
-- **Hvit (`{colors.surface}`)** er bakgrunnen for alt innhold. **Gray-50 (`{colors.surface-muted}`)** brukes bak kort på emne- og notatsidene, slik at kortene skiller seg ut uten skygge.
+- **Tonet bakgrunn (`{colors.page-bg}`)** er bakgrunnen for siden. Den er rolig nok til at innholdet skiller seg ut. **Hvit (`{colors.surface}`)** er bakgrunnen for kort og flashcard.
 - **Lys grønn-blå (`{colors.accent}`, `#14B8A6`)** er dekorativ. Kontrasten mot hvitt er 2,5:1, så den brukes **bare** til den tynne linjen under testmodus-banneret og til flater som ikke er tekst. Den brukes aldri til tekst.
 - **Mørk grønn-blå (`{colors.accent-strong}`, `#0F766E`)** er den brukbare varianten med 5,47:1 mot hvitt. Den brukes på hovedknapper (hvit tekst), lenker, fokusringen, valgt svaralternativ og dekningsstolpen. Ved hover blir den **`{colors.accent-hover}`** (`#115E59`, 7,58:1).
 - **Tekst:** Vanlig tekst bruker `{colors.ink}`. Hjelpetekst og metadata som dato, antall og modellnavn bruker `{colors.ink-secondary}`, med 7,6:1.
@@ -164,7 +166,7 @@ Knapper og svaralternativer er minst `{spacing.tap-min}` (44px) høye. Det er go
 
 ## Elevation & Depth
 
-Appen bruker ikke skygger for å vise hierarki. Kort skilles fra bakgrunnen med `{colors.surface-muted}` bak og en tynn `{colors.border-subtle}`-kant. Den eneste skyggen er Tailwinds `shadow-sm` på toppfeltet når siden rulles.
+Kort skal løftes fra bakgrunnen. De hvite kortene har en tydelig, men lett skygge (`card`), og flashcardet i quizen har en litt tyngre skygge (`flashcard`). Skyggen er mørk nok til å se, men den er ikke tung. Kort som kan klikkes, løftes 2px når musepekeren er over, med mykere skygge. Bevegelsen slås av hvis brukeren har valgt redusert bevegelse. Toppfeltet har ingen skygge, siden det er mørkt.
 
 ## Shapes
 
@@ -180,8 +182,11 @@ Hjørnene er avrundet, men forsiktig. Inndatafelt har `{rounded.sm}`, knapper `{
 - **KI-merke (`ai-badge`):** Et grått merke med et lite ikon og teksten «Laget av KI». På quizsidene står den fulle teksten (se EXPERIENCE.md).
 - **Testmodus-banner (`test-mode-banner`):** Et grått felt med teksten «Testmodus: quizene bruker mock-svar, ingen KI kalles». Det ligger under toppfeltet på alle sider når testmodus er på, med en tynn grønn-blå linje under.
 - **Resultatmerke (`result-mark-*`):** Ikonene ✓ eller ✗ (SVG) sammen med teksten «Riktig» eller «Feil», i `{colors.success}` eller `{colors.error}`.
-- **Kort (`card`):** For emner, notater og quizer i lister. Hele kortet er én lenke.
+- **Kort (`card`):** For emner, notater og quizer i lister. Hele kortet er én lenke. Hvit bakgrunn, `{colors.border-subtle}`-kant og skyggen `0 4px 12px` med lav opasitet.
+- **Flashcard (`flashcard`):** Spørsmålet i quizen og «Øv på feil». Kortet står midt på siden, maks 560px bredt, med større skygge enn `card`. Svaralternativene står under kortet, i en egen liste.
+- **Svaralternativ, hover (`option-card:hover`):** Bakgrunnen blir `{colors.card-hover}`, kanten blir `{colors.accent-strong}`, og alternativet løftes 1px. Teksten beholder full kontrast.
 - **Fokusring (`focus-ring`):** 2px `{colors.accent-strong}` med 2px avstand, på alle elementer som kan få fokus. I toppfeltet brukes `{colors.focus-inverse}`, fordi den mørke fargen ikke har nok kontrast der. Den fjernes aldri (`outline: none` er forbudt).
+- **Logo (`brand`):** Et lite ullskyss-merke i `{colors.accent}` foran navnet «FåreQuiz». Navnet er i fet skrift med tettere bokstavavstand. Merket er bare dekorativt, og det er ingen figur med ansikt.
 - **Toppfelt (`topbar`):** `{colors.surface-inverse}` med `{colors.ink-inverse}`-tekst. «Logg ut» er `{colors.ink-inverse-secondary}`.
 - **Tallflis (`stat-tile`):** `{colors.surface-inverse}` med tallet i `{typography.score}` og en kort tekst under. Brukes på emnesiden for dekning og antall i feilbanken.
 

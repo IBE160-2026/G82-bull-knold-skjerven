@@ -11,7 +11,7 @@
 <a class="skip-link" href="#innhold">Hopp til innhold</a>
 
 <header class="topbar">
-  <a class="brand" href="#s3">FåreQuiz</a>
+  <a class="brand" href="#s3"><svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="7" cy="12" r="4.5" fill="#14B8A6"/><circle cx="12" cy="8.5" r="5" fill="#14B8A6"/><circle cx="17" cy="12" r="4.5" fill="#14B8A6"/><circle cx="12" cy="15.5" r="4" fill="#14B8A6"/></svg>FåreQuiz</a>
   <a class="meta logout" href="#s1">Logg ut</a>
 </header>
 
@@ -266,8 +266,11 @@
     <p class="progress-text">Spørsmål 3 av 10</p>
     <div class="progress" aria-hidden="true"><span style="width:30%"></span></div>
 
-    <fieldset>
-      <legend class="question">Hva er HTML?</legend>
+    <div class="flashcard">
+      <p class="question" id="q3">Hva er HTML?</p>
+    </div>
+
+    <fieldset class="options" aria-labelledby="q3">
       <label class="radio-option"><input type="radio" name="q3" value="a"> Et programmeringsspråk</label>
       <label class="radio-option"><input type="radio" name="q3" value="b"> Et merkespråk for strukturen i en side</label>
       <label class="radio-option"><input type="radio" name="q3" value="c"> En nettleser</label>
@@ -326,8 +329,11 @@
     <p class="learn"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span></span><span>Riktig én gang. Ett riktig svar til, så er spørsmålet lært.</span></p>
     <p class="progress-text">Spørsmål 1 av 3</p>
     <div class="progress" aria-hidden="true"><span style="width:33%"></span></div>
-    <fieldset>
-      <legend class="question">Hva brukes &lt;a&gt; til?</legend>
+    <div class="flashcard">
+      <p class="question" id="q12">Hva brukes &lt;a&gt; til?</p>
+    </div>
+
+    <fieldset class="options" aria-labelledby="q12">
       <label class="radio-option"><input type="radio" name="q12" value="a"> Lenke</label>
       <label class="radio-option"><input type="radio" name="q12" value="b"> Bilde</label>
       <label class="radio-option"><input type="radio" name="q12" value="c"> Tabell</label>
