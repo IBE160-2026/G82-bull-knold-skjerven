@@ -452,3 +452,25 @@ body:has(#s2:target) .logout { display: none; }
   font-weight: 700;
 }
 .info-title { font-size: 1rem; margin: 8px 0 4px; }
+
+/* Personvern-dialog ved første innlogging (S1b). Vises bare når den er målet for #-lenken. */
+.dialog-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gutter);
+  background: rgba(43, 29, 20, 0.6);
+}
+.dialog-backdrop:target { display: flex; }
+.dialog {
+  width: 100%;
+  max-width: 480px;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-flashcard);
+}
+.dialog h2 { margin: 0 0 12px; }

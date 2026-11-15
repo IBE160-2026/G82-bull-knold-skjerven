@@ -34,10 +34,14 @@ Utseendet står i [DESIGN.md](DESIGN.md). Begrepene følger ordlisten i PRD-en (
 | S12 | Øv på feil | Knapp på S7 eller S11 | Samme flyt som S9–S11 med spørsmålene i feilbanken. Resultatet viser fasiten for spørsmål som er lært. | FR-22, FR-23 |
 | S13 | Slett emne | «Slett emne» på S4 | Bekreftelsesside som viser hva som slettes | FR-6 |
 | S14 | Ikke funnet | Ukjent eller annen brukers ID | «Fant ikke siden» med lenke til Emner | FR-3 |
+| S1b | Personvern ved innlogging | Vises én gang, første gang brukeren logger inn og ikke har godtatt personvern | Dialog: notater går til KI-tjenesten, ansvar for personopplysninger, lenke til S15. Knappen «Jeg har forstått og godtar» lagrer tidspunktet. | FR-7, NFR-3 |
+| S6b | Opplasting pågår | «Last opp» på S6 | Filnavn, fremdrift som reiserute og beskjed om å ikke lukke fanen | FR-8 |
+| S6c | Opplasting avbrutt | Fanen lukket eller nettet brutt under opplasting | «Opplastingen ble avbrutt. Filen er ikke lagret.» Ingen notat lagres. | FR-8 |
+| S15 | Personvernserklæring | Lenke på S1 og i S1b | Hva vi lagrer, hvorfor, hvem vi deler med, hvor lenge, og hvilke rettigheter du har | NFR-3 |
 
 **Navigasjon:** Toppfeltet er mørkt og viser «FåreQuiz» (lenke til S3) til venstre og «Logg ut» til høyre. «Logg ut» vises ikke på S1 og S2. Under toppfeltet står en brødsmulesti, for eksempel «Emner › Webutvikling › HTML-forelesning». Appen har ingen sidemeny og ingen hamburgermeny, fordi strukturen bare er tre nivåer dyp. Når testmodus er på, ligger testmodus-banneret mellom toppfeltet og brødsmulestien på alle sider.
 
-**Bekreftelser og vilkår** vises som egne sider (S5, S13), ikke som popup-vinduer. Det er enklere å gjøre tilgjengelig og virker uten JavaScript.
+**Bekreftelser og vilkår** vises som egne sider (S5, S13), ikke som popup-vinduer. Det eneste unntaket er personvern-dialogen ved første innlogging (S1b), som brukeren må bekrefte før hen kommer videre. Dialogen er en modal med fokusfelle og `aria-modal`. Esc lukker den ikke, fordi brukeren må svare.
 
 **Sortering:** Emner sorteres alfabetisk. Notater, quizer og historikk sorteres med det nyeste først.
 
@@ -72,7 +76,7 @@ Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under 
 | Spørsmålsvisning | S9, S12 | Teksten «Spørsmål 3 av 10» og en stolpe øverst, med en reiserute der en miniversjon av fåret i ballongen flyr langs ruten, og et flagg i enden. Fåret er dekorativt, og teksten gir den samme informasjonen. Spørsmålet står på et flashcard midt på siden, og de tre svaralternativene står under kortet. Svaralternativet får en tydelig hover-markering (`card-hover`, kant og løft), så det kjennes klikkbart (FR-17). Under står «Forrige» og «Neste». Svaret lagres når studenten trykker «Neste» eller «Forrige» (FR-18). Studenten kan gå videre uten å svare, og ubesvarte spørsmål vises på S10. |
 | Oversikt før levering | S10 | Ett nummer per spørsmål, merket «Besvart» eller «Ikke besvart», og hvert nummer er en lenke til spørsmålet. «Lever» er låst til alle er besvart, og en tekst forteller hvilke som mangler (FR-17). |
 | Resultatliste | S11, S12 | Poengsummen øverst. For hvert spørsmål vises spørsmålsteksten, svaret studenten valgte og merket Riktig eller Feil. Fasiten vises ikke (FR-19). I «Øv på feil» vises fasiten for spørsmål som akkurat ble lært (FR-23). |
-| KI-merke | S7, S9, S10, S11, S12 | I lister står den korte teksten «Laget av KI». På quizsidene (S9–S12) står den fulle teksten med modellnavn og advarsel øverst. Merket er tekst og ikke bare et ikon, og det kan ikke lukkes (NFR-9). |
+| KI-merke | S7, S9, S10, S11, S12 | I lister står den korte teksten «Laget av KI». På quizsidene (S9–S12) står den fulle teksten med modellnavn og advarsel øverst. Merket er tekst og ikke bare et ikon, og det kan ikke lukkes (NFR-9). Maskinlesbar merking: hver quiz lagres med feltet `ki_generert=true`, modellnavn og prompt-versjon (NFR-7). Det vises ikke i grensesnittet, men er del av dataene (KI-forordningen art. 50(2)). |
 | Dekningsvisning | S3, S4, S7 | Stolpe med prosent som tekst. På S7 står totalen øverst og lett, middels og vanskelig under, med vektingen forklart: «Vanskelige spørsmål teller mest (50 %)» (FR-24). |
 | Historikk | S7 | En tabell med dato, quiz (vanskelighetsgrad og antall) og poengsum, nyeste først. På mobil vises hver rad som et lite kort i stedet for en tabell (FR-26). |
 | Filvelger | S6 | En vanlig `<input type="file">` med etikett, og ingen dra-og-slipp (WCAG 2.5.7). Godkjente formater og maks størrelse står over feltet. Filen sjekkes i nettleseren før opplasting og alltid på serveren (FR-8). |
@@ -97,6 +101,9 @@ Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under 
 | E-posten finnes alt | S2 | «Det finnes allerede en konto med denne e-posten.» (FR-1). |
 | Annen brukers data | S14 | Siden «Fant ikke siden» med statuskode 404 (FR-3). |
 | Testmodus | Alle | Testmodus-banneret vises. På S1 står i tillegg testbrukerens e-post og passord (FR-28). |
+| Opplasting pågår | S6b | Filnavn og fremdrift som reiserute. «Last opp» er låst, og det står at fanen ikke bør lukkes. |
+| Opplasting avbrutt | S6c | «Opplastingen ble avbrutt. Filen er ikke lagret. Last opp på nytt.» Ingen notat lagres (FR-8). |
+| Personvern ikke godtatt | S1b | Dialogen vises etter innlogging, og brukeren kommer ikke videre før den er bekreftet. |
 | Ugyldig e-post eller kort passord | S2 | Feilmelding ved feltet, for eksempel «Passordet må ha minst 8 tegn.», og fokus flyttes dit (FR-1). |
 | Emnenavn tomt eller tatt | S3, S4 | «Navnet kan ikke være tomt.» eller «Du har allerede et emne med dette navnet.» ved feltet, og fokus flyttes dit (FR-4). Samme gjelder nytt navn (FR-5), når det er avgjort hvordan det vises. |
 | Ingen forsøk | S7 | «Ingen forsøk ennå. Ta en quiz for å se historikken.» der historikken skulle stå (FR-26). |
@@ -109,7 +116,7 @@ Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under 
 - **Quiz med tastatur:** Tab flytter til alternativgruppen. Piltastene velger alternativ, og et alternativ kan også velges med mellomrom. Enter eller Tab til «Neste» går videre. Det er ingen egne hurtigtaster, så det er ingenting å lære.
 - **Lagring:** Et svar lagres når studenten går til et annet spørsmål. Det finnes ingen egen «Lagre»-knapp. Lukker studenten fanen, er alle svar fram til forrige spørsmål lagret, og det siste valget også hvis HTMX rakk å sende det.
 - **Sletting** skjer bare via bekreftelsessiden S13, der studenten trykker «Slett emnet og alt innhold».
-- **Forbudt:** dra-og-slipp som eneste måte å gjøre noe på, informasjon som bare vises når man holder musepekeren over, tidsgrenser i quizen, automatiske popup-vinduer, karuseller og animasjoner som ikke kan slås av.
+- **Forbudt:** dra-og-slipp som eneste måte å gjøre noe på, informasjon som bare vises når man holder musepekeren over, tidsgrenser i quizen, automatiske popup-vinduer (unntatt personvern-dialogen på S1b), karuseller og animasjoner som ikke kan slås av.
 
 ## Tilgjengelighet
 

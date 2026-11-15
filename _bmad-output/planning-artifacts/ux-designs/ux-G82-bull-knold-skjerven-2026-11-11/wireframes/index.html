@@ -6,31 +6,31 @@
 <title>Wireframes kjerneflyt – FåreQuiz</title>
 <style>
   :root { color-scheme: light; }
-  body { margin: 0; padding: 24px; font-family: ui-sans-serif, system-ui, sans-serif; background: #F3F4F6; color: #111827; }
+  body { margin: 0; padding: 24px; font-family: ui-sans-serif, system-ui, sans-serif; background: #EFE6D8; color: #2B1D14; }
   h1 { font-size: 22px; margin: 0 0 4px; }
-  p.intro { margin: 0 0 24px; color: #4B5563; font-size: 14px; max-width: 70ch; }
+  p.intro { margin: 0 0 24px; color: #5E4636; font-size: 14px; max-width: 70ch; }
   .grid { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
-  .screen { width: 360px; background: #FFFFFF; border: 2px solid #6B7280; border-radius: 8px; overflow: hidden; }
-  .screen h2 { font-size: 13px; margin: 0; padding: 6px 12px; background: #111827; color: #FFFFFF; font-weight: 600; }
+  .screen { width: 360px; background: #FAF7F2; border: 2px solid #7A6456; border-radius: 8px; overflow: hidden; }
+  .screen h2 { font-size: 13px; margin: 0; padding: 6px 12px; background: #2B1D14; color: #FAF7F2; font-weight: 600; }
   .screen .body { padding: 12px; font-size: 14px; }
-  .bar { display: flex; justify-content: space-between; border-bottom: 1px solid #E5E7EB; padding: 8px 12px; font-size: 13px; }
-  .crumb { font-size: 12px; color: #4B5563; padding: 6px 12px 0; }
-  .box { border: 1px solid #6B7280; border-radius: 6px; padding: 10px; margin: 8px 0; }
-  .btn { display: block; width: 100%; box-sizing: border-box; text-align: center; border: 1px solid #111827; border-radius: 6px; padding: 10px; margin: 8px 0; background: #FFFFFF; font-size: 14px; }
-  .btn.primary { background: #B85636; border-color: #B85636; color: #FFFFFF; }
-  .btn.locked { border-style: dashed; color: #4B5563; }
-  .note { font-size: 12px; color: #4B5563; margin: 4px 0; }
-  .ki { font-size: 12px; background: #F3F4F6; border-radius: 4px; padding: 2px 6px; display: inline-block; }
-  .meter { height: 8px; background: #E5E7EB; border-radius: 9999px; overflow: hidden; margin: 4px 0; }
-  .meter span { display: block; height: 100%; background: #B85636; }
-  .opt { border: 1px solid #6B7280; border-radius: 6px; padding: 10px; margin: 6px 0; }
-  .opt.sel { border: 2px solid #111827; }
+  .bar { display: flex; justify-content: space-between; border-bottom: 1px solid #DFD2BE; padding: 8px 12px; font-size: 13px; }
+  .crumb { font-size: 12px; color: #5E4636; padding: 6px 12px 0; }
+  .box { border: 1px solid #7A6456; border-radius: 6px; padding: 10px; margin: 8px 0; }
+  .btn { display: block; width: 100%; box-sizing: border-box; text-align: center; border: 1px solid #2B1D14; border-radius: 6px; padding: 10px; margin: 8px 0; background: #FAF7F2; font-size: 14px; }
+  .btn.primary { background: #5C3A21; border-color: #5C3A21; color: #FAF7F2; }
+  .btn.locked { border-style: dashed; color: #5E4636; }
+  .note { font-size: 12px; color: #5E4636; margin: 4px 0; }
+  .ki { font-size: 12px; background: #EFE6D8; border-radius: 4px; padding: 2px 6px; display: inline-block; }
+  .meter { height: 8px; background: #DFD2BE; border-radius: 9999px; overflow: hidden; margin: 4px 0; }
+  .meter span { display: block; height: 100%; background: #5C3A21; }
+  .opt { border: 1px solid #7A6456; border-radius: 6px; padding: 10px; margin: 6px 0; }
+  .opt.sel { border: 2px solid #2B1D14; }
   .steps li { margin: 6px 0; }
-  .err { border: 1px solid #B91C1C; color: #B91C1C; border-radius: 6px; padding: 8px; margin: 8px 0; font-size: 13px; }
-  .ok { color: #15803D; font-weight: 600; }
-  .test { background: #F3F4F6; border: 1px dashed #6B7280; font-size: 12px; padding: 4px 12px; }
+  .err { border: 1px solid #A34420; color: #A34420; border-radius: 6px; padding: 8px; margin: 8px 0; font-size: 13px; }
+  .ok { color: #3F624D; font-weight: 600; }
+  .test { background: #EFE6D8; border: 1px dashed #7A6456; font-size: 12px; padding: 4px 12px; }
   table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  td, th { border-bottom: 1px solid #E5E7EB; text-align: left; padding: 4px; }
+  td, th { border-bottom: 1px solid #DFD2BE; text-align: left; padding: 4px; }
   h3 { font-size: 15px; margin: 24px 0 8px; }
 </style>
 </head>
@@ -52,7 +52,7 @@
       <div class="box"><strong>Databaser</strong><div class="note">Ingen notater</div></div>
       <div class="box" style="border-style:dashed"><strong>Nytt emne</strong>
         <label class="note" for="n3">Navn på emnet</label>
-        <input id="n3" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #6B7280;border-radius:6px" value="">
+        <input id="n3" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #7A6456;border-radius:6px" value="">
         <div class="note">[Feil: Navnet kan ikke være tomt.]</div>
         <button class="btn">Opprett emne</button>
       </div>
@@ -74,7 +74,7 @@
       <div class="box">
         <strong>Gi nytt navn</strong>
         <label class="note" for="r4">Nytt navn på emnet</label>
-        <input id="r4" value="Webutvikling" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #6B7280;border-radius:6px">
+        <input id="r4" value="Webutvikling" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #7A6456;border-radius:6px">
         <button class="btn">Lagre navn</button>
       </div>
       <div class="note">[Slett emne]</div>
@@ -118,7 +118,7 @@
           <label><input type="radio" name="v"> Vanskelig</label>
         </fieldset>
         <label class="note" for="a7">Antall spørsmål (5–30)</label>
-        <input id="a7" type="number" min="5" max="30" value="10" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #6B7280;border-radius:6px">
+        <input id="a7" type="number" min="5" max="30" value="10" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #7A6456;border-radius:6px">
         <button class="btn primary">Lag quiz</button>
       </div>
       <div class="box">
@@ -184,6 +184,29 @@
     </div>
   </section>
 
+
+  <!-- S1b Personvern ved innlogging -->
+  <section class="screen" aria-label="S1b Personvern">
+    <h2>S1b · Personvern (første innlogging)</h2>
+    <div class="body">
+      <div class="box" style="box-shadow:0 12px 32px rgba(62,39,35,0.18)">
+        <h3>Før du går videre</h3>
+        <p class="note">Notatene du laster opp, sendes til en ekstern KI-tjeneste. Du er selv ansvarlig for at du ikke laster opp personopplysninger du ikke har lov til å dele. Les hele personvernserklæringen.</p>
+        <button class="btn primary">Jeg har forstått og godtar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- S15 Personvernserklæring -->
+  <section class="screen" aria-label="S15 Personvernserklæring">
+    <h2>S15 · Personvernserklæring</h2>
+    <div class="body">
+      <h3>Personvernserklæring</h3>
+      <p class="note">Hvem er ansvarlig · Hvilke opplysninger · Hvorfor · Hvem vi deler med · Hvor lenge · Dine rettigheter · Om KI</p>
+      <p class="note">[Tekst fylles ut før offentlig publisering]</p>
+      <button class="btn">Tilbake</button>
+    </div>
+  </section>
 </div>
 </body>
 </html>

@@ -71,6 +71,7 @@
       <button class="btn btn-primary" type="submit">Logg inn</button>
     </form>
     <p class="meta">Har du ikke konto? <a href="#s2">Registrer deg</a></p>
+    <p class="meta"><a href="#s15">Personvernserklæring</a></p>
     <div class="alert" hidden>Feil e-post eller passord.</div>
   </div>
 </section>
@@ -205,6 +206,65 @@
       <button class="btn btn-primary" type="submit">Last opp</button>
     </form>
     <div class="alert" role="alert">Formatet støttes ikke. Bruk PDF, DOCX eller TXT.</div>
+  </div>
+</section>
+
+<!-- S6b Opplasting pågår -->
+<section class="screen" id="s6b" aria-labelledby="t-s6b">
+  <div class="page">
+    <p class="crumb"><a href="#s4">‹ Webutvikling</a></p>
+    <h1 id="t-s6b">Laster opp notat</h1>
+    <p class="meta" role="status">HTML-forelesning.pdf · 62 % lastet opp</p>
+    <div class="progress" aria-hidden="true"><span style="width:62%"></span><svg class="progress-car" style="left:62%" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="31" fill="#FAF7F2" stroke="#5C3A21" stroke-width="2"/><use href="#faar-ballong" x="8" y="8" width="48" height="48"/></svg><svg class="progress-flag" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 22 V3" fill="none" stroke="#5C3A21" stroke-width="2" stroke-linecap="round"/><path d="M4 3 H19 L15.5 8 L19 13 H4 Z" fill="#5C3A21"/></svg></div>
+    <p class="meta">Ikke lukk fanen før opplastingen er ferdig. Du får beskjed når filen er lagret.</p>
+    <button class="btn" type="button" aria-disabled="true">Last opp</button>
+  </div>
+</section>
+
+<!-- S6c Opplasting avbrutt -->
+<section class="screen" id="s6c" aria-labelledby="t-s6c">
+  <div class="page">
+    <p class="crumb"><a href="#s4">‹ Webutvikling</a></p>
+    <h1 id="t-s6c">Last opp notat</h1>
+    <div class="alert" role="alert" tabindex="-1">Opplastingen ble avbrutt. Filen er ikke lagret. Last opp på nytt.</div>
+    <a class="btn btn-primary" href="#s6">Last opp på nytt</a>
+  </div>
+</section>
+
+<!-- S15 Personvernserklæring -->
+<section class="screen" id="s15" aria-labelledby="t-s15">
+  <div class="page">
+    <p class="crumb"><a href="#s1">‹ Forside</a></p>
+    <h1 id="t-s15">Personvernserklæring</h1>
+    <p class="meta">Utkast. Tekst i [hakeparenteser] fylles ut før offentlig publisering, og juridisk gjennomgang gjenstår.</p>
+
+    <h2>Hvem er ansvarlig</h2>
+    <p>[Navn på behandlingsansvarlig og kontaktinformasjon]</p>
+
+    <h2>Hvilke opplysninger vi behandler</h2>
+    <ul>
+      <li>E-postadresse og passord (passordet lagres bare som hash)</li>
+      <li>Opplastede notater og teksten som hentes ut av dem</li>
+      <li>Quizer, svar, poeng og historikk</li>
+      <li>Tidspunkt for godkjenning av vilkår og personvern</li>
+    </ul>
+
+    <h2>Hvorfor vi behandler dem</h2>
+    <p>For å lage sammendrag og quiz, og for å vise fremdrift og historikk. [Rettslig grunnlag fylles ut av jurist.]</p>
+
+    <h2>Hvem vi deler dem med</h2>
+    <p>Notatene sendes til Anthropic, som leverer KI-tjenesten, når du lager en quiz. [Databehandleravtale og overføring utenfor EØS fylles ut før offentlig publisering.]</p>
+
+    <h2>Hvor lenge vi lagrer</h2>
+    <p>Til du sletter emnet. Når et emne slettes, slettes alt innhold i det. [Eventuelle frister fylles ut.]</p>
+
+    <h2>Dine rettigheter</h2>
+    <p>Du kan be om innsyn, retting og sletting. [Kontaktpunkt fylles ut.]</p>
+
+    <h2>Om KI</h2>
+    <p>Quizene er laget av KI. Modellen som laget hver quiz står på den, og spørsmålene kan inneholde feil.</p>
+
+    <a class="btn" href="#s1">Tilbake</a>
   </div>
 </section>
 
@@ -402,6 +462,15 @@
   </div>
 </section>
 
+<!-- S1b Personvern ved innlogging (modal) -->
+<div class="dialog-backdrop" id="pv" role="dialog" aria-modal="true" aria-labelledby="pv-title" aria-describedby="pv-desc">
+  <div class="dialog">
+    <h2 id="pv-title">Før du går videre</h2>
+    <p id="pv-desc">Notatene du laster opp, sendes til en ekstern KI-tjeneste (Anthropic) for å lage quiz. Du er selv ansvarlig for at du ikke laster opp personopplysninger du ikke har lov til å dele, etter personopplysningsloven og GDPR. Les hele <a href="#s15">personvernserklæringen</a>.</p>
+    <a class="btn btn-primary" href="#s3">Jeg har forstått og godtar</a>
+  </div>
+</div>
+
 </main>
 
 <nav class="review-nav" aria-label="Skjermbilder (kun for gjennomgang)">
@@ -413,6 +482,8 @@
     <li><a href="#s4">S4 Emne</a></li>
     <li><a href="#s5">S5 Vilkår</a></li>
     <li><a href="#s6">S6 Last opp</a></li>
+    <li><a href="#s6b">S6b Opplasting pågår</a></li>
+    <li><a href="#s6c">S6c Opplasting avbrutt</a></li>
     <li><a href="#s7">S7 Notat</a></li>
     <li><a href="#s8">S8 Generering</a></li>
     <li><a href="#s8b">S8 feil</a></li>
@@ -422,6 +493,8 @@
     <li><a href="#s12">S12 Øv på feil</a></li>
     <li><a href="#s13">S13 Slett emne</a></li>
     <li><a href="#s14">S14 Ikke funnet</a></li>
+    <li><a href="#pv">S1b Personvern</a></li>
+    <li><a href="#s15">S15 Personvernserklæring</a></li>
   </ul>
 </nav>
 
