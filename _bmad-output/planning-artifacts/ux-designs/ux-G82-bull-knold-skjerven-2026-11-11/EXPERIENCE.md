@@ -10,13 +10,13 @@ sources:
 
 # FåreQuiz: hvordan appen virker
 
-## Foundation
+## Grunnlag
 
 FåreQuiz er en responsiv webapp med ett grensesnitt. Studenten laster opp notater på PC og øver på mobilen (PRD §2.3). Sidene er Django-maler med Tailwind CSS og litt HTMX der siden må oppdateres uten ny innlasting: fremdriften under generering og lagring av svar. Alle sider skal også virke uten JavaScript, bortsett fra stegene i fremdriften.
 
 Utseendet står i [DESIGN.md](DESIGN.md). Begrepene følger ordlisten i PRD-en (§3) nøyaktig, og FR-, NFR- og UJ-numrene viser til PRD-en.
 
-## Information Architecture
+## Informasjonsarkitektur
 
 | # | Skjermbilde | Nås fra | Formål | Krav |
 |---|---|---|---|---|
@@ -41,7 +41,7 @@ Utseendet står i [DESIGN.md](DESIGN.md). Begrepene følger ordlisten i PRD-en (
 
 **Sortering:** Emner sorteres alfabetisk. Notater, quizer og historikk sorteres med det nyeste først.
 
-## Voice and Tone
+## Tone og språk
 
 Teksten i appen er på norsk bokmål og bruker «du». Den er kort og saklig, uten utropstegn og uten emojier. Riktig og feil sies rett ut.
 
@@ -57,7 +57,7 @@ Teksten i appen er på norsk bokmål og bruker «du». Den er kort og saklig, ut
 | «Ingen notater ennå. Last opp det første.» | «Her var det tomt!» |
 | «Laget av KI (modellnavnet). Spørsmålene kan inneholde feil.» Modellnavnet hentes fra quizen (NFR-7), og står ikke fast i teksten. | Å skjule modellnavnet eller kalle det «smart quiz» |
 
-## Component Patterns
+## Komponentmønstre
 
 Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under Components.
 
@@ -77,7 +77,7 @@ Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under 
 | Historikk | S7 | En tabell med dato, quiz (vanskelighetsgrad og antall) og poengsum, nyeste først. På mobil vises hver rad som et lite kort i stedet for en tabell (FR-26). |
 | Filvelger | S6 | En vanlig `<input type="file">` med etikett, og ingen dra-og-slipp (WCAG 2.5.7). Godkjente formater og maks størrelse står over feltet. Filen sjekkes i nettleseren før opplasting og alltid på serveren (FR-8). |
 
-## State Patterns
+## Tilstander
 
 | Tilstand | Skjermbilde | Hva som vises |
 |---|---|---|
@@ -103,7 +103,7 @@ Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under 
 | KI-tjenesten svarer ikke | S8 | «KI-tjenesten svarte ikke. Prøv igjen.» og knappen «Prøv igjen», som bruker samme fil og valg (FR-12, FR-15). |
 | Ingen fil valgt | S6 | «Velg en fil først.» ved filvelgeren, og fokus flyttes dit (FR-8). |
 
-## Interaction Primitives
+## Interaksjon
 
 - Studenten klikker eller trykker for å gjøre noe. Alle handlinger er vanlige lenker, knapper eller skjemaer.
 - **Quiz med tastatur:** Tab flytter til alternativgruppen. Piltastene velger alternativ, og et alternativ kan også velges med mellomrom. Enter eller Tab til «Neste» går videre. Det er ingen egne hurtigtaster, så det er ingenting å lære.
@@ -111,7 +111,7 @@ Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under 
 - **Sletting** skjer bare via bekreftelsessiden S13, der studenten trykker «Slett emnet og alt innhold».
 - **Forbudt:** dra-og-slipp som eneste måte å gjøre noe på, informasjon som bare vises når man holder musepekeren over, tidsgrenser i quizen, automatiske popup-vinduer, karuseller og animasjoner som ikke kan slås av.
 
-## Accessibility Floor
+## Tilgjengelighet
 
 Appen følger WCAG 2.2 nivå A og AA (NFR-8). Kontrastkravene står i DESIGN.md. Her står krav til oppførsel, først for alle sider og deretter per skjermbilde.
 
@@ -143,7 +143,7 @@ Appen følger WCAG 2.2 nivå A og AA (NFR-8). Kontrastkravene står i DESIGN.md.
 
 **Test (SM-7):** axe DevTools eller Lighthouse kjøres på alle 14 skjermbildene. Deretter testes kjerneflyten UJ-1 manuelt, med bare tastatur og med skjermleser (NVDA på Windows eller VoiceOver på mobil).
 
-## Responsive & Platform
+## Responsivt og plattform
 
 | Bredde | Oppførsel |
 |---|---|
@@ -152,7 +152,7 @@ Appen følger WCAG 2.2 nivå A og AA (NFR-8). Kontrastkravene står i DESIGN.md.
 
 Minste bredde som støttes er 320px (WCAG 1.4.10), og PRD-ens 360px (NFR-1) er dermed dekket. Det finnes ingen egen mobilapp.
 
-## Inspiration & Anti-patterns
+## Inspirasjon og det vi har valgt bort
 
 Gruppa har ikke nevnt forbilder. Det som er valgt bort, følger av ordene «effektiv, enkel, seriøs»:
 
@@ -160,9 +160,9 @@ Gruppa har ikke nevnt forbilder. Det som er valgt bort, følger av ordene «effe
 - **Valgt bort: tidsgrense per spørsmål.** Den gir stress, er et WCAG-problem (2.2.1) og passer ikke med at Tore skal kunne bli avbrutt.
 - **Valgt bort: alle spørsmål på én side.** Gruppa valgte ett spørsmål om gangen, fordi det passer bedre på mobil.
 
-## Key Flows
+## Nøkkelflyter
 
-### Flow 1: Første quiz (Tore, 2. år, på PC kvelden etter forelesningen). Realiserer UJ-1.
+### Flyt 1: Første quiz (Tore, 2. år, på PC kvelden etter forelesningen). Realiserer UJ-1.
 
 1. Tore registrerer seg på S2 og kommer til S3: «Ingen emner ennå».
 2. Han oppretter «Webutvikling», åpner emnet (S4) og trykker «Last opp notat».
@@ -174,7 +174,7 @@ Gruppa har ikke nevnt forbilder. Det som er valgt bort, følger av ordene «effe
 
 **Feil:** Han velger først `forelesning.mp4`. S6 viser «Formatet støttes ikke. Bruk PDF, DOCX eller TXT.» ved filvelgeren (UJ-4).
 
-### Flow 2: Avbrutt og fortsatt på mobilen (Tore, mellom to forelesninger og senere på bussen). Realiserer UJ-3.
+### Flyt 2: Avbrutt og fortsatt på mobilen (Tore, mellom to forelesninger og senere på bussen). Realiserer UJ-3.
 
 1. Tore starter en vanskelig quiz med 20 spørsmål på PC og svarer på 10.
 2. Han må gå og lukker fanen.
@@ -182,14 +182,14 @@ Gruppa har ikke nevnt forbilder. Det som er valgt bort, følger av ordene «effe
 4. **Høydepunkt:** S9 åpnes på spørsmål 11. De ti første svarene er der, og han kan bla tilbake og se dem.
 5. Han svarer på resten, leverer og ser resultatet på S11.
 
-### Flow 3: Øv på feil til spørsmålene er lært (Tore, kvelden før eksamen, på mobilen). Realiserer UJ-2.
+### Flyt 3: Øv på feil til spørsmålene er lært (Tore, kvelden før eksamen, på mobilen). Realiserer UJ-2.
 
 1. På S3 ser Tore at «Webutvikling» har 48 %. Han åpner notatet med flest spørsmål i feilbanken.
 2. Han trykker «Øv på feil (5)». S12 viser de fem spørsmålene med alternativene i ny rekkefølge og uten fasit.
 3. Han leverer: 4 riktige. To av spørsmålene hadde han også fått riktig forrige gang.
 4. **Høydepunkt:** Resultatet viser «2 spørsmål er lært», og nå vises fasiten for akkurat de to. Feilbanken har 3 igjen, og dekningsgraden for notatet går opp.
 
-### Flow 4: Sensor i testmodus. Realiserer UJ-5.
+### Flyt 4: Sensor i testmodus. Realiserer UJ-5.
 
 1. Sensor følger README-en og åpner appen. Testmodus-banneret vises, og S1 viser testbrukerens e-post og passord.
 2. Sensor logger inn og ser på S3 et ferdig emne med dekningsgrad.

@@ -127,7 +127,7 @@ components:
     offset: 2px
 ---
 
-## Brand & Style
+## Merkevare og stil
 
 FåreQuiz skal føles **effektiv, enkel og seriøs, med litt mer liv enn et skjema**. Den er et verktøy for studenter som skal lære noe. Flatene er kremhvite og varme beige, og det er mye luft rundt innholdet. Terrakotta viser hva som er neste handling, og ochre gir små lekne detaljer. Startsiden peker alltid mot det neste studenten kan gjøre. Det er ingen konfetti eller maskoter. Fremgangen vises med tydelige markører, for eksempel lært-prikkene under «Øv på feil».
 
@@ -135,7 +135,7 @@ Tema: oppdagelsesreise og kart. Temaet er kjønnsnøytralt, pedagogisk og eventy
 
 Appen bruker Tailwind CSS i Django-maler og arver Tailwinds standarder for farger, avstand og skygger. Dette dokumentet beskriver bare avvikene: aksentfargen, typografien, minstestørrelser og noen få egne komponenter. Den ferdige CSS-filen fra Tailwind committes i repoet, slik at sensor ikke trenger Node eller et byggesteg.
 
-## Colors
+## Farger
 
 Paletten er varm og holder seg til sand, krem og brunt. Kaffebrun er hovedfargen, latte er detaljen, og terrakotta og salvie brukes bare til tilbakemelding om svar. Den erstatter den kalde grå-, svarte og grønne fargen, og den er valgt for å være varm og innbydende.
 
@@ -151,7 +151,7 @@ Tilbakemelding om svar skal alltid ha ikon og tekst i tillegg til farge: ✓ og 
 
 Den eneste mørke flaten er toppfeltet og tallfliene (`{colors.surface-inverse}`). Resten av siden er lys. Det gir et moderne uttrykk uten mørk modus, som gruppa sa nei til for v1. Unngå gradienter, flere farger enn de som står her, og farget bakgrunn bak tekst.
 
-## Typography
+## Typografi
 
 Appen bruker systemfonter (Tailwinds `font-sans`). De er raske, ser kjente ut på alle enheter og krever ingen nedlasting.
 
@@ -164,21 +164,21 @@ Appen bruker systemfonter (Tailwinds `font-sans`). De er raske, ser kjente ut p�
 
 All tekst angis i `rem`, slik at 200 % tekstforstørrelse virker (WCAG 1.4.4). Teksten skrives aldri i store bokstaver, og den er aldri smalere enn 16px på mobil.
 
-## Layout & Spacing
+## Layout og avstand
 
 Siden har én kolonne med maks bredde `{spacing.content-max}` (768px), sentrert. Sidemargen er `{spacing.gutter-mobile}` på mobil og `{spacing.gutter-desktop}` fra `md` og oppover. Avstand følger Tailwind-skalaen (4, 8, 12, 16, 24, 32 px). Mellom seksjoner er det 32px, og mellom elementer i en liste 12px.
 
 Knapper og svaralternativer er minst `{spacing.tap-min}` (44px) høye. Det er godt over WCAG-kravet på 24px (2.5.8). På mobil er knappene i quizen like brede som skjermen.
 
-## Elevation & Depth
+## Høyde og dybde
 
 Kort skal løftes fra bakgrunnen. De hvite kortene har en tydelig, men lett skygge (`card`), og flashcardet i quizen har en litt tyngre skygge (`flashcard`). Skyggen er mørk nok til å se, men den er ikke tung. Kort som kan klikkes, løftes 2px når musepekeren er over, med mykere skygge. Bevegelsen slås av hvis brukeren har valgt redusert bevegelse. Toppfeltet har ingen skygge, siden det er mørkt.
 
-## Shapes
+## Hjørner
 
 Hjørnene er avrundet, men forsiktig. Inndatafelt har `{rounded.sm}`, knapper `{rounded.md}`, og kort og svaralternativer `{rounded.lg}`. `{rounded.full}` brukes bare på dekningsstolpen og KI-merket.
 
-## Components
+## Komponenter
 
 - **Hovedknapp (`button-primary`):** `{colors.accent-strong}` med krem tekst (`{colors.surface}`). Det er høyst én per skjermbilde, for eksempel «Lag quiz», «Neste», «Lever» eller «Last opp».
 - **Sekundærknapp (`button-secondary`):** Kremhvit med brun kant, for «Forrige», «Avbryt» og «Gi nytt navn».
@@ -197,7 +197,7 @@ Hjørnene er avrundet, men forsiktig. Inndatafelt har `{rounded.sm}`, knapper `{
 - **Toppfelt (`topbar`):** `{colors.surface-inverse}` med `{colors.ink-inverse}`-tekst. «Logg ut» er `{colors.ink-inverse-secondary}`.
 - **Tallflis (`stat-tile`):** `{colors.surface-inverse}` med tallet i `{typography.score}` og en kort tekst under. Brukes på emnesiden for dekning og antall i feilbanken.
 
-## Do's and Don'ts
+## Gjør og ikke gjør
 
 | Gjør | Ikke gjør |
 |---|---|
