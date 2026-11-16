@@ -11,6 +11,9 @@
 - [x] 2026-11-15 [ux-design-christian](998-2026-11-15-13-51-39-ux-design-christian.md) — Velg CSS-rammeverk (vanlig CSS eller Tailwind) for Christians UX-versjon (løst 2026-11-15: Tailwind v4, se arkitektur)
 - [ ] 2026-11-15 [ux-design-christian](998-2026-11-15-13-51-39-ux-design-christian.md) — Sammenlign Christians UX med gruppeversjonen og bestem hva som går inn i felles UX
 - [ ] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Oppdater PRD: presiser FR-25 (notat uten quiz utenfor emnets snitt) og legg til begrunnelse per spørsmål
-- [ ] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Avklar faglærers PRD-punkter 4.1 (melde spørsmål som feil) og 4.4 (kuttrekkefølge) før epics
+- [x] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Avklar faglærers PRD-punkter 4.1 (melde spørsmål som feil) og 4.4 (kuttrekkefølge) før epics (løst 2026-11-16: FR-31 «kan kuttes» og faglærers kuttrekkefølge, se epics)
 - [ ] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Oppdater Christians DESIGN.md: CSS-rammeverk er Tailwind v4 (@theme)
 - [ ] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Mål genereringstid og sett effort i testfasen mot grensen på 120 s
+- [ ] 2026-11-16 [epics-og-stories](996-2026-11-16-15-44-51-epics-og-stories.md) — Oppdater PRD med FR-31 og arkitekturen (AD-3, AD-4, AD-16) med meldte spørsmål før story 4.3
+- [ ] 2026-11-16 [epics-og-stories](996-2026-11-16-15-44-51-epics-og-stories.md) — Avklar hvem som har API-nøkkel og kjører lag_mocksvar én gang (story 2.2)
+- [ ] 2026-11-16 [epics-og-stories](996-2026-11-16-15-44-51-epics-og-stories.md) — Bestem ordlyden på hjelpeteksten om at dekningsgraden kan gå ned (story 5.1)
