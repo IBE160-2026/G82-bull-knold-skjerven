@@ -1,19 +1,21 @@
 ---
 stepsCompleted: [1, 2, 3, 4]
+author: Christian
+created: 2026-11-16
 inputDocuments:
   - _bmad-output/planning-artifacts/prds/prd-G82-bull-knold-skjerven-2026-11-11/prd.md
   - _bmad-output/planning-artifacts/prds/prd-G82-bull-knold-skjerven-2026-11-11/addendum.md
   - _bmad-output/planning-artifacts/prds/prd-G82-bull-knold-skjerven-2026-11-11/tilbakemelding-prd.md
-  - _bmad-output/planning-artifacts/architecture/architecture-G82-bull-knold-skjerven-2026-11-15/ARCHITECTURE-SPINE.md
+  - _bmad-output/planning-artifacts/architecture/architecture-G82-bull-knold-skjerven-2026-11-15-christian/ARCHITECTURE-SPINE.md
   - _bmad-output/planning-artifacts/ux-designs/ux-G82-bull-knold-skjerven-2026-11-15-christian/DESIGN.md
   - _bmad-output/planning-artifacts/ux-designs/ux-G82-bull-knold-skjerven-2026-11-15-christian/EXPERIENCE.md
 ---
 
-# FåreQuiz (G82-bull-knold-skjerven) – epics og stories
+# FåreQuiz (G82-bull-knold-skjerven) – epics og stories (Christians versjon)
 
 ## Oversikt
 
-Dokumentet deler kravene i PRD-en, UX-designet (Christians versjon, 15.11) og arkitekturen (AD-1 til AD-22) opp i epics og stories som kan implementeres. Ordene fra PRD-ens ordliste brukes med samme betydning. AD-numrene viser til [ARCHITECTURE-SPINE.md](architecture/architecture-G82-bull-knold-skjerven-2026-11-15/ARCHITECTURE-SPINE.md).
+Christians individuelle versjon, laget med `bmad-create-epics-and-stories`. Dokumentet deler kravene i PRD-en, UX-designet (Christians versjon, 15.11) og arkitekturen (Christians versjon, AD-1 til AD-22) opp i epics og stories som kan implementeres. Ordene fra PRD-ens ordliste brukes med samme betydning. AD-numrene viser til [ARCHITECTURE-SPINE.md](architecture/architecture-G82-bull-knold-skjerven-2026-11-15-christian/ARCHITECTURE-SPINE.md).
 
 ## Kravoversikt
 
