@@ -475,7 +475,3 @@ body:has(#s2:target) .logout { display: none; }
 }
 .dialog h2 { margin: 0 0 12px; }
 
-/* «Øv på feil»: terrakotta, samme farge som feil svar */
-.btn-feil { background: var(--error); border-color: var(--error); color: var(--surface); }
-.btn-feil:hover { background: #7A3214; border-color: #7A3214; color: var(--surface); }
-.progress-feil span { background: var(--error); }
