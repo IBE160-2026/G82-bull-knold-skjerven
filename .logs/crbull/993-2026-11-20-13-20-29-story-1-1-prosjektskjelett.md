@@ -25,7 +25,7 @@ Bygge story 1.1, «Prosjektskjelett med datamodell og CI», med `bmad-build`: et
 - Verifisert lokalt: `uv sync --locked`, ruff, `makemigrations --check`, 55 tester, migrate og check på en tom database. `runserver` uten `.env` gir 200, og `pip install -r requirements.txt` gir de samme versjonene.
 - Reviewen ga 38 funn. 4 er rettet: migreringssjekk i CI, gjenoppretting i en testhjelper, MD5-hasher i parallelle tester og en test av `Bruker.clean()`. 1 er utsatt til `deferred-work.md` (parallell testmodus i CI), og resten er avvist med begrunnelse i triage-loggen i spec-en.
 - Spec-en er `done`, og sprint-status har 1.1 på `review` og Epic 1 på `in-progress`.
-- Pushet tidligere i økten: `arkitektur-epics-christian` og planleggingsfilene for 1.1. Koden i `844deb4` er ikke pushet. Ingen PR er opprettet, og `main` er urørt.
+- Pushet tidligere i økten: `arkitektur-epics-christian` og planleggingsfilene for 1.1. Koden (`844deb4`) og loggen er pushet til `origin/story-1-1-prosjektskjelett-christian`. Ingen PR er opprettet, og `main` er urørt.
 
 ### Åpne punkter
 - CI-workflowen har ikke kjørt. Det skjer først ved en PR mot `main`, og da må den sjekkes.
