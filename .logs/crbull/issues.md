@@ -21,3 +21,5 @@
 - [ ] 2026-11-20 [review-epics](995-2026-11-20-12-21-54-review-epics.md) — Oppdater AD-9 (stegendepunktet er POST, siste steg oppretter økten med HX-Redirect) og legg Sporsmal.meldt_tidspunkt inn i datamodellen
 - [ ] 2026-11-20 [review-epics](995-2026-11-20-12-21-54-review-epics.md) — Behandle gjenstående review-funn i epics (adversarial 7–16, edge-case, structure, prose)
 - [ ] 2026-11-20 [sprint-planning](994-2026-11-20-12-27-06-sprint-planning.md) — Avklar med gruppa at Christians arkitektur og epics er grunnlaget for sprinten før story 1.1
+- [ ] 2026-11-20 [story-1-1-prosjektskjelett](993-2026-11-20-13-20-29-story-1-1-prosjektskjelett.md) — Sjekk at CI-workflowen blir grønn ved første PR mot main
+- [ ] 2026-11-20 [story-1-1-prosjektskjelett](993-2026-11-20-13-20-29-story-1-1-prosjektskjelett.md) — Story 1.4: sammenlign emnenavn med casefold() i Python (SQLite LOWER er bare ASCII)
