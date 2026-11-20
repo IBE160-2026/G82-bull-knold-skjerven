@@ -71,11 +71,11 @@ NFR-9: KI-merking (AI Act). Hver quiz er merket «Laget av KI» med modellnavn o
 
 - Prosjektoppsett: Python 3.14, Django ≥ 5.2.19 < 6, uv ≥ 0.13 med `pyproject.toml`, `uv.lock` og `requirements.txt` fra `uv export --no-hashes`. Appene `farequiz`, `kontoer`, `studier` og `ki` etter strukturfrøet.
 - `kontoer.Bruker` med e-post som brukernavn og `vilkar_godtatt`, og `AUTH_USER_MODEL` satt før første `migrate` (AD-15).
-- Alle modeller i AD-6, AD-7, AD-9, AD-14 og AD-15 lages og migreres i første story (konvensjon for migreringer).
+- Alle modeller i AD-6, AD-7, AD-9, AD-14 og AD-15 lages og migreres i første story (konvensjon for migreringer), sammen med det nullbare feltet `Sporsmal.meldt_tidspunkt` for FR-31.
 - `.env`-oppsett med standardverdier, slik at en ny klone kjører uten `.env`: `DEBUG=True`, fast usikker utviklingsnøkkel, `ALLOWED_HOSTS=localhost,127.0.0.1`, testmodus på (AD-22). `.env.example` med `ANTHROPIC_API_KEY`, `KI_MODELL`, `TESTMODUS`, `SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`.
 - `.gitattributes` med `testdokumenter/** binary` og `ki/mock/** -text`, slik at hashene stemmer på Windows (AD-12).
 - CI: `.github/workflows/test.yml` kjører `ruff check`, `ruff format --check` og `manage.py test` i testmodus på hver pull request mot `main`. Rød CI merges ikke.
-- Tailwind v4 frittstående CLI: `static/src/app.css` med `@theme` bygges til `static/css/app.css`, som committes. htmx 2.0.11 som lokal fil `static/js/htmx.min.js`, aldri via CDN.
+- Tailwind v4 frittstående CLI: `static/src/app.css` med `@theme` bygges til `static/css/app.css`, som committes. htmx 2.0.11 som lokal fil `static/js/htmx.min.js`, aldri via CDN. Dette settes opp i story 1.3, den første storyen med grensesnitt.
 - SQLite med `OPTIONS = {"transaction_mode": "IMMEDIATE", "timeout": 20}` og `ATOMIC_REQUESTS` av (AD-19). `USE_TZ=True`, `TIME_ZONE="Europe/Oslo"`.
 
 **Lagdeling og tilgang:**
@@ -132,11 +132,13 @@ Epics og stories ordnes slik at kjerneløpet er ferdig først. Hver story merkes
 
 | Gruppe | Krav |
 |---|---|
-| **Kjerne** | FR-1, FR-2, FR-3, FR-4, FR-7, FR-8, FR-9, FR-11, FR-12, FR-13, FR-17, FR-19, FR-21, FR-23, FR-27, FR-28, FR-29, FR-30 |
-| **Bør** | FR-5, FR-6, FR-14, FR-15, FR-16, FR-18 (lagring underveis og fortsette), FR-20, FR-22 (øving uten ny stokking), FR-24, FR-26 |
+| **Kjerne** | FR-1, FR-2, FR-3, FR-4, FR-7, FR-8, FR-9, FR-11, FR-12, FR-13, FR-17, FR-19, FR-20, FR-21, FR-23, FR-27, FR-28, FR-29, FR-30 |
+| **Bør** | FR-5, FR-6, FR-14, FR-15, FR-16, FR-18 (lagring underveis og fortsette), FR-22 (øving uten ny stokking), FR-24, FR-26 |
 | **Kan kuttes først** | FR-18 (fortsette fra annen enhet), FR-22 (ny stokking for hver økt), FR-25, FR-31 |
 
 NFR-ene kuttes ikke. De bygges inn i hver story som akseptansekriterier. Merk at noen «bør»-krav i praksis følger med kjernen på grunn av arkitekturen: genereringskjeden i AD-9 gir fremdrift og timeout (FR-14, FR-15), og vanlige POST-skjemaer i AD-13 lagrer svar underveis (FR-18).
+
+**Endret 20.11 (review):** FR-20 (ta en quiz på nytt) er flyttet fra «bør» til «kjerne». Ellers kan ikke FR-23 (kjerne) nås hvis alle «bør»-krav kuttes, fordi både nye forsøk (FR-20) og «Øv på feil» (FR-22) var «bør». Nye forsøk er den minste veien til «lært», og «Øv på feil» blir værende «bør». PRD-en må oppdateres tilsvarende.
 
 ### UX-designkrav (UX-DR)
 
@@ -211,7 +213,7 @@ NFR-1 til NFR-9 bygges inn som akseptansekriterier i alle stories med grensesnit
 **Rekkefølge:** 1 → 2 → 3 → 4 → 5, og 6 til slutt. Etter Epic 3 er kjerneløpet notat → quiz → feilbank → lært ferdig. Når story 1.1 er ferdig, kan resten av Epic 1 og `ki`-modulen i Epic 2 bygges parallelt. Epic 5 kan bygges parallelt med Epic 4.
 
 ### Epic 1: Konto og emner
-Studenten kan registrere seg, logge inn og ut, og opprette, gi nytt navn til og slette emner, og ser bare sine egne data. Første story setter opp prosjektskjelettet med alle modeller, CI, Tailwind-tokens og grunnmalen.
+Studenten kan registrere seg, logge inn og ut, og opprette, gi nytt navn til og slette emner, og ser bare sine egne data. Første story setter opp prosjektskjelettet med alle modeller og CI. Tailwind-tokens og grunnmalen kommer i story 1.3.
 **FR dekket:** FR-1, FR-2, FR-3, FR-4, FR-5, FR-6, FR-29
 **Prioritet:** kjerne (FR-5 og FR-6: bør)
 
@@ -250,7 +252,7 @@ Som utvikler i gruppa,
 vil jeg ha et kjørbart Django-prosjekt med hele datamodellen, testmodus på som standard og CI på hver pull request,
 slik at vi kan jobbe parallelt i hver vår story uten migreringskonflikter og uten API-nøkkel.
 
-*Prioritet: kjerne. Avvik fra BMad-regelen om tabeller per story: arkitekturen krever at alle modeller lages her (konvensjon for migreringer), fordi tre personer jobber parallelt.*
+*Prioritet: kjerne. Avvik fra BMad-regelen om tabeller per story: arkitekturen krever at alle modeller lages her (konvensjon for migreringer), fordi tre personer jobber parallelt. Tailwind og htmx er flyttet til story 1.3 (20.11), slik at denne storyen bare inneholder det alle andre stories venter på.*
 
 **Akseptansekriterier:**
 
@@ -269,6 +271,7 @@ slik at vi kan jobbe parallelt i hver vår story uten migreringskonflikter og ut
 **Når** migreringene kjøres
 **Så** finnes `kontoer.Bruker` med e-post som `USERNAME_FIELD`, uten `username`, med `vilkar_godtatt` og `BrukerManager.create_user(email, password)` som lagrer e-post med små bokstaver, og `AUTH_USER_MODEL = "kontoer.Bruker"` (AD-15)
 **Og** `Emne`, `Notat`, `Quiz`, `Sporsmal`, `Alternativ`, `Okt`, `Svar`, `Feilbankrad` og `Genereringsjobb` finnes med feltene og constraints fra AD-3, AD-6, AD-7, AD-9, AD-11, AD-14 og AD-16, blant annet `CheckConstraint` for `Okt.quiz`, betinget `UniqueConstraint` for påbegynte økter, `UniqueConstraint(okt, sporsmal)` på `Svar`, unik `Feilbankrad.sporsmal` og `Quiz.jobb` som `OneToOneField`
+**Og** `Sporsmal` har det nullbare feltet `meldt_tidspunkt` for FR-31. Det brukes først i story 4.3, men lages her, slik at 4.3 ikke trenger en ny migrering
 **Og** faste verdier er `TextChoices`, og migreringene er committet
 
 **Gitt** innstillingene
@@ -285,11 +288,6 @@ slik at vi kan jobbe parallelt i hver vår story uten migreringskonflikter og ut
 **Når** `hent_egen(modell, pk, bruker)` eller `egne(modell, bruker)` kalles med en annen brukers objekt
 **Så** gir `hent_egen` `Http404`, og `egne` tar ikke med objektet, for alle modellene i `studier` med eierveiene fra AD-8
 **Og** enhetstester dekker begge hjelperne for hver modell
-
-**Gitt** Tailwind v4 frittstående CLI
-**Når** `tailwindcss -i static/src/app.css -o static/css/app.css --minify` kjøres
-**Så** inneholder `@theme` alle farger, typografi, radius og avstander fra DESIGN.md, i `rem`, og `static/css/app.css` er committet (UX-DR1)
-**Og** htmx 2.0.11 ligger som `static/js/htmx.min.js`, ikke via CDN
 
 **Gitt** en pull request mot `main`
 **Når** CI kjører `.github/workflows/test.yml`
@@ -334,9 +332,14 @@ Som innlogget student,
 vil jeg ha samme topplinje, meny og navigasjon på alle sider,
 slik at jeg alltid vet hvor jeg er og kommer meg tilbake.
 
-*Prioritet: kjerne. UX-DR2 til UX-DR6, UX-DR26 (stripen), UX-DR27, UX-DR29, UX-DR30.*
+*Prioritet: kjerne. UX-DR1 til UX-DR6, UX-DR26 (stripen), UX-DR27, UX-DR29, UX-DR30. Første story med grensesnitt, og derfor den som setter opp Tailwind og htmx (flyttet fra story 1.1 20.11).*
 
 **Akseptansekriterier:**
+
+**Gitt** Tailwind v4 frittstående CLI
+**Når** `tailwindcss -i static/src/app.css -o static/css/app.css --minify` kjøres
+**Så** inneholder `@theme` alle farger, typografi, radius og avstander fra DESIGN.md, i `rem`, og `static/css/app.css` er committet (UX-DR1)
+**Og** htmx 2.0.11 ligger som `static/js/htmx.min.js`, ikke via CDN
 
 **Gitt** en side etter innlogging
 **Når** den vises
@@ -461,9 +464,15 @@ Som utvikler i gruppa,
 vil jeg at `ki` kan lese en notatfil og sjekke et svar fra modellen mot formatet,
 slik at alle quizer som lagres, har riktig form uansett om de kommer fra modellen eller fra mock-svar.
 
-*Prioritet: kjerne. FR-9, FR-12, FR-13, AD-10, AD-11. Ingen databasetilgang.*
+*Prioritet: kjerne. FR-9, FR-12, FR-13, AD-10, AD-11. Ingen databasetilgang. Eier testdokumentene, som story 2.2 og 6.4 bygger på (lagt til 20.11).*
 
 **Akseptansekriterier:**
+
+**Gitt** mappen `testdokumenter/`
+**Når** storyen er ferdig
+**Så** ligger de fem testdokumentene der: en tekst-PDF på ca. 10 sider, en lysbilde-PDF, en skannet PDF, en DOCX og en TXT, og minst ett av dem er på et annet språk enn norsk (FR-9, FR-12)
+**Og** `testdokumenter/KILDER.md` oppgir kilde og lisens for hvert dokument, slik at ingen av dem bryter opphavsretten
+**Og** testene for `les_fil` bruker disse filene
 
 **Gitt** en PDF, en DOCX og en TXT
 **Når** `ki.les_fil(sti)` kalles
@@ -503,7 +512,7 @@ slik at jeg kan kjøre hele appen lokalt uten gruppas nøkkel.
 **Og** en ukjent fil gir standarddokumentet med `forhandslagret=True`
 **Og** en test med nettverket blokkert bekrefter at testmodus aldri kaller API-et (NFR-3)
 
-**Gitt** de fem testdokumentene i `testdokumenter/` (tekst-PDF på ca. 10 sider, lysbilde-PDF, skannet PDF, DOCX og TXT) uten brudd på opphavsretten
+**Gitt** de fem testdokumentene i `testdokumenter/` fra story 2.1
 **Når** en med API-nøkkel kjører `python manage.py lag_mocksvar`
 **Så** kjøres hvert dokument mot ekte modell med 30 spørsmål per nivå, svarene sjekkes med `ki.sjekk`, og mock-filene og manifestet skrives og committes
 **Og** alle fem dokumentene gir en gyldig quiz, også lysbilde-PDF-en og den skannede PDF-en (FR-9)
@@ -542,7 +551,7 @@ slik at appen kan lage quizer fra det.
 **Gitt** en gyldig fil
 **Når** brukeren sender skjemaet
 **Så** lagrer `services.notater.last_opp` filen som `notater/<eier-id>/<uuid4><endelse>` og et `Notat` med `originalnavn`, `filtype` og `storrelse` i emnet (AD-14)
-**Og** brukeren sendes til Notatsiden, som viser notatets navn og «Ingen quizer ennå», og notatet står i listen på Emnesiden, sortert alfabetisk
+**Og** brukeren sendes til Notatsiden, som viser notatets navn og «Ingen quizer ennå», og notatet står i listen på Emnesiden, sortert alfabetisk. Dette er midlertidig: story 2.4 bytter det ut med ventepanelet og genereringen
 **Og** filen kan ikke lastes ned via noen URL (AD-8)
 
 **Gitt** et emne som tilhører en annen bruker
@@ -565,7 +574,7 @@ slik at jeg vet at noe skjer og ikke lager to quizer ved et uhell.
 **Og** antall utenfor 5–30 gir feilmelding ved feltet
 
 **Gitt** en jobb som er i gang
-**Når** siden spør `/jobber/<id>/steg/` med HTMX
+**Når** siden spør `/jobber/<id>/steg/` med HTMX-POST (`hx-post`, fordi kallet endrer jobben)
 **Så** tas jobben med `filter(pk, status=S, i_gang=False).update(i_gang=True)`, ett steg kjøres, og fragmentet viser «Steg 1 av 3: Leser filen» → «Steg 2 av 3: Lager spørsmål» → «Steg 3 av 3: Sjekker quizen» med `role="status"` og `aria-live="polite"`
 **Og** endres 0 rader, returneres bare gjeldende fragment, som spør igjen
 **Og** ingen `ki`-kall skjer mens en databasetransaksjon er åpen, og filinnholdet lagres aldri på jobben eller i sesjonen (AD-19)
@@ -577,7 +586,7 @@ slik at jeg vet at noe skjer og ikke lager to quizer ved et uhell.
 **Gitt** et gyldig utkast
 **Når** steget `sjekker` er ferdig
 **Så** lagres `Quiz` med `jobb`, `vanskelighetsgrad`, `sprak`, `modell`, `prompt_versjon` og `forhandslagret`, og hvert `Sporsmal` med `begrunnelse` og tre `Alternativ`, nøyaktig ett med `er_riktig` (AD-7, AD-11)
-**Og** brukeren sendes til Notatsiden, der quizen står med nivå, antall, dato og KI-merket «Laget av KI (<modell>) · kan inneholde feil» (NFR-9). Epic 3 endrer dette til å åpne quizen på spørsmål 1
+**Og** brukeren sendes til Notatsiden, der quizen står med nivå, antall, dato og KI-merket «Laget av KI (<modell>) · kan inneholde feil» (NFR-9). Story 3.1 endrer dette til å åpne quizen på spørsmål 1
 **Og** en quiz har nøyaktig det valgte antallet spørsmål, også når den kommer fra mock-svar
 
 **Gitt** en aktiv jobb for notatet
@@ -671,7 +680,7 @@ slik at jeg kan tenke meg om og endre svar før jeg leverer.
 **Når** brukeren trykker «Ta quizen» (POST)
 **Så** oppretter `start_eller_fortsett_okt` en `Okt` med `type=forsok`, `status=pabegynt`, `notat` og `quiz`, eller henter den påbegynte økten for quizen hvis den finnes, og brukeren sendes til første ubesvarte spørsmål
 **Og** `Okt.innhold` lagrer quizens spørsmål i quizens rekkefølge med alternativene stokket, og listen endres aldri etterpå (AD-16)
-**Og** når genereringen i story 2.4 er ferdig, åpnes den nye quizen nå på spørsmål 1 i stedet for Notatsiden
+**Og** når siste steg i genereringen (story 2.4) har lagret quizen, kaller stegviewet `start_eller_fortsett_okt` for den nye quizen og svarer med `HX-Redirect` til `/okter/<id>/sporsmal/1/` i stedet for å sende brukeren til Notatsiden. Det samme skjer for en annen fane som spør etter at jobben er ferdig, og den får den samme økten. Stegendepunktet er en POST, så ingen GET endrer data. Dette avklarer antakelse 1 i EXPERIENCE.md
 
 **Gitt** `/okter/<id>/sporsmal/<nr>/`
 **Når** siden vises
@@ -776,7 +785,7 @@ Som student,
 vil jeg ta en quiz jeg har levert, på nytt,
 slik at jeg kan se om jeg har blitt bedre og jobbe meg ut av feilbanken.
 
-*Prioritet: bør. FR-20, FR-23 (nye forsøk teller), AD-6.*
+*Prioritet: kjerne (flyttet fra bør 20.11: eneste vei til «lært» i kjernen hvis Epic 4 kuttes). FR-20, FR-23 (nye forsøk teller), AD-6.*
 
 **Akseptansekriterier:**
 
@@ -906,7 +915,7 @@ slik at jeg ikke blir sittende fast med et spørsmål der KI-en har laget feil f
 
 **Gitt** en resultatrad med «✗ Feil» på Resultat eller Øv-resultat
 **Når** brukeren trykker «Meld som feil eller uklart» (POST) og bekrefter på en egen side
-**Så** setter en tjeneste `Sporsmal.meldt_tidspunkt` (ny migrering), og raden viser «Meldt som feil»
+**Så** setter en tjeneste `Sporsmal.meldt_tidspunkt` (feltet finnes fra story 1.1, så ingen ny migrering trengs), og raden viser «Meldt som feil»
 **Og** fasiten vises fortsatt ikke
 
 **Gitt** et meldt spørsmål
@@ -1111,7 +1120,7 @@ slik at jeg kan stole på at appen hjelper studenten å lære.
 **Gitt** de fem testdokumentene og en API-nøkkel
 **Når** gruppa kjører dem mot ekte modell på alle tre nivåer
 **Så** har alle quizene nøyaktig det valgte antallet spørsmål, tre ulike alternativer, ett riktig svar og ingen like spørsmål (SM-4)
-**Og** spørsmålene er på samme språk som notatet, og `Quiz.sprak` stemmer med språket (FR-12, NFR-6). Minst ett testdokument er på et annet språk enn norsk, eller gruppa tester med en egen engelsk fil
+**Og** spørsmålene er på samme språk som notatet, og `Quiz.sprak` stemmer med språket (FR-12, NFR-6). Minst ett testdokument er på et annet språk enn norsk (story 2.1)
 **Og** gruppa vurderer hvert spørsmål manuelt, og minst 90 % er relevante, har riktig fasit og er ikke tvetydige (SM-2)
 **Og** resultatet dokumenteres med modell, dato, `PROMPT_VERSJON` og eksempler på dårlige spørsmål
 
