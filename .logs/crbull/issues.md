@@ -17,3 +17,6 @@
 - [ ] 2026-11-16 [epics-og-stories](996-2026-11-16-15-44-51-epics-og-stories.md) — Oppdater PRD med FR-31 og arkitekturen (AD-3, AD-4, AD-16) med meldte spørsmål før story 4.3
 - [ ] 2026-11-16 [epics-og-stories](996-2026-11-16-15-44-51-epics-og-stories.md) — Avklar hvem som har API-nøkkel og kjører lag_mocksvar én gang (story 2.2)
 - [ ] 2026-11-16 [epics-og-stories](996-2026-11-16-15-44-51-epics-og-stories.md) — Bestem ordlyden på hjelpeteksten om at dekningsgraden kan gå ned (story 5.1)
+- [ ] 2026-11-20 [review-epics](995-2026-11-20-12-21-54-review-epics.md) — Oppdater PRD: FR-20 flyttet fra «bør» til «kjerne»
+- [ ] 2026-11-20 [review-epics](995-2026-11-20-12-21-54-review-epics.md) — Oppdater AD-9 (stegendepunktet er POST, siste steg oppretter økten med HX-Redirect) og legg Sporsmal.meldt_tidspunkt inn i datamodellen
+- [ ] 2026-11-20 [review-epics](995-2026-11-20-12-21-54-review-epics.md) — Behandle gjenstående review-funn i epics (adversarial 7–16, edge-case, structure, prose)
