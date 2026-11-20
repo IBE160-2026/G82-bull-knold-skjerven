@@ -1,0 +1,82 @@
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created, ready for development
+#   - in-progress: Developer actively working on implementation
+#   - review: Implementation complete, ready for review
+#   - done: Story completed
+
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+
+# Action Item Status:
+#   - open: Committed during a retrospective, not yet addressed
+#   - in-progress: Actively being worked on
+#   - done: Completed
+
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when its first story starts (via build's sprint sync)
+# - Stories can be worked in parallel if team capacity allows
+# - Developer typically creates the next story after the previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+# - Retrospective appends its action items to action_items; the status view surfaces open ones
+generated: 11-20-2026 12:26
+last_updated: 11-20-2026 12:26
+project: G82-bull-knold-skjerven
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+development_status:
+  epic-1: backlog
+  1-1-prosjektskjelett-med-datamodell-og-ci: backlog
+  1-2-registrere-konto-og-logge-inn-og-ut: backlog
+  1-3-topplinje-meny-og-felles-sidemal: backlog
+  1-4-opprette-emne-og-se-mine-emner: backlog
+  1-5-gi-emne-nytt-navn: backlog
+  1-6-slette-emne: backlog
+  epic-1-retrospective: optional
+
+  epic-2: backlog
+  2-1-lese-filen-og-sjekke-quizutkastet: backlog
+  2-2-generere-med-modellen-eller-mock-svar: backlog
+  2-3-godta-vilkår-og-laste-opp-notat: backlog
+  2-4-lage-quiz-med-fremdrift: backlog
+  2-5-feil-timeout-og-prøv-igjen: backlog
+  2-6-flere-quizer-per-notat: backlog
+  epic-2-retrospective: optional
+
+  epic-3: backlog
+  3-1-starte-og-svare-på-en-quiz: backlog
+  3-2-regelen-for-feilbanken: backlog
+  3-3-levere-og-se-resultatet: backlog
+  3-4-ta-en-quiz-på-nytt: backlog
+  3-5-fortsette-der-jeg-slapp: backlog
+  epic-3-retrospective: optional
+
+  epic-4: backlog
+  4-1-øve-på-feilbanken: backlog
+  4-2-levere-øvingen-og-se-hva-som-er-lært: backlog
+  4-3-melde-et-spørsmål-som-feil: backlog
+  epic-4-retrospective: optional
+
+  epic-5: backlog
+  5-1-dekningsgrad-per-notat: backlog
+  5-2-dekningsgrad-per-emne: backlog
+  5-3-historikk-per-notat: backlog
+  epic-5-retrospective: optional
+
+  epic-6: backlog
+  6-1-testbruker-med-eksempeldata: backlog
+  6-2-readme-og-test-med-ny-klone: backlog
+  6-3-sluttkontroll-av-tilgang-og-universell-utforming: backlog
+  6-4-ki-kvalitet-og-genereringstid: backlog
+  6-5-brukertest-med-medstudenter: backlog
+  epic-6-retrospective: optional
