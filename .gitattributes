@@ -1,0 +1,3 @@
+# Testdokumentene og mock-svarene skal ikke endres av linjeskift-konvertering.
+testdokumenter/** binary
+ki/mock/** -text
