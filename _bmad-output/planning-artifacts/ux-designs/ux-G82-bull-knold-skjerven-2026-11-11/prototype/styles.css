@@ -506,8 +506,8 @@ body:has(#s2:target) .logout { display: none; }
 }
 .thumb i { display: block; height: 8px; border-radius: 4px; background: var(--border-subtle); }
 .thumb i.dark { background: var(--accent-strong); }
-.thumb i.box { height: 14px; background: var(--surface); border: 1px solid var(--border-control); }
-.thumb-tom i.box { border-style: dashed; }
+.thumb i.thumb-box { height: 14px; background: var(--surface); border: 1px solid var(--border-control); }
+.thumb-tom i.thumb-box { border-style: dashed; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
 .tag {
   padding: 2px 10px;
@@ -528,3 +528,6 @@ body:has(#s2:target) .logout { display: none; }
 
 /* Reiserute inne i emnekortet: plass til ballongen over stolpen */
 .topic-card .coverage-bar { margin: 28px 0 8px; }
+
+/* Miniatyrens bokser har egne klasser, så de ikke arver stilen til .box */
+.thumb { overflow: hidden; }
