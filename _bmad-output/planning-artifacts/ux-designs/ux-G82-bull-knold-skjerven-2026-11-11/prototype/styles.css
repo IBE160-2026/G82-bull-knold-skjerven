@@ -55,7 +55,7 @@ body {
 /* Skjermbildene vises én av gangen, valgt med #-lenke i gjennomgangsmenyen. */
 .screen { display: none; }
 .screen.default { display: block; }
-body:has(.screen:target) .screen.default { display: none; }
+body:has(.screen:target) .screen.default:not(:target) { display: none; }
 .screen:target { display: block; }
 
 .skip-link {
