@@ -539,3 +539,6 @@ body:has(#s2:target) .logout { display: none; }
 
 /* Ting som gjenstår å avklare i juridisk tekst */
 .avklar { background: #FBE9B7; color: #2B1D14; padding: 0 4px; border-radius: 4px; }
+
+/* Fotlinje med opphavsrett, under alle skjermbilder */
+.copyright { max-width: var(--content-max); margin: 32px auto 0; padding: 16px var(--gutter); border-top: 1px solid var(--border-subtle); font-size: 0.8125rem; color: var(--ink-secondary); }
