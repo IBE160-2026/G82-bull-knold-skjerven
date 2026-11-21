@@ -290,7 +290,7 @@
     <ul>
       <li><strong>Kontoinformasjon:</strong> E-postadresse og kryptografisk hashet passord for autentisering og kontroll av eierskap. Vi samler ikke inn navn, fødselsdato, adresse, profilbilde eller øvrige profilopplysninger.</li>
       <li><strong>Brukergenerert innhold (notater og quizer):</strong> Tekst og notater du laster opp, samt emner og quizer som genereres i tjenesten.</li>
-      <li><strong>Dokumentasjons- og driftsdata:</strong> Tidspunkt for når du godtok brukervilkårene, samt nødvendige tekniske logger for drift, feilsøking og informasjonssikkerhet. <mark class="avklar">[AVKLARES MED VSCODE: spesifiser hvilke tekniske logger/IP-adresser som evt. lagres og hvor lenge]</mark></li>
+      <li><strong>Dokumentasjons- og driftsdata:</strong> Tidspunkt for når du godtok brukervilkårene, samt nødvendige tekniske logger for drift, feilsøking og informasjonssikkerhet. Vi lagrer ikke IP-adresser eller tekst fra notatene i driftslogger. Feilmeldinger lagres med feiltype og tidspunkt, og slettes automatisk etter 30 dager.</li>
     </ul>
     <p><strong>Forbud mot personopplysninger i notater:</strong> FåreQuiz er utelukkende beregnet for faglige notater og pensumtekst. Det er <strong>ikke tillatt</strong> å laste opp særlige kategorier av personopplysninger (sensitive opplysninger, jf. GDPR art. 9), taushetsbelagt informasjon eller personopplysninger om deg selv eller tredjeparter (slik som navn på medstudenter, forelesere eller andre enkeltpersoner). Du er selv ansvarlig for at materialet du laster opp ikke inneholder slike opplysninger i strid med våre brukervilkår. Dersom vi blir kjent med at slikt materiale er lastet opp i strid med vilkårene, forbeholder vi oss retten til å slette innholdet uten forvarsel.</p>
 
@@ -307,7 +307,7 @@
     <p>Når du aktiverer generering av en quiz fra et notat, sendes teksten via et kryptert grensesnitt (API) til vår databehandler <strong>Anthropic PBC</strong> (USA). Behandlingen reguleres av Anthropics kommersielle vilkår (<em>Commercial Terms of Service</em>) og databehandleravtale (<em>Data Processing Addendum – DPA</em>), tilgjengelig på <a href="https://www.anthropic.com/legal">anthropic.com/legal</a>.</p>
     <ul>
       <li><strong>Ingen trening på kundedata:</strong> Tekst som sendes via Anthropics kommersielle API brukes utelukkende til å generere quizen på dine vegne, og brukes <strong>ikke</strong> til å trene eller forbedre Anthropics KI-modeller.</li>
-      <li><strong>Lagring og sletting hos Anthropic:</strong> Data slettes automatisk hos Anthropic i samsvar med deres kommersielle retningslinjer for datalagring (normalt innen 30 dager for lovpålagt og sikkerhetsmessig misbruksovervåking, eller umiddelbart dersom <em>Zero Data Retention</em> er aktivert) <mark class="avklar">[AVKLARES MED VSCODE: bekreft om ZDR aktiveres]</mark>. Utfyllende informasjon om datalagring, sletting og underdatabehandlere fremgår av <a href="https://claude.com">Anthropic Privacy Center for Commercial Customers</a>.</li>
+      <li><strong>Lagring og sletting hos Anthropic:</strong> Data slettes automatisk hos Anthropic i samsvar med deres kommersielle retningslinjer for datalagring (normalt innen 30 dager). Vi har ikke <em>Zero Data Retention</em>. . Utfyllende informasjon om datalagring, sletting og underdatabehandlere fremgår av <a href="https://claude.com">Anthropic Privacy Center for Commercial Customers</a>.</li>
       <li><strong>Overføring til tredjeland (USA):</strong> Overføring av tekst til Anthropics servere i USA skjer med rettslig grunnlag i EUs standard personvernbestemmelser (<em>Standard Contractual Clauses – SCC</em>), som er inkorporert i Anthropics DPA. Se nærmere redegjørelse for overføringsmekanismen i <a href="https://claude.com">Anthropics veiledning om DPA og SCC</a>.</li>
       <li><strong>Sikkerhet og samsvar hos Anthropic:</strong> Anthropic benytter kryptering under overføring (TLS) og ved lagring (AES-256), og er sertifisert etter blant annet ISO 27001, ISO 42001 og SOC 2 Type II. Detaljert sikkerhetsdokumentasjon finnes i <a href="https://anthropic.com">Anthropic Trust Center</a>.</li>
     </ul>
@@ -319,18 +319,18 @@
 
     <h2>5. Informasjonssikkerhet og ansvarsavgrensning</h2>
     <ul>
-      <li><strong>Våre sikkerhetstiltak (GDPR art. 32):</strong> Vi gjennomfører tekniske og organisatoriske tiltak for å beskytte opplysningene dine mot uautorisert tilgang, endring eller sletting. Passord lagres utelukkende som kryptografisk hash, og all tilgang til emner og quizer er underlagt autentisering og eierskapskontroll. <mark class="avklar">[AVKLARES MED VSCODE: suppler med TLS/HTTPS og kryptering ved lagring når hosting er besluttet]</mark></li>
+      <li><strong>Våre sikkerhetstiltak (GDPR art. 32):</strong> Vi gjennomfører tekniske og organisatoriske tiltak for å beskytte opplysningene dine mot uautorisert tilgang, endring eller sletting. Passord lagres utelukkende som kryptografisk hash, og all tilgang til emner og quizer er underlagt autentisering og eierskapskontroll. I produksjon kjøres tjenesten over HTTPS. Kryptering av data i hvile følger av hostingleverandøren, jf. punkt 4.2.</li>
       <li><strong>Brukerens eget sikkerhetsansvar:</strong> Overføring av informasjon over internett innebærer alltid en iboende sikkerhetsrisiko. Du er selv ansvarlig for å velge et sterkt passord, holde innloggingsopplysningene dine konfidensielle og sørge for sikkerheten på enheten du benytter. Vi er ikke ansvarlige for tap eller eksponering av opplysninger som skyldes uautorisert tilgang til din konto som følge av forhold på din side, eller som skyldes at du har lastet opp personopplysninger i strid med punkt 2.</li>
     </ul>
 
     <h2>6. Lagringstid og sletting</h2>
     <ul>
-      <li><strong>Sletting av innhold:</strong> Du kan når som helst slette enkeltstående emner og tilhørende innhold direkte i tjenesten. <mark class="avklar">[AVKLARES MED VSCODE: presiser om opplastede notater slettes umiddelbart etter quiz-generering eller lagres sammen med emnet]</mark></li>
-      <li><strong>Sletting av brukerkonto:</strong> Vi lagrer opplysningene dine så lenge du har en aktiv brukerkonto. Ved sletting av brukerkonto slettes alle tilknyttede personopplysninger, emner og quizer fra våre aktive systemer uten ugrunnet opphold, og fra eventuelle automatiske sikkerhetskopier innen senest <strong>30 dager</strong> <mark class="avklar">[AVKLARES MED VSCODE: bekreft backup-syklus]</mark>.</li>
+      <li><strong>Sletting av innhold:</strong> Du kan når som helst slette enkeltstående emner og tilhørende innhold direkte i tjenesten. Opplastede notater lagres sammen med emnet, slik at nye quizer kan lages uten ny opplasting. Når et emne slettes, slettes alle notater, quizer og historikk i emnet.</li>
+      <li><strong>Sletting av brukerkonto:</strong> Vi lagrer opplysningene dine så lenge du har en aktiv brukerkonto. Ved sletting av brukerkonto slettes alle tilknyttede personopplysninger, emner og quizer fra våre aktive systemer uten ugrunnet opphold, .</li>
     </ul>
 
     <h2>7. Informasjonskapsler (cookies) og lokal lagring</h2>
-    <p>Vi bruker ikke informasjonskapsler eller lignende teknologier til sporing, analyse eller markedsføring. Tjenesten benytter kun strengt nødvendige tekniske mekanismer (sesjonskapsel eller lokal lagring i nettleseren) som er påkrevd for å holde deg innlogget og ivareta tjenestens sikkerhet. <mark class="avklar">[AVKLARES MED VSCODE: bekreft eksakt mekanisme ved implementering]</mark></p>
+    <p>Vi bruker ikke informasjonskapsler eller lignende teknologier til sporing, analyse eller markedsføring. Tjenesten benytter kun strengt nødvendige tekniske mekanismer (sesjonskapsel eller lokal lagring i nettleseren) som er påkrevd for å holde deg innlogget og ivareta tjenestens sikkerhet. Tjenesten bruker en sesjonskapsel (for innlogging) og en CSRF-kapsel (beskyttelse mot forfalskede forespørsler). Begge er strengt nødvendige, og vi bruker ingen andre kapsler.</p>
 
     <h2>8. Dine rettigheter</h2>
     <p>Etter personvernforordningen (GDPR kapittel III) har du, innenfor de begrensninger som følger av lovverket, rett til å be om:</p>
