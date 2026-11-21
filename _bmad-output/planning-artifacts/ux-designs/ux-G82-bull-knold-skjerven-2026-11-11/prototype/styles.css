@@ -536,3 +536,6 @@ body:has(#s2:target) .logout { display: none; }
 .dialog { max-height: 90vh; overflow-y: auto; }
 .vilkar { padding-left: 20px; }
 .vilkar li { margin: 0 0 12px; }
+
+/* Ting som gjenstår å avklare i juridisk tekst */
+.avklar { background: #FBE9B7; color: #2B1D14; padding: 0 4px; border-radius: 4px; }
