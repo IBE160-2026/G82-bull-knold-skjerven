@@ -24,7 +24,7 @@ Utseendet står i [DESIGN.md](DESIGN.md). Begrepene følger ordlisten i PRD-en (
 | S2 | Registrer | Lenke på S1 | Ny konto | FR-1 |
 | S3 | **Oversikt** (startside) | Innlogging, logoen «FåreQuiz» | Alle emner med dekningsgrad, «Nytt emne» | FR-4, FR-25 |
 | S4 | Emne | Kort på S3 | Notatene i emnet med dekningsgrad, «Last opp notat», «Gi nytt navn», «Slett emne» | FR-5, FR-6, FR-24, FR-25 |
-| S5 | Godta vilkår | «Last opp notat» første gang | Vilkårene og knappen «Godta og fortsett» | FR-7, NFR-9 |
+| S5 | Vilkår (kort) | «Last opp notat» første gang | Bekrefter at vilkårene er godtatt ved innlogging, og lenke til S15 | FR-7, NFR-9 |
 | S6 | Last opp notat | «Last opp notat» på S4, eller etter S5 | Filvelger, formater og KI-varsel | FR-8 |
 | S7 | **Notat** | Kort på S4, eller etter opplasting | Dekningsgrad per nivå, «Øv på feil», «Lag ny quiz», quizlisten og historikken | FR-11, FR-16, FR-22, FR-24, FR-26 |
 | S8 | Generering | «Lag quiz» på S7 | Stegene i fremdriften, timeout og «Prøv igjen» | FR-12 til FR-15 |
