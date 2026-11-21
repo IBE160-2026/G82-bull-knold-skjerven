@@ -505,11 +505,17 @@
 </section>
 
 <!-- S1b Personvern ved innlogging (modal) -->
-<div class="dialog-backdrop" id="pv" role="dialog" aria-modal="true" aria-labelledby="pv-title" aria-describedby="pv-desc">
+<div class="dialog-backdrop" id="pv" role="dialog" aria-modal="true" aria-labelledby="pv-title">
   <div class="dialog">
-    <h2 id="pv-title">Før du går videre</h2>
-    <p id="pv-desc">Notatene du laster opp, sendes til en ekstern KI-tjeneste (Anthropic) for å lage quiz. Du er selv ansvarlig for at du ikke laster opp personopplysninger du ikke har lov til å dele, etter personopplysningsloven og GDPR. Les hele <a href="#s15">personvernserklæringen</a>.</p>
-    <a class="btn btn-primary" href="#s3">Jeg har forstått og godtar</a>
+    <h2 id="pv-title">Velkommen! Før du tar i bruk tjenesten</h2>
+    <ul class="vilkar">
+      <li><strong>Behandling av notater:</strong> Når du laster opp notater, sendes teksten til vår KI-leverandør (Anthropic) for å lage quizer. Les mer om hvordan vi behandler data i vår <a href="#s15">personvernerklæring</a>.</li>
+      <li><strong>Ikke del personopplysninger:</strong> Unngå å laste opp sensitive opplysninger eller personopplysninger om deg selv eller andre (f.eks. navn på medstudenter eller lærere).</li>
+      <li><strong>KI-generert innhold:</strong> Quizene lages automatisk av kunstig intelligens og kan inneholde feil. Dobbeltsjekk alltid svarene mot eget pensum.</li>
+      <li><strong>Vilkår og loggføring:</strong> Ved å gå videre godtar du våre brukervilkår. Tidspunktet for godkjenningen lagres på brukeren din.</li>
+    </ul>
+    <p class="meta">For mer informasjon, se vår <a href="#s15">personvernerklæring</a>.</p>
+    <a class="btn btn-primary" href="#s3">Gå videre</a>
   </div>
 </div>
 

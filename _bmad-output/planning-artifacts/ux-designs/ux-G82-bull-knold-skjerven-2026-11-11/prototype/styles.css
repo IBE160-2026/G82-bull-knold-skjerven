@@ -531,3 +531,8 @@ body:has(#s2:target) .logout { display: none; }
 
 /* Miniatyrens bokser har egne klasser, så de ikke arver stilen til .box */
 .thumb { overflow: hidden; }
+
+/* Vilkår ved første innlogging: lang tekst, så dialogen kan rulle på små skjermer */
+.dialog { max-height: 90vh; overflow-y: auto; }
+.vilkar { padding-left: 20px; }
+.vilkar li { margin: 0 0 12px; }
