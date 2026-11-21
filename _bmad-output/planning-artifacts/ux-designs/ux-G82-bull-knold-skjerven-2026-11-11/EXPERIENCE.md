@@ -139,7 +139,7 @@ Appen følger WCAG 2.2 nivå A og AA (NFR-8). Kontrastkravene står i DESIGN.md.
 |---|---|
 | S1 Logg inn, S2 Registrer | Feltene har `<label>` og `autocomplete="email"` / `current-password` / `new-password`. Innliming og passordbehandlere er tillatt, og det er ingen CAPTCHA (3.3.8). Feilmeldinger står over skjemaet, er koblet til feltet med `aria-describedby`, og fokus flyttes til dem (3.3.1). |
 | S3 Oversikt, S4 Emne | Kortene er lenker med tydelig tekst, for eksempel «Webutvikling, 4 notater, dekningsgrad 62 %». Dekningsstolpen har `role="img"` med prosent i `aria-label`, eller er skjult for skjermleser når prosenten allerede står som tekst (1.1.1). |
-| S5 Vilkår | Vilkårene er vanlig tekst på siden, ikke i en rulleboks. Teksten nevner KI-tjenesten (Anthropic), ansvaret for personopplysninger og at quizene kan inneholde feil (FR-7, NFR-9). |
+| S5 Vilkår | Bekreftelsen er vanlig tekst på siden. Vilkårsteksten står i S1b og i S15, ikke i en rulleboks, og nevner KI-tjenesten (Anthropic), ansvaret for personopplysninger og at quizene kan inneholde feil (FR-7, NFR-9). |
 | S6 Last opp | Filvelgeren har synlig etikett og hjelpetekst om formater og størrelse koblet med `aria-describedby`. Det er ingen dra-og-slipp (2.5.7). Feil meldes med `role="alert"` (4.1.3). |
 | S7 Notat | Radioknappene for vanskelighetsgrad ligger i `<fieldset>` med `<legend>`. Tallfeltet har `min` og `max` og en feilmelding i tekst. Historikken er en ekte `<table>` med `<th scope>` på store skjermer. Låste knapper har `aria-disabled` og en forklaring. |
 | S8 Generering | Fremdriften ligger i en `aria-live="polite"`-region, og hvert nytt steg leses opp. Timeout og feil leses opp med `role="alert"`, og fokus flyttes til «Prøv igjen» (4.1.3). |
