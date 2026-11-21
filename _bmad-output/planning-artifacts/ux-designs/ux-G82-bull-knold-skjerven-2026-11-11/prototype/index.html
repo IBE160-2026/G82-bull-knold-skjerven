@@ -110,7 +110,7 @@
 
     <h1 id="t-s3">Emner</h1>
 
-    <a class="topic-card" href="#nytt-emne">
+    <a class="topic-card" href="#s16">
       <div class="thumb thumb-ny" aria-hidden="true"><span>+</span></div>
       <div>
         <h2 class="topic-title">Nytt emne</h2>
@@ -149,16 +149,28 @@
       </div>
     </a>
 
-    <h2 id="nytt-emne">Nytt emne</h2>
+  </div>
+</section>
+
+<!-- S16 Nytt emne -->
+<section class="screen" id="s16" aria-labelledby="t-s16">
+  <div class="page">
+    <p class="crumb"><a href="#s3">‹ Oversikt</a></p>
+    <h1 id="t-s16">Nytt emne</h1>
     <form action="#s3">
       <div class="field">
-        <label for="n3">Navn på emnet</label>
-        <input id="n3" type="text">
+        <label for="n16">Navn på emnet</label>
+        <input id="n16" type="text" aria-describedby="e16">
+        <div class="alert" id="e16" role="alert">Navnet kan ikke være tomt.</div>
       </div>
+      <div class="field">
+        <label for="f16">Notater til emnet (valgfritt)</label>
+        <input id="f16" type="file" accept=".pdf,.docx,.txt" multiple aria-describedby="h16">
+        <span class="hint" id="h16">PDF, DOCX eller TXT. Maks 5 MB per fil.</span>
+      </div>
+      <p class="ai-notice">Innholdet i filene sendes til en ekstern KI-tjeneste for å lage quiz.</p>
       <button class="btn btn-primary" type="submit">Opprett emne</button>
     </form>
-    <div class="alert" role="alert">Navnet kan ikke være tomt.</div>
-    <p class="hint">Har du ingen emner ennå? Opprett ditt første over.</p>
   </div>
 </section>
 
@@ -509,6 +521,7 @@
     <li><a href="#s1">S1 Logg inn</a></li>
     <li><a href="#s2">S2 Registrer</a></li>
     <li><a href="#s3">S3 Oversikt</a></li>
+    <li><a href="#s16">S16 Nytt emne</a></li>
     <li><a href="#s4">S4 Emne</a></li>
     <li><a href="#s5">S5 Vilkår</a></li>
     <li><a href="#s6">S6 Last opp</a></li>

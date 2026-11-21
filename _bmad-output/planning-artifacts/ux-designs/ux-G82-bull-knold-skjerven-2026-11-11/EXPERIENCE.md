@@ -38,6 +38,7 @@ Utseendet står i [DESIGN.md](DESIGN.md). Begrepene følger ordlisten i PRD-en (
 | S6b | Opplasting pågår | «Last opp» på S6 | Filnavn, fremdrift som reiserute og beskjed om å ikke lukke fanen | FR-8 |
 | S6c | Opplasting avbrutt | Fanen lukket eller nettet brutt under opplasting | «Opplastingen ble avbrutt. Filen er ikke lagret.» Ingen notat lagres. | FR-8 |
 | S15 | Personvernserklæring | Lenke på S1 og i S1b | Hva vi lagrer, hvorfor, hvem vi deler med, hvor lenge, og hvilke rettigheter du har | NFR-3 |
+| S16 | Nytt emne | «Nytt emne»-boksen på S3 | Emnenavn, valgfrie notater (som S6) og «Opprett emne». Tomt navn gir feilmelding. | FR-4, FR-8 |
 
 **Navigasjon:** Toppfeltet er mørkt og viser «FåreQuiz» (lenke til S3) til venstre og «Logg ut» til høyre. «Logg ut» vises ikke på S1 og S2. Under toppfeltet står en brødsmulesti, for eksempel «Emner › Webutvikling › HTML-forelesning». Appen har ingen sidemeny og ingen hamburgermeny, fordi strukturen bare er tre nivåer dyp. Når testmodus er på, ligger testmodus-banneret mellom toppfeltet og brødsmulestien på alle sider.
 
