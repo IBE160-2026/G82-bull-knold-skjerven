@@ -475,3 +475,47 @@ body:has(#s2:target) .logout { display: none; }
 }
 .dialog h2 { margin: 0 0 12px; }
 
+
+/* Emnekort på S3: miniatyr av skjermbildet til venstre, tekst til høyre */
+.topic-card {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 16px;
+  margin: 12px 0;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+}
+.topic-card:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-2px); }
+.topic-title { font-size: 1.125rem; margin: 0 0 2px; }
+.thumb {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 120px;
+  padding: 8px;
+  border: 1px solid var(--border-control);
+  border-radius: var(--radius-md);
+  background: var(--surface-muted);
+}
+.thumb i { display: block; height: 8px; border-radius: 4px; background: var(--border-subtle); }
+.thumb i.dark { background: var(--accent-strong); }
+.thumb i.box { height: 14px; background: var(--surface); border: 1px solid var(--border-control); }
+.thumb-tom i.box { border-style: dashed; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
+.tag {
+  padding: 2px 10px;
+  border-radius: 9999px;
+  background: var(--surface-sunken);
+  color: var(--ink-secondary);
+  font-size: 0.875rem;
+}
+.cta { display: inline-block; margin-top: 8px; font-weight: 600; color: var(--accent-strong); }
+@media (prefers-reduced-motion: reduce) {
+  .topic-card { transition: none; }
+  .topic-card:hover { transform: none; }
+}
