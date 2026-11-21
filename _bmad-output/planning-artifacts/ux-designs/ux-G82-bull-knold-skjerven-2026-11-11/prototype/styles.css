@@ -479,13 +479,15 @@ body:has(#s2:target) .logout { display: none; }
 /* Emnekort på S3: miniatyr av skjermbildet til venstre, tekst til høyre */
 .topic-card {
   display: grid;
-  grid-template-columns: 96px 1fr;
+  grid-template-columns: 96px minmax(0, 1fr);
   gap: 16px;
   margin: 12px 0;
-  padding: 16px;
+  padding: 20px;
+  border: 1px solid var(--border-control);
   border-radius: var(--radius-lg);
   background: var(--surface);
   box-shadow: var(--shadow-card);
+  overflow-wrap: anywhere;
   color: var(--ink);
   text-decoration: none;
   transition: transform 150ms ease-out, box-shadow 150ms ease-out;
@@ -523,3 +525,6 @@ body:has(#s2:target) .logout { display: none; }
 .thumb i.feil { background: var(--error); }
 .thumb-ny { align-items: center; justify-content: center; border-style: dashed; }
 .thumb-ny span { font-size: 2rem; line-height: 1; color: var(--accent-strong); font-weight: 700; }
+
+/* Reiserute inne i emnekortet: plass til ballongen over stolpen */
+.topic-card .coverage-bar { margin: 28px 0 8px; }
