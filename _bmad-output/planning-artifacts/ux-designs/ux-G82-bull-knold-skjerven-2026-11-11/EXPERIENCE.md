@@ -22,7 +22,7 @@ Utseendet står i [DESIGN.md](DESIGN.md). Begrepene følger ordlisten i PRD-en (
 |---|---|---|---|---|
 | S1 | Forside og logg inn | Åpne appen uten å være innlogget | Hero med «Registrer deg», tre informasjonskort, og e-post og passord under | FR-2 |
 | S2 | Registrer | Lenke på S1 | Ny konto | FR-1 |
-| S3 | **Emner** (startside) | Innlogging, logoen «FåreQuiz» | Alle emner med dekningsgrad, «Nytt emne» | FR-4, FR-25 |
+| S3 | **Oversikt** (startside) | Innlogging, logoen «FåreQuiz» | Alle emner med dekningsgrad, «Nytt emne» | FR-4, FR-25 |
 | S4 | Emne | Kort på S3 | Notatene i emnet med dekningsgrad, «Last opp notat», «Gi nytt navn», «Slett emne» | FR-5, FR-6, FR-24, FR-25 |
 | S5 | Godta vilkår | «Last opp notat» første gang | Vilkårene og knappen «Godta og fortsett» | FR-7, NFR-9 |
 | S6 | Last opp notat | «Last opp notat» på S4, eller etter S5 | Filvelger, formater og KI-varsel | FR-8 |
@@ -137,7 +137,7 @@ Appen følger WCAG 2.2 nivå A og AA (NFR-8). Kontrastkravene står i DESIGN.md.
 | Skjermbilde | Krav som må sjekkes |
 |---|---|
 | S1 Logg inn, S2 Registrer | Feltene har `<label>` og `autocomplete="email"` / `current-password` / `new-password`. Innliming og passordbehandlere er tillatt, og det er ingen CAPTCHA (3.3.8). Feilmeldinger står over skjemaet, er koblet til feltet med `aria-describedby`, og fokus flyttes til dem (3.3.1). |
-| S3 Emner, S4 Emne | Kortene er lenker med tydelig tekst, for eksempel «Webutvikling, 4 notater, dekningsgrad 62 %». Dekningsstolpen har `role="img"` med prosent i `aria-label`, eller er skjult for skjermleser når prosenten allerede står som tekst (1.1.1). |
+| S3 Oversikt, S4 Emne | Kortene er lenker med tydelig tekst, for eksempel «Webutvikling, 4 notater, dekningsgrad 62 %». Dekningsstolpen har `role="img"` med prosent i `aria-label`, eller er skjult for skjermleser når prosenten allerede står som tekst (1.1.1). |
 | S5 Vilkår | Vilkårene er vanlig tekst på siden, ikke i en rulleboks. Teksten nevner KI-tjenesten (Anthropic), ansvaret for personopplysninger og at quizene kan inneholde feil (FR-7, NFR-9). |
 | S6 Last opp | Filvelgeren har synlig etikett og hjelpetekst om formater og størrelse koblet med `aria-describedby`. Det er ingen dra-og-slipp (2.5.7). Feil meldes med `role="alert"` (4.1.3). |
 | S7 Notat | Radioknappene for vanskelighetsgrad ligger i `<fieldset>` med `<legend>`. Tallfeltet har `min` og `max` og en feilmelding i tekst. Historikken er en ekte `<table>` med `<th scope>` på store skjermer. Låste knapper har `aria-disabled` og en forklaring. |
