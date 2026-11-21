@@ -519,3 +519,7 @@ body:has(#s2:target) .logout { display: none; }
   .topic-card { transition: none; }
   .topic-card:hover { transform: none; }
 }
+
+.thumb i.feil { background: var(--error); }
+.thumb-ny { align-items: center; justify-content: center; border-style: dashed; }
+.thumb-ny span { font-size: 2rem; line-height: 1; color: var(--accent-strong); font-weight: 700; }
