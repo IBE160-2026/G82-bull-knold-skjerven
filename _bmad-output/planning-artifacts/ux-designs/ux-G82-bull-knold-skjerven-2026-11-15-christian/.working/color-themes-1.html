@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FåreQuiz – fargetemaer</title>
+<style>
+/*
+  Fire fargetemaer for FåreQuiz. Kontrast er målt mot hvitt (#FFFFFF) med WCAG-formelen.
+  Krav: tekst minst 4.5:1, grensesnittelementer minst 3:1 (NFR-8).
+
+  A Rolig blå       primær #1D4ED8 (6.70)  hover #1E40AF  valgt-flate #EFF6FF  tekst #0F172A  dempet #475569 (7.58)  kant #CBD5E1  bakgrunn #F8FAFC
+  B Frisk grønn     primær #047857 (5.48)  hover #065F46  valgt-flate #ECFDF5  tekst #0B1F17  dempet #4B5563 (7.56)  kant #D1D5DB  bakgrunn #F6FBF8
+  C Varm oransje    primær #C2410C (5.18)  hover #9A3412  valgt-flate #FFF7ED  tekst #1C1917  dempet #57534E (7.63)  kant #E7E5E4  bakgrunn #FFFBF5
+  D Svart og hvitt  primær #111827 (17.7)  hover #374151  aksent/valgt #6D28D9 (7.10)  valgt-flate #F5F3FF  tekst #111827  dempet #4B5563  kant #E5E7EB  bakgrunn #FFFFFF
+
+  Felles for alle: riktig #15803D (5.02) med hake-ikon, feil #B91C1C (6.47) med kryss-ikon. Aldri bare farge (1.4.1).
+*/
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 24px 16px 48px; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #EEF0F3; color: #111827; line-height: 1.5; }
+h1 { font-size: 1.6rem; margin: 0 0 4px; }
+.lead { margin: 0 0 24px; color: #374151; max-width: 70ch; }
+.grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+
+.theme { background: var(--bg); border-radius: 14px; padding: 20px; border: 1px solid #D1D5DB; color: var(--text); }
+.theme h2 { margin: 0; font-size: 1.25rem; }
+.theme .reg { margin: 2px 0 14px; color: var(--muted); font-size: .95rem; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+.chip { display: flex; align-items: center; gap: 6px; font-size: .75rem; background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 3px 9px 3px 3px; color: #1F2937; }
+.chip i { width: 18px; height: 18px; border-radius: 50%; display: inline-block; border: 1px solid rgba(0,0,0,.12); }
+
+/* Appskisse */
+.app { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--border); }
+.logo { font-weight: 700; color: var(--brand); }
+.bar small { color: var(--muted); }
+.body { padding: 16px; }
+.meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: .85rem; color: var(--muted); margin-bottom: 8px; flex-wrap: wrap; }
+.ai { font-size: .75rem; border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; color: var(--muted); background: var(--bg); }
+.progress { height: 6px; background: var(--border); border-radius: 999px; margin-bottom: 16px; overflow: hidden; }
+.progress span { display: block; height: 100%; width: 30%; background: var(--primary); }
+
+.q { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; font-weight: 600; font-size: 1.05rem; background: var(--surface); }
+.opt { display: flex; gap: 10px; align-items: center; border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; background: var(--surface); }
+.opt .radio { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--muted); flex: none; }
+.opt.sel { border-color: var(--primary); background: var(--selbg); }
+.opt.sel .radio { border-color: var(--primary); box-shadow: inset 0 0 0 4px var(--surface); background: var(--primary); }
+.opt.focus { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.actions { display: flex; justify-content: space-between; margin-top: 14px; gap: 8px; }
+.btn { border-radius: 8px; padding: 10px 18px; font-weight: 600; font-size: .95rem; border: 1.5px solid var(--primary); }
+.btn.primary { background: var(--primary); color: #fff; }
+.btn.primary.hover { background: var(--hover); border-color: var(--hover); }
+.btn.ghost { background: transparent; color: var(--primary); }
+
+.result { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 14px; }
+.result h3 { margin: 0 0 8px; font-size: .9rem; color: var(--muted); font-weight: 600; }
+.row { display: flex; align-items: center; gap: 8px; font-size: .9rem; margin-bottom: 6px; }
+.ok { color: #15803D; font-weight: 600; }
+.bad { color: #B91C1C; font-weight: 600; }
+.cov { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: .9rem; }
+.cov .track { flex: 1; height: 10px; border-radius: 999px; background: var(--border); overflow: hidden; }
+.cov .track span { display: block; height: 100%; width: 35%; background: var(--primary); }
+
+.a { --bg:#F8FAFC; --surface:#FFFFFF; --text:#0F172A; --muted:#475569; --border:#CBD5E1; --primary:#1D4ED8; --hover:#1E40AF; --selbg:#EFF6FF; --focus:#1D4ED8; --brand:#1D4ED8; }
+.b { --bg:#F6FBF8; --surface:#FFFFFF; --text:#0B1F17; --muted:#4B5563; --border:#D1D5DB; --primary:#047857; --hover:#065F46; --selbg:#ECFDF5; --focus:#047857; --brand:#047857; }
+.c { --bg:#FFFBF5; --surface:#FFFFFF; --text:#1C1917; --muted:#57534E; --border:#E7E5E4; --primary:#C2410C; --hover:#9A3412; --selbg:#FFF7ED; --focus:#C2410C; --brand:#C2410C; }
+.d { --bg:#FFFFFF; --surface:#FFFFFF; --text:#111827; --muted:#4B5563; --border:#E5E7EB; --primary:#111827; --hover:#374151; --selbg:#F5F3FF; --focus:#6D28D9; --brand:#111827; }
+.d .opt.sel { border-color: #6D28D9; }
+.d .opt.sel .radio { border-color: #6D28D9; background: #6D28D9; }
+.d .progress span, .d .cov .track span { background: #6D28D9; }
+</style>
+</head>
+<body>
+<h1>FåreQuiz – fire fargetemaer</h1>
+<p class="lead">Samme skjermbilde i fire temaer: et quizspørsmål med tre alternativer, der det andre er valgt og har tastaturfokus. Under ser du resultatet og dekningsgraden. Alle tekstfarger har kontrast på minst 4,5:1 mot hvitt. Riktig og galt vises også med ikon og tekst, ikke bare med farge. Velg ett tema, eller si hva du liker fra flere.</p>
+
+<div class="grid">
+
+<!-- ===== A ===== -->
+<section class="theme a">
+  <h2>A · Rolig blå</h2>
+  <p class="reg">Tillitsfull og ryddig, «skoleverktøy». Blått er trygt og forstyrrer ikke.</p>
+  <div class="chips">
+    <span class="chip"><i style="background:#1D4ED8"></i>primær #1D4ED8 · 6,7:1</span>
+    <span class="chip"><i style="background:#EFF6FF"></i>valgt #EFF6FF</span>
+    <span class="chip"><i style="background:#0F172A"></i>tekst #0F172A</span>
+    <span class="chip"><i style="background:#475569"></i>dempet #475569</span>
+    <span class="chip"><i style="background:#CBD5E1"></i>kant #CBD5E1</span>
+    <span class="chip"><i style="background:#F8FAFC"></i>bakgrunn #F8FAFC</span>
+  </div>
+  <div class="app">
+    <div class="bar"><span class="logo">FåreQuiz</span><small>Webutvikling › HTML</small></div>
+    <div class="body">
+      <div class="meta"><span>Spørsmål 3 av 10 · Middels</span><span class="ai">Laget av KI · kan inneholde feil</span></div>
+      <div class="progress"><span></span></div>
+      <div class="q">Hvilket HTML-element brukes for den viktigste overskriften på en side?</div>
+      <div class="opt"><span class="radio"></span>&lt;header&gt;</div>
+      <div class="opt sel focus"><span class="radio"></span>&lt;h1&gt;</div>
+      <div class="opt"><span class="radio"></span>&lt;title&gt;</div>
+      <div class="actions"><span class="btn ghost">Forrige</span><span class="btn primary">Neste</span></div>
+      <div class="result">
+        <h3>Etter levering</h3>
+        <div class="row"><span class="ok">✓ Riktig</span> Spørsmål 3</div>
+        <div class="row"><span class="bad">✗ Feil</span> Spørsmål 4 · lagt i feilbanken</div>
+        <div class="cov">Dekningsgrad<span class="track"><span></span></span><strong>35 %</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== B ===== -->
+<section class="theme b">
+  <h2>B · Frisk grønn</h2>
+  <p class="reg">Lett og positiv, «fremgang». Grønt gir følelsen av at du lærer noe.</p>
+  <div class="chips">
+    <span class="chip"><i style="background:#047857"></i>primær #047857 · 5,5:1</span>
+    <span class="chip"><i style="background:#ECFDF5"></i>valgt #ECFDF5</span>
+    <span class="chip"><i style="background:#0B1F17"></i>tekst #0B1F17</span>
+    <span class="chip"><i style="background:#4B5563"></i>dempet #4B5563</span>
+    <span class="chip"><i style="background:#D1D5DB"></i>kant #D1D5DB</span>
+    <span class="chip"><i style="background:#F6FBF8"></i>bakgrunn #F6FBF8</span>
+  </div>
+  <div class="app">
+    <div class="bar"><span class="logo">FåreQuiz</span><small>Webutvikling › HTML</small></div>
+    <div class="body">
+      <div class="meta"><span>Spørsmål 3 av 10 · Middels</span><span class="ai">Laget av KI · kan inneholde feil</span></div>
+      <div class="progress"><span></span></div>
+      <div class="q">Hvilket HTML-element brukes for den viktigste overskriften på en side?</div>
+      <div class="opt"><span class="radio"></span>&lt;header&gt;</div>
+      <div class="opt sel focus"><span class="radio"></span>&lt;h1&gt;</div>
+      <div class="opt"><span class="radio"></span>&lt;title&gt;</div>
+      <div class="actions"><span class="btn ghost">Forrige</span><span class="btn primary">Neste</span></div>
+      <div class="result">
+        <h3>Etter levering</h3>
+        <div class="row"><span class="ok">✓ Riktig</span> Spørsmål 3</div>
+        <div class="row"><span class="bad">✗ Feil</span> Spørsmål 4 · lagt i feilbanken</div>
+        <div class="cov">Dekningsgrad<span class="track"><span></span></span><strong>35 %</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== C ===== -->
+<section class="theme c">
+  <h2>C · Varm oransje</h2>
+  <p class="reg">Energisk og vennlig, «la oss øve». Mer personlighet uten å bli fancy.</p>
+  <div class="chips">
+    <span class="chip"><i style="background:#C2410C"></i>primær #C2410C · 5,2:1</span>
+    <span class="chip"><i style="background:#FFF7ED"></i>valgt #FFF7ED</span>
+    <span class="chip"><i style="background:#1C1917"></i>tekst #1C1917</span>
+    <span class="chip"><i style="background:#57534E"></i>dempet #57534E</span>
+    <span class="chip"><i style="background:#E7E5E4"></i>kant #E7E5E4</span>
+    <span class="chip"><i style="background:#FFFBF5"></i>bakgrunn #FFFBF5</span>
+  </div>
+  <div class="app">
+    <div class="bar"><span class="logo">FåreQuiz</span><small>Webutvikling › HTML</small></div>
+    <div class="body">
+      <div class="meta"><span>Spørsmål 3 av 10 · Middels</span><span class="ai">Laget av KI · kan inneholde feil</span></div>
+      <div class="progress"><span></span></div>
+      <div class="q">Hvilket HTML-element brukes for den viktigste overskriften på en side?</div>
+      <div class="opt"><span class="radio"></span>&lt;header&gt;</div>
+      <div class="opt sel focus"><span class="radio"></span>&lt;h1&gt;</div>
+      <div class="opt"><span class="radio"></span>&lt;title&gt;</div>
+      <div class="actions"><span class="btn ghost">Forrige</span><span class="btn primary">Neste</span></div>
+      <div class="result">
+        <h3>Etter levering</h3>
+        <div class="row"><span class="ok">✓ Riktig</span> Spørsmål 3</div>
+        <div class="row"><span class="bad">✗ Feil</span> Spørsmål 4 · lagt i feilbanken</div>
+        <div class="cov">Dekningsgrad<span class="track"><span></span></span><strong>35 %</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== D ===== -->
+<section class="theme d">
+  <h2>D · Svart og hvitt</h2>
+  <p class="reg">Minimalistisk og rask, «bare innholdet». Svarte knapper, lilla bare for valg og fokus.</p>
+  <div class="chips">
+    <span class="chip"><i style="background:#111827"></i>primær #111827 · 17,7:1</span>
+    <span class="chip"><i style="background:#6D28D9"></i>aksent #6D28D9 · 7,1:1</span>
+    <span class="chip"><i style="background:#F5F3FF"></i>valgt #F5F3FF</span>
+    <span class="chip"><i style="background:#4B5563"></i>dempet #4B5563</span>
+    <span class="chip"><i style="background:#E5E7EB"></i>kant #E5E7EB</span>
+    <span class="chip"><i style="background:#FFFFFF"></i>bakgrunn #FFFFFF</span>
+  </div>
+  <div class="app">
+    <div class="bar"><span class="logo">FåreQuiz</span><small>Webutvikling › HTML</small></div>
+    <div class="body">
+      <div class="meta"><span>Spørsmål 3 av 10 · Middels</span><span class="ai">Laget av KI · kan inneholde feil</span></div>
+      <div class="progress"><span></span></div>
+      <div class="q">Hvilket HTML-element brukes for den viktigste overskriften på en side?</div>
+      <div class="opt"><span class="radio"></span>&lt;header&gt;</div>
+      <div class="opt sel focus"><span class="radio"></span>&lt;h1&gt;</div>
+      <div class="opt"><span class="radio"></span>&lt;title&gt;</div>
+      <div class="actions"><span class="btn ghost">Forrige</span><span class="btn primary">Neste</span></div>
+      <div class="result">
+        <h3>Etter levering</h3>
+        <div class="row"><span class="ok">✓ Riktig</span> Spørsmål 3</div>
+        <div class="row"><span class="bad">✗ Feil</span> Spørsmål 4 · lagt i feilbanken</div>
+        <div class="cov">Dekningsgrad<span class="track"><span></span></span><strong>35 %</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

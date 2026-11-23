@@ -59,3 +59,7 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# Django: lokal database og opplastede filer
+db.sqlite3
+media/

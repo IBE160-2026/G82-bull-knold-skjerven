@@ -1,0 +1,25 @@
+# Åpne punkter
+
+- [ ] 2026-10-28 [product-brief-v2](999-2026-10-28-19-22-39-product-brief-v2.md) — Christians v2-utkast nevner fortsatt Henrik L Knold som medlem (fjernet fra README)
+- [ ] 2026-10-28 [product-brief-v2](999-2026-10-28-19-22-39-product-brief-v2.md) — Slå sammen v2-utkastene (Christian, Magnus) til én felles brief
+- [x] 2026-10-28 [product-brief-v2](999-2026-10-28-19-22-39-product-brief-v2.md) — Bekreft innleveringsfrist (antatt 15. desember 2026) (løst 2026-11-20: 15.12.2026 kl. 15:00, står i PRD-en)
+- [ ] 2026-10-28 [product-brief-v2](999-2026-10-28-19-22-39-product-brief-v2.md) — Sett grenser for filstørrelse, sider, antall spørsmål og tidsgrense for generering
+- [ ] 2026-10-28 [product-brief-v2](999-2026-10-28-19-22-39-product-brief-v2.md) — Avgjør om ubesvarte spørsmål hindrer levering eller telles som feil
+- [ ] 2026-10-28 [product-brief-v2](999-2026-10-28-19-22-39-product-brief-v2.md) — Velg mellom Sonnet 5.5 og Haiku 5.5 ut fra kvalitetssjekken
+- [ ] 2026-10-28 [product-brief-v2](999-2026-10-28-19-22-39-product-brief-v2.md) — Bestem testdokumenter som kan brukes uten å bryte opphavsrett
+- [ ] 2026-11-15 [ux-design-christian](998-2026-11-15-13-51-39-ux-design-christian.md) — Avklar antakelsene i Christians EXPERIENCE.md (quiz etter generering, enkle skjemaer, testmodus-stripe, meldinger ved lagringsfeil/tom feilbank)
+- [x] 2026-11-15 [ux-design-christian](998-2026-11-15-13-51-39-ux-design-christian.md) — Velg CSS-rammeverk (vanlig CSS eller Tailwind) for Christians UX-versjon (løst 2026-11-15: Tailwind v4, se arkitektur)
+- [ ] 2026-11-15 [ux-design-christian](998-2026-11-15-13-51-39-ux-design-christian.md) — Sammenlign Christians UX med gruppeversjonen og bestem hva som går inn i felles UX
+- [ ] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Oppdater PRD: presiser FR-25 (notat uten quiz utenfor emnets snitt) og legg til begrunnelse per spørsmål
+- [x] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Avklar faglærers PRD-punkter 4.1 (melde spørsmål som feil) og 4.4 (kuttrekkefølge) før epics (løst 2026-11-16: FR-31 «kan kuttes» og faglærers kuttrekkefølge, se epics)
+- [ ] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Oppdater Christians DESIGN.md: CSS-rammeverk er Tailwind v4 (@theme)
+- [ ] 2026-11-15 [arkitektur](997-2026-11-15-14-58-45-arkitektur.md) — Mål genereringstid og sett effort i testfasen mot grensen på 120 s
+- [ ] 2026-11-16 [epics-og-stories](996-2026-11-16-15-44-51-epics-og-stories.md) — Oppdater PRD med FR-31 og arkitekturen (AD-3, AD-4, AD-16) med meldte spørsmål før story 4.3
+- [ ] 2026-11-16 [epics-og-stories](996-2026-11-16-15-44-51-epics-og-stories.md) — Avklar hvem som har API-nøkkel og kjører lag_mocksvar én gang (story 2.2)
+- [ ] 2026-11-16 [epics-og-stories](996-2026-11-16-15-44-51-epics-og-stories.md) — Bestem ordlyden på hjelpeteksten om at dekningsgraden kan gå ned (story 5.1)
+- [ ] 2026-11-20 [review-epics](995-2026-11-20-12-21-54-review-epics.md) — Oppdater PRD: FR-20 flyttet fra «bør» til «kjerne»
+- [ ] 2026-11-20 [review-epics](995-2026-11-20-12-21-54-review-epics.md) — Oppdater AD-9 (stegendepunktet er POST, siste steg oppretter økten med HX-Redirect) og legg Sporsmal.meldt_tidspunkt inn i datamodellen
+- [ ] 2026-11-20 [review-epics](995-2026-11-20-12-21-54-review-epics.md) — Behandle gjenstående review-funn i epics (adversarial 7–16, edge-case, structure, prose)
+- [ ] 2026-11-20 [sprint-planning](994-2026-11-20-12-27-06-sprint-planning.md) — Avklar med gruppa at Christians arkitektur og epics er grunnlaget for sprinten før story 1.1
+- [ ] 2026-11-20 [story-1-1-prosjektskjelett](993-2026-11-20-13-20-29-story-1-1-prosjektskjelett.md) — Sjekk at CI-workflowen blir grønn ved første PR mot main
+- [ ] 2026-11-20 [story-1-1-prosjektskjelett](993-2026-11-20-13-20-29-story-1-1-prosjektskjelett.md) — Story 1.4: sammenlign emnenavn med casefold() i Python (SQLite LOWER er bare ASCII)
