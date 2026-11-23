@@ -7,21 +7,22 @@ paradigm: 'Lagdelt Django-monolitt med tjenestelag (views → services → model
 scope: 'Hele FåreQuiz v1: konto, emner, opplasting, generering, quiz, feilbank, progresjon, testmodus og lokal kjøring'
 status: final
 created: '2026-11-15'
-updated: '2026-11-16'
+updated: '2026-11-23'
 author: Christian
 binds: [FR-1, FR-2, FR-3, FR-4, FR-5, FR-6, FR-7, FR-8, FR-9, FR-11, FR-12, FR-13, FR-14, FR-15, FR-16, FR-17, FR-18, FR-19, FR-20, FR-21, FR-22, FR-23, FR-24, FR-25, FR-26, FR-27, FR-28, FR-29, FR-30, NFR-1, NFR-2, NFR-3, NFR-4, NFR-5, NFR-6, NFR-7, NFR-8, NFR-9]
 sources:
   - ../../prds/prd-G82-bull-knold-skjerven-2026-11-11/prd.md
   - ../../prds/prd-G82-bull-knold-skjerven-2026-11-11/addendum.md
   - ../../prds/prd-G82-bull-knold-skjerven-2026-11-11/tilbakemelding-prd.md
-  - ../../ux-designs/ux-G82-bull-knold-skjerven-2026-11-15-christian/EXPERIENCE.md
-  - ../../ux-designs/ux-G82-bull-knold-skjerven-2026-11-15-christian/DESIGN.md
+  - ../../ux-designs/ux-G82-bull-knold-skjerven-2026-11-11/EXPERIENCE.md
+  - ../../ux-designs/ux-G82-bull-knold-skjerven-2026-11-11/DESIGN.md
+  - ../../sprint-change-proposal-2026-11-23.md
 companions: []
 ---
 
 # Arkitektur-spine – FåreQuiz v1
 
-Christians individuelle versjon, laget med `bmad-architecture` på grunnlag av PRD-en og Christians UX-versjon (15.11).
+Christians individuelle versjon, laget med `bmad-architecture` på grunnlag av PRD-en og Christians UX-versjon (15.11). **Endret 23.11:** UX-kilden er Martins design (ux-G82-bull-knold-skjerven-2026-11-11), som gruppa valgte som felles UX. Endringene er AD-8 (personvernerklæringen er offentlig), AD-13 (JavaScript-forbedringer), den nye AD-23 og konvensjonene for URL-er og CSS, se [sprint-change-proposal-2026-11-23.md](../../sprint-change-proposal-2026-11-23.md).
 
 ## Designparadigme
 
@@ -116,7 +117,7 @@ flowchart TD
   - **Hjelpere:** `studier/tilgang.py` har `hent_egen(modell, pk, bruker)` og `egne(modell, bruker)`. Begge gir `Http404` for andres data.
   - **Veien til eieren:** står bare her: `notat__emne__eier` for `Okt`, `okt__notat__emne__eier` for `Svar`, og tilsvarende for de andre modellene.
   - **Alle ID-er:** ID-er fra URL, GET og POST løses med hjelperne, eller valideres mot et objekt som allerede er hentet med dem. Querysets i skjemaer bygges med `egne`. Et rått oppslag på pk i views er forbudt.
-  - **Innlogging:** håndheves med `LoginRequiredMiddleware`. Bare innlogging og registrering har `@login_not_required`.
+  - **Innlogging:** håndheves med `LoginRequiredMiddleware`. Bare innlogging, registrering og personvernerklæringen (S15) har `@login_not_required`. Vilkårene håndheves i tillegg av AD-23.
   - **Originalfiler:** serveres aldri over HTTP. Det finnes ingen URL-rute til `MEDIA_ROOT`.
 
 ### AD-9 – Generering er en stegvis HTMX-kjede med en jobbrad
@@ -182,7 +183,7 @@ stateDiagram-v2
 
 - **Binds:** FR-17, FR-18, NFR-8
 - **Prevents:** At deler av quizflyten krever JS mens andre ikke gjør det.
-- **Rule:** Neste, Forrige og Lever er POST-skjemaer mot `/okter/<id>/sporsmal/<nr>/` og `/okter/<id>/lever/`, og de virker uten JavaScript. HTMX kan legges på, men skal treffe de samme endepunktene, og en mislykket lagring viser feilmeldingen ved knappen. Bare genereringskjeden (AD-9) krever JavaScript.
+- **Rule:** Neste, Forrige og Lever er POST-skjemaer mot `/okter/<id>/sporsmal/<nr>/` og `/okter/<id>/lever/`, og de virker uten JavaScript. HTMX kan legges på, men skal treffe de samme endepunktene, og en mislykket lagring viser feilmeldingen ved knappen. Bare genereringskjeden (AD-9) krever JavaScript. Opplastingsfremdriften (S6b) og fokusfellen i personvern-dialogen (S1b) er forbedringer. Uten JavaScript sendes skjemaene på vanlig måte.
 
 ### AD-14 – Sletting skjer bare via emnet
 
@@ -254,6 +255,16 @@ stateDiagram-v2
   - **Oppstart:** README og koden bruker nøyaktig disse stegene: `uv sync` (eller `pip install -r requirements.txt`), `python manage.py migrate`, `python manage.py seed_testdata`, `python manage.py runserver`.
   - **Mobiltest:** `ALLOWED_HOSTS` kan utvides i `.env` for testing fra mobil på samme nett. Dette er ikke hosting.
 
+### AD-23 – Vilkår godtas ved første innlogging
+
+- **Binds:** FR-7, NFR-3, NFR-9
+- **Prevents:** At vilkårene sjekkes forskjellig på ulike sider, og at en fil lastes opp før vilkårene er godtatt.
+- **Rule:**
+  - **Mellomvare:** `VilkarMiddleware` ligger etter `LoginRequiredMiddleware`. En innlogget bruker med tom `vilkar_godtatt` sendes til `/vilkar/` (S1b) med `next`. Unntatt er `/vilkar/`, `/personvern/`, utlogging og statiske filer.
+  - **Godta:** POST på `/vilkar/` kaller `studier.services.vilkar.godta_vilkar(bruker)`, som setter tidspunktet, og sender brukeren til `next`. Dette er eneste sted som skriver `vilkar_godtatt` (AD-1).
+  - **Kontroll:** `services.notater.last_opp` avviser opplasting når `vilkar_godtatt` er tom, også når mellomvaren er omgått.
+  - **Uten JavaScript:** `/vilkar/` er en vanlig side. JavaScript gjør den til en modal med `aria-modal` og fokusfelle.
+
 ## Konsistenskonvensjoner
 
 | Område | Konvensjon |
@@ -261,7 +272,7 @@ stateDiagram-v2
 | Navn i kode | Norske identifikatorer uten æ, ø og å (`Sporsmal`, `Okt`, `Feilbankrad`, `vilkar_godtatt`). Ord fra PRD-ens ordliste brukes med samme betydning. |
 | Navn i grensesnitt | Norsk med æ, ø og å, ordene fra ordlisten, tone etter EXPERIENCE.md. |
 | Faste verdier | `vanskelighetsgrad` ∈ {`lett`, `middels`, `vanskelig`}. Andre faste verdier er definert i AD-ene. Alle lagres som `TextChoices`. |
-| URL-er | `/emner/<id>/`, `/notater/<id>/`, `/quizer/<id>/`, `/okter/<id>/sporsmal/<nr>/`, `/okter/<id>/lever/`, `/okter/<id>/resultat/`, `/jobber/<id>/steg/`. Heltalls-pk. |
+| URL-er | `/` (S3 Oversikt), `/emner/ny/` (S16), `/emner/<id>/`, `/emner/<id>/last-opp/` (S5/S6), `/emner/<id>/slett/` (S13), `/notater/<id>/`, `/quizer/<id>/`, `/jobber/<id>/` (S8), `/jobber/<id>/steg/`, `/okter/<id>/sporsmal/<nr>/`, `/okter/<id>/lever/` (GET viser S10, POST leverer), `/okter/<id>/resultat/`, `/vilkar/` (S1b), `/personvern/` (S15). S-numrene viser til EXPERIENCE.md. Heltalls-pk. |
 | Tid og språk | Lagres i UTC (`USE_TZ=True`) og vises i `Europe/Oslo`. Sidens `lang="nb"`. Spørsmål og alternativer får `lang="{{ quiz.sprak }}"` når språket ikke er norsk. |
 | Brukerendringer | Skjema → tjeneste → redirect (POST/redirect/GET). HTMX-svar er fragmenter i `templates/<app>/_<navn>.html`. CSRF-token sendes i `hx-headers` på `<body>`. |
 | Feilmeldinger | Tekster i `farequiz/feilmeldinger.py`. Plassering og roller etter EXPERIENCE.md. |
@@ -269,7 +280,7 @@ stateDiagram-v2
 | Logging | Djangos standard logging til konsollen. Feilede jobber logges med jobb-ID og feilkode, aldri med filinnhold. |
 | Migreringer | Alle modeller i AD-6, AD-7, AD-9, AD-14 og AD-15 lages i første story. Migreringer committes. Ved konflikt lages din egen migrering som ikke er merget, på nytt etter rebase. |
 | Tester | `manage.py test` med testmodus tvunget på. Regneeksemplene i FR-24 og FR-25 er testtilfeller. En test sjekker at quizsiden ikke skiller ut det riktige alternativet (AD-20). |
-| CSS og JS | Tailwind v4: `static/src/app.css` (`@theme` med tokens fra DESIGN.md) bygges med `tailwindcss -i static/src/app.css -o static/css/app.css --minify`, og resultatet committes. htmx ligger som `static/js/htmx.min.js`, aldri via CDN. |
+| CSS og JS | Tailwind v4: `static/src/app.css` (`@theme` med tokens fra Martins DESIGN.md) bygges med `tailwindcss -i static/src/app.css -o static/css/app.css --minify`, og resultatet committes. htmx ligger som `static/js/htmx.min.js`, aldri via CDN. `favicon.svg` og `kart.svg` fra prototypen ligger i `static/img/`. |
 | Avhengigheter | `uv add`, og `uv export --no-hashes -o requirements.txt` ved hver endring. |
 | CI og kodestil | `.github/workflows/test.yml` kjører `ruff check`, `ruff format --check` og `manage.py test` (testmodus, uten nøkkel) på hver pull request mot `main`. Rød CI merges ikke. Lages i første story. |
 
@@ -299,7 +310,7 @@ G82-bull-knold-skjerven/
   kontoer/             # Bruker, BrukerManager, innlogging, registrering
   studier/
     models.py          # Emne, Notat, Quiz, Sporsmal, Alternativ, Okt, Svar, Feilbankrad, Genereringsjobb
-    services/          # notater, generering, okter, feilbank, dekningsgrad, emner
+    services/          # notater, generering, okter, feilbank, dekningsgrad, emner, vilkar
     tilgang.py
     management/commands/seed_testdata.py
   ki/
@@ -348,7 +359,7 @@ flowchart LR
 | Konto og innlogging (FR-1, FR-2) | `kontoer` | AD-8, AD-15 |
 | Bare egne data (FR-3) | `studier/tilgang.py` | AD-8 |
 | Emner (FR-4–FR-6) | `studier`, `services/emner` | AD-1, AD-14 |
-| Vilkår og opplasting (FR-7, FR-8) | `services/notater` | AD-1, AD-14, AD-15 |
+| Vilkår og opplasting (FR-7, FR-8) | `services/vilkar`, `services/notater` | AD-1, AD-14, AD-15, AD-23 |
 | Lese fil og generere (FR-9, FR-11–FR-16) | `services/generering`, `ki` | AD-9, AD-10, AD-11, AD-19 |
 | Ta quiz (FR-17–FR-20) | `services/okter` | AD-6, AD-7, AD-13, AD-16–AD-18, AD-20 |
 | Feilbank og Øv på feil (FR-21–FR-23) | `services/feilbank`, `services/okter` | AD-2, AD-3, AD-5, AD-16, AD-20 |

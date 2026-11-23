@@ -1,6 +1,6 @@
 ---
 name: FåreQuiz
-status: final
+status: arkivert
 created: 2026-11-15
 updated: 2026-11-15
 author: Christian
