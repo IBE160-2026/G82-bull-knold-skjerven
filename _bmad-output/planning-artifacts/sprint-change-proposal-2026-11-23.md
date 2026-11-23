@@ -266,11 +266,13 @@ Alle står i `backlog`, så ingen storyfiler må flyttes.
   - sprint-status har de nye nøklene
   - CI er grønn
 
-## 6. Åpne spørsmål til gruppa
+## 6. Spørsmål til gruppa (avgjort 23.11)
 
-1. **«Øv på feil»-kortet på S3 i prototypen:** feilbanken er per notat (PRD og AD-16), og en øvingsøkt hører til ett notat. Forslag: kortet tas ikke med i v1, eller det lenker til notatet med flest spørsmål i feilbanken. Det er ikke tatt inn i UX-DR-ene.
-2. **«Første gang» for S5:** forslaget tolker det som «brukeren har ingen notater ennå». Da trengs ikke noe nytt felt.
-3. **EXPERIENCE.md:** testseksjonen sier «alle 14 skjermbildene», men designet har nå 16 skjermbilder pluss S1b, S6b og S6c. Bør rettes i Martins dokument.
+Gruppa godtok forslagene 23.11:
+
+1. **«Øv på feil»-kortet på S3 i prototypen** er ikke med i v1. Feilbanken er per notat (PRD og AD-16), og en øvingsøkt gjelder ett notat. Kortet er fjernet fra prototypen, valget står under «Valgt bort» i EXPERIENCE.md, og story 1.4 og UX-DR25 sier det.
+2. **«Første gang» for S5** betyr «brukeren har ingen notater ennå». Det trengs ikke noe nytt felt. Står i EXPERIENCE.md, UX-DR16 og story 2.3.
+3. **Testseksjonen i EXPERIENCE.md** viser nå til alle skjermbildene: S1–S16, S1b, S6b og S6c.
 
 ## Sjekkliste
 
@@ -280,7 +282,7 @@ Alle står i `backlog`, så ingen storyfiler må flyttes.
 | 2 Epics | [x] Ingen epics legges til eller fjernes. Fire storytitler endres. Rekkefølgen er uendret |
 | 3.1 PRD | [N/A] Ingen konflikt. FR-7 oppfylles strengere |
 | 3.2 Arkitektur | [x] A1–A5 gjennomført |
-| 3.3 UX | [x] Christians mappe er arkivert. [!] Tre åpne spørsmål (kap. 6) |
+| 3.3 UX | [x] Christians mappe er arkivert, og de tre spørsmålene er avgjort (kap. 6) |
 | 3.4 Andre artefakter | [x] CI og koden i story 1.1 er uendret |
 | 4 Vei videre | [x] Direkte justering |
 | 5 Forslag | [x] Dette dokumentet |

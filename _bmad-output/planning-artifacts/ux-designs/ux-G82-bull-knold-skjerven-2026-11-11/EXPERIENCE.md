@@ -2,7 +2,7 @@
 name: FåreQuiz
 status: final
 created: 2026-11-11
-updated: 2026-11-11
+updated: 2026-11-23
 sources:
   - ../../prds/prd-G82-bull-knold-skjerven-2026-11-11/prd.md
   - ../../prds/prd-G82-bull-knold-skjerven-2026-11-11/addendum.md
@@ -24,7 +24,7 @@ Utseendet står i [DESIGN.md](DESIGN.md). Begrepene følger ordlisten i PRD-en (
 | S2 | Registrer | Lenke på S1 | Ny konto | FR-1 |
 | S3 | **Oversikt** (startside) | Innlogging, logoen «FåreQuiz» | Alle emner med dekningsgrad, «Nytt emne» | FR-4, FR-25 |
 | S4 | Emne | Kort på S3 | Notatene i emnet med dekningsgrad, «Last opp notat», «Gi nytt navn», «Slett emne» | FR-5, FR-6, FR-24, FR-25 |
-| S5 | Vilkår (kort) | «Last opp notat» første gang | Bekrefter at vilkårene er godtatt ved innlogging, og lenke til S15 | FR-7, NFR-9 |
+| S5 | Vilkår (kort) | «Last opp notat» første gang, det vil si når brukeren ikke har noen notater ennå | Bekrefter at vilkårene er godtatt ved innlogging, og lenke til S15 | FR-7, NFR-9 |
 | S6 | Last opp notat | «Last opp notat» på S4, eller etter S5 | Filvelger, formater og KI-varsel | FR-8 |
 | S7 | **Notat** | Kort på S4, eller etter opplasting | Dekningsgrad per nivå, «Øv på feil», «Lag ny quiz», quizlisten og historikken | FR-11, FR-16, FR-22, FR-24, FR-26 |
 | S8 | Generering | «Lag quiz» på S7 | Stegene i fremdriften, timeout og «Prøv igjen» | FR-12 til FR-15 |
@@ -149,7 +149,7 @@ Appen følger WCAG 2.2 nivå A og AA (NFR-8). Kontrastkravene står i DESIGN.md.
 | S13 Slett emne | Siden sier nøyaktig hva som slettes, for eksempel «4 notater, 9 quizer og all historikk». «Avbryt» kommer før «Slett» i tab-rekkefølgen. |
 | S14 Ikke funnet | Siden har en h1 «Fant ikke siden» og en lenke til Emner. Den sier ikke om dataene finnes (FR-3). |
 
-**Test (SM-7):** axe DevTools eller Lighthouse kjøres på alle 14 skjermbildene. Deretter testes kjerneflyten UJ-1 manuelt, med bare tastatur og med skjermleser (NVDA på Windows eller VoiceOver på mobil).
+**Test (SM-7):** axe DevTools eller Lighthouse kjøres på alle skjermbildene: S1–S16, S1b, S6b og S6c. Deretter testes kjerneflyten UJ-1 manuelt, med bare tastatur og med skjermleser (NVDA på Windows eller VoiceOver på mobil).
 
 ## Responsivt og plattform
 
@@ -167,6 +167,7 @@ Gruppa har ikke nevnt forbilder. Det som er valgt bort, følger av ordene «effe
 - **Valgt bort: konfetti, lyder og maskoter.** Fremgangen vises med markører som peker mot «lært» (FR-23), ikke med belønninger som ikke har med læringen å gjøre. Designet er ikke begrunnet i PRD-en, men er en designbeslutning, og den kan endres av gruppa.
 - **Valgt bort: tidsgrense per spørsmål.** Den gir stress, er et WCAG-problem (2.2.1) og passer ikke med at Tore skal kunne bli avbrutt.
 - **Valgt bort: alle spørsmål på én side.** Gruppa valgte ett spørsmål om gangen, fordi det passer bedre på mobil.
+- **Valgt bort i v1: «Øv på feil»-kort på S3.** Feilbanken hører til hvert notat (PRD og arkitekturen, AD-16), og en øvingsøkt gjelder ett notat. «Øv på feil» startes derfor fra notatet (S7) og fra resultatet (S11). Avgjort 23.11.2026.
 
 ## Nøkkelflyter
 
