@@ -26,6 +26,6 @@
 - [x] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — tilpasse arkitektur (kilder) og epics (UX-DR og berørte stories) til Martins design, før story 1.3 (løst 2026-11-23: PR #3)
 - [x] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — bestemme hva som skjer med Christians UX-mappe (arkiv eller fjerne) (løst 2026-11-23: arkivert)
 - [ ] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — Christian går gjennom arkitektur og epics i PR #3, og Martin sjekker UX-DR-ene
-- [ ] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa avgjør «Øv på feil»-kortet på S3 i prototypen (forslag: ikke med i v1)
-- [ ] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa bekrefter at «første gang» for S5 betyr «ingen notater ennå»
-- [ ] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — EXPERIENCE.md sier «alle 14 skjermbildene», men designet har nå flere
+- [x] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa avgjør «Øv på feil»-kortet på S3 i prototypen (forslag: ikke med i v1) (løst 2026-11-23: PR #4)
+- [x] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa bekrefter at «første gang» for S5 betyr «ingen notater ennå» (løst 2026-11-23: PR #4)
+- [x] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — EXPERIENCE.md sier «alle 14 skjermbildene», men designet har nå flere (løst 2026-11-23: PR #4)
