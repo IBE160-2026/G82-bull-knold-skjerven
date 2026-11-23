@@ -8,19 +8,26 @@ sources:
   - ../../prds/prd-G82-bull-knold-skjerven-2026-11-11/prd.md
   - ../../prds/prd-G82-bull-knold-skjerven-2026-11-11/addendum.md
 colors:
-  # Gråtoner fra Tailwinds gray-skala. Kontrast er målt mot surface (#FFFFFF).
-  surface: '#FFFFFF'
-  surface-muted: '#F9FAFB'        # gray-50, sidebakgrunn bak kort
-  surface-sunken: '#F3F4F6'       # gray-100, KI-merke, testmodus-banner
-  border-subtle: '#E5E7EB'        # gray-200, 1.24:1, bare til pynt (skillelinjer)
-  border-control: '#6B7280'       # gray-500, 4.83:1, kanter på inndatafelt og alternativer
-  ink: '#111827'                  # gray-900, 17.7:1
-  ink-secondary: '#4B5563'        # gray-600, 7.6:1
-  accent: '#D97757'               # Claude-oransje, 3.12:1, bare til flater, ikoner og stor tekst
-  accent-strong: '#B85636'        # 4.75:1, knapper, lenker, fokusring, dekningsstolpe
-  accent-hover: '#9C4A2B'         # 6.13:1, hover og trykk
-  success: '#15803D'              # green-700, 5.02:1
-  error: '#B91C1C'                # red-700, 6.47:1
+  # Varm palett: sand, krem og espressobrun, med kaffebrun som hovedfarge og latte som detalj.
+  # Kontrast er målt mot surface (#FAF7F2).
+  surface: '#FAF7F2'               # kremhvit, kort og flashcard. 15.25:1 for ink
+  surface-muted: '#F5EFE6'        # svak variasjon, bakgrunn i tallfelt og bak hover
+  surface-sunken: '#E3D6C2'       # KI-merke og testmodus-banner. 6.10:1 for ink-secondary
+  page-bg: '#EFE6D8'              # varm sand for hele siden, med prikkemønster
+  border-subtle: '#DFD2BE'        # skillelinjer, prikkemønster og kortkanter, bare til pynt
+  border-control: '#5C3A21'       # 9.44:1 mot surface. Kanter på inndatafelt og alternativer
+  ink: '#2B1D14'                  # espressobrun, 15.25:1 mot surface
+  ink-secondary: '#5E4636'        # 8.17:1 mot surface
+  accent: '#D5BC96'               # latte, bare dekor, hover-bakgrunn og merke. Aldri tekst eller fremdrift
+  accent-strong: '#5C3A21'        # kaffebrun, knapper, lenker, fokus, fremdrift og valgt alternativ. 9.44:1
+  accent-hover: '#3E2716'         # 13.04:1 mot surface, hover og trykk på knapper
+  card-hover: '#D5BC96'           # latte, bakgrunn på svaralternativ ved hover. 8.90:1 med ink
+  success: '#3F624D'              # salvie, 6.41:1 mot surface. Riktig svar, med ✓
+  error: '#A34420'                # terrakotta, 5.77:1 mot surface og 6.17:1 med hvit tekst. Feil svar, med ✕
+  surface-inverse: '#2B1D14'      # espressobrun, toppfelt og tallfliser. Ingen mørk modus i v1
+  ink-inverse: '#FAF7F2'          # 15.25:1 mot surface-inverse
+  ink-inverse-secondary: '#D5BC96' # 8.90:1 mot surface-inverse
+  focus-inverse: '#D5BC96'        # latte, 8.90:1 mot surface-inverse, fokusring i toppfeltet
 typography:
   # Systemfonter (Tailwinds font-sans). Ingen nettfonter, så appen virker uten nett.
   page-title:
@@ -120,26 +127,31 @@ components:
     offset: 2px
 ---
 
-## Brand & Style
+## Merkevare og stil
 
-FåreQuiz skal føles **effektiv, enkel og seriøs**. Den er et arbeidsverktøy for studenter som skal lære noe, ikke et spill. Flatene er hvite og gråtonede, og det er mye luft rundt innholdet. Én varm aksentfarge viser hva som er neste handling og hvor langt studenten har kommet. Det er ingen konfetti, maskoter, streaker eller feiringer. Fremgangen er belønningen.
+FåreQuiz skal føles **effektiv, enkel og seriøs, med litt mer liv enn et skjema**. Den er et verktøy for studenter som skal lære noe. Flatene er kremhvite og varme beige, og det er mye luft rundt innholdet. Terrakotta viser hva som er neste handling, og ochre gir små lekne detaljer. Startsiden peker alltid mot det neste studenten kan gjøre. Det er ingen konfetti eller maskoter. Fremgangen vises med tydelige markører, for eksempel lært-prikkene under «Øv på feil».
+
+Tema: oppdagelsesreise og kart. Temaet er kjønnsnøytralt, pedagogisk og eventyrlystent, og det passer med de beige og brune jordfargene. Det viser seg i kartlinjene, ruten og fåret i ballongen.
 
 Appen bruker Tailwind CSS i Django-maler og arver Tailwinds standarder for farger, avstand og skygger. Dette dokumentet beskriver bare avvikene: aksentfargen, typografien, minstestørrelser og noen få egne komponenter. Den ferdige CSS-filen fra Tailwind committes i repoet, slik at sensor ikke trenger Node eller et byggesteg.
 
-## Colors
+## Farger
 
-Paletten er hvit og grå med én aksentfarge.
+Paletten er varm og holder seg til sand, krem og brunt. Kaffebrun er hovedfargen, latte er detaljen, og terrakotta og salvie brukes bare til tilbakemelding om svar. Den erstatter den kalde grå-, svarte og grønne fargen, og den er valgt for å være varm og innbydende.
 
-- **Hvit (`{colors.surface}`)** er bakgrunnen for alt innhold. **Gray-50 (`{colors.surface-muted}`)** brukes bak kort på emne- og notatsidene, slik at kortene skiller seg ut uten skygge.
-- **Claude-oransje (`{colors.accent}`, `#D97757`)** er aksentfargen. Kontrasten mot hvitt er 3,1:1, så den brukes **bare** til flater, ikoner, store tall og den tynne linjen under testmodus-banneret. Den brukes aldri til vanlig tekst.
-- **Mørk oransje (`{colors.accent-strong}`, `#B85636`)** er den brukbare varianten med 4,75:1. Den brukes på hovedknapper (hvit tekst), lenker, fokusringen, valgt svaralternativ og dekningsstolpen. Ved hover blir den **`{colors.accent-hover}`**.
-- **Tekst:** Vanlig tekst bruker `{colors.ink}`. Hjelpetekst og metadata som dato, antall og modellnavn bruker `{colors.ink-secondary}`, med 7,6:1.
-- **Kanter:** Inndatafelt og svaralternativer bruker `{colors.border-control}` (4,8:1), fordi WCAG 1.4.11 krever minst 3:1 for kanter som viser hvor man kan klikke. `{colors.border-subtle}` brukes bare til skillelinjer og kortkanter som ikke er klikkbare.
-- **Riktig og feil:** `{colors.success}` og `{colors.error}` brukes bare i resultater og feilmeldinger, og alltid sammen med ikon og tekst.
+- **Tonet bakgrunn (`{colors.page-bg}`)** er bakgrunnen for siden, fra topp til bunn. Den har svake høydekoter i `{colors.border-subtle}` (`kart.svg`), en stiplet rute i `{colors.accent}` og en diskret kompassrose. Kartlinjene gir tekstur og dybde, men de skal ikke konkurrere med kortene.
+- **Krem (`{colors.surface}`)** er bakgrunnen for kort og flashcard. Kortene har en brunlig skygge (`rgba(62, 39, 35, 0.12)`), slik at de løfter seg frem.
+- **Tekst:** Vanlig tekst bruker `{colors.ink}` (espressobrun, 15,25:1). Hjelpetekst og metadata bruker `{colors.ink-secondary}`, med 8,17:1.
+- **Kaffebrun (`{colors.accent-strong}`)** er hovedknapper (med krem tekst), lenker, fokusring, fremdriftslinje og valgt svaralternativ. Hover-tilstand på knapper er `{colors.accent-hover}`.
+- **Latte (`{colors.accent}`)** er dekorativ. Den brukes til hover-bakgrunn på svaralternativ (`{colors.card-hover}`), til ikonet i logoen og til dekor. Latte gir for lav kontrast mot sand (1,48:1) til å være kant, ikon eller fremdrift alene, så den brukes ikke til noe som må synes.
+- **Terrakotta (`{colors.error}`, `#A34420`)** brukes bare til feil svar. Den erstatter den skarpe rødfargen. Vi bruker `#A34420` og ikke `#C85A32`, fordi `#C85A32` bare gir 4,23:1 med hvit tekst, under WCAG-kravet på 4,5:1.
+- **Salvie (`{colors.success}`, `#3F624D`)** brukes bare til riktig svar. Den erstatter den skarpe grønnfargen.
 
-Unngå gradienter, flere aksentfarger og oransje bak tekst. V1 har ikke mørk modus.
+Tilbakemelding om svar skal alltid ha ikon og tekst i tillegg til farge: ✓ og «Riktig» for riktig svar, ✕ og «Feil» for feil svar.
 
-## Typography
+Den eneste mørke flaten er toppfeltet og tallfliene (`{colors.surface-inverse}`). Resten av siden er lys. Det gir et moderne uttrykk uten mørk modus, som gruppa sa nei til for v1. Unngå gradienter, flere farger enn de som står her, og farget bakgrunn bak tekst.
+
+## Typografi
 
 Appen bruker systemfonter (Tailwinds `font-sans`). De er raske, ser kjente ut på alle enheter og krever ingen nedlasting.
 
@@ -152,40 +164,51 @@ Appen bruker systemfonter (Tailwinds `font-sans`). De er raske, ser kjente ut p�
 
 All tekst angis i `rem`, slik at 200 % tekstforstørrelse virker (WCAG 1.4.4). Teksten skrives aldri i store bokstaver, og den er aldri smalere enn 16px på mobil.
 
-## Layout & Spacing
+## Layout og avstand
 
 Siden har én kolonne med maks bredde `{spacing.content-max}` (768px), sentrert. Sidemargen er `{spacing.gutter-mobile}` på mobil og `{spacing.gutter-desktop}` fra `md` og oppover. Avstand følger Tailwind-skalaen (4, 8, 12, 16, 24, 32 px). Mellom seksjoner er det 32px, og mellom elementer i en liste 12px.
 
 Knapper og svaralternativer er minst `{spacing.tap-min}` (44px) høye. Det er godt over WCAG-kravet på 24px (2.5.8). På mobil er knappene i quizen like brede som skjermen.
 
-## Elevation & Depth
+## Høyde og dybde
 
-Appen bruker ikke skygger for å vise hierarki. Kort skilles fra bakgrunnen med `{colors.surface-muted}` bak og en tynn `{colors.border-subtle}`-kant. Den eneste skyggen er Tailwinds `shadow-sm` på toppfeltet når siden rulles.
+Kort skal løftes fra bakgrunnen. De hvite kortene har en tydelig, men lett skygge (`card`), og flashcardet i quizen har en litt tyngre skygge (`flashcard`). Skyggen er mørk nok til å se, men den er ikke tung. Kort som kan klikkes, løftes 2px når musepekeren er over, med mykere skygge. Bevegelsen slås av hvis brukeren har valgt redusert bevegelse. Toppfeltet har ingen skygge, siden det er mørkt.
 
-## Shapes
+## Hjørner
 
 Hjørnene er avrundet, men forsiktig. Inndatafelt har `{rounded.sm}`, knapper `{rounded.md}`, og kort og svaralternativer `{rounded.lg}`. `{rounded.full}` brukes bare på dekningsstolpen og KI-merket.
 
-## Components
+## Komponenter
 
-- **Hovedknapp (`button-primary`):** `{colors.accent-strong}` med hvit tekst. Det er høyst én per skjermbilde, for eksempel «Lag quiz», «Neste», «Lever» eller «Last opp».
-- **Sekundærknapp (`button-secondary`):** Hvit med grå kant, for «Forrige», «Avbryt» og «Gi nytt navn».
+- **Hovedknapp (`button-primary`):** `{colors.accent-strong}` med krem tekst (`{colors.surface}`). Det er høyst én per skjermbilde, for eksempel «Lag quiz», «Neste», «Lever» eller «Last opp».
+- **Sekundærknapp (`button-secondary`):** Kremhvit med brun kant, for «Forrige», «Avbryt» og «Gi nytt navn».
 - **Fareknapp (`button-danger`):** Rød med hvit tekst. Brukes bare på bekreftelsessiden for sletting av emne.
-- **Svaralternativ (`option-card`):** Hele kortet er en radioknapp med etikett. Et valgt alternativ får tykkere `{colors.accent-strong}`-kant, grå bakgrunn og en fylt radioknapp. Valget vises altså med form og ikke bare med farge. Det er tre alternativer, og de står under hverandre på alle skjermer.
-- **Dekningsstolpe (`coverage-bar`):** Stolpen er 8px høy, og prosenttallet står alltid som tekst ved siden av. På notatsiden vises en liten stolpe for hvert nivå (lett, middels og vanskelig) under totalen.
-- **KI-merke (`ai-badge`):** Et grått merke med et lite ikon og teksten «Laget av KI». På quizsidene står den fulle teksten (se EXPERIENCE.md).
-- **Testmodus-banner (`test-mode-banner`):** Et grått felt med teksten «Testmodus: quizene er forhåndslagret, ingen KI kalles». Det ligger under toppfeltet på alle sider når testmodus er på, med en tynn oransje linje under.
+- **Svaralternativ (`option-card`):** Hele kortet er en radioknapp med etikett. Et valgt alternativ får tykkere `{colors.accent-strong}`-kant, beige bakgrunn og en fylt radioknapp. Valget vises altså med form og ikke bare med farge. Det er tre alternativer, og de står under hverandre på alle skjermer.
+- **Fremdriftslinje som reiserute (`progress`):** Ruten er stiplet i `{colors.accent-strong}`. Fyllet er en heltrukket linje. Et flagg i enden markerer målet, og en miniversjon av fåret i ballongen flyr langs ruten. Fåret står på enden av fyllet og flyttes med fremdriften. Det er dekorativt (`aria-hidden`), og «Spørsmål 3 av 10» gir informasjonen i tekst.
+- **Dekningsstolpe (`coverage-bar`):** Samme reiserute som fremdriftslinjen: stiplet spor i `{colors.accent-strong}`, fyll i kaffebrun, fåret i ballongen på enden av fyllet og et flagg ved 100 %. Den er mindre på kort og på emnesiden. Prosenten står alltid som tekst ved siden av.
+- **KI-merke (`ai-badge`):** Et beige merke med et lite ikon og teksten «Laget av KI». På quizsidene står den fulle teksten (se EXPERIENCE.md).
+- **Testmodus-banner (`test-mode-banner`):** Et beige felt med teksten «Testmodus: quizene bruker mock-svar, ingen KI kalles». Det ligger under toppfeltet på alle sider når testmodus er på, med en tynn `{colors.accent}`-linje under.
 - **Resultatmerke (`result-mark-*`):** Ikonene ✓ eller ✗ (SVG) sammen med teksten «Riktig» eller «Feil», i `{colors.success}` eller `{colors.error}`.
-- **Kort (`card`):** For emner, notater og quizer i lister. Hele kortet er én lenke.
-- **Fokusring (`focus-ring`):** 2px `{colors.accent-strong}` med 2px avstand, på alle elementer som kan få fokus. Den fjernes aldri (`outline: none` er forbudt).
+- **Kort (`card`):** For emner, notater og quizer i lister. Hele kortet er én lenke. Hvit bakgrunn, `{colors.border-subtle}`-kant og skyggen `0 4px 12px` med lav opasitet.
+- **Personvern-dialog (`dialog`):** En modal midt på siden, med bakgrunn i espressobrun med 60 % opasitet. Vises bare én gang, ved første innlogging (S1b). Tittelen er `h2`, og knappen «Jeg har forstått og godtar» er hovedknapp. Fokus flyttes inn i dialogen, og tilbake til utløseren når den lukkes.
+- **Flashcard (`flashcard`):** Spørsmålet i quizen og «Øv på feil». Kortet står midt på siden, maks 560px bredt, med større skygge enn `card`. Svaralternativene står under kortet, i en egen liste.
+- **Svaralternativ, hover (`option-card:hover`):** Bakgrunnen blir `{colors.card-hover}` (latte), kanten blir `{colors.accent-strong}`, og alternativet løftes 1px. Teksten beholder full kontrast.
+- **Fokusring (`focus-ring`):** 2px `{colors.accent-strong}` med 2px avstand, på alle elementer som kan få fokus. I toppfeltet brukes `{colors.focus-inverse}`, fordi den mørke fargen ikke har nok kontrast der. Den fjernes aldri (`outline: none` er forbudt).
+- **Logo (`brand`):** Fåret i varmluftsballongen (`favicon.svg` og symbolet `faar-ballong`). Fåret er kremhvitt med kaffebrunt ansikt, og ballongen er latte med kaffebrun kurv. Strekene er rene og enkle, så ikonet også fungerer som fane-ikon (favikon). I toppfeltet farges kurv og strek i krem, for å være synlig på mørk flate.
+- **Toppfelt (`topbar`):** `{colors.surface-inverse}` med `{colors.ink-inverse}`-tekst. «Logg ut» er `{colors.ink-inverse-secondary}`.
+- **Tallflis (`stat-tile`):** `{colors.surface-inverse}` med tallet i `{typography.score}` og en kort tekst under. Brukes på emnesiden for dekning og antall i feilbanken.
 
-## Do's and Don'ts
+## Gjør og ikke gjør
 
 | Gjør | Ikke gjør |
 |---|---|
-| Bruk `{colors.accent-strong}` til tekst, knapper og fokus | Bruk `{colors.accent}` (#D97757) til tekst eller som bakgrunn bak hvit tekst |
+| Bruk `{colors.accent-strong}` til tekst, knapper og fokus | Bruk `{colors.accent-strong}` til tekst og knapper, og `{colors.accent}` bare til dekor eller hover |
 | Vis prosent som tekst ved siden av hver stolpe | La farge eller stolpelengde være eneste informasjon |
 | Vis riktig og feil med ikon, tekst og farge | Vis riktig og feil bare med grønt og rødt |
-| Ha høyst én hovedknapp per skjermbilde | Ha flere oransje knapper som konkurrerer |
+| Ha høyst én hovedknapp per skjermbilde | Ha flere farget knapper som konkurrerer |
 | Gi knapper og alternativer minst 44px høyde | Bruk små tekstlenker som eneste handling på mobil |
-| Hold deg til hvitt, grått og én aksentfarge | Bruk gradienter, illustrasjoner, konfetti eller maskoter |
+| Hold deg til sand, krem og brunt, med latte som detalj | Bruk gradienter, konfetti eller flere figurer. Fåret i ballongen er den eneste figuren. |
+
+## Forside (S1)
+
+Forsiden for besøkende har en hero: overskrift og kort intro til venstre med knappen «Registrer deg», og en stabel med tre flashcards til høyre. Under hero er tre kremhvite informasjonskort (last opp, ta quizen, øv på feilene), og så innloggingsskjemaet. Flashcardene er dekorative (`aria-hidden`), og informasjonen står i teksten.

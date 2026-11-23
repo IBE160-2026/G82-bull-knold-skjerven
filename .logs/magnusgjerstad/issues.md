@@ -11,8 +11,14 @@
 - [ ] 2026-11-11 [prd-v1](997-2026-11-11-21-40-00-prd-v1.md) — testfasen: hvilke testdokumenter som kan brukes uten å bryte opphavsretten
 - [ ] 2026-11-11 [prd-v1](997-2026-11-11-21-40-00-prd-v1.md) — testfasen: typisk genereringstid for 30 spørsmål sammenlignet med timeout på 120 s (FR-15)
 - [ ] 2026-11-11 [prd-v1](997-2026-11-11-21-40-00-prd-v1.md) — språkvasken av PRD-en med bmad-review (structure og prose) ble ikke kjørt
-- [ ] 2026-11-11 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — HTML-skisser av nøkkelskjermbilder («Ta quiz» på mobil, «Notat») ble ikke laget
+- [x] 2026-11-11 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — HTML-skisser av nøkkelskjermbilder («Ta quiz» på mobil, «Notat») ble ikke laget (løst 2026-11-14: wireframes/index.html på forslag-design-martin)
 - [ ] 2026-11-11 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — kvalitetssjekken av UX-dokumentene og språkvasken med bmad-review ble ikke kjørt
+- [x] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — rename av emne (FR-5): skjema på S4 eller egen side, må besluttes (løst 2026-11-14: skjema på S4)
+- [x] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — økt-utløp midt i quiz (UJ-3): egen tilstand i v1, eller er lagrede svar nok? (løst 2026-11-14: ingen egen side, åpnes på spørsmålet etter innlogging)
+- [ ] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — engelske seksjonsoverskrifter i DESIGN.md og EXPERIENCE.md: oversette til norsk, eller beholde som i malen
+- [x] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — juridisk avklaring: KI-forordningen vedlegg III punkt 3 (utdanning) og art. 50(2) maskinlesbar merking (løst 2026-11-15: brukerens juridiske vurdering er begrenset risiko, appen styrker læringen og styrer den ikke. Art. 50(2) er ikke vurdert skriftlig)
+- [ ] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — GDPR: personvernerklæring, databehandleravtale (DBA) med Anthropic og overføring utenfor EØS. Må være på plass før offentlig publisering
+- [ ] 2026-11-14 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — kjøre axe og tastaturtest på prototype/index.html
 - [x] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa velger felles UX: gruppeversjonen med prototypen (forslag-design-martin) eller Christians (Tailwind), før story 1.3 (løst 2026-11-23: Martins design)
 - [x] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa bekrefter Christians arkitektur og epics som sprintgrunnlag før story-1-1 merges (løst 2026-11-23: beholdes)
 - [ ] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — avklare om technology.md (FastAPI + Next.js) bare er referanse eller skal påvirke stackvalget

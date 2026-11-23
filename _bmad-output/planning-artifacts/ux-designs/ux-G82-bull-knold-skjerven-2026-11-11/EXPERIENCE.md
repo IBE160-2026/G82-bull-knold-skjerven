@@ -10,21 +10,21 @@ sources:
 
 # FåreQuiz: hvordan appen virker
 
-## Foundation
+## Grunnlag
 
 FåreQuiz er en responsiv webapp med ett grensesnitt. Studenten laster opp notater på PC og øver på mobilen (PRD §2.3). Sidene er Django-maler med Tailwind CSS og litt HTMX der siden må oppdateres uten ny innlasting: fremdriften under generering og lagring av svar. Alle sider skal også virke uten JavaScript, bortsett fra stegene i fremdriften.
 
 Utseendet står i [DESIGN.md](DESIGN.md). Begrepene følger ordlisten i PRD-en (§3) nøyaktig, og FR-, NFR- og UJ-numrene viser til PRD-en.
 
-## Information Architecture
+## Informasjonsarkitektur
 
 | # | Skjermbilde | Nås fra | Formål | Krav |
 |---|---|---|---|---|
-| S1 | Logg inn | Åpne appen uten å være innlogget | E-post og passord | FR-2 |
+| S1 | Forside og logg inn | Åpne appen uten å være innlogget | Hero med «Registrer deg», tre informasjonskort, og e-post og passord under | FR-2 |
 | S2 | Registrer | Lenke på S1 | Ny konto | FR-1 |
-| S3 | **Emner** (startside) | Innlogging, logoen «FåreQuiz» | Alle emner med dekningsgrad, «Nytt emne» | FR-4, FR-25 |
+| S3 | **Oversikt** (startside) | Innlogging, logoen «FåreQuiz» | Alle emner med dekningsgrad, «Nytt emne» | FR-4, FR-25 |
 | S4 | Emne | Kort på S3 | Notatene i emnet med dekningsgrad, «Last opp notat», «Gi nytt navn», «Slett emne» | FR-5, FR-6, FR-24, FR-25 |
-| S5 | Godta vilkår | «Last opp notat» første gang | Vilkårene og knappen «Godta og fortsett» | FR-7, NFR-9 |
+| S5 | Vilkår (kort) | «Last opp notat» første gang | Bekrefter at vilkårene er godtatt ved innlogging, og lenke til S15 | FR-7, NFR-9 |
 | S6 | Last opp notat | «Last opp notat» på S4, eller etter S5 | Filvelger, formater og KI-varsel | FR-8 |
 | S7 | **Notat** | Kort på S4, eller etter opplasting | Dekningsgrad per nivå, «Øv på feil», «Lag ny quiz», quizlisten og historikken | FR-11, FR-16, FR-22, FR-24, FR-26 |
 | S8 | Generering | «Lag quiz» på S7 | Stegene i fremdriften, timeout og «Prøv igjen» | FR-12 til FR-15 |
@@ -34,14 +34,19 @@ Utseendet står i [DESIGN.md](DESIGN.md). Begrepene følger ordlisten i PRD-en (
 | S12 | Øv på feil | Knapp på S7 eller S11 | Samme flyt som S9–S11 med spørsmålene i feilbanken. Resultatet viser fasiten for spørsmål som er lært. | FR-22, FR-23 |
 | S13 | Slett emne | «Slett emne» på S4 | Bekreftelsesside som viser hva som slettes | FR-6 |
 | S14 | Ikke funnet | Ukjent eller annen brukers ID | «Fant ikke siden» med lenke til Emner | FR-3 |
+| S1b | Personvern ved innlogging | Vises én gang, første gang brukeren logger inn og ikke har godtatt personvern | Dialog: notater går til KI-tjenesten, ansvar for personopplysninger, lenke til S15. Knappen «Jeg har forstått og godtar» lagrer tidspunktet. | FR-7, NFR-3 |
+| S6b | Opplasting pågår | «Last opp» på S6 | Filnavn, fremdrift som reiserute og beskjed om å ikke lukke fanen | FR-8 |
+| S6c | Opplasting avbrutt | Fanen lukket eller nettet brutt under opplasting | «Opplastingen ble avbrutt. Filen er ikke lagret.» Ingen notat lagres. | FR-8 |
+| S15 | Personvernserklæring | Lenke på S1 og i S1b | Hva vi lagrer, hvorfor, hvem vi deler med, hvor lenge, og hvilke rettigheter du har | NFR-3 |
+| S16 | Nytt emne | «Nytt emne»-boksen på S3 | Emnenavn, valgfrie notater (som S6) og «Opprett emne». Tomt navn gir feilmelding. | FR-4, FR-8 |
 
-**Navigasjon:** Toppfeltet viser «FåreQuiz» (lenke til S3) til venstre og «Logg ut» til høyre. Under toppfeltet står en brødsmulesti, for eksempel «Emner › Webutvikling › HTML-forelesning». Appen har ingen sidemeny og ingen hamburgermeny, fordi strukturen bare er tre nivåer dyp. Når testmodus er på, ligger testmodus-banneret mellom toppfeltet og brødsmulestien på alle sider.
+**Navigasjon:** Toppfeltet er mørkt og viser «FåreQuiz» (lenke til S3) til venstre og «Logg ut» til høyre. «Logg ut» vises ikke på S1 og S2. Under toppfeltet står en brødsmulesti, for eksempel «Emner › Webutvikling › HTML-forelesning». Appen har ingen sidemeny og ingen hamburgermeny, fordi strukturen bare er tre nivåer dyp. Når testmodus er på, ligger testmodus-banneret mellom toppfeltet og brødsmulestien på alle sider.
 
-**Bekreftelser og vilkår** vises som egne sider (S5, S13), ikke som popup-vinduer. Det er enklere å gjøre tilgjengelig og virker uten JavaScript.
+**Bekreftelser og vilkår** vises som egne sider (S5, S13), ikke som popup-vinduer. Det eneste unntaket er personvern-dialogen ved første innlogging (S1b), som brukeren må bekrefte før hen kommer videre. Dialogen er en modal med fokusfelle og `aria-modal`. Esc lukker den ikke, fordi brukeren må svare.
 
 **Sortering:** Emner sorteres alfabetisk. Notater, quizer og historikk sorteres med det nyeste først.
 
-## Voice and Tone
+## Tone og språk
 
 Teksten i appen er på norsk bokmål og bruker «du». Den er kort og saklig, uten utropstegn og uten emojier. Riktig og feil sies rett ut.
 
@@ -55,28 +60,29 @@ Teksten i appen er på norsk bokmål og bruker «du». Den er kort og saklig, ut
 | «Genereringen tok for lang tid. Filen er lagret, så du kan prøve igjen.» | «Timeout (504)» |
 | «Du har ikke svart på spørsmål 4 og 7.» | «Skjemaet er ufullstendig» |
 | «Ingen notater ennå. Last opp det første.» | «Her var det tomt!» |
-| «Laget av KI (Claude Sonnet 5.5). Spørsmålene kan inneholde feil.» | Å skjule modellnavnet eller kalle det «smart quiz» |
+| «Laget av KI (modellnavnet). Spørsmålene kan inneholde feil.» Modellnavnet hentes fra quizen (NFR-7), og står ikke fast i teksten. | Å skjule modellnavnet eller kalle det «smart quiz» |
 
-## Component Patterns
+## Komponentmønstre
 
 Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under Components.
 
 | Komponent | Brukes på | Regler |
 |---|---|---|
 | Emnekort | S3 | Hele kortet er en lenke til S4. Viser emnenavn, antall notater og dekningsgrad i prosent med stolpe. Et emne uten notater viser «Ingen notater» i stedet for prosent (FR-25). |
+| Gi nytt navn | S4 | Skjema på emnesiden, som åpnes med knappen «Gi nytt navn». Feltet har emnets nåværende navn. Samme feilmeldinger som ved nytt emne (FR-4, FR-5). Knappen er «Lagre navn». Lagring endrer bare navnet, ikke notater eller historikk. |
 | Notatkort | S4 | Lenke til S7. Viser filnavn, opplastingsdato, dekningsgrad og antall spørsmål i feilbanken. |
 | Quizkort | S7 | Viser vanskelighetsgrad, antall spørsmål, dato og KI-merke. Har et påbegynt forsøk merket «Påbegynt – spørsmål 5 av 10», og knappen er «Fortsett». Ellers er knappen «Ta quiz» eller «Ta på nytt» (FR-18, FR-20). |
 | Skjema for ny quiz | S7 | Vanskelighetsgrad er en gruppe med tre radioknapper (lett, middels, vanskelig). Middels er valgt på forhånd. Antall er et tallfelt (min 5, maks 30, standard 10) med forklarende tekst. Knappen er «Lag quiz» (FR-11). |
 | Fremdrift | S8 | Tre steg i en liste: «Leser filen», «Lager spørsmål», «Sjekker quizen». Hvert steg er markert som ferdig, pågår eller venter med både ikon og tekst. Knappen er låst så lenge genereringen pågår (FR-14). |
-| Spørsmålsvisning | S9, S12 | Teksten «Spørsmål 3 av 10» og en stolpe øverst, deretter spørsmålet og tre svaralternativer. Under står «Forrige» og «Neste». Svaret lagres når studenten trykker «Neste» eller «Forrige» (FR-18). Studenten kan gå videre uten å svare, og ubesvarte spørsmål vises på S10. |
+| Spørsmålsvisning | S9, S12 | Teksten «Spørsmål 3 av 10» og en stolpe øverst, med en reiserute der en miniversjon av fåret i ballongen flyr langs ruten, og et flagg i enden. Fåret er dekorativt, og teksten gir den samme informasjonen. Spørsmålet står på et flashcard midt på siden, og de tre svaralternativene står under kortet. Svaralternativet får en tydelig hover-markering (`card-hover`, kant og løft), så det kjennes klikkbart (FR-17). Under står «Forrige» og «Neste». Svaret lagres når studenten trykker «Neste» eller «Forrige» (FR-18). Studenten kan gå videre uten å svare, og ubesvarte spørsmål vises på S10. |
 | Oversikt før levering | S10 | Ett nummer per spørsmål, merket «Besvart» eller «Ikke besvart», og hvert nummer er en lenke til spørsmålet. «Lever» er låst til alle er besvart, og en tekst forteller hvilke som mangler (FR-17). |
 | Resultatliste | S11, S12 | Poengsummen øverst. For hvert spørsmål vises spørsmålsteksten, svaret studenten valgte og merket Riktig eller Feil. Fasiten vises ikke (FR-19). I «Øv på feil» vises fasiten for spørsmål som akkurat ble lært (FR-23). |
-| KI-merke | S7, S9, S10, S11, S12 | I lister står den korte teksten «Laget av KI». På quizsidene (S9–S12) står den fulle teksten med modellnavn og advarsel øverst. Merket er tekst og ikke bare et ikon, og det kan ikke lukkes (NFR-9). |
+| KI-merke | S7, S9, S10, S11, S12 | I lister står den korte teksten «Laget av KI». På quizsidene (S9–S12) står den fulle teksten med modellnavn og advarsel øverst. Merket er tekst og ikke bare et ikon, og det kan ikke lukkes (NFR-9). Maskinlesbar merking: hver quiz lagres med feltet `ki_generert=true`, modellnavn og prompt-versjon (NFR-7). Det vises ikke i grensesnittet, men er del av dataene (KI-forordningen art. 50(2)). |
 | Dekningsvisning | S3, S4, S7 | Stolpe med prosent som tekst. På S7 står totalen øverst og lett, middels og vanskelig under, med vektingen forklart: «Vanskelige spørsmål teller mest (50 %)» (FR-24). |
 | Historikk | S7 | En tabell med dato, quiz (vanskelighetsgrad og antall) og poengsum, nyeste først. På mobil vises hver rad som et lite kort i stedet for en tabell (FR-26). |
 | Filvelger | S6 | En vanlig `<input type="file">` med etikett, og ingen dra-og-slipp (WCAG 2.5.7). Godkjente formater og maks størrelse står over feltet. Filen sjekkes i nettleseren før opplasting og alltid på serveren (FR-8). |
 
-## State Patterns
+## Tilstander
 
 | Tilstand | Skjermbilde | Hva som vises |
 |---|---|---|
@@ -92,19 +98,28 @@ Her står hvordan komponentene oppfører seg. Utseendet står i DESIGN.md under 
 | Tom feilbank | S7, S11 | «Øv på feil» er låst og viser «Ingen spørsmål i feilbanken» (FR-22). |
 | Alt lært i en økt | S12 resultat | «Alle spørsmålene er lært. Feilbanken er tom.» og lenke tilbake til notatet. |
 | Feil innlogging | S1 | «Feil e-post eller passord.» Teksten er den samme uansett hva som var feil (FR-2). |
+| Økt utløpt | S1 | «Du er logget ut. Logg inn igjen for å fortsette.» Etter innlogging åpnes spørsmålet du var på, med de lagrede svarene (UJ-3, FR-18). Det er ingen egen side for dette i v1. |
 | E-posten finnes alt | S2 | «Det finnes allerede en konto med denne e-posten.» (FR-1). |
 | Annen brukers data | S14 | Siden «Fant ikke siden» med statuskode 404 (FR-3). |
 | Testmodus | Alle | Testmodus-banneret vises. På S1 står i tillegg testbrukerens e-post og passord (FR-28). |
+| Opplasting pågår | S6b | Filnavn og fremdrift som reiserute. «Last opp» er låst, og det står at fanen ikke bør lukkes. |
+| Opplasting avbrutt | S6c | «Opplastingen ble avbrutt. Filen er ikke lagret. Last opp på nytt.» Ingen notat lagres (FR-8). |
+| Personvern ikke godtatt | S1b | Dialogen vises etter innlogging, og brukeren kommer ikke videre før den er bekreftet. |
+| Ugyldig e-post eller kort passord | S2 | Feilmelding ved feltet, for eksempel «Passordet må ha minst 8 tegn.», og fokus flyttes dit (FR-1). |
+| Emnenavn tomt eller tatt | S3, S4 | «Navnet kan ikke være tomt.» eller «Du har allerede et emne med dette navnet.» ved feltet, og fokus flyttes dit (FR-4). Samme gjelder nytt navn (FR-5), når det er avgjort hvordan det vises. |
+| Ingen forsøk | S7 | «Ingen forsøk ennå. Ta en quiz for å se historikken.» der historikken skulle stå (FR-26). |
+| KI-tjenesten svarer ikke | S8 | «KI-tjenesten svarte ikke. Prøv igjen.» og knappen «Prøv igjen», som bruker samme fil og valg (FR-12, FR-15). |
+| Ingen fil valgt | S6 | «Velg en fil først.» ved filvelgeren, og fokus flyttes dit (FR-8). |
 
-## Interaction Primitives
+## Interaksjon
 
 - Studenten klikker eller trykker for å gjøre noe. Alle handlinger er vanlige lenker, knapper eller skjemaer.
 - **Quiz med tastatur:** Tab flytter til alternativgruppen. Piltastene velger alternativ, og et alternativ kan også velges med mellomrom. Enter eller Tab til «Neste» går videre. Det er ingen egne hurtigtaster, så det er ingenting å lære.
 - **Lagring:** Et svar lagres når studenten går til et annet spørsmål. Det finnes ingen egen «Lagre»-knapp. Lukker studenten fanen, er alle svar fram til forrige spørsmål lagret, og det siste valget også hvis HTMX rakk å sende det.
 - **Sletting** skjer bare via bekreftelsessiden S13, der studenten trykker «Slett emnet og alt innhold».
-- **Forbudt:** dra-og-slipp som eneste måte å gjøre noe på, informasjon som bare vises når man holder musepekeren over, tidsgrenser i quizen, automatiske popup-vinduer, karuseller og animasjoner som ikke kan slås av.
+- **Forbudt:** dra-og-slipp som eneste måte å gjøre noe på, informasjon som bare vises når man holder musepekeren over, tidsgrenser i quizen, automatiske popup-vinduer (unntatt personvern-dialogen på S1b), karuseller og animasjoner som ikke kan slås av.
 
-## Accessibility Floor
+## Tilgjengelighet
 
 Appen følger WCAG 2.2 nivå A og AA (NFR-8). Kontrastkravene står i DESIGN.md. Her står krav til oppførsel, først for alle sider og deretter per skjermbilde.
 
@@ -123,8 +138,8 @@ Appen følger WCAG 2.2 nivå A og AA (NFR-8). Kontrastkravene står i DESIGN.md.
 | Skjermbilde | Krav som må sjekkes |
 |---|---|
 | S1 Logg inn, S2 Registrer | Feltene har `<label>` og `autocomplete="email"` / `current-password` / `new-password`. Innliming og passordbehandlere er tillatt, og det er ingen CAPTCHA (3.3.8). Feilmeldinger står over skjemaet, er koblet til feltet med `aria-describedby`, og fokus flyttes til dem (3.3.1). |
-| S3 Emner, S4 Emne | Kortene er lenker med tydelig tekst, for eksempel «Webutvikling, 4 notater, dekningsgrad 62 %». Dekningsstolpen har `role="img"` med prosent i `aria-label`, eller er skjult for skjermleser når prosenten allerede står som tekst (1.1.1). |
-| S5 Vilkår | Vilkårene er vanlig tekst på siden, ikke i en rulleboks. Teksten nevner KI-tjenesten (Anthropic), ansvaret for personopplysninger og at quizene kan inneholde feil (FR-7, NFR-9). |
+| S3 Oversikt, S4 Emne | Kortene er lenker med tydelig tekst, for eksempel «Webutvikling, 4 notater, dekningsgrad 62 %». Dekningsstolpen har `role="img"` med prosent i `aria-label`, eller er skjult for skjermleser når prosenten allerede står som tekst (1.1.1). |
+| S5 Vilkår | Bekreftelsen er vanlig tekst på siden. Vilkårsteksten står i S1b og i S15, ikke i en rulleboks, og nevner KI-tjenesten (Anthropic), ansvaret for personopplysninger og at quizene kan inneholde feil (FR-7, NFR-9). |
 | S6 Last opp | Filvelgeren har synlig etikett og hjelpetekst om formater og størrelse koblet med `aria-describedby`. Det er ingen dra-og-slipp (2.5.7). Feil meldes med `role="alert"` (4.1.3). |
 | S7 Notat | Radioknappene for vanskelighetsgrad ligger i `<fieldset>` med `<legend>`. Tallfeltet har `min` og `max` og en feilmelding i tekst. Historikken er en ekte `<table>` med `<th scope>` på store skjermer. Låste knapper har `aria-disabled` og en forklaring. |
 | S8 Generering | Fremdriften ligger i en `aria-live="polite"`-region, og hvert nytt steg leses opp. Timeout og feil leses opp med `role="alert"`, og fokus flyttes til «Prøv igjen» (4.1.3). |
@@ -136,7 +151,7 @@ Appen følger WCAG 2.2 nivå A og AA (NFR-8). Kontrastkravene står i DESIGN.md.
 
 **Test (SM-7):** axe DevTools eller Lighthouse kjøres på alle 14 skjermbildene. Deretter testes kjerneflyten UJ-1 manuelt, med bare tastatur og med skjermleser (NVDA på Windows eller VoiceOver på mobil).
 
-## Responsive & Platform
+## Responsivt og plattform
 
 | Bredde | Oppførsel |
 |---|---|
@@ -145,17 +160,17 @@ Appen følger WCAG 2.2 nivå A og AA (NFR-8). Kontrastkravene står i DESIGN.md.
 
 Minste bredde som støttes er 320px (WCAG 1.4.10), og PRD-ens 360px (NFR-1) er dermed dekket. Det finnes ingen egen mobilapp.
 
-## Inspiration & Anti-patterns
+## Inspirasjon og det vi har valgt bort
 
 Gruppa har ikke nevnt forbilder. Det som er valgt bort, følger av ordene «effektiv, enkel, seriøs»:
 
-- **Valgt bort: streaker, merker, konfetti og lyder.** FåreQuiz er et verktøy, ikke et spill (PRD SM-C1, SM-C3).
+- **Valgt bort: konfetti, lyder og maskoter.** Fremgangen vises med markører som peker mot «lært» (FR-23), ikke med belønninger som ikke har med læringen å gjøre. Designet er ikke begrunnet i PRD-en, men er en designbeslutning, og den kan endres av gruppa.
 - **Valgt bort: tidsgrense per spørsmål.** Den gir stress, er et WCAG-problem (2.2.1) og passer ikke med at Tore skal kunne bli avbrutt.
 - **Valgt bort: alle spørsmål på én side.** Gruppa valgte ett spørsmål om gangen, fordi det passer bedre på mobil.
 
-## Key Flows
+## Nøkkelflyter
 
-### Flow 1: Første quiz (Tore, 2. år, på PC kvelden etter forelesningen). Realiserer UJ-1.
+### Flyt 1: Første quiz (Tore, 2. år, på PC kvelden etter forelesningen). Realiserer UJ-1.
 
 1. Tore registrerer seg på S2 og kommer til S3: «Ingen emner ennå».
 2. Han oppretter «Webutvikling», åpner emnet (S4) og trykker «Last opp notat».
@@ -167,7 +182,7 @@ Gruppa har ikke nevnt forbilder. Det som er valgt bort, følger av ordene «effe
 
 **Feil:** Han velger først `forelesning.mp4`. S6 viser «Formatet støttes ikke. Bruk PDF, DOCX eller TXT.» ved filvelgeren (UJ-4).
 
-### Flow 2: Avbrutt og fortsatt på mobilen (Tore, mellom to forelesninger og senere på bussen). Realiserer UJ-3.
+### Flyt 2: Avbrutt og fortsatt på mobilen (Tore, mellom to forelesninger og senere på bussen). Realiserer UJ-3.
 
 1. Tore starter en vanskelig quiz med 20 spørsmål på PC og svarer på 10.
 2. Han må gå og lukker fanen.
@@ -175,14 +190,14 @@ Gruppa har ikke nevnt forbilder. Det som er valgt bort, følger av ordene «effe
 4. **Høydepunkt:** S9 åpnes på spørsmål 11. De ti første svarene er der, og han kan bla tilbake og se dem.
 5. Han svarer på resten, leverer og ser resultatet på S11.
 
-### Flow 3: Øv på feil til spørsmålene er lært (Tore, kvelden før eksamen, på mobilen). Realiserer UJ-2.
+### Flyt 3: Øv på feil til spørsmålene er lært (Tore, kvelden før eksamen, på mobilen). Realiserer UJ-2.
 
 1. På S3 ser Tore at «Webutvikling» har 48 %. Han åpner notatet med flest spørsmål i feilbanken.
 2. Han trykker «Øv på feil (5)». S12 viser de fem spørsmålene med alternativene i ny rekkefølge og uten fasit.
 3. Han leverer: 4 riktige. To av spørsmålene hadde han også fått riktig forrige gang.
 4. **Høydepunkt:** Resultatet viser «2 spørsmål er lært», og nå vises fasiten for akkurat de to. Feilbanken har 3 igjen, og dekningsgraden for notatet går opp.
 
-### Flow 4: Sensor i testmodus. Realiserer UJ-5.
+### Flyt 4: Sensor i testmodus. Realiserer UJ-5.
 
 1. Sensor følger README-en og åpner appen. Testmodus-banneret vises, og S1 viser testbrukerens e-post og passord.
 2. Sensor logger inn og ser på S3 et ferdig emne med dekningsgrad.

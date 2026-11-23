@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FåreQuiz – utkast til design</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="faar-ballong" viewBox="0 0 64 64">
+  <g stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M32 4 C20 4 14 14 14 24 C14 34 24 38 32 38 C40 38 50 34 50 24 C50 14 44 4 32 4 Z" fill="#D5BC96"/>
+    <path d="M22 37 L25 51 M42 37 L39 51" fill="none"/>
+    <ellipse cx="24" cy="45" rx="3.5" ry="2.5" fill="#FAF7F2"/>
+    <ellipse cx="40" cy="45" rx="3.5" ry="2.5" fill="#FAF7F2"/>
+    <circle cx="32" cy="46" r="7" fill="#FAF7F2"/>
+    <path d="M25 51 H39 L37 58 H27 Z" fill="currentColor"/>
+  </g>
+  <circle cx="29" cy="45" r="1.3" fill="#5C3A21"/>
+  <circle cx="35" cy="45" r="1.3" fill="#5C3A21"/>
+  <path d="M29.5 49 Q32 51 34.5 49" fill="none" stroke="#5C3A21" stroke-width="1.2" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<a class="skip-link" href="#innhold">Hopp til innhold</a>
+
+<header class="topbar">
+  <a class="brand" href="#s3"><svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#faar-ballong"/></svg>FåreQuiz</a>
+  <a class="meta logout" href="#s1">Logg ut</a>
+</header>
+
+<div class="test-banner" role="note">Testmodus: quizene bruker mock-svar, ingen KI kalles.</div>
+
+<main id="innhold">
+
+<!-- S1 Logg inn -->
+<section class="screen" id="s1" aria-labelledby="t-s1">
+  <div class="page" id="innhold">
+    <div class="hero">
+      <div>
+        <h1 id="t-s1">Øv på forelesningene dine</h1>
+        <p class="lead">Last opp et notat, få en quiz laget av KI, og øv på det du svarer feil. Det tar et par minutter.</p>
+        <a class="btn btn-primary btn-inline" href="#s2">Registrer deg</a>
+      </div>
+      <div class="hero-stack" aria-hidden="true">
+        <div class="hero-card c1">Hva er HTML?</div>
+        <div class="hero-card c2">Hva brukes &lt;a&gt; til?</div>
+        <div class="hero-card c3">Hva er en nettleser?</div>
+      </div>
+    </div>
+
+    <div class="info-cards">
+      <div class="info-card"><span class="info-num" aria-hidden="true">1</span><h2 class="info-title">Last opp notatet</h2><p class="meta">PDF, DOCX eller TXT, opptil 5 MB.</p></div>
+      <div class="info-card"><span class="info-num" aria-hidden="true">2</span><h2 class="info-title">Ta quizen</h2><p class="meta">Ett spørsmål om gangen, med svaralternativene under kortet.</p></div>
+      <div class="info-card"><span class="info-num" aria-hidden="true">3</span><h2 class="info-title">Øv på feilene</h2><p class="meta">Svar du bommet på, kommer tilbake til de er lært.</p></div>
+    </div>
+
+    <h2>Logg inn</h2>
+    <form action="#s3">
+      <div class="field">
+        <label for="e1">E-post</label>
+        <input id="e1" type="email" name="email" autocomplete="email" value="test@farequiz.test">
+      </div>
+      <div class="field">
+        <label for="p1">Passord</label>
+        <input id="p1" type="password" name="passord" autocomplete="current-password" value="Testpassord123">
+      </div>
+      <button class="btn btn-primary" type="submit">Logg inn</button>
+    </form>
+    <p class="meta">Har du ikke konto? <a href="#s2">Registrer deg</a></p>
+    <p class="meta"><a href="#s15">Personvernserklæring</a></p>
+    <div class="alert" hidden>Feil e-post eller passord.</div>
+  </div>
+</section>
+
+<!-- S2 Registrer -->
+<section class="screen" id="s2" aria-labelledby="t-s2">
+  <div class="page">
+    <h1 id="t-s2">Registrer deg</h1>
+    <form action="#s3">
+      <div class="field">
+        <label for="e2">E-post</label>
+        <input id="e2" type="email" autocomplete="email" aria-describedby="h2e">
+        <span class="hint" id="h2e">Bruk en gyldig e-postadresse.</span>
+      </div>
+      <div class="field">
+        <label for="p2">Passord</label>
+        <input id="p2" type="password" autocomplete="new-password" aria-describedby="h2p">
+        <span class="hint" id="h2p">Minst 8 tegn.</span>
+      </div>
+      <button class="btn btn-primary" type="submit">Registrer deg</button>
+    </form>
+    <p class="meta">Har du allerede konto? <a href="#s1">Logg inn</a></p>
+    <div class="alert" role="alert">Det finnes allerede en konto med denne e-posten.</div>
+  </div>
+</section>
+
+<!-- S3 Oversikt (startside) -->
+<section class="screen default" id="s3" aria-labelledby="t-s3">
+  <div class="page">
+    <div class="continue">
+      <p class="meta">Fortsett der du slapp</p>
+      <p><strong>Middels, 10 spørsmål</strong></p>
+      <p class="meta">Webutvikling · HTML-forelesning · spørsmål 5 av 10</p>
+      <a class="btn btn-primary" href="#s9">Fortsett quizen</a>
+    </div>
+
+    <h1 id="t-s3">Emner</h1>
+
+    <a class="topic-card" href="#s16">
+      <div class="thumb thumb-ny" aria-hidden="true"><span>+</span></div>
+      <div>
+        <h2 class="topic-title">Nytt emne</h2>
+        <p class="meta">Lag et emne for notatene dine</p>
+        <span class="cta">Opprett emne ↓</span>
+      </div>
+    </a>
+
+    <a class="topic-card" href="#s4">
+      <div class="thumb" aria-hidden="true"><i class="dark" style="width:60%"></i><i class="thumb-box"></i><i class="thumb-box"></i><i class="thumb-box"></i></div>
+      <div>
+        <h2 class="topic-title">Webutvikling</h2>
+        <p class="meta">4 notater</p>
+        <div class="tags"><span class="tag">Dekning 62 %</span><span class="tag">3 i feilbanken</span></div>
+        <div class="coverage-bar" aria-hidden="true"><span style="width:62%"></span><svg class="progress-car" style="left:62%" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="31" fill="#FAF7F2" stroke="#5C3A21" stroke-width="2"/><use href="#faar-ballong" x="8" y="8" width="48" height="48"/></svg><svg class="progress-flag" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 22 V3" fill="none" stroke="#5C3A21" stroke-width="2" stroke-linecap="round"/><path d="M4 3 H19 L15.5 8 L19 13 H4 Z" fill="#5C3A21"/></svg></div>
+        <span class="cta">Åpne emnet →</span>
+      </div>
+    </a>
+
+    <a class="topic-card" href="#s4">
+      <div class="thumb thumb-tom" aria-hidden="true"><i class="dark" style="width:60%"></i><i class="thumb-box"></i></div>
+      <div>
+        <h2 class="topic-title">Databaser</h2>
+        <p class="meta">Ingen notater ennå</p>
+        <span class="cta">Åpne emnet →</span>
+      </div>
+    </a>
+
+    <a class="topic-card" href="#s12">
+      <div class="thumb" aria-hidden="true"><i class="feil" style="width:50%"></i><i class="thumb-box"></i><i class="thumb-box"></i></div>
+      <div>
+        <h2 class="topic-title">Øv på feil</h2>
+        <p class="meta">Spørsmål som er svart feil på</p>
+        <div class="tags"><span class="tag">3 i feilbanken</span></div>
+        <span class="cta">Øv nå →</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- S16 Nytt emne -->
+<section class="screen" id="s16" aria-labelledby="t-s16">
+  <div class="page">
+    <p class="crumb"><a href="#s3">‹ Oversikt</a></p>
+    <h1 id="t-s16">Nytt emne</h1>
+    <form action="#s3">
+      <div class="field">
+        <label for="n16">Navn på emnet</label>
+        <input id="n16" type="text" aria-describedby="e16">
+        <div class="alert" id="e16" role="alert">Navnet kan ikke være tomt.</div>
+      </div>
+      <div class="field">
+        <label for="f16">Notater til emnet (valgfritt)</label>
+        <input id="f16" type="file" accept=".pdf,.docx,.txt" multiple aria-describedby="h16">
+        <span class="hint" id="h16">PDF, DOCX eller TXT. Maks 5 MB per fil.</span>
+      </div>
+      <p class="ai-notice">Innholdet i filene sendes til en ekstern KI-tjeneste for å lage quiz.</p>
+      <button class="btn btn-primary" type="submit">Opprett emne</button>
+    </form>
+  </div>
+</section>
+
+<!-- S4 Emne -->
+<section class="screen" id="s4" aria-labelledby="t-s4">
+  <div class="page">
+    <p class="crumb"><a href="#s3">‹ Emner</a></p>
+    <h1 id="t-s4">Webutvikling</h1>
+    <div class="coverage">
+      <div class="coverage-bar" aria-hidden="true"><span style="width:62%"></span><svg class="progress-car" style="left:62%" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="31" fill="#FAF7F2" stroke="#5C3A21" stroke-width="2"/><use href="#faar-ballong" x="8" y="8" width="48" height="48"/></svg><svg class="progress-flag" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 22 V3" fill="none" stroke="#5C3A21" stroke-width="2" stroke-linecap="round"/><path d="M4 3 H19 L15.5 8 L19 13 H4 Z" fill="#5C3A21"/></svg></div>
+      <span class="coverage-value">62 %</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-value">62 %</div><div class="stat-label">dekket i emnet</div></div>
+      <div class="stat"><div class="stat-value">3</div><div class="stat-label">i feilbanken nå</div></div>
+    </div>
+
+    <a class="btn btn-primary" href="#s5">Last opp notat</a>
+
+    <h2>Notater</h2>
+    <a class="card" href="#s7">
+      <div class="card-head"><h3>HTML-forelesning.pdf</h3><span class="meta">Dekning 21 %</span></div>
+      <p class="meta">Lastet opp 12. nov · 3 i feilbanken</p>
+    </a>
+    <a class="card" href="#s7">
+      <div class="card-head"><h3>CSS-forelesning.docx</h3><span class="meta">Dekning 0 %</span></div>
+      <p class="meta">Lastet opp 14. nov</p>
+    </a>
+
+    <details class="box">
+      <summary><strong>Gi nytt navn</strong></summary>
+      <form action="#s4">
+        <div class="field">
+          <label for="r4">Nytt navn på emnet</label>
+          <input id="r4" type="text" value="Webutvikling">
+        </div>
+        <button class="btn" type="submit">Lagre navn</button>
+      </form>
+    </details>
+
+    <p><a href="#s13">Slett emne</a></p>
+  </div>
+</section>
+
+<!-- S5 Vilkår -->
+<section class="screen" id="s5" aria-labelledby="t-s5">
+  <div class="page">
+    <p class="crumb"><a href="#s4">‹ Webutvikling</a></p>
+    <h1 id="t-s5">Vilkår</h1>
+    <div class="box">
+      <p><strong>Du har godtatt vilkårene.</strong> Det skjedde da du logget inn første gang, og tidspunktet er lagret på kontoen din.</p>
+      <p class="meta">Vilkårene og personvernerklæringen finner du i <a href="#s15">personvernerklæringen</a>.</p>
+    </div>
+    <a class="btn btn-primary" href="#s6">Gå videre til opplasting</a>
+    <a class="btn" href="#s4">Avbryt</a>
+  </div>
+</section>
+
+<!-- S6 Last opp -->
+<section class="screen" id="s6" aria-labelledby="t-s6">
+  <div class="page">
+    <p class="crumb"><a href="#s4">‹ Webutvikling</a></p>
+    <h1 id="t-s6">Last opp notat</h1>
+    <form action="#s7">
+      <div class="field">
+        <label for="f6">Velg fil</label>
+        <input id="f6" type="file" accept=".pdf,.docx,.txt" aria-describedby="h6">
+        <span class="hint" id="h6">PDF, DOCX eller TXT. Maks 5 MB.</span>
+      </div>
+      <p class="ai-notice">Innholdet i filen sendes til en ekstern KI-tjeneste for å lage quiz.</p>
+      <button class="btn btn-primary" type="submit">Last opp</button>
+    </form>
+    <div class="alert" role="alert">Formatet støttes ikke. Bruk PDF, DOCX eller TXT.</div>
+  </div>
+</section>
+
+<!-- S6b Opplasting pågår -->
+<section class="screen" id="s6b" aria-labelledby="t-s6b">
+  <div class="page">
+    <p class="crumb"><a href="#s4">‹ Webutvikling</a></p>
+    <h1 id="t-s6b">Laster opp notat</h1>
+    <p class="meta" role="status">HTML-forelesning.pdf · 62 % lastet opp</p>
+    <div class="progress" aria-hidden="true"><span style="width:62%"></span><svg class="progress-car" style="left:62%" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="31" fill="#FAF7F2" stroke="#5C3A21" stroke-width="2"/><use href="#faar-ballong" x="8" y="8" width="48" height="48"/></svg><svg class="progress-flag" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 22 V3" fill="none" stroke="#5C3A21" stroke-width="2" stroke-linecap="round"/><path d="M4 3 H19 L15.5 8 L19 13 H4 Z" fill="#5C3A21"/></svg></div>
+    <p class="meta">Ikke lukk fanen før opplastingen er ferdig. Du får beskjed når filen er lagret.</p>
+    <button class="btn" type="button" aria-disabled="true">Last opp</button>
+  </div>
+</section>
+
+<!-- S6c Opplasting avbrutt -->
+<section class="screen" id="s6c" aria-labelledby="t-s6c">
+  <div class="page">
+    <p class="crumb"><a href="#s4">‹ Webutvikling</a></p>
+    <h1 id="t-s6c">Last opp notat</h1>
+    <div class="alert" role="alert" tabindex="-1">Opplastingen ble avbrutt. Filen er ikke lagret. Last opp på nytt.</div>
+    <a class="btn btn-primary" href="#s6">Last opp på nytt</a>
+  </div>
+</section>
+
+<!-- S15 Personvernserklæring -->
+<section class="screen" id="s15" aria-labelledby="t-s15">
+  <div class="page">
+    <p class="crumb"><a href="#s1">‹ Forside</a></p>
+    <h1 id="t-s15">Personvernerklæring for FåreQuiz</h1>
+    <p class="meta">Sist oppdatert: 26.11.2026</p>
+    <p>Denne personvernerklæringen beskriver hvordan FåreQuiz («vi», «oss» eller «behandlingsansvarlig») behandler personopplysninger når du bruker tjenesten <strong>FåreQuiz</strong>. Behandlingen skjer i samsvar med personopplysningsloven og EUs personvernforordning (GDPR).</p>
+
+    <h2>1. Behandlingsansvarlig og virkeområde</h2>
+    <p>FåreQuiz er behandlingsansvarlig for personopplysningene vi samler inn og behandler for å drifte FåreQuiz.</p>
+    <ul>
+      <li><strong>Kontaktperson / virksomhet:</strong> [Navn, evt. org.nr.]</li>
+      <li><strong>E-post for personvernhenvendelser:</strong> [Kontakt-epost]</li>
+    </ul>
+    <p>Denne erklæringen gjelder utelukkende for behandling av personopplysninger i FåreQuiz. Vi er ikke ansvarlige for innhold eller personvernpraksis på eksterne nettsider det lenkes til fra tjenesten.</p>
+
+    <h2>2. Hvilke personopplysninger vi behandler – og brukerens ansvar</h2>
+    <p>Vi praktiserer streng dataminimering og behandler kun opplysninger som er nødvendige for å levere tjenesten:</p>
+    <ul>
+      <li><strong>Kontoinformasjon:</strong> E-postadresse og kryptografisk hashet passord for autentisering og kontroll av eierskap. Vi samler ikke inn navn, fødselsdato, adresse, profilbilde eller øvrige profilopplysninger.</li>
+      <li><strong>Brukergenerert innhold (notater og quizer):</strong> Tekst og notater du laster opp, samt emner og quizer som genereres i tjenesten.</li>
+      <li><strong>Dokumentasjons- og driftsdata:</strong> Tidspunkt for når du godtok brukervilkårene, samt nødvendige tekniske logger for drift, feilsøking og informasjonssikkerhet. Vi lagrer ikke IP-adresser eller tekst fra notatene i driftslogger. Feilmeldinger lagres med feiltype og tidspunkt, og slettes automatisk etter 30 dager.</li>
+    </ul>
+    <p><strong>Forbud mot personopplysninger i notater:</strong> FåreQuiz er utelukkende beregnet for faglige notater og pensumtekst. Det er <strong>ikke tillatt</strong> å laste opp særlige kategorier av personopplysninger (sensitive opplysninger, jf. GDPR art. 9), taushetsbelagt informasjon eller personopplysninger om deg selv eller tredjeparter (slik som navn på medstudenter, forelesere eller andre enkeltpersoner). Du er selv ansvarlig for at materialet du laster opp ikke inneholder slike opplysninger i strid med våre brukervilkår. Dersom vi blir kjent med at slikt materiale er lastet opp i strid med vilkårene, forbeholder vi oss retten til å slette innholdet uten forvarsel.</p>
+
+    <h2>3. Formål og rettslig grunnlag</h2>
+    <ul>
+      <li><strong>Oppfyllelse av avtale (GDPR art. 6 nr. 1 bokstav b):</strong> E-postadresse, passord-hash, emner, notater og quizer behandles utelukkende for å opprette og administrere brukerkontoen din, sikre tilgangskontroll og generere quizer på din forespørsel.</li>
+      <li><strong>Berettiget interesse (GDPR art. 6 nr. 1 bokstav f):</strong> Tidspunkt for aksept av brukervilkår samt tekniske drifts- og sikkerhetslogger behandles på grunnlag av vår berettigede interesse i å dokumentere avtaleinngåelse, forebygge misbruk og ivareta sikkerheten i tjenesten.</li>
+    </ul>
+
+    <h2>4. Bruk av kunstig intelligens (Anthropic) og databehandlere</h2>
+    <p>Vi selger aldri personopplysninger til tredjeparter, og vi benytter ingen eksterne verktøy for markedsføring, sporing, profilering eller betalingsformidling i FåreQuiz.</p>
+
+    <h3>4.1 KI-behandling hos Anthropic PBC</h3>
+    <p>Når du aktiverer generering av en quiz fra et notat, sendes teksten via et kryptert grensesnitt (API) til vår databehandler <strong>Anthropic PBC</strong> (USA). Behandlingen reguleres av Anthropics kommersielle vilkår (<em>Commercial Terms of Service</em>) og databehandleravtale (<em>Data Processing Addendum – DPA</em>), tilgjengelig på <a href="https://www.anthropic.com/legal">anthropic.com/legal</a>.</p>
+    <ul>
+      <li><strong>Ingen trening på kundedata:</strong> Tekst som sendes via Anthropics kommersielle API brukes utelukkende til å generere quizen på dine vegne, og brukes <strong>ikke</strong> til å trene eller forbedre Anthropics KI-modeller.</li>
+      <li><strong>Lagring og sletting hos Anthropic:</strong> Data slettes automatisk hos Anthropic i samsvar med deres kommersielle retningslinjer for datalagring (normalt innen 30 dager). Vi har ikke <em>Zero Data Retention</em>. . Utfyllende informasjon om datalagring, sletting og underdatabehandlere fremgår av <a href="https://claude.com">Anthropic Privacy Center for Commercial Customers</a>.</li>
+      <li><strong>Overføring til tredjeland (USA):</strong> Overføring av tekst til Anthropics servere i USA skjer med rettslig grunnlag i EUs standard personvernbestemmelser (<em>Standard Contractual Clauses – SCC</em>), som er inkorporert i Anthropics DPA. Se nærmere redegjørelse for overføringsmekanismen i <a href="https://claude.com">Anthropics veiledning om DPA og SCC</a>.</li>
+      <li><strong>Sikkerhet og samsvar hos Anthropic:</strong> Anthropic benytter kryptering under overføring (TLS) og ved lagring (AES-256), og er sertifisert etter blant annet ISO 27001, ISO 42001 og SOC 2 Type II. Detaljert sikkerhetsdokumentasjon finnes i <a href="https://anthropic.com">Anthropic Trust Center</a>.</li>
+    </ul>
+
+    <h3>4.2 Drift og infrastruktur</h3>
+    <ul>
+      <li><strong>Hosting / serverdrift:</strong> Tjenesten kjøres lokalt på maskinen der den installeres. Det er ingen hosting, ingen fjernserver og ingen databehandler for drift utover Anthropic.</li>
+    </ul>
+
+    <h2>5. Informasjonssikkerhet og ansvarsavgrensning</h2>
+    <ul>
+      <li><strong>Våre sikkerhetstiltak (GDPR art. 32):</strong> Vi gjennomfører tekniske og organisatoriske tiltak for å beskytte opplysningene dine mot uautorisert tilgang, endring eller sletting. Passord lagres utelukkende som kryptografisk hash, og all tilgang til emner og quizer er underlagt autentisering og eierskapskontroll. Kryptering av data i hvile følger av maskinen der tjenesten kjøres, jf. punkt 4.2.</li>
+      <li><strong>Brukerens eget sikkerhetsansvar:</strong> Overføring av informasjon over internett innebærer alltid en iboende sikkerhetsrisiko. Du er selv ansvarlig for å velge et sterkt passord, holde innloggingsopplysningene dine konfidensielle og sørge for sikkerheten på enheten du benytter. Vi er ikke ansvarlige for tap eller eksponering av opplysninger som skyldes uautorisert tilgang til din konto som følge av forhold på din side, eller som skyldes at du har lastet opp personopplysninger i strid med punkt 2.</li>
+    </ul>
+
+    <h2>6. Lagringstid og sletting</h2>
+    <ul>
+      <li><strong>Sletting av innhold:</strong> Du kan når som helst slette enkeltstående emner og tilhørende innhold direkte i tjenesten. Opplastede notater lagres sammen med emnet, slik at nye quizer kan lages uten ny opplasting. Når et emne slettes, slettes alle notater, quizer og historikk i emnet.</li>
+      <li><strong>Sletting av brukerkonto:</strong> Vi lagrer opplysningene dine så lenge du har en aktiv brukerkonto. Ved sletting av brukerkonto slettes alle tilknyttede personopplysninger, emner og quizer fra våre aktive systemer uten ugrunnet opphold, .</li>
+    </ul>
+
+    <h2>7. Informasjonskapsler (cookies) og lokal lagring</h2>
+    <p>Vi bruker ikke informasjonskapsler eller lignende teknologier til sporing, analyse eller markedsføring. Tjenesten benytter kun strengt nødvendige tekniske mekanismer (sesjonskapsel eller lokal lagring i nettleseren) som er påkrevd for å holde deg innlogget og ivareta tjenestens sikkerhet. Tjenesten bruker en sesjonskapsel (for innlogging) og en CSRF-kapsel (beskyttelse mot forfalskede forespørsler). Begge er strengt nødvendige, og vi bruker ingen andre kapsler.</p>
+
+    <h2>8. Dine rettigheter</h2>
+    <p>Etter personvernforordningen (GDPR kapittel III) har du, innenfor de begrensninger som følger av lovverket, rett til å be om:</p>
+    <ul>
+      <li><strong>Innsyn</strong> i hvilke personopplysninger vi behandler om deg (art. 15).</li>
+      <li><strong>Retting</strong> av uriktige eller ufullstendige personopplysninger (art. 16).</li>
+      <li><strong>Sletting</strong> av personopplysningene dine (art. 17).</li>
+      <li><strong>Begrensning</strong> av behandling (art. 18) og <strong>dataportabilitet</strong> for opplysninger du selv har gitt oss (art. 20).</li>
+    </ul>
+    <p>Forespørsler om utøvelse av rettigheter sendes til <strong>[din e-postadresse]</strong>. Vi vil besvare henvendelsen uten ugrunnet opphold og senest innen én måned, forutsatt at vi kan bekrefte identiteten din. Dersom du mener at vår behandling av personopplysninger er i strid med personvernregelverket, har du rett til å klage til <strong>Datatilsynet</strong> (datatilsynet.no).</p>
+
+    <h2>9. Endringer i personvernerklæringen</h2>
+    <p>Vi forbeholder oss retten til å oppdatere denne personvernerklæringen ved endringer i tjenesten, underleverandører eller gjeldende regelverk. Den til enhver tid gjeldende versjonen vil være tilgjengelig i tjenesten. Ved vesentlige endringer vil du bli varslet ved innlogging eller per e-post.</p>
+
+    <h2>10. Opphavsrett og bruk av innhold</h2>
+    <p>FåreQuiz er laget for egen læring av pensum og forelesninger, ikke for undervisning eller vurdering. Opphavsretten til koden, designet og teksten i tjenesten tilhører rettighetshaverne Christian Rogne Bull, Magnus Gjerstad og Martin Gomnæs Skjerven. Det er kun det vi selv har produsert i tjenesten vi har opphavsrett til. Quizer som lages for en bruker, er bare tilgjengelige for den brukeren, og vi gjør ikke krav på opphavsrett til dem. Alle som får tilgang til tjenesten, kan bruke den til det den er laget for. De har ikke rett til å ta ut, kopiere, publisere, distribuere eller bruke deler av innholdet, herunder denne personvernerklæringen, utenfor tjenesten uten skriftlig avtale med rettighetshaverne. Notater og andre dokumenter som brukere laster opp, tilhører brukeren eller den som har rettighetene til dokumentet, ikke FåreQuiz.</p>
+
+    <p class="meta"><a href="#s1">Tilbake til innlogging</a></p>
+  </div>
+</section>
+
+<!-- S7 Notat -->
+<section class="screen" id="s7" aria-labelledby="t-s7">
+  <div class="page">
+    <p class="crumb"><a href="#s4">‹ Webutvikling</a></p>
+    <h1 id="t-s7">HTML-forelesning.pdf</h1>
+
+    <h2>Dekningsgrad</h2>
+    <div class="coverage">
+      <div class="coverage-bar" aria-hidden="true"><span style="width:21%"></span><svg class="progress-car" style="left:21%" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="31" fill="#FAF7F2" stroke="#5C3A21" stroke-width="2"/><use href="#faar-ballong" x="8" y="8" width="48" height="48"/></svg><svg class="progress-flag" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 22 V3" fill="none" stroke="#5C3A21" stroke-width="2" stroke-linecap="round"/><path d="M4 3 H19 L15.5 8 L19 13 H4 Z" fill="#5C3A21"/></svg></div>
+      <span class="coverage-value">21 %</span>
+    </div>
+    <p class="meta">Vanskelige spørsmål teller mest (50 %).</p>
+
+    <a class="btn" href="#s12">Øv på feil (3)</a>
+
+    <h2>Lag ny quiz</h2>
+    <form action="#s8">
+      <fieldset>
+        <legend>Vanskelighetsgrad</legend>
+        <label class="radio-option"><input type="radio" name="v" value="lett"> Lett</label>
+        <label class="radio-option"><input type="radio" name="v" value="middels" checked> Middels</label>
+        <label class="radio-option"><input type="radio" name="v" value="vanskelig"> Vanskelig</label>
+      </fieldset>
+      <div class="field">
+        <label for="a7">Antall spørsmål</label>
+        <input id="a7" type="number" min="5" max="30" value="10" aria-describedby="h7">
+        <span class="hint" id="h7">Fra 5 til 30.</span>
+      </div>
+      <button class="btn btn-primary" type="submit">Lag quiz</button>
+    </form>
+
+    <h2>Quizer</h2>
+    <a class="card" href="#s9">
+      <div class="card-head"><h3>Middels, 10 spørsmål</h3><span class="ai-badge">Laget av KI</span></div>
+      <p class="meta">12. nov · Påbegynt – spørsmål 5 av 10</p>
+      <span class="btn btn-inline" aria-hidden="true">Fortsett</span>
+    </a>
+    <a class="card" href="#s9">
+      <div class="card-head"><h3>Lett, 5 spørsmål</h3><span class="ai-badge">Laget av KI</span></div>
+      <p class="meta">10. nov · 4 av 5 riktige</p>
+    </a>
+
+    <h2>Historikk</h2>
+    <div class="history-mobile">
+      <div class="box"><strong>12. nov</strong> · Middels, 10 · 7/10</div>
+      <div class="box"><strong>10. nov</strong> · Lett, 5 · 4/5</div>
+    </div>
+    <table class="history-table">
+      <caption class="meta" style="text-align:left">Forsøk, nyeste først</caption>
+      <thead><tr><th scope="col">Dato</th><th scope="col">Quiz</th><th scope="col">Poeng</th></tr></thead>
+      <tbody>
+        <tr><td>12. nov</td><td>Middels, 10</td><td>7/10</td></tr>
+        <tr><td>10. nov</td><td>Lett, 5</td><td>4/5</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- S8 Generering -->
+<section class="screen" id="s8" aria-labelledby="t-s8">
+  <div class="page">
+    <p class="crumb"><a href="#s7">‹ HTML-forelesning.pdf</a></p>
+    <h1 id="t-s8">Lager quiz</h1>
+    <ol class="steps" aria-live="polite">
+      <li><span class="step-mark mark-correct" aria-hidden="true">✓</span><span>Leser filen (ferdig)</span></li>
+      <li><span class="step-mark" aria-hidden="true">…</span><span>Lager spørsmål (pågår)</span></li>
+      <li><span class="step-mark" aria-hidden="true">○</span><span>Sjekker quizen (venter)</span></li>
+    </ol>
+    <p class="meta">Dette kan ta en stund. Du kan lukke fanen og komme tilbake.</p>
+    <button class="btn" type="button" aria-disabled="true">Lag quiz</button>
+  </div>
+</section>
+
+<!-- S8b Generering, feil -->
+<section class="screen" id="s8b" aria-labelledby="t-s8b">
+  <div class="page">
+    <p class="crumb"><a href="#s7">‹ HTML-forelesning.pdf</a></p>
+    <h1 id="t-s8b">Lager quiz</h1>
+    <div class="alert" role="alert" tabindex="-1" id="feil8b">KI-tjenesten svarte ikke. Prøv igjen.</div>
+    <p class="meta">Filen er lagret, så du trenger ikke laste den opp på nytt.</p>
+    <a class="btn btn-primary" href="#s8">Prøv igjen</a>
+  </div>
+</section>
+
+<!-- S9 Ta quiz -->
+<section class="screen" id="s9" aria-labelledby="t-s9">
+  <div class="page">
+    <p class="crumb"><a href="#s7">‹ Middels, 10 spørsmål</a></p>
+    <h1 id="t-s9" class="sr-only">Ta quiz</h1>
+    <p class="ai-notice">Laget av KI (Claude Sonnet 5.5). Spørsmålene kan inneholde feil.</p>
+
+    <p class="progress-text">Spørsmål 3 av 10</p>
+    <div class="progress" aria-hidden="true"><span style="width:30%"></span><svg class="progress-car" style="left:30%" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="31" fill="#FAF7F2" stroke="#5C3A21" stroke-width="2"/><use href="#faar-ballong" x="8" y="8" width="48" height="48"/></svg><svg class="progress-flag" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 22 V3" fill="none" stroke="#5C3A21" stroke-width="2" stroke-linecap="round"/><path d="M4 3 H19 L15.5 8 L19 13 H4 Z" fill="#5C3A21"/></svg></div>
+
+    <div class="flashcard">
+      <p class="question" id="q3">Hva er HTML?</p>
+    </div>
+
+    <fieldset class="options" aria-labelledby="q3">
+      <label class="radio-option"><input type="radio" name="q3" value="a"> Et programmeringsspråk</label>
+      <label class="radio-option"><input type="radio" name="q3" value="b"> Et merkespråk for strukturen i en side</label>
+      <label class="radio-option"><input type="radio" name="q3" value="c"> En nettleser</label>
+    </fieldset>
+
+    <div class="question-nav">
+      <a class="btn" href="#s9">Forrige</a>
+      <a class="btn btn-primary" href="#s9">Neste</a>
+    </div>
+    <p class="meta"><a href="#s10">Se over og lever</a></p>
+  </div>
+</section>
+
+<!-- S10 Se over og lever -->
+<section class="screen" id="s10" aria-labelledby="t-s10">
+  <div class="page">
+    <p class="crumb"><a href="#s9">‹ Tilbake til quizen</a></p>
+    <h1 id="t-s10">Se over før du leverer</h1>
+    <ol class="number-grid">
+      <li><a href="#s9">1 <small>Besvart</small></a></li>
+      <li><a href="#s9">2 <small>Besvart</small></a></li>
+      <li><a href="#s9">3 <small>Besvart</small></a></li>
+      <li><a href="#s9">4 <small>Ikke besvart</small></a></li>
+      <li><a href="#s9">5 <small>Besvart</small></a></li>
+    </ol>
+    <p class="alert" style="border-color:var(--ink-secondary);color:var(--ink)">Du har ikke svart på spørsmål 4 og 7.</p>
+    <button class="btn btn-primary" type="button" aria-disabled="true">Lever</button>
+    <p class="hint">Du kan levere når alle spørsmålene er besvart.</p>
+  </div>
+</section>
+
+<!-- S11 Resultat -->
+<section class="screen" id="s11" aria-labelledby="t-s11">
+  <div class="page">
+    <h1 id="t-s11">Resultat</h1>
+    <p class="score">7 av 10 riktige</p>
+    <p class="meta">3 spørsmål er lagt i feilbanken.</p>
+
+    <h2>Svar</h2>
+    <ol class="steps">
+      <li><span class="step-mark mark-wrong" aria-hidden="true">✕</span><span><strong>1. Hva er HTML?</strong><br><span class="meta">Ditt svar: Et programmeringsspråk</span><br><strong class="mark-wrong">Feil</strong></span></li>
+      <li><span class="step-mark mark-correct" aria-hidden="true">✓</span><span><strong>2. Hva brukes &lt;a&gt; til?</strong><br><span class="meta">Ditt svar: Lenke</span><br><strong class="mark-correct">Riktig</strong></span></li>
+    </ol>
+
+    <a class="btn btn-primary" href="#s12">Øv på feil (3)</a>
+    <a class="btn" href="#s7">Tilbake til notatet</a>
+  </div>
+</section>
+
+<!-- S12 Øv på feil -->
+<section class="screen" id="s12" aria-labelledby="t-s12" style="--accent-strong:#A34420;--accent-hover:#7A3214;--card-hover:#F3D9CC">
+  <div class="page">
+    <p class="crumb"><a href="#s7">‹ HTML-forelesning.pdf</a></p>
+    <h1 id="t-s12">Øv på feil</h1>
+    <p class="ai-notice">Laget av KI (Claude Sonnet 5.5). Spørsmålene kan inneholde feil.</p>
+    <p class="learn"><span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span></span><span>Riktig én gang. Ett riktig svar til, så er spørsmålet lært.</span></p>
+    <p class="progress-text">Spørsmål 1 av 3</p>
+    <div class="progress" aria-hidden="true"><span style="width:33%"></span><svg class="progress-car" style="left:33%" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="31" fill="#FAF7F2" stroke="#5C3A21" stroke-width="2"/><use href="#faar-ballong" x="8" y="8" width="48" height="48"/></svg><svg class="progress-flag" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 22 V3" fill="none" stroke="#5C3A21" stroke-width="2" stroke-linecap="round"/><path d="M4 3 H19 L15.5 8 L19 13 H4 Z" fill="#5C3A21"/></svg></div>
+    <div class="flashcard">
+      <p class="question" id="q12">Hva brukes &lt;a&gt; til?</p>
+    </div>
+
+    <fieldset class="options" aria-labelledby="q12">
+      <label class="radio-option"><input type="radio" name="q12" value="a"> Lenke</label>
+      <label class="radio-option"><input type="radio" name="q12" value="b"> Bilde</label>
+      <label class="radio-option"><input type="radio" name="q12" value="c"> Tabell</label>
+    </fieldset>
+    <div class="question-nav">
+      <a class="btn" href="#s12">Forrige</a>
+      <a class="btn btn-primary" href="#s12">Neste</a>
+    </div>
+    <p class="meta"><a href="#s11">Se resultat</a></p>
+  </div>
+</section>
+
+<!-- S13 Slett emne -->
+<section class="screen" id="s13" aria-labelledby="t-s13">
+  <div class="page">
+    <p class="crumb"><a href="#s4">‹ Webutvikling</a></p>
+    <h1 id="t-s13">Slette emnet «Webutvikling»?</h1>
+    <p>Dette sletter 4 notater, 9 quizer og all historikk. Det kan ikke angres.</p>
+    <a class="btn" href="#s4">Avbryt</a>
+    <a class="btn btn-danger" href="#s3">Slett emnet og alt innhold</a>
+  </div>
+</section>
+
+<!-- S14 Ikke funnet -->
+<section class="screen" id="s14" aria-labelledby="t-s14">
+  <div class="page">
+    <h1 id="t-s14">Fant ikke siden</h1>
+    <p>Siden finnes ikke, eller du har ikke tilgang til den.</p>
+    <a class="btn btn-primary" href="#s3">Gå til Emner</a>
+  </div>
+</section>
+
+<!-- S1b Personvern ved innlogging (modal) -->
+<div class="dialog-backdrop" id="pv" role="dialog" aria-modal="true" aria-labelledby="pv-title">
+  <div class="dialog">
+    <h2 id="pv-title">Velkommen! Før du tar i bruk tjenesten</h2>
+    <ul class="vilkar">
+      <li><strong>Behandling av notater:</strong> Når du laster opp notater, sendes teksten til vår KI-leverandør (Anthropic) for å lage quizer. Les mer om hvordan vi behandler data i vår <a href="#s15">personvernerklæring</a>.</li>
+      <li><strong>Ikke del personopplysninger:</strong> Unngå å laste opp sensitive opplysninger eller personopplysninger om deg selv eller andre (f.eks. navn på medstudenter eller lærere).</li>
+      <li><strong>KI-generert innhold:</strong> Quizene lages automatisk av kunstig intelligens og kan inneholde feil. Dobbeltsjekk alltid svarene mot eget pensum.</li>
+      <li><strong>Vilkår og loggføring:</strong> Ved å gå videre godtar du våre brukervilkår. Tidspunktet for godkjenningen lagres på brukeren din.</li>
+    </ul>
+    <p class="meta">For mer informasjon, se vår <a href="#s15">personvernerklæring</a>.</p>
+    <a class="btn btn-primary" href="#s3">Gå videre</a>
+  </div>
+</div>
+
+</main>
+
+<footer class="copyright">
+  © 2026 Christian Rogne Bull, Magnus Gjerstad og Martin Gomnæs Skjerven. Koden, designet og teksten i tjenesten er opphavsrettslig beskyttet. Du kan bruke tjenesten, men ikke ta ut, kopiere eller videreformidle innholdet uten skriftlig avtale. <a href="#s15">Personvernerklæring</a>
+</footer>
+
+<nav class="review-nav" aria-label="Skjermbilder (kun for gjennomgang)">
+  <p><strong>Gjennomgang:</strong> alle skjermbildene. Dette er ikke en del av appen.</p>
+  <ul>
+    <li><a href="#s1">S1 Logg inn</a></li>
+    <li><a href="#pv">S1b Personvern</a></li>
+    <li><a href="#s2">S2 Registrer</a></li>
+    <li><a href="#s3">S3 Oversikt</a></li>
+    <li><a href="#s16">S16 Nytt emne</a></li>
+    <li><a href="#s4">S4 Emne</a></li>
+    <li><a href="#s5">S5 Vilkår</a></li>
+    <li><a href="#s6">S6 Last opp</a></li>
+    <li><a href="#s6b">S6b Opplasting pågår</a></li>
+    <li><a href="#s6c">S6c Opplasting avbrutt</a></li>
+    <li><a href="#s7">S7 Notat</a></li>
+    <li><a href="#s8">S8 Generering</a></li>
+    <li><a href="#s8b">S8b Generering, feil</a></li>
+    <li><a href="#s9">S9 Ta quiz</a></li>
+    <li><a href="#s10">S10 Se over</a></li>
+    <li><a href="#s11">S11 Resultat</a></li>
+    <li><a href="#s12">S12 Øv på feil</a></li>
+    <li><a href="#s13">S13 Slett emne</a></li>
+    <li><a href="#s14">S14 Ikke funnet</a></li>
+    <li><a href="#s15">S15 Personvernserklæring</a></li>
+  </ul>
+</nav>
+
+</body>
+</html>
