@@ -40,7 +40,9 @@ Utseendet står i [DESIGN.md](DESIGN.md). Begrepene følger ordlisten i PRD-en (
 | S15 | Personvernserklæring | Lenke på S1 og i S1b | Hva vi lagrer, hvorfor, hvem vi deler med, hvor lenge, og hvilke rettigheter du har | NFR-3 |
 | S16 | Nytt emne | «Nytt emne»-boksen på S3 | Emnenavn, valgfrie notater (som S6) og «Opprett emne». Tomt navn gir feilmelding. | FR-4, FR-8 |
 
-**Navigasjon:** Toppfeltet er mørkt og viser «FåreQuiz» (lenke til S3) til venstre og «Logg ut» til høyre. «Logg ut» vises ikke på S1 og S2. Under toppfeltet står en brødsmulesti, for eksempel «Emner › Webutvikling › HTML-forelesning». Appen har ingen sidemeny og ingen hamburgermeny, fordi strukturen bare er tre nivåer dyp. Når testmodus er på, ligger testmodus-banneret mellom toppfeltet og brødsmulestien på alle sider.
+**Navigasjon:** Toppfeltet er mørkt og viser «FåreQuiz» (lenke til S3) til venstre. Til høyre står «‹ Tilbake» (går til forrige side i historikken), «Meny» (rullgardinmeny til Oversikt, Nytt emne, Øv på feil og Personvernerklæring) og «Logg ut». «Logg ut» vises ikke på S1 og S2, men Tilbake og Meny vises på alle sider. Under toppfeltet står en brødsmulesti, for eksempel «Emner › Webutvikling › HTML-forelesning». Når testmodus er på, ligger testmodus-banneret mellom toppfeltet og brødsmulestien på alle sider.
+
+**Endret 23.11.2026:** Tidligere sto det at appen ikke skulle ha sidemeny eller hamburgermeny, fordi strukturen bare er tre nivåer dyp. Den beslutningen er reversert etter ønske fra gruppa.
 
 **Bekreftelser og vilkår** vises som egne sider (S5, S13), ikke som popup-vinduer. Det eneste unntaket er personvern-dialogen ved første innlogging (S1b), som brukeren må bekrefte før hen kommer videre. Dialogen er en modal med fokusfelle og `aria-modal`. Esc lukker den ikke, fordi brukeren må svare.
 
