@@ -29,3 +29,4 @@
 - [x] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa avgjør «Øv på feil»-kortet på S3 i prototypen (forslag: ikke med i v1) (løst 2026-11-23: PR #4)
 - [x] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa bekrefter at «første gang» for S5 betyr «ingen notater ennå» (løst 2026-11-23: PR #4)
 - [x] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — EXPERIENCE.md sier «alle 14 skjermbildene», men designet har nå flere (løst 2026-11-23: PR #4)
+- [ ] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa bekrefter at menyen og Tilbake er tilbake i toppfeltet, uten «Øv på feil» i menyen
