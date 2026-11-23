@@ -13,3 +13,7 @@
 - [ ] 2026-11-11 [prd-v1](997-2026-11-11-21-40-00-prd-v1.md) — språkvasken av PRD-en med bmad-review (structure og prose) ble ikke kjørt
 - [ ] 2026-11-11 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — HTML-skisser av nøkkelskjermbilder («Ta quiz» på mobil, «Notat») ble ikke laget
 - [ ] 2026-11-11 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — kvalitetssjekken av UX-dokumentene og språkvasken med bmad-review ble ikke kjørt
+- [ ] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa velger felles UX: gruppeversjonen med prototypen (forslag-design-martin) eller Christians (Tailwind), før story 1.3
+- [ ] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa bekrefter Christians arkitektur og epics som sprintgrunnlag før story-1-1 merges
+- [ ] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — avklare om technology.md (FastAPI + Next.js) bare er referanse eller skal påvirke stackvalget
+- [ ] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — oppdatere PRD etter faglærers tilbakemelding (FR-31, spørsmålsidentitet, FR-20 kjerne, kuttrekkefølge)
