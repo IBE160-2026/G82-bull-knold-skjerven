@@ -274,6 +274,16 @@ Gruppa godtok forslagene 23.11:
 2. **«Første gang» for S5** betyr «brukeren har ingen notater ennå». Det trengs ikke noe nytt felt. Står i EXPERIENCE.md, UX-DR16 og story 2.3.
 3. **Testseksjonen i EXPERIENCE.md** viser nå til alle skjermbildene: S1–S16, S1b, S6b og S6c.
 
+## 7. Tillegg 23.11: Tilbake og Meny i toppfeltet
+
+Etter forslaget ble to commits fra `forslag-design-martin` (17:27) tatt inn. De legger til «‹ Tilbake» og en «Meny»-rullgardin i toppfeltet og reverserer «ingen sidemeny». Magnus valgte å ta dem inn med to justeringer:
+
+- **Menyen** har Oversikt, Nytt emne og Personvernerklæring, men ikke «Øv på feil», fordi feilbanken hører til hvert notat (kap. 6, punkt 1).
+- **Tilbake** er en vanlig lenke til forelderen med `aria-label` som sier hvor (ikke `history.back()`), slik at den virker uten JavaScript (AD-13).
+- Tilbake, Meny og Logg ut vises bare etter innlogging.
+
+UX-DR2, UX-DR3 og UX-DR4 og story 1.3 er oppdatert. EXPERIENCE.md sier det samme, og «Øv på feil» er fjernet fra menyen i prototypen.
+
 ## Sjekkliste
 
 | Del | Status |

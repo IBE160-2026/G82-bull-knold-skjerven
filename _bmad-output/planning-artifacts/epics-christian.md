@@ -150,9 +150,9 @@ NFR-ene kuttes ikke. De bygges inn i hver story som akseptansekriterier. Merk at
 Etter Martins design ([DESIGN.md](ux-designs/ux-G82-bull-knold-skjerven-2026-11-11/DESIGN.md), [EXPERIENCE.md](ux-designs/ux-G82-bull-knold-skjerven-2026-11-11/EXPERIENCE.md) og prototypen). Skrevet om 23.11. Numrene er beholdt for samme tema, og UX-DR31–UX-DR35 er nye.
 
 UX-DR1: Design-tokens fra DESIGN.md i Tailwind v4 `@theme`: alle farger (varm palett med `accent-strong` #5C3A21, `error` #A34420 terrakotta, `success` #3F624D salvie, `surface-inverse` og `focus-inverse`), typografi (systemfonter, `page-title` 24 px, `section-title` 18 px, `question` 20 px, `body` 16 px, `meta` 14 px, `score` 36 px med `tabular-nums`), hjørner (4/6/8/full), `content-max` 768 px, marg 16/24 px og `tap-min` 44 px. Størrelser i `rem`. Ingen mørk modus.
-UX-DR2: Grunnmal for alle sider: mørkt toppfelt (`surface-inverse`) med logoen (fåret i ballongen) og «FåreQuiz» som lenker til S3 til venstre, og «Logg ut» (POST) til høyre. «Logg ut» vises ikke på S1 og S2. «Hopp til innhold» er første fokuserbare element. Sidens bakgrunn er `page-bg` med `kart.svg`. Én `<h1>`, `<main>`, `lang="nb"` og `<title>` på formen «HTML-forelesning – Webutvikling – FåreQuiz». `scroll-padding-top` er lik høyden på toppfeltet.
-UX-DR3: Brødsmulesti under toppfeltet i stedet for Tilbake-knapp, for eksempel «Emner › Webutvikling › HTML-forelesning». Under `md` vises bare forrige nivå, for eksempel «‹ Webutvikling». Toppfelt, banner og brødsmulesti ligger på samme sted på alle sider.
-UX-DR4: Ingen sidemeny og ingen hamburgermeny. Fotlinjen på alle sider har opphavsrettsteksten fra prototypen og lenken «Personvernerklæring» til S15.
+UX-DR2: Grunnmal for alle sider: mørkt toppfelt (`surface-inverse`) med logoen (fåret i ballongen) og «FåreQuiz», som lenker til S3, til venstre, og «‹ Tilbake» (UX-DR3), «Meny» (UX-DR4) og «Logg ut» (POST) til høyre. Tilbake, Meny og Logg ut vises bare etter innlogging, ikke for en utlogget besøkende på S1, S2 og S15. «Hopp til innhold» er første fokuserbare element. Sidens bakgrunn er `page-bg` med `kart.svg`. Én `<h1>`, `<main>`, `lang="nb"` og `<title>` på formen «HTML-forelesning – Webutvikling – FåreQuiz». `scroll-padding-top` er lik høyden på toppfeltet.
+UX-DR3: «‹ Tilbake» er en vanlig lenke til forelderen i hierarkiet (Emne → Oversikt, Notat og Last opp → emnet, Quiz, Se over og lever, Resultat og Øv på feil → notatet), med `aria-label` som sier hvor, for eksempel «Tilbake til Webutvikling». Den virker uten JavaScript og vises ikke på S3. Under toppfeltet står i tillegg brødsmulestien, for eksempel «Emner › Webutvikling › HTML-forelesning», og under `md` vises bare forrige nivå, for eksempel «‹ Webutvikling». Toppfelt, banner og brødsmulesti ligger på samme sted på alle sider.
+UX-DR4: «Meny» er en rullgardinmeny med `<details>` i `<nav aria-label="Hovedmeny">`, som virker uten JavaScript: Oversikt, Nytt emne og Personvernerklæring. Den åpnes med klikk, Enter og mellomrom, og Esc lukker den og setter fokus tilbake på knappen når JavaScript er på. «Øv på feil» står ikke i menyen, fordi feilbanken hører til hvert notat (endret 23.11, se EXPERIENCE.md). Fotlinjen på alle sider har opphavsrettsteksten fra prototypen og lenken «Personvernerklæring» til S15.
 UX-DR5: Knapper: hovedknapp i `accent-strong` med krem tekst, høyst én per skjermbilde. Sekundærknapp i krem med brun kant («Forrige», «Avbryt», «Gi nytt navn»). Fareknapp i `error`, bare på S13. Låste knapper har `aria-disabled` og en synlig forklaring. Alle er minst 44 px høye. Knappetekster sier hva som skjer.
 UX-DR6: Fokusring på 2 px `accent-strong` med 2 px avstand, i toppfeltet `focus-inverse`. Fokus skjules aldri, og `outline: none` er forbudt.
 UX-DR7: Kort (emnekort, notatkort, quizkort) der hele kortet er én lenke, med `card`-skygge og løft på 2 px ved hover, slått av ved `prefers-reduced-motion`. Emner sorteres alfabetisk. Notater, quizer og historikk sorteres med det nyeste først.
@@ -358,10 +358,10 @@ slik at notatene og quizene mine er mine og bare mine.
 ### Story 1.3: Toppfelt, brødsmuler og felles sidemal
 
 Som innlogget student,
-vil jeg ha samme toppfelt, brødsmulesti og fotlinje på alle sider,
+vil jeg ha samme toppfelt med Tilbake og Meny, brødsmulesti og fotlinje på alle sider,
 slik at jeg alltid vet hvor jeg er og kommer meg tilbake.
 
-*Prioritet: kjerne. UX-DR1 til UX-DR6, UX-DR26, UX-DR27, UX-DR29, UX-DR30. Første story med grensesnitt, og derfor den som setter opp Tailwind og htmx (flyttet fra story 1.1 20.11). Endret 23.11: Martins design, uten meny og Tilbake-knapp.*
+*Prioritet: kjerne. UX-DR1 til UX-DR6, UX-DR26, UX-DR27, UX-DR29, UX-DR30. Første story med grensesnitt, og derfor den som setter opp Tailwind og htmx (flyttet fra story 1.1 20.11). Endret 23.11: Martins design med Tilbake og Meny i toppfeltet.*
 
 **Akseptansekriterier:**
 
@@ -373,11 +373,22 @@ slik at jeg alltid vet hvor jeg er og kommer meg tilbake.
 
 **Gitt** en side
 **Når** den vises
-**Så** har den «Hopp til innhold» som første fokuserbare element, et mørkt toppfelt i `<header>` med logoen og «FåreQuiz» som lenker til S3 og «Logg ut» (POST) til høyre, brødsmulesti, én `<h1>`, `<main>` og en sentrert kolonne på maks 768 px med 16 px marg under `md` og 24 px fra `md` (UX-DR2, UX-DR3)
-**Og** «Logg ut» vises ikke på S1 og S2, og toppfeltet ligger ikke over fokusert innhold (`scroll-padding-top`)
+**Så** har den «Hopp til innhold» som første fokuserbare element, et mørkt toppfelt i `<header>` med logoen og «FåreQuiz» som lenker til S3, og «‹ Tilbake», «Meny» og «Logg ut» (POST) til høyre, brødsmulesti, én `<h1>`, `<main>` og en sentrert kolonne på maks 768 px med 16 px marg under `md` og 24 px fra `md` (UX-DR2, UX-DR3)
+**Og** Tilbake, Meny og Logg ut vises ikke for en utlogget besøkende på S1, S2 og S15, og toppfeltet ligger ikke over fokusert innhold (`scroll-padding-top`)
 **Og** sidens bakgrunn er `page-bg` med `kart.svg`
 **Og** `<title>` følger formen «HTML-forelesning – Webutvikling – FåreQuiz», og CSRF-tokenet ligger i `hx-headers` på `<body>`
-**Og** det finnes ingen meny og ingen Tilbake-knapp. Brødsmulestien viser bare forrige nivå under `md`, for eksempel «‹ Webutvikling»
+**Og** brødsmulestien viser bare forrige nivå under `md`, for eksempel «‹ Webutvikling»
+
+**Gitt** en side med forelder i hierarkiet
+**Når** «‹ Tilbake» vises
+**Så** er den en vanlig lenke til forelderen med `aria-label` som sier hvor, for eksempel «Tilbake til Webutvikling», den virker uten JavaScript, og den vises ikke på S3 (UX-DR3)
+**Og** sidemalen tar forelderen som en variabel, slik at storyene som lager sidene, bare oppgir lenke og navn
+
+**Gitt** menyen
+**Når** den åpnes og lukkes med klikk, Enter og mellomrom
+**Så** er den en `<details>` i `<nav aria-label="Hovedmeny">` med Oversikt, Nytt emne og Personvernerklæring, og den virker uten JavaScript (UX-DR4)
+**Og** med JavaScript lukker Esc menyen og setter fokus tilbake på knappen, og klikk utenfor lukker den
+**Og** «Øv på feil» står ikke i menyen
 
 **Gitt** fotlinjen
 **Når** en side vises
