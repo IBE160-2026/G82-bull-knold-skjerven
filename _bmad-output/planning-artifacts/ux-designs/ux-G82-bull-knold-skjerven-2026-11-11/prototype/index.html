@@ -29,7 +29,19 @@
 
 <header class="topbar">
   <a class="brand" href="#s3"><svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><use href="#faar-ballong"/></svg>FåreQuiz</a>
-  <a class="meta logout" href="#s1">Logg ut</a>
+  <div class="topbar-right">
+    <button type="button" class="topbar-btn" onclick="history.back()">‹ Tilbake</button>
+    <details class="menu">
+      <summary class="topbar-btn">Meny</summary>
+      <nav class="menu-dropdown" aria-label="Hovedmeny">
+        <a href="#s3">Oversikt</a>
+        <a href="#s16">Nytt emne</a>
+        <a href="#s12">Øv på feil</a>
+        <a href="#s15">Personvernerklæring</a>
+      </nav>
+    </details>
+    <a class="meta logout" href="#s1">Logg ut</a>
+  </div>
 </header>
 
 <div class="test-banner" role="note">Testmodus: quizene bruker mock-svar, ingen KI kalles.</div>

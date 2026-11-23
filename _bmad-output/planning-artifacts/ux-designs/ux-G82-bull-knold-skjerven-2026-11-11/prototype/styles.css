@@ -95,6 +95,49 @@ a:hover { color: var(--accent-hover); }
 .brand-mark { width: 32px; height: 32px; flex: none; color: var(--ink-inverse); }
 .topbar a:focus-visible { outline-color: var(--focus-inverse); }
 .topbar a.meta { color: var(--ink-inverse-secondary); }
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+.topbar-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--ink-inverse-secondary);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--ink-inverse);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.topbar-btn:hover { background: rgba(255, 255, 255, 0.08); }
+.topbar-btn:focus-visible { outline: 2px solid var(--focus-inverse); outline-offset: 2px; }
+.menu { position: relative; }
+.menu summary { list-style: none; }
+.menu summary::-webkit-details-marker { display: none; }
+.menu[open] summary { background: rgba(255, 255, 255, 0.08); }
+.menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  padding: 8px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-flashcard);
+}
+.menu-dropdown a {
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+}
+.menu-dropdown a:hover { background: var(--surface-muted); }
+
 .test-banner {
   background: var(--surface-sunken);
   color: var(--ink);
