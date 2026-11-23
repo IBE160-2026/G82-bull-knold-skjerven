@@ -7,15 +7,19 @@ inputDocuments:
   - _bmad-output/planning-artifacts/prds/prd-G82-bull-knold-skjerven-2026-11-11/addendum.md
   - _bmad-output/planning-artifacts/prds/prd-G82-bull-knold-skjerven-2026-11-11/tilbakemelding-prd.md
   - _bmad-output/planning-artifacts/architecture/architecture-G82-bull-knold-skjerven-2026-11-15-christian/ARCHITECTURE-SPINE.md
-  - _bmad-output/planning-artifacts/ux-designs/ux-G82-bull-knold-skjerven-2026-11-15-christian/DESIGN.md
-  - _bmad-output/planning-artifacts/ux-designs/ux-G82-bull-knold-skjerven-2026-11-15-christian/EXPERIENCE.md
+  - _bmad-output/planning-artifacts/ux-designs/ux-G82-bull-knold-skjerven-2026-11-11/DESIGN.md
+  - _bmad-output/planning-artifacts/ux-designs/ux-G82-bull-knold-skjerven-2026-11-11/EXPERIENCE.md
+  - _bmad-output/planning-artifacts/sprint-change-proposal-2026-11-23.md
+updated: 2026-11-23
 ---
 
 # FåreQuiz (G82-bull-knold-skjerven) – epics og stories (Christians versjon)
 
 ## Oversikt
 
-Christians individuelle versjon, laget med `bmad-create-epics-and-stories`. Dokumentet deler kravene i PRD-en, UX-designet (Christians versjon, 15.11) og arkitekturen (Christians versjon, AD-1 til AD-22) opp i epics og stories som kan implementeres. Ordene fra PRD-ens ordliste brukes med samme betydning. AD-numrene viser til [ARCHITECTURE-SPINE.md](architecture/architecture-G82-bull-knold-skjerven-2026-11-15-christian/ARCHITECTURE-SPINE.md).
+Christians individuelle versjon, laget med `bmad-create-epics-and-stories`. Dokumentet deler kravene i PRD-en, UX-designet (Martins design, valgt som felles UX 23.11) og arkitekturen (Christians versjon, AD-1 til AD-22) opp i epics og stories som kan implementeres. Ordene fra PRD-ens ordliste brukes med samme betydning. AD-numrene viser til [ARCHITECTURE-SPINE.md](architecture/architecture-G82-bull-knold-skjerven-2026-11-15-christian/ARCHITECTURE-SPINE.md). S-numrene (S1–S16, S1b, S6b, S6c) viser til skjermbildene i [EXPERIENCE.md](ux-designs/ux-G82-bull-knold-skjerven-2026-11-11/EXPERIENCE.md).
+
+**Endret 23.11:** Gruppa valgte Martins design som felles UX. UX-designkravene og storyene er tilpasset det, se [sprint-change-proposal-2026-11-23.md](sprint-change-proposal-2026-11-23.md). Christians UX-versjon (15.11) ligger som arkiv.
 
 ## Kravoversikt
 
@@ -82,7 +86,8 @@ NFR-9: KI-merking (AI Act). Hver quiz er merket «Laget av KI» med modellnavn o
 
 - Views → `studier.tilgang` / `studier.services` → modeller. Services → `ki`. `ki` importerer aldri fra `studier` eller `kontoer`.
 - Bare `studier/services/` skriver `Notat`, `Quiz`, `Okt`, `Svar`, `Feilbankrad`, `Genereringsjobb`, filer og `Bruker.vilkar_godtatt`. `Emne` kan lagres fra skjema, med `eier` i konstruktøren og unikt navn uten å skille store og små bokstaver (AD-1).
-- `hent_egen` og `egne` i `studier/tilgang.py` for alle ID-er fra URL, GET og POST. `LoginRequiredMiddleware`, med `@login_not_required` bare på innlogging og registrering. Originalfiler serveres aldri (AD-8).
+- `hent_egen` og `egne` i `studier/tilgang.py` for alle ID-er fra URL, GET og POST. `LoginRequiredMiddleware`, med `@login_not_required` bare på innlogging, registrering og personvernerklæringen. Originalfiler serveres aldri (AD-8).
+- Vilkårene godtas ved første innlogging: en mellomvare sender en innlogget bruker uten `vilkar_godtatt` til `/vilkar/` (S1b), `services.vilkar.godta_vilkar` lagrer tidspunktet, og `last_opp` avviser opplasting uten godtatte vilkår (AD-23).
 
 **Domeneregler:**
 
@@ -108,10 +113,10 @@ NFR-9: KI-merking (AI Act). Hver quiz er merket «Laget av KI» med modellnavn o
 
 **Grensesnitt og drift:**
 
-- Neste, Forrige og Lever er POST-skjemaer som virker uten JavaScript. HTMX bare som forbedring. Bare genereringen krever JS (AD-13).
+- Neste, Forrige og Lever er POST-skjemaer som virker uten JavaScript. HTMX bare som forbedring. Bare genereringen krever JS. Opplastingsfremdriften (S6b) og fokusfellen i S1b er forbedringer (AD-13).
 - `manage.py seed_testdata` kjører i tvunget testmodus, bruker bare tjenestene og kan kjøres flere ganger (AD-21).
 - README og kode bruker nøyaktig stegene `uv sync` (eller `pip install -r requirements.txt`), `migrate`, `seed_testdata`, `runserver` (AD-22).
-- URL-er: `/emner/<id>/`, `/notater/<id>/`, `/quizer/<id>/`, `/okter/<id>/sporsmal/<nr>/`, `/okter/<id>/lever/`, `/okter/<id>/resultat/`, `/jobber/<id>/steg/`.
+- URL-er: `/` (S3), `/emner/ny/` (S16), `/emner/<id>/`, `/emner/<id>/last-opp/` (S5/S6), `/emner/<id>/slett/` (S13), `/notater/<id>/`, `/quizer/<id>/`, `/jobber/<id>/` (S8), `/jobber/<id>/steg/`, `/okter/<id>/sporsmal/<nr>/`, `/okter/<id>/lever/` (GET viser S10, POST leverer), `/okter/<id>/resultat/`, `/vilkar/` (S1b), `/personvern/` (S15).
 - POST/redirect/GET. HTMX-fragmenter i `templates/<app>/_<navn>.html`. CSRF-token i `hx-headers` på `<body>`.
 - Tester: `manage.py test` med testmodus tvunget på. Regneeksemplene i FR-24 og FR-25 er testtilfeller. En test sjekker at quizsiden ikke skiller ut det riktige alternativet.
 - Logging til konsollen. Feilede jobber logges med jobb-ID og feilkode, aldri med filinnhold.
@@ -142,36 +147,43 @@ NFR-ene kuttes ikke. De bygges inn i hver story som akseptansekriterier. Merk at
 
 ### UX-designkrav (UX-DR)
 
-UX-DR1: Design-tokens fra DESIGN.md i Tailwind v4 `@theme`: alle farger (tema «Frisk grønn» og practice-familien), typografi (systemfonter, 16/14/12 px, h1 26/22 px, spørsmål 18 px, alternativ 17 px, dekning 36/32 px, poeng 56 px), radius (4/8/10/full), avstandsskala 4–48 px, `content-max` 760 px, `gutter` 16 px og `target-min` 44 px. Størrelser i `rem`. Ingen mørk modus.
-UX-DR2: Grunnmal for alle sider etter innlogging: topplinje (ikke klistret) med Tilbake, logoen «FåreQuiz» og menyknapp, brødsmuler over overskriften, landemerkene `<header>`, `<nav aria-label="Hovedmeny">` og `<main>`, én `<h1>`, `<title>` på formen «Side – sted – FåreQuiz», `lang` på siden og sentrert kolonne på maks 760 px.
-UX-DR3: Tilbake-knapp som vanlig lenke til forelderen i hierarkiet (Emneside → Mine emner, Notatside og Last opp → emnet, Quiz, Resultat og Øv på feil → notatet), med `aria-label` som sier hvor, for eksempel «Tilbake til HTML». Vises ikke på Mine emner.
-UX-DR4: Menypanel med `<details>` som virker uten JS: *Mine emner* (alle emnene som lenker), *+ Nytt emne*, *Fortsett der du slapp* og *Logg ut*. Åpnes med klikk, Enter og mellomrom. Esc lukker og setter fokus tilbake. Klikk utenfor lukker. 260 px bredt, eneste element med skygge.
-UX-DR5: Knappevarianter: primær (grønn), sekundær (grønn kant), øve (oransje, bare «Øv på feil»), fare (rød, bare «Ja, slett emnet») og låst (grå). Minst 44 px høye. Ett fylt hovedvalg per skjerm. Knappetekster sier hva som skjer.
-UX-DR6: Fokusring på 3 px i primærfargen med 2 px avstand, oransje i «Øv på feil». Fokus skjules aldri.
-UX-DR7: Listerad der hele raden er én lenke, med navn, metadata og dekningsstolpe med prosent. Emner og notater sorteres alfabetisk. Quizer og historikk sorteres med nyeste øverst.
-UX-DR8: Dekningsstolpe (10 px) alltid med prosenttall. Dekningskort med stort tall. På notatsiden tre nivåbokser «Lett · 20 %», «Middels · 30 %», «Vanskelig · 50 %». Emne uten dekningsgrad viser «Ingen dekningsgrad». Nivå uten quiz viser «Ingen quiz».
-UX-DR9: Fortsett-boksen «Fortsett der du slapp» nederst på Mine emner og i menyen: alle påbegynte forsøk og øvingsøkter, nyeste først, med tekst som «Webutvikling › HTML · Middels · 5 av 10 besvart». Hver rad lenker til første ubesvarte spørsmål. Vises ikke når det ikke finnes noen.
-UX-DR10: Spørsmålsboks og svaralternativer: spørsmålet er `<legend>` for tre radioknapper i `<label>`, så hele boksen er klikkbar. Alternativene er minst 56 px. Valgt alternativ har blekgrønn flate og 2 px grønn kant (oransje i øving). Piltastene flytter mellom alternativene. `lang` fra quizen når språket ikke er norsk.
-UX-DR11: Quizfremdrift med «Spørsmål N av M», en 8 px stolpe og KI-merket ved siden av.
-UX-DR12: Forrige, Neste og Lever: Neste og Forrige lagrer svaret og går videre, og det går an å gå videre uten å svare. På siste spørsmål er Neste byttet ut med Lever. Mislykket lagring gir «Svaret ble ikke lagret. Sjekk nettet og prøv igjen.» ved knappen, og studenten blir på samme spørsmål.
-UX-DR13: KI-merket «Laget av KI (<modell>) · kan inneholde feil», med modellnavnet fra quizen, ved hver quiz på Notatside og over spørsmålet i Quiz og i Øv på feil. Vises også i testmodus.
-UX-DR14: Merkelapper: gul «Påbegynt N/M» med knappen «Fortsett» i stedet for «Ta på nytt», og oransje «Øv på feil».
-UX-DR15: Valg av vanskelighetsgrad som tre radioknapper i bokser, med middels valgt. Tallfelt for antall, 5–30, standard 10, med feilmelding ved feltet ved verdi utenfor.
-UX-DR16: Last opp notat på én side: vanlig filvelger uten dra-og-slipp, sjekk av format og størrelse i nettleseren når det går og alltid på serveren, nivå, antall, KI-merknad (blekgrønn med grønn stripe), vilkårsboks bare første gang med «Jeg godtar vilkårene» og «Les vilkårene» som folder ut teksten, og «Lag quiz». Ved avvist fil står valgene igjen.
-UX-DR17: Ventepanel som erstatter skjemaet mens quizen lages: spinner, den faste overskriften «Lager quiz, håper du er klar!», steglinjen «Steg 1 av 3: Leser filen» → «Steg 2 av 3: Lager spørsmål» → «Steg 3 av 3: Sjekker quizen» med `role="status"` og `aria-live="polite"`, og tre små stolper som fylles. Ved suksess åpnes Quiz på spørsmål 1.
-UX-DR18: Feiltilstander for generering: timeout gir «Det tok for lang tid å lage quizen. Filen er lagret, så du trenger ikke laste den opp på nytt.» og «Prøv igjen» med samme valg. Formatfeil to ganger gir «Vi klarte ikke å lage en gyldig quiz. Prøv igjen, eller velg færre spørsmål.» De andre feilkodene i AD-10 får egne tekster i samme tone.
-UX-DR19: Feilmelding-komponent: lys rød flate, fet overskrift, står ved feltet eller knappen, får fokus eller har `role="alert"`, og lenker hopper til feltet eller spørsmålet. Manglende svar ved levering gir «Du har ikke svart på alle spørsmålene. Disse mangler: spørsmål 4, spørsmål 7.» med lenker.
-UX-DR20: Resultatside: poengkort med «7 av 10» i 56 px og «riktige svar» med `role="status"`, resultatrader med «✓ Riktig» eller «✗ Feil» og spørsmålsnummer, ingen fasit for feil svar, «N spørsmål er lagt i feilbanken. Øv på dem til du kan dem.» og knappen «Øv på feil».
-UX-DR21: «Øv på feil» som egen modus med samme oppsett som Quiz, der practice-familien (oransje) erstatter primary-familien helt: knapper, valgt svar, fremdrift og fokus.
-UX-DR22: Øv-resultat: poengsum, lært-boks øverst for hvert spørsmål som ble lært i økten, med «Lært! ✓», spørsmålet og «Fasit: …» (og begrunnelsen, TF-2), deretter riktig/feil og telleren for resten. Når feilbanken er tom: «Feilbanken er tom. Godt jobba!» og «Tilbake til <notat>». Lært er det eneste stedet med en liten feiring.
-UX-DR23: Notatside med seksjonene under hverandre: dekningskort med nivåbokser, feilbank-rad («N spørsmål å øve på» og «Øv på feil», eller låst knapp med «Ingen feil å øve på»), quizer med nivå, antall, dato, KI-merke og «Ta på nytt»/«Fortsett», «Lag ny quiz» med nivå og antall, og historikktabell med Dato, Quiz og Poengsum.
-UX-DR24: Slett emne på en egen bekreftelsesside, ikke popup: «Slette «<navn>»? Dette sletter N notater og alle quizene …». «Avbryt» er like lett å nå som «Ja, slett emnet».
-UX-DR25: Tomtilstander: velkomstkort for ny bruker («Velkommen til FåreQuiz», én setning og «Opprett ditt første emne»), og emne uten notater med «Ingen notater ennå» og «+ Last opp notat».
-UX-DR26: Testmodus-stripe øverst på alle sider: «Testmodus – quizene er forhåndslagret og laget av KI tidligere.» Quiz fra ukjent fil får merknaden «Testmodus: denne quizen er laget fra et forhåndslagret testdokument, ikke fra filen din.» på Notatside og Quiz.
-UX-DR27: «Ikke funnet»-side med «Fant ikke siden» og lenke til Mine emner, som ikke avslører om dataene finnes hos andre.
-UX-DR28: Innlogging og registrering som vanlige skjemaer med synlige etiketter, `autocomplete="email"` og `current-password`/`new-password`, innliming tillatt og «Feil e-post eller passord.» som felles melding.
-UX-DR29: Responsivt oppsett: over 760 px sentrert kolonne, 400–760 px full bredde med 16 px marg og knapper som brytes, under 480 px mindre overskrifter og tall, under 400 px skjules logoen. Ingen vannrett rulling ned til 320 px og ved 200 % tekst.
-UX-DR30: Stemme og tone etter EXPERIENCE.md: kort, vennlig, du-form, tekstene i tabellen «Gjør» brukes ordrett der de finnes.
+Etter Martins design ([DESIGN.md](ux-designs/ux-G82-bull-knold-skjerven-2026-11-11/DESIGN.md), [EXPERIENCE.md](ux-designs/ux-G82-bull-knold-skjerven-2026-11-11/EXPERIENCE.md) og prototypen). Skrevet om 23.11. Numrene er beholdt for samme tema, og UX-DR31–UX-DR35 er nye.
+
+UX-DR1: Design-tokens fra DESIGN.md i Tailwind v4 `@theme`: alle farger (varm palett med `accent-strong` #5C3A21, `error` #A34420 terrakotta, `success` #3F624D salvie, `surface-inverse` og `focus-inverse`), typografi (systemfonter, `page-title` 24 px, `section-title` 18 px, `question` 20 px, `body` 16 px, `meta` 14 px, `score` 36 px med `tabular-nums`), hjørner (4/6/8/full), `content-max` 768 px, marg 16/24 px og `tap-min` 44 px. Størrelser i `rem`. Ingen mørk modus.
+UX-DR2: Grunnmal for alle sider: mørkt toppfelt (`surface-inverse`) med logoen (fåret i ballongen) og «FåreQuiz» som lenker til S3 til venstre, og «Logg ut» (POST) til høyre. «Logg ut» vises ikke på S1 og S2. «Hopp til innhold» er første fokuserbare element. Sidens bakgrunn er `page-bg` med `kart.svg`. Én `<h1>`, `<main>`, `lang="nb"` og `<title>` på formen «HTML-forelesning – Webutvikling – FåreQuiz». `scroll-padding-top` er lik høyden på toppfeltet.
+UX-DR3: Brødsmulesti under toppfeltet i stedet for Tilbake-knapp, for eksempel «Emner › Webutvikling › HTML-forelesning». Under `md` vises bare forrige nivå, for eksempel «‹ Webutvikling». Toppfelt, banner og brødsmulesti ligger på samme sted på alle sider.
+UX-DR4: Ingen sidemeny og ingen hamburgermeny. Fotlinjen på alle sider har opphavsrettsteksten fra prototypen og lenken «Personvernerklæring» til S15.
+UX-DR5: Knapper: hovedknapp i `accent-strong` med krem tekst, høyst én per skjermbilde. Sekundærknapp i krem med brun kant («Forrige», «Avbryt», «Gi nytt navn»). Fareknapp i `error`, bare på S13. Låste knapper har `aria-disabled` og en synlig forklaring. Alle er minst 44 px høye. Knappetekster sier hva som skjer.
+UX-DR6: Fokusring på 2 px `accent-strong` med 2 px avstand, i toppfeltet `focus-inverse`. Fokus skjules aldri, og `outline: none` er forbudt.
+UX-DR7: Kort (emnekort, notatkort, quizkort) der hele kortet er én lenke, med `card`-skygge og løft på 2 px ved hover, slått av ved `prefers-reduced-motion`. Emner sorteres alfabetisk. Notater, quizer og historikk sorteres med det nyeste først.
+UX-DR8: Dekningsvisning: stolpen er en reiserute (stiplet spor, fyll i kaffebrun, fåret i ballongen på enden av fyllet med `aria-hidden`, og et flagg ved 100 %), og prosenten står alltid som tekst ved siden av. På S7 står totalen øverst og lett, middels og vanskelig under, med «Vanskelige spørsmål teller mest (50 %)». S4 har tallfliser (`stat-tile`) for dekningsgrad og antall i feilbanken. Emne uten notater viser «Ingen notater». Emne der ingen notater har quiz, viser «Ingen dekningsgrad».
+UX-DR9: Boksen «Fortsett der du slapp» øverst på S3: én rad per påbegynt forsøk eller øvingsøkt, nyeste først, med nivå og antall («Middels, 10 spørsmål»), sted og fremdrift («Webutvikling · HTML-forelesning · spørsmål 5 av 10») og knappen «Fortsett quizen». Hver rad lenker til første ubesvarte spørsmål. Vises ikke når det ikke finnes påbegynte økter.
+UX-DR10: Spørsmålet står på et flashcard (maks 560 px, `question`) og er `<legend>` i en `<fieldset>`. Under står tre svaralternativer (`option-card`) som radioknapper i `<label>`, så hele kortet er klikkbart, minst 44 px høye. Valgt alternativ har 2 px kant i `accent-strong`, `surface-muted` og fylt radioknapp. Hover gir `card-hover`, brun kant og løft på 1 px. Piltastene velger. `lang` fra quizen når språket ikke er norsk.
+UX-DR11: Quizfremdrift: teksten «Spørsmål 3 av 10» og en reiserute med fåret i ballongen (`aria-hidden`) og et flagg i enden.
+UX-DR12: Forrige og Neste lagrer svaret og går videre, også uten valgt svar. Neste på siste spørsmål går til S10. Fokus flyttes til spørsmålet. Mislykket lagring gir «Svaret ble ikke lagret. Sjekk nettet og prøv igjen.» ved knappen, og studenten blir på samme spørsmål.
+UX-DR13: KI-merket er «Laget av KI» (`ai-badge`) i lister, og «Laget av KI (<modell>). Spørsmålene kan inneholde feil.» øverst på S9–S12, med modellnavnet fra quizen. Merket er tekst, kan ikke lukkes og vises også i testmodus.
+UX-DR14: Quizkort med vanskelighetsgrad, antall, dato og KI-merke. Et påbegynt forsøk vises som «Påbegynt – spørsmål 5 av 10» med knappen «Fortsett». Ellers er knappen «Ta quiz» eller «Ta på nytt».
+UX-DR15: Skjema for ny quiz på S7: `<fieldset>` med `<legend>` og radioknappene lett, middels og vanskelig, middels valgt. Tallfelt for antall med `min` 5, `max` 30, standard 10, forklarende tekst og feilmelding ved feltet ved verdi utenfor. Knappen er «Lag quiz».
+UX-DR16: Opplasting. S5: kort bekreftelse første gang brukeren laster opp («Du har godtatt vilkårene. Det skjedde da du logget inn første gang …», lenke til S15, «Gå videre til opplasting» og «Avbryt»). S6: vanlig `<input type="file">` med etikett, formater og maks størrelse over feltet med `aria-describedby`, KI-varsel om at innholdet sendes til Anthropic, ingen dra-og-slipp, og «Last opp». S6b: filnavn, fremdrift som reiserute, låst «Last opp» og beskjed om å ikke lukke fanen. S6c: «Opplastingen ble avbrutt. Filen er ikke lagret. Last opp på nytt.» Feil: «Filen er over 5 MB. Velg en mindre fil.», «Formatet støttes ikke. Bruk PDF, DOCX eller TXT.» og «Velg en fil først.» ved feltet med `role="alert"`, og fokus flyttes dit. Etter opplasting åpnes S7.
+UX-DR17: Generering (S8) på egen side: tre steg i en liste, «Leser filen», «Lager spørsmål» og «Sjekker quizen», hvert markert som ferdig, pågår eller venter med ikon og tekst, i en `aria-live="polite"`-region, så hvert nytt steg leses opp. Knappen er låst så lenge genereringen pågår. Når quizen er laget, åpnes S9 på spørsmål 1.
+UX-DR18: Feiltilstander for generering: timeout gir «Genereringen tok for lang tid. Filen er lagret, så du kan prøve igjen.», formatfeil to ganger gir «Klarte ikke å lage en gyldig quiz. Prøv igjen, eller velg færre spørsmål.», og API-feil gir «KI-tjenesten svarte ikke. Prøv igjen.» De andre feilkodene i AD-10 (`for_lite_innhold`, `for_stor`, `api_nokkel`) får egne tekster i samme tone. Alle med `role="alert"` og knappen «Prøv igjen», som bruker samme fil og valg, og fokus flyttes til knappen.
+UX-DR19: Feilmeldinger står ved feltet, er koblet med `aria-describedby` og får fokus. På S1 og S2 står de over skjemaet. Tekstene sier hva som er galt og hva brukeren kan gjøre.
+UX-DR20: Resultat (S11): «7 av 10 riktige» i `score` med `role="status"`. For hvert spørsmål spørsmålsteksten, svaret studenten valgte og ✓ «Riktig» eller ✕ «Feil» i `success` eller `error` (ikonet `aria-hidden`). Fasiten vises ikke. «3 spørsmål er lagt i feilbanken.» og knappen «Øv på feil».
+UX-DR21: «Øv på feil» (S12) har samme flyt som S9–S11, også S10. Aksentfargen settes på seksjonen og er terrakotta, slik at fremdrift, prikker og knapper blir terrakotta, som i prototypen. Valgt alternativ vises fortsatt med form og ikke bare med farge.
+UX-DR22: Resultat av øving: for hvert spørsmål som ble lært i økten, «Lært. Riktig svar var: …» og begrunnelsen (TF-2). Spørsmål som ikke er lært, viser lært-prikkene og «1 av 2 riktige på rad». Når alt er lært: «Alle spørsmålene er lært. Feilbanken er tom.» og lenke tilbake til notatet. Ingen feiring og ingen utropstegn.
+UX-DR23: Notat (S7) med seksjonene under hverandre: dekningsgrad (UX-DR8), «Øv på feil (N)» eller låst knapp med «Ingen spørsmål i feilbanken», quizkortene (UX-DR14), «Lag ny quiz» (UX-DR15) og historikk. Historikken er en ekte `<table>` med `<th scope>` fra `md`, og kort på mobil. Uten forsøk: «Ingen forsøk ennå. Ta en quiz for å se historikken.» Notat uten quiz: 0 %, «Lag en quiz for å komme i gang» og skjemaet øverst.
+UX-DR24: Slett emne (S13) på egen side, ikke popup. Siden sier nøyaktig hva som slettes, for eksempel «4 notater, 9 quizer og all historikk». «Avbryt» kommer før fareknappen «Slett emnet og alt innhold» i tab-rekkefølgen.
+UX-DR25: Tomtilstander: S3 «Ingen emner ennå. Opprett ditt første emne.» med kortet «Nytt emne», og S4 «Ingen notater ennå. Last opp det første.» med knappen «Last opp notat».
+UX-DR26: Testmodus-banneret «Testmodus: quizene bruker mock-svar, ingen KI kalles» ligger mellom toppfeltet og brødsmulestien på alle sider. S1 viser testbrukerens e-post og passord. En quiz fra en fil som ikke er et testdokument, får merknaden «Testmodus: denne quizen er laget fra et forhåndslagret testdokument, ikke fra filen din.» på S7 og S9.
+UX-DR27: «Ikke funnet» (S14) med h1 «Fant ikke siden», lenke til Emner (S3) og status 404, uten å si om dataene finnes hos andre.
+UX-DR28: Innlogging (S1) og registrering (S2) som vanlige skjemaer med synlige etiketter, `autocomplete="email"` og `current-password`/`new-password`, innliming tillatt og ingen CAPTCHA. Meldinger: «Feil e-post eller passord.», «Det finnes allerede en konto med denne e-posten.» og «Passordet må ha minst 8 tegn.» Utløpt økt: «Du er logget ut. Logg inn igjen for å fortsette.», og etter innlogging åpnes siden brukeren var på (`next`).
+UX-DR29: Responsivt: under `md` én kolonne med 16 px marg, quizknappene like brede som skjermen nederst i innholdet (ikke fast i bunnen) og historikken som kort. Fra `md` sentrert innhold på maks 768 px med 24 px marg, historikk som tabell og quizknappene på én linje. Ingen vannrett rulling ved 320 px og 200 % tekst.
+UX-DR30: Stemme og tone etter EXPERIENCE.md: norsk bokmål, du-form, kort og saklig, uten utropstegn og uten emojier. Riktig og feil sies rett ut. Tekstene i «Gjør»-tabellen brukes ordrett der de finnes.
+UX-DR31: Se over og lever (S10): ett nummer per spørsmål merket «Besvart» eller «Ikke besvart», og hvert nummer er en lenke til spørsmålet («Spørsmål 4 – ikke besvart»). «Lever» har `aria-disabled` til alle er besvart, og teksten «Du har ikke svart på spørsmål 4 og 7.» sier hvilke som mangler.
+UX-DR32: Personvern ved første innlogging (S1b): dialog (`dialog`) med `aria-modal`, fokusfelle og bakgrunn i espressobrun med 60 % opasitet. Esc lukker den ikke. Tittelen er h2, og teksten har de fire punktene fra prototypen (behandling av notater hos Anthropic, ikke del personopplysninger, KI-generert innhold kan ha feil, vilkår og loggføring) og lenke til S15. «Jeg har forstått og godtar» lagrer tidspunktet. Brukeren kommer ikke videre før det er gjort. Uten JavaScript vises det samme innholdet som en vanlig side.
+UX-DR33: Personvernerklæring (S15): offentlig side med teksten fra prototypen (hva vi lagrer, hvorfor, hvem vi deler med, hvor lenge, rettigheter og opphavsrett). Nås fra S1, S1b og fotlinjen.
+UX-DR34: Nytt emne (S16): egen side fra kortet «Nytt emne» på S3, med emnenavn, valgfrie notater (samme filvelger og regler som S6) og «Opprett emne». «Navnet kan ikke være tomt.» og «Du har allerede et emne med dette navnet.» ved feltet, og fokus flyttes dit.
+UX-DR35: Forside (S1): hero med overskrift, kort intro og «Registrer deg», og tre dekorative flashcards (`aria-hidden`). Under står tre informasjonskort (last opp, ta quizen, øv på feilene) og innloggingsskjemaet. Logo og favikon er `favicon.svg`, og bakgrunnen er `kart.svg`, begge fra prototypen.
 
 ### Kravdekning (FR → epic)
 
@@ -181,7 +193,7 @@ FR-3: Epic 1 – Bare egne data (eierhjelperne brukes i alle senere epics)
 FR-4: Epic 1 – Opprette emne
 FR-5: Epic 1 – Gi emne nytt navn
 FR-6: Epic 1 – Slette emne med alt innhold
-FR-7: Epic 2 – Godta vilkår én gang
+FR-7: Epic 1 – Godta vilkårene ved første innlogging (story 1.2). Epic 2 sjekker dem ved opplasting (story 2.3)
 FR-8: Epic 2 – Laste opp fil
 FR-9: Epic 2 – Lese innholdet i filen
 FR-11: Epic 2 – Velge vanskelighetsgrad og antall
@@ -213,13 +225,13 @@ NFR-1 til NFR-9 bygges inn som akseptansekriterier i alle stories med grensesnit
 **Rekkefølge:** 1 → 2 → 3 → 4 → 5, og 6 til slutt. Etter Epic 3 er kjerneløpet notat → quiz → feilbank → lært ferdig. Når story 1.1 er ferdig, kan resten av Epic 1 og `ki`-modulen i Epic 2 bygges parallelt. Epic 5 kan bygges parallelt med Epic 4.
 
 ### Epic 1: Konto og emner
-Studenten kan registrere seg, logge inn og ut, og opprette, gi nytt navn til og slette emner, og ser bare sine egne data. Første story setter opp prosjektskjelettet med alle modeller og CI. Tailwind-tokens og grunnmalen kommer i story 1.3.
-**FR dekket:** FR-1, FR-2, FR-3, FR-4, FR-5, FR-6, FR-29
+Studenten kan registrere seg, logge inn og ut, godta vilkårene ved første innlogging, og opprette, gi nytt navn til og slette emner, og ser bare sine egne data. Første story setter opp prosjektskjelettet med alle modeller og CI. Tailwind-tokens og grunnmalen etter Martins design kommer i story 1.3.
+**FR dekket:** FR-1, FR-2, FR-3, FR-4, FR-5, FR-6, FR-7, FR-29
 **Prioritet:** kjerne (FR-5 og FR-6: bør)
 
 ### Epic 2: Fra notat til quiz
-Studenten godtar vilkårene, laster opp et notat, velger nivå og antall, og får en KI-laget quiz med fremdrift, låst knapp og «Prøv igjen». Alt virker i testmodus uten API-nøkkel.
-**FR dekket:** FR-7, FR-8, FR-9, FR-11, FR-12, FR-13, FR-14, FR-15, FR-16, FR-27, FR-29
+Studenten laster opp et notat, velger nivå og antall på notatsiden, og får en KI-laget quiz med fremdrift, låst knapp og «Prøv igjen». Alt virker i testmodus uten API-nøkkel.
+**FR dekket:** FR-8, FR-9, FR-11, FR-12, FR-13, FR-14, FR-15, FR-16, FR-27, FR-29
 **Prioritet:** kjerne (FR-14, FR-15 og FR-16: bør)
 
 ### Epic 3: Ta quiz, se resultat og fyll feilbanken
@@ -228,7 +240,7 @@ Studenten tar quizen med svar som lagres underveis, kan fortsette der hen slapp,
 **Prioritet:** kjerne (fortsette fra annen enhet: kan kuttes)
 
 ### Epic 4: Øv på feil til det sitter
-Studenten øver på feilbanken i oransje øvemodus, ser «Lært! ✓» med fasit og begrunnelse, og kan melde et spørsmål som feil.
+Studenten øver på feilbanken i øvemodus med terrakotta-aksent, ser «Lært. Riktig svar var: …» med begrunnelse, og kan melde et spørsmål som feil.
 **FR dekket:** FR-22, FR-23, FR-31
 **Prioritet:** bør (FR-31 og ny stokking: kan kuttes)
 
@@ -294,108 +306,130 @@ slik at vi kan jobbe parallelt i hver vår story uten migreringskonflikter og ut
 **Så** kjøres `ruff check`, `ruff format --check` og `python manage.py test` uten API-nøkkel og med testmodus på
 **Og** CI er grønn på denne storyen
 
-### Story 1.2: Registrere konto og logge inn og ut
+### Story 1.2: Registrere konto, logge inn og godta vilkårene
 
 Som student,
-vil jeg registrere meg med e-post og passord og logge inn og ut,
+vil jeg registrere meg med e-post og passord, logge inn og ut, og vite hva som skjer med notatene mine før jeg begynner,
 slik at notatene og quizene mine er mine og bare mine.
 
-*Prioritet: kjerne. FR-1, FR-2, NFR-2, UX-DR28.*
+*Prioritet: kjerne. FR-1, FR-2, FR-7, NFR-2, NFR-3, AD-8, AD-23, UX-DR28, UX-DR32, UX-DR33, UX-DR35. Endret 23.11: vilkårene er flyttet hit fra story 2.3 (Martins design, S1b).*
 
 **Akseptansekriterier:**
 
-**Gitt** en besøkende på Registrer
-**Når** hen sender en gyldig e-post og et passord på minst 8 tegn
-**Så** lages kontoen med e-post i små bokstaver og passordet som hash, brukeren logges inn og sendes til startsiden `/`, som foreløpig er en enkel side som story 1.4 gjør til Mine emner
-**Og** en e-post som finnes fra før, også med andre store og små bokstaver, gir feilmelding ved feltet og ingen ny konto
-**Og** ugyldig e-post og for kort passord gir feilmelding ved feltet, og den utfylte e-posten står igjen
+**Gitt** en besøkende på forsiden (S1)
+**Når** siden vises
+**Så** står hero med overskrift, kort intro og «Registrer deg», tre dekorative flashcards med `aria-hidden`, tre informasjonskort og innloggingsskjemaet under (UX-DR35)
+**Og** forsiden har lenke til personvernerklæringen (S15)
 
-**Gitt** en registrert bruker på Logg inn
+**Gitt** en besøkende på Registrer (S2)
+**Når** hen sender en gyldig e-post og et passord på minst 8 tegn
+**Så** lages kontoen med e-post i små bokstaver og passordet som hash, brukeren logges inn og sendes til startsiden `/`, som foreløpig er en enkel side som story 1.4 gjør til Oversikt
+**Og** en e-post som finnes fra før, også med andre store og små bokstaver, gir «Det finnes allerede en konto med denne e-posten.» og ingen ny konto
+**Og** ugyldig e-post og for kort passord gir feilmelding, for eksempel «Passordet må ha minst 8 tegn.», og den utfylte e-posten står igjen
+
+**Gitt** en registrert bruker på S1
 **Når** hen sender riktig e-post og passord
-**Så** logges hen inn og sendes til startsiden `/`
+**Så** logges hen inn og sendes til startsiden `/`, eller til `next` hvis hen ble sendt til innlogging fra en annen side
 **Og** feil passord og ukjent e-post gir den samme meldingen «Feil e-post eller passord.»
+**Og** en bruker som ble logget ut midt i en quiz, ser «Du er logget ut. Logg inn igjen for å fortsette.» og kommer tilbake til spørsmålet etter innlogging
+
+**Gitt** en innlogget bruker uten `vilkar_godtatt`
+**Når** hen åpner en hvilken som helst side unntatt `/vilkar/`, `/personvern/` og utlogging
+**Så** sendes hen til personvern-dialogen (S1b) med de fire punktene fra prototypen, lenke til S15 og knappen «Jeg har forstått og godtar» (AD-23, UX-DR32)
+**Og** knappen er et POST-skjema som kaller `services.vilkar.godta_vilkar(bruker)`, lagrer tidspunktet og sender brukeren til siden hen skulle til
+**Og** dialogen vises ikke igjen når tidspunktet er lagret, og Esc lukker den ikke
+**Og** siden virker uten JavaScript. Med JavaScript er den en modal med `aria-modal` og fokusfelle
+
+**Gitt** personvernerklæringen (S15)
+**Når** den åpnes av en utlogget besøkende
+**Så** vises den uten innlogging, med teksten fra prototypen (UX-DR33)
 
 **Gitt** en innlogget bruker
 **Når** hen logger ut med et POST-skjema
-**Så** sendes hen til Logg inn, og alle sider unntatt Logg inn og Registrer sender hen til Logg inn
-**Og** bare Logg inn og Registrer har `@login_not_required`
+**Så** sendes hen til S1, og alle sider unntatt Logg inn, Registrer og Personvernerklæring sender hen til S1
+**Og** bare disse tre har `@login_not_required`
 
 **Gitt** skjemaene for Logg inn og Registrer
 **Når** de brukes med tastatur, skjermleser og passordbehandler
 **Så** har alle felt synlige etiketter, `autocomplete="email"` og `current-password` eller `new-password`, innliming virker, og det finnes ingen kognitiv test (3.3.8)
-**Og** feilmeldinger står ved feltet og har `role="alert"` eller får fokus (3.3.1)
+**Og** feilmeldinger står over skjemaet, er koblet til feltet med `aria-describedby` og får fokus (3.3.1)
 **Og** sidene har `lang="nb"`, én `<h1>`, `<main>` og en `<title>` som «Logg inn – FåreQuiz»
 
-### Story 1.3: Topplinje, meny og felles sidemal
+### Story 1.3: Toppfelt, brødsmuler og felles sidemal
 
 Som innlogget student,
-vil jeg ha samme topplinje, meny og navigasjon på alle sider,
+vil jeg ha samme toppfelt, brødsmulesti og fotlinje på alle sider,
 slik at jeg alltid vet hvor jeg er og kommer meg tilbake.
 
-*Prioritet: kjerne. UX-DR1 til UX-DR6, UX-DR26 (stripen), UX-DR27, UX-DR29, UX-DR30. Første story med grensesnitt, og derfor den som setter opp Tailwind og htmx (flyttet fra story 1.1 20.11).*
+*Prioritet: kjerne. UX-DR1 til UX-DR6, UX-DR26, UX-DR27, UX-DR29, UX-DR30. Første story med grensesnitt, og derfor den som setter opp Tailwind og htmx (flyttet fra story 1.1 20.11). Endret 23.11: Martins design, uten meny og Tilbake-knapp.*
 
 **Akseptansekriterier:**
 
 **Gitt** Tailwind v4 frittstående CLI
 **Når** `tailwindcss -i static/src/app.css -o static/css/app.css --minify` kjøres
-**Så** inneholder `@theme` alle farger, typografi, radius og avstander fra DESIGN.md, i `rem`, og `static/css/app.css` er committet (UX-DR1)
+**Så** inneholder `@theme` alle farger, typografi, hjørner og avstander fra Martins DESIGN.md, i `rem`, og `static/css/app.css` er committet (UX-DR1)
 **Og** htmx 2.0.11 ligger som `static/js/htmx.min.js`, ikke via CDN
+**Og** `favicon.svg` og `kart.svg` fra prototypen ligger i `static/img/`, og `favicon.svg` er fanebildet
 
-**Gitt** en side etter innlogging
+**Gitt** en side
 **Når** den vises
-**Så** har den `<header>` med en topplinje som ikke er klistret (Tilbake, logoen «FåreQuiz» som lenker til Mine emner, og «☰ Meny»), plass til brødsmuler over overskriften, én `<h1>`, `<main>` og en sentrert kolonne på maks 760 px med 16 px marg
-**Og** `<title>` følger formen «Side – sted – FåreQuiz», og CSRF-tokenet ligger i `hx-headers` på `<body>`
+**Så** har den «Hopp til innhold» som første fokuserbare element, et mørkt toppfelt i `<header>` med logoen og «FåreQuiz» som lenker til S3 og «Logg ut» (POST) til høyre, brødsmulesti, én `<h1>`, `<main>` og en sentrert kolonne på maks 768 px med 16 px marg under `md` og 24 px fra `md` (UX-DR2, UX-DR3)
+**Og** «Logg ut» vises ikke på S1 og S2, og toppfeltet ligger ikke over fokusert innhold (`scroll-padding-top`)
+**Og** sidens bakgrunn er `page-bg` med `kart.svg`
+**Og** `<title>` følger formen «HTML-forelesning – Webutvikling – FåreQuiz», og CSRF-tokenet ligger i `hx-headers` på `<body>`
+**Og** det finnes ingen meny og ingen Tilbake-knapp. Brødsmulestien viser bare forrige nivå under `md`, for eksempel «‹ Webutvikling»
 
-**Gitt** menyen
-**Når** den åpnes og lukkes med klikk, Enter, mellomrom og Esc
-**Så** er den en `<details>` i `<nav aria-label="Hovedmeny">` som virker uten JavaScript, Esc lukker og setter fokus tilbake på knappen, og klikk utenfor lukker
-**Og** menyen har *Logg ut* (POST). *Mine emner*, *+ Nytt emne* og *Fortsett der du slapp* legges til av storyene som lager de sidene
-
-**Gitt** en side med forelder i hierarkiet
-**Når** Tilbake vises
-**Så** er den en vanlig lenke til forelderen med `aria-label` som sier hvor, og den vises ikke på Mine emner (UX-DR3)
+**Gitt** fotlinjen
+**Når** en side vises
+**Så** står opphavsrettsteksten fra prototypen og lenken «Personvernerklæring» til S15 nederst på alle sider (UX-DR4)
 
 **Gitt** at testmodus er på
 **Når** en side vises
-**Så** står stripen «Testmodus – quizene er forhåndslagret og laget av KI tidligere.» øverst, med flagget fra en context processor som kaller `ki.er_testmodus()` (AD-12)
+**Så** står banneret «Testmodus: quizene bruker mock-svar, ingen KI kalles» mellom toppfeltet og brødsmulestien, med flagget fra en context processor som kaller `ki.er_testmodus()` (AD-12)
+**Og** S1 viser testbrukerens e-post og passord (UX-DR26)
 
 **Gitt** en URL som ikke finnes, eller en ID som tilhører en annen bruker
 **Når** siden åpnes
-**Så** vises «Fant ikke siden» med lenke til Mine emner og status 404, uten å si om dataene finnes hos andre (FR-3)
+**Så** vises «Fant ikke siden» (S14) med lenke til Emner (S3) og status 404, uten å si om dataene finnes hos andre (FR-3)
 
 **Gitt** knappekomponentene og fokusringen
 **Når** de brukes
-**Så** er primær-, sekundær-, øve-, fare- og låst knapp minst 44 px høye med tokenfargene, og fokusringen er 3 px i primærfargen med 2 px avstand (UX-DR5, UX-DR6)
-**Og** ved 320 px bredde og 200 % tekst er det ingen vannrett rulling, og under 400 px skjules logoen (UX-DR29)
+**Så** er hovedknapp, sekundærknapp, fareknapp og låst knapp minst 44 px høye med tokenfargene, og fokusringen er 2 px `accent-strong` med 2 px avstand og `focus-inverse` i toppfeltet (UX-DR5, UX-DR6)
+**Og** ved 320 px bredde og 200 % tekst er det ingen vannrett rulling, og bevegelse slås av ved `prefers-reduced-motion` (UX-DR29)
 
 **Gitt** tekstene i grensesnittet i denne og alle senere stories
 **Når** de skrives
-**Så** følger de stemmen og tonen i EXPERIENCE.md: kort, vennlig og du-form, med tekstene fra «Gjør»-tabellen ordrett der de finnes, og knapper som sier hva som skjer (UX-DR30)
+**Så** følger de tonen i Martins EXPERIENCE.md: norsk bokmål, du-form, kort og saklig, uten utropstegn og emojier, med tekstene fra «Gjør»-tabellen ordrett der de finnes, og knapper som sier hva som skjer (UX-DR30)
 
-### Story 1.4: Opprette emne og se Mine emner
+### Story 1.4: Opprette emne og se Oversikt
 
 Som student,
 vil jeg opprette emner og se dem på startsiden,
 slik at jeg kan samle notatene fra hvert fag.
 
-*Prioritet: kjerne. FR-3, FR-4, UX-DR7, UX-DR25.*
+*Prioritet: kjerne. FR-3, FR-4, UX-DR7, UX-DR25, UX-DR34. Endret 23.11: Oversikt (S3) og Nytt emne (S16) etter Martins design.*
 
 **Akseptansekriterier:**
 
 **Gitt** en ny bruker uten emner
-**Når** Mine emner åpnes
-**Så** vises velkomstkortet med «Velkommen til FåreQuiz», én setning om hva appen gjør og den store knappen «Opprett ditt første emne»
+**Når** Oversikt (S3, `/`) åpnes
+**Så** står «Ingen emner ennå. Opprett ditt første emne.» og kortet «Nytt emne» (UX-DR25)
+
+**Gitt** kortet «Nytt emne» på S3
+**Når** brukeren trykker på det
+**Så** åpnes Nytt emne (S16, `/emner/ny/`) med feltet for emnenavn og knappen «Opprett emne». Feltet for valgfrie notater legges til i story 2.3
 
 **Gitt** Nytt emne
 **Når** brukeren sender et navn
-**Så** lagres emnet med brukeren som eier fra skjemaets konstruktør, og brukeren sendes til Emnesiden med «Ingen notater ennå» (AD-1). Knappen «+ Last opp notat» legges til i story 2.3, «Gi emnet nytt navn» i 1.5 og «Slett emne» i 1.6
-**Og** tomt navn gir feilmelding ved feltet
-**Og** et navn brukeren alt har, uten å skille store og små bokstaver, gir feilmelding ved feltet, mens en annen bruker kan ha samme navn
+**Så** lagres emnet med brukeren som eier fra skjemaets konstruktør, og brukeren sendes til Emnesiden (S4) med «Ingen notater ennå. Last opp det første.» (AD-1). Knappen «Last opp notat» legges til i story 2.3, «Gi nytt navn» i 1.5 og «Slett emne» i 1.6
+**Og** tomt navn gir «Navnet kan ikke være tomt.» ved feltet, og fokus flyttes dit
+**Og** et navn brukeren alt har, uten å skille store og små bokstaver, gir «Du har allerede et emne med dette navnet.», mens en annen bruker kan ha samme navn
 
 **Gitt** en bruker med emner
-**Når** Mine emner åpnes
-**Så** listes brukerens egne emner alfabetisk som listerader der hele raden er én lenke, med plass til dekningsgrad (fylles i Epic 5)
-**Og** menyen viser *Mine emner* med alle emnene som lenker, og *+ Nytt emne*
+**Når** S3 åpnes
+**Så** står kortet «Nytt emne» først, og deretter brukerens egne emner alfabetisk som emnekort der hele kortet er én lenke til S4, med miniatyr, emnenavn, antall notater og plass til dekningsgrad (fylles i Epic 5) (UX-DR7)
+**Og** kortenes lenketekst er tydelig for skjermleser, for eksempel «Webutvikling, 4 notater»
+**Og** brødsmulestien på S4 er «Emner › <emne>»
 
 **Gitt** to brukere
 **Når** bruker A åpner `/emner/<id>/` for et emne som tilhører B
@@ -411,9 +445,9 @@ slik at jeg kan rette skrivefeil eller endre hvordan jeg organiserer fagene.
 
 **Akseptansekriterier:**
 
-**Gitt** Emnesiden
-**Når** brukeren velger «Gi emnet nytt navn»
-**Så** vises samme skjema som Nytt emne, ferdig utfylt med dagens navn, og Tilbake går til emnet
+**Gitt** Emnesiden (S4)
+**Når** brukeren trykker «Gi nytt navn»
+**Så** åpnes et skjema på emnesiden med feltet ferdig utfylt med dagens navn og knappen «Lagre navn», og fokus flyttes til feltet
 
 **Gitt** skjemaet
 **Når** brukeren sender et nytt gyldig navn
@@ -434,16 +468,16 @@ slik at jeg kan rydde bort fag jeg er ferdig med, med alle filene.
 
 **Akseptansekriterier:**
 
-**Gitt** Emnesiden
+**Gitt** Emnesiden (S4)
 **Når** brukeren velger «Slett emne»
-**Så** vises en egen bekreftelsesside, ikke en popup, med «Slette «<navn>»? Dette sletter N notater og alle quizene …» og antall notater
-**Og** «Avbryt» er like lett å nå som den røde knappen «Ja, slett emnet»
+**Så** vises bekreftelsessiden S13 (`/emner/<id>/slett/`), ikke en popup, som sier nøyaktig hva som slettes, for eksempel «4 notater, 9 quizer og all historikk»
+**Og** «Avbryt» kommer før fareknappen «Slett emnet og alt innhold» i tab-rekkefølgen
 
 **Gitt** bekreftelsessiden
-**Når** brukeren trykker «Ja, slett emnet»
+**Når** brukeren trykker «Slett emnet og alt innhold»
 **Så** sletter `services.emner.slett_emne` emnet med notater, quizer, økter, svar, feilbankrader og jobber i én `transaction.atomic`, og filene på disk slettes i `transaction.on_commit`
 **Og** en fil som alt mangler på disk, gir ingen feil
-**Og** brukeren sendes til Mine emner, og andre emner og dataene deres er uendret
+**Og** brukeren sendes til Oversikt (S3), og andre emner og dataene deres er uendret
 
 **Gitt** en test med et emne som har et notat med fil, laget direkte i testoppsettet, fordi opplasting først kommer i story 2.3
 **Når** emnet slettes
@@ -456,7 +490,7 @@ slik at jeg kan rydde bort fag jeg er ferdig med, med alle filene.
 
 ## Epic 2: Fra notat til quiz
 
-Studenten godtar vilkårene, laster opp et notat, velger nivå og antall, og får en KI-laget quiz med fremdrift, låst knapp og «Prøv igjen». Alt virker i testmodus uten API-nøkkel. Story 2.1 og 2.2 rører bare `ki` og kan bygges parallelt med resten av Epic 1.
+Studenten laster opp et notat, velger nivå og antall på notatsiden, og får en KI-laget quiz med fremdrift, låst knapp og «Prøv igjen». Alt virker i testmodus uten API-nøkkel. Story 2.1 og 2.2 rører bare `ki` og kan bygges parallelt med resten av Epic 1.
 
 ### Story 2.1: Lese filen og sjekke quizutkastet
 
@@ -522,37 +556,51 @@ slik at jeg kan kjøre hele appen lokalt uten gruppas nøkkel.
 **Når** en quiz vises
 **Så** gir `ki.visningsnavn(modell)` et lesbart navn som «Claude Sonnet 5.5», og `PROMPT_VERSJON` er definert ett sted i `ki`
 
-### Story 2.3: Godta vilkår og laste opp notat
+### Story 2.3: Laste opp notat
 
 Som student,
 vil jeg laste opp forelesningsnotatet mitt under et emne,
 slik at appen kan lage quizer fra det.
 
-*Prioritet: kjerne. FR-7, FR-8, AD-1, AD-14, UX-DR16.*
+*Prioritet: kjerne. FR-7 (kontroll), FR-8, AD-1, AD-14, AD-23, UX-DR16, UX-DR34. Endret 23.11: vilkårene godtas i story 1.2, og nivå, antall og «Lag quiz» står på Notatsiden (story 2.4).*
 
 **Akseptansekriterier:**
 
-**Gitt** Emnesiden
-**Når** brukeren trykker «+ Last opp notat»
-**Så** vises Last opp notat med vanlig filvelger uten dra-og-slipp, valg av nivå (middels valgt), antall (10, 5–30), KI-merknaden om at innholdet sendes til en ekstern KI-tjeneste (Anthropic) og knappen «Lag quiz»
-**Og** Tilbake går til emnet
+**Gitt** Emnesiden (S4)
+**Når** brukeren trykker «Last opp notat» første gang, det vil si når hen ikke har noen notater ennå
+**Så** vises den korte bekreftelsen S5 med «Du har godtatt vilkårene. Det skjedde da du logget inn første gang …», lenke til S15 og knappene «Gå videre til opplasting» og «Avbryt»
+**Og** senere ganger åpnes Last opp notat (S6, `/emner/<id>/last-opp/`) direkte
 
-**Gitt** en bruker som ikke har godtatt vilkårene
+**Gitt** S6
 **Når** siden vises
-**Så** vises vilkårsboksen med «Jeg godtar vilkårene» og «Les vilkårene», som folder ut teksten om ansvar for personopplysninger, at innholdet sendes til Anthropic, og at quizene lages av KI og kan inneholde feil
-**Og** uten kryss gir sending feilmelding ved boksen, og ingenting lastes opp
-**Og** med kryss lagrer `last_opp` tidspunktet i `Bruker.vilkar_godtatt`, og boksen vises ikke igjen
+**Så** står en vanlig filvelger med etikett, uten dra-og-slipp, med formatene og maks størrelse over feltet koblet med `aria-describedby`, KI-varselet om at innholdet sendes til en ekstern KI-tjeneste (Anthropic), og knappen «Last opp»
+**Og** brødsmulestien viser emnet
 
-**Gitt** en fil på over 5 MB eller i et annet format enn PDF, DOCX og TXT (for eksempel MP4, PPTX eller et bilde)
+**Gitt** en fil på over 5 MB, en fil i et annet format enn PDF, DOCX og TXT (for eksempel MP4, PPTX eller et bilde), eller ingen valgt fil
 **Når** brukeren sender skjemaet
-**Så** avvises filen på serveren med «Bare PDF, DOCX og TXT på maks 5 MB kan lastes opp.» ved filfeltet med `role="alert"`, og valgene står igjen
+**Så** avvises den på serveren med «Filen er over 5 MB. Velg en mindre fil.», «Formatet støttes ikke. Bruk PDF, DOCX eller TXT.» eller «Velg en fil først.» ved filfeltet med `role="alert"`, og fokus flyttes dit
 **Og** nettleseren sjekker format og størrelse før opplasting når det går
 
 **Gitt** en gyldig fil
-**Når** brukeren sender skjemaet
-**Så** lagrer `services.notater.last_opp` filen som `notater/<eier-id>/<uuid4><endelse>` og et `Notat` med `originalnavn`, `filtype` og `storrelse` i emnet (AD-14)
-**Og** brukeren sendes til Notatsiden, som viser notatets navn og «Ingen quizer ennå», og notatet står i listen på Emnesiden, sortert alfabetisk. Dette er midlertidig: story 2.4 bytter det ut med ventepanelet og genereringen
+**Når** brukeren trykker «Last opp»
+**Så** viser S6b filnavnet og fremdriften som reiserute, låser «Last opp» og sier at fanen ikke bør lukkes. Dette er en JavaScript-forbedring, og uten JavaScript sendes skjemaet på vanlig måte (AD-13)
+**Og** `services.notater.last_opp` lagrer filen som `notater/<eier-id>/<uuid4><endelse>` og et `Notat` med `originalnavn`, `filtype` og `storrelse` i emnet (AD-14)
+**Og** brukeren sendes til Notatsiden (S7), som viser notatets navn og «Lag en quiz for å komme i gang». Skjemaet for ny quiz kommer i story 2.4
+**Og** notatet står på Emnesiden, med det nyeste først
 **Og** filen kan ikke lastes ned via noen URL (AD-8)
+
+**Gitt** at fanen lukkes eller nettet brytes under opplastingen
+**Når** brukeren kommer tilbake
+**Så** er ingen `Notat` lagret, og S6c sier «Opplastingen ble avbrutt. Filen er ikke lagret. Last opp på nytt.» når siden kan vise det
+
+**Gitt** en bruker uten `vilkar_godtatt`
+**Når** `last_opp` kalles, for eksempel fra en test eller en POST som omgår mellomvaren
+**Så** avvises opplastingen, og ingenting lagres (FR-7, AD-23)
+
+**Gitt** Nytt emne (S16)
+**Når** brukeren fyller inn et navn og velger én eller flere filer
+**Så** opprettes emnet, og hver fil lastes opp med `last_opp` og de samme reglene som på S6 (UX-DR34)
+**Og** feiler en fil, opprettes ikke emnet, og feilmeldingen står ved filfeltet
 
 **Gitt** et emne som tilhører en annen bruker
 **Når** noen sender en opplasting til det
@@ -564,18 +612,22 @@ Som student,
 vil jeg trykke «Lag quiz» og se hvilket steg genereringen er på,
 slik at jeg vet at noe skjer og ikke lager to quizer ved et uhell.
 
-*Prioritet: kjerne (fremdrift og låst knapp: bør). FR-11 til FR-14, AD-9, AD-19, UX-DR17.*
+*Prioritet: kjerne (fremdrift og låst knapp: bør). FR-11 til FR-14, AD-9, AD-19, UX-DR15, UX-DR17. Endret 23.11: skjemaet står på Notatsiden (S7), og genereringen vises på egen side (S8).*
 
 **Akseptansekriterier:**
 
-**Gitt** Last opp notat med gyldig fil og valg
+**Gitt** Notatsiden (S7) for et notat uten quiz
+**Når** den vises
+**Så** står skjemaet for ny quiz øverst: radioknappene lett, middels og vanskelig i en `<fieldset>` med `<legend>`, middels valgt, tallfeltet for antall (5–30, standard 10) med forklarende tekst og knappen «Lag quiz» (UX-DR15)
+
+**Gitt** skjemaet for ny quiz
 **Når** brukeren trykker «Lag quiz»
-**Så** lagres notatet, en `Genereringsjobb` opprettes med valgt nivå og antall, og skjemaet byttes ut med ventepanelet «Lager quiz, håper du er klar!» og en låst knapp
-**Og** antall utenfor 5–30 gir feilmelding ved feltet
+**Så** opprettes en `Genereringsjobb` med valgt nivå og antall, og brukeren sendes til Generering (S8, `/jobber/<id>/`), som starter stegkjeden og viser en låst knapp
+**Og** antall utenfor 5–30 gir feilmelding ved feltet, og ingen jobb opprettes
 
 **Gitt** en jobb som er i gang
 **Når** siden spør `/jobber/<id>/steg/` med HTMX-POST (`hx-post`, fordi kallet endrer jobben)
-**Så** tas jobben med `filter(pk, status=S, i_gang=False).update(i_gang=True)`, ett steg kjøres, og fragmentet viser «Steg 1 av 3: Leser filen» → «Steg 2 av 3: Lager spørsmål» → «Steg 3 av 3: Sjekker quizen» med `role="status"` og `aria-live="polite"`
+**Så** tas jobben med `filter(pk, status=S, i_gang=False).update(i_gang=True)`, ett steg kjøres, og fragmentet viser de tre stegene «Leser filen», «Lager spørsmål» og «Sjekker quizen» i en liste, hvert markert som ferdig, pågår eller venter med ikon og tekst, i en `aria-live="polite"`-region (UX-DR17)
 **Og** endres 0 rader, returneres bare gjeldende fragment, som spør igjen
 **Og** ingen `ki`-kall skjer mens en databasetransaksjon er åpen, og filinnholdet lagres aldri på jobben eller i sesjonen (AD-19)
 
@@ -586,12 +638,12 @@ slik at jeg vet at noe skjer og ikke lager to quizer ved et uhell.
 **Gitt** et gyldig utkast
 **Når** steget `sjekker` er ferdig
 **Så** lagres `Quiz` med `jobb`, `vanskelighetsgrad`, `sprak`, `modell`, `prompt_versjon` og `forhandslagret`, og hvert `Sporsmal` med `begrunnelse` og tre `Alternativ`, nøyaktig ett med `er_riktig` (AD-7, AD-11)
-**Og** brukeren sendes til Notatsiden, der quizen står med nivå, antall, dato og KI-merket «Laget av KI (<modell>) · kan inneholde feil» (NFR-9). Story 3.1 endrer dette til å åpne quizen på spørsmål 1
+**Og** brukeren sendes til Notatsiden, der quizen står som quizkort med nivå, antall, dato og KI-merket «Laget av KI» (NFR-9, UX-DR13, UX-DR14). Story 3.1 endrer dette til å åpne quizen på spørsmål 1
 **Og** en quiz har nøyaktig det valgte antallet spørsmål, også når den kommer fra mock-svar
 
 **Gitt** en aktiv jobb for notatet
-**Når** brukeren laster siden på nytt, åpner en ny fane eller trykker «Lag quiz» igjen
-**Så** opprettes ingen ny jobb, og ventepanelet for den aktive jobben vises (`aktiv_jobb(notat)`, FR-14)
+**Når** brukeren laster S8 på nytt, åpner en ny fane eller trykker «Lag quiz» igjen på S7
+**Så** opprettes ingen ny jobb, og brukeren sendes til S8 for den aktive jobben (`aktiv_jobb(notat)`, FR-14)
 **Og** to samtidige kall på samme steg gir ett KI-kall og én quiz (`Quiz.jobb` er `OneToOneField`)
 
 **Gitt** `services.generering.generer_synkront(notat, vanskelighetsgrad, antall)`
@@ -610,21 +662,21 @@ slik at en feil hos KI-tjenesten ikke stopper meg.
 
 **Gitt** en jobb som har stått i over 120 sekunder uten å bli ferdig
 **Når** den leses av `aktiv_jobb` eller stegendepunktet
-**Så** settes den til `feilet` med `feilkode="timeout"`, og ventepanelet byttes ut med «Det tok for lang tid å lage quizen. Filen er lagret, så du trenger ikke laste den opp på nytt.» og knappen «Prøv igjen»
+**Så** settes den til `feilet` med `feilkode="timeout"`, og stegene på S8 byttes ut med «Genereringen tok for lang tid. Filen er lagret, så du kan prøve igjen.» med `role="alert"` og knappen «Prøv igjen», som får fokus (UX-DR18)
 
 **Gitt** en feilet jobb med `feilkode` `format`, `for_lite_innhold`, `for_stor`, `api_nokkel` eller `api_feil`
 **Når** feilfragmentet vises
-**Så** vises teksten for koden fra `farequiz/feilmeldinger.py` med `role="alert"`, for eksempel «Vi klarte ikke å lage en gyldig quiz. Prøv igjen, eller velg færre spørsmål.» for `format`
+**Så** vises teksten for koden fra `farequiz/feilmeldinger.py` med `role="alert"`: «Klarte ikke å lage en gyldig quiz. Prøv igjen, eller velg færre spørsmål.» for `format`, «KI-tjenesten svarte ikke. Prøv igjen.» for `api_feil`, og egne tekster i samme tone for `for_lite_innhold`, `for_stor` og `api_nokkel` (UX-DR18)
 **Og** teksten sier hva brukeren kan gjøre, ingen quiz lagres, og «Lag quiz» er låst opp
 **Og** jobben logges til konsollen med jobb-ID og feilkode, aldri med filinnhold
 
 **Gitt** en feilet jobb
 **Når** brukeren trykker «Prøv igjen»
-**Så** opprettes en ny jobb med den lagrede filen og samme nivå og antall, uten ny opplasting, og ventepanelet vises igjen
+**Så** opprettes en ny jobb med den lagrede filen og samme nivå og antall, uten ny opplasting, og S8 viser stegene for den nye jobben
 
 **Gitt** at notatet eller jobben er slettet mens genereringen pågår
 **Når** siden spør stegendepunktet
-**Så** returneres et sluttfragment med lenke til Mine emner, ikke 404, og ingen quiz lagres
+**Så** returneres et sluttfragment med lenke til Emner (S3), ikke 404, og ingen quiz lagres
 
 **Gitt** testene
 **Når** de kjøres
@@ -636,14 +688,14 @@ Som student,
 vil jeg lage nye quizer fra et notat jeg alt har lastet opp,
 slik at jeg kan øve på flere nivåer uten å laste opp filen igjen.
 
-*Prioritet: bør. FR-11, FR-16, NFR-9, UX-DR13, UX-DR15, UX-DR26 (ukjent fil).*
+*Prioritet: bør. FR-11, FR-16, NFR-9, UX-DR13, UX-DR14, UX-DR15, UX-DR26 (ukjent fil).*
 
 **Akseptansekriterier:**
 
-**Gitt** Notatsiden
+**Gitt** Notatsiden (S7)
 **Når** den vises
-**Så** står alle notatets quizer med nyeste øverst, hver med nivå, antall spørsmål, dato og KI-merket med modellnavnet fra quizen, ikke fra gjeldende innstilling
-**Og** under står «Lag ny quiz» med valg av nivå (middels valgt) og antall (10, 5–30)
+**Så** står alle notatets quizer som quizkort med nyeste øverst, hver med nivå, antall spørsmål, dato og KI-merket «Laget av KI», der modellnavnet hentes fra quizen og ikke fra gjeldende innstilling
+**Og** under står «Lag ny quiz» med samme skjema som i story 2.4
 
 **Gitt** «Lag ny quiz»
 **Når** brukeren velger nivå og antall og trykker «Lag quiz»
@@ -656,7 +708,7 @@ slik at jeg kan øve på flere nivåer uten å laste opp filen igjen.
 
 **Gitt** Notatsiden
 **Når** brukeren leter etter en måte å slette en enkelt quiz på
-**Så** finnes det ingen, og Tilbake går til emnet (FR-16)
+**Så** finnes det ingen, og brødsmulestien viser emnet (FR-16)
 
 **Gitt** en quiz eller et notat som tilhører en annen bruker
 **Når** noen åpner `/notater/<id>/` eller starter «Lag ny quiz» for det
@@ -684,16 +736,17 @@ slik at jeg kan tenke meg om og endre svar før jeg leverer.
 
 **Gitt** `/okter/<id>/sporsmal/<nr>/`
 **Når** siden vises
-**Så** står «Spørsmål N av M» med en 8 px fremdriftsstolpe og KI-merket med modellen fra quizen, spørsmålet som `<legend>` og tre radioknapper i `<label>` på minst 56 px i rekkefølgen fra `Okt.innhold`
+**Så** står KI-merket «Laget av KI (<modell>). Spørsmålene kan inneholde feil.» øverst med modellen fra quizen, «Spørsmål N av M» med reiseruten (fåret i ballongen med `aria-hidden` og et flagg i enden), spørsmålet på et flashcard som `<legend>`, og tre svaralternativer som radioknapper i `<label>` på minst 44 px i rekkefølgen fra `Okt.innhold` (UX-DR10, UX-DR11, UX-DR13)
 **Og** et svar som alt er lagret, er valgt
 **Og** spørsmål og alternativer har `lang="{{ quiz.sprak }}"` når språket ikke er norsk, og `<title>` er «Spørsmål N av M – <notat> – FåreQuiz»
-**Og** Tilbake går til notatet
+**Og** brødsmulestien viser notatet
 
 **Gitt** et spørsmål
 **Når** brukeren trykker Neste eller Forrige i et vanlig POST-skjema, med eller uten valgt svar
-**Så** lagrer `services.okter.lagre_svar` svaret med `update_or_create` på (`okt`, `sporsmal`) og oppdaterer `sist_endret`, og brukeren sendes til neste eller forrige spørsmål
+**Så** lagrer `services.okter.lagre_svar` svaret med `update_or_create` på (`okt`, `sporsmal`) og oppdaterer `sist_endret`, og brukeren sendes til neste eller forrige spørsmål, med fokus på spørsmålet
 **Og** det virker uten JavaScript. HTMX kan legges på, men treffer samme endepunkt, og en mislykket lagring viser «Svaret ble ikke lagret. Sjekk nettet og prøv igjen.» ved knappen, mens brukeren blir på samme spørsmål (AD-13)
-**Og** på siste spørsmål er Neste byttet ut med Lever
+**Og** Neste på siste spørsmål lagrer svaret og sender brukeren til Se over og lever (S10, story 3.3) (UX-DR12)
+**Og** under `md` er Forrige og Neste like brede som skjermen og står nederst i innholdet (UX-DR29)
 
 **Gitt** `lagre_svar`
 **Når** økten er levert, spørsmålet ikke står i `okt.innhold`, eller alternativet hører til et annet spørsmål
@@ -747,18 +800,23 @@ Som student,
 vil jeg levere quizen og se poengsummen og hvilke svar som var feil,
 slik at jeg vet hvor jeg står uten at fasiten gjør det for lett.
 
-*Prioritet: kjerne. FR-17, FR-19, FR-21, AD-2, AD-18, AD-20, UX-DR19, UX-DR20.*
+*Prioritet: kjerne. FR-17, FR-19, FR-21, AD-2, AD-18, AD-20, UX-DR19, UX-DR20, UX-DR31. Endret 23.11: egen side Se over og lever (S10) før levering.*
 
 **Akseptansekriterier:**
 
+**Gitt** en påbegynt økt
+**Når** brukeren åpner Se over og lever (S10, GET `/okter/<id>/lever/`)
+**Så** står ett nummer per spørsmål i rekkefølgen fra `Okt.innhold`, merket «Besvart» eller «Ikke besvart», og hvert nummer er en lenke til spørsmålet, for eksempel «Spørsmål 4 – ikke besvart» (UX-DR31)
+**Og** med ubesvarte spørsmål har «Lever» `aria-disabled`, og teksten «Du har ikke svart på spørsmål 4 og 7.» står ved knappen
+
 **Gitt** en påbegynt økt der alle spørsmålene er besvart
-**Når** brukeren trykker Lever
+**Når** brukeren trykker Lever på S10 (POST `/okter/<id>/lever/`)
 **Så** kjører `services.okter.lever_okt` i én `transaction.atomic`: først `filter(pk, status="pabegynt").update(status="levert", levert_tidspunkt=now())`, deretter `registrer_svar` for hvert spørsmål i `okt.innhold`, lagring av `Svar.hendelse`, `poengsum` og `antall`
 **Og** brukeren sendes til `/okter/<id>/resultat/`
 
 **Gitt** en påbegynt økt med ubesvarte spørsmål
-**Når** brukeren trykker Lever
-**Så** leveres ingenting, og «Du har ikke svart på alle spørsmålene. Disse mangler: spørsmål 4, spørsmål 7.» vises ved Lever med `role="alert"` og lenker til spørsmålene
+**Når** Lever sendes likevel, for eksempel med en POST som omgår den låste knappen
+**Så** leveres ingenting (AD-18), og S10 vises igjen med «Du har ikke svart på spørsmål 4 og 7.» med `role="alert"` og lenker til spørsmålene
 
 **Gitt** en økt som alt er levert
 **Når** Lever sendes igjen fra dobbeltklikk eller en annen fane
@@ -766,10 +824,10 @@ slik at jeg vet hvor jeg står uten at fasiten gjør det for lett.
 
 **Gitt** resultatsiden
 **Når** den vises
-**Så** står poengkortet med «7 av 10» i 56 px og «riktige svar» med `role="status"`, og én resultatrad per spørsmål med «✓ Riktig» eller «✗ Feil» og spørsmålsnummer
+**Så** står «7 av 10 riktige» i `score` med `role="status"`, og én resultatrad per spørsmål med spørsmålsteksten, svaret studenten valgte og ✓ «Riktig» eller ✕ «Feil» i `success` eller `error`, der ikonet har `aria-hidden` (UX-DR20)
 **Og** fasiten vises ikke for feil svar, og fasit og begrunnelse vises bare for spørsmål der `fasit_synlig(sporsmal)` er sann (AD-20)
-**Og** hendelsene leses fra `Svar.hendelse`, ikke regnet ut på nytt, og teksten er «N spørsmål er lagt i feilbanken. Øv på dem til du kan dem.» når N > 0
-**Og** Tilbake går til notatet
+**Og** hendelsene leses fra `Svar.hendelse`, ikke regnet ut på nytt, og teksten er «N spørsmål er lagt i feilbanken.» når N > 0
+**Og** brødsmulestien viser notatet
 
 **Gitt** et levert forsøk
 **Når** brukeren ser på feilbanken og påbegynte forsøk
@@ -813,17 +871,17 @@ slik at jeg kan øve i små pauser.
 
 **Gitt** et påbegynt forsøk med 5 av 10 besvart
 **Når** Notatsiden vises
-**Så** har quizen den gule merkelappen «Påbegynt 5/10», og knappen heter «Fortsett» i stedet for «Ta på nytt»
+**Så** viser quizkortet «Påbegynt – spørsmål 5 av 10», og knappen heter «Fortsett» i stedet for «Ta på nytt» (UX-DR14)
 
 **Gitt** påbegynte økter
-**Når** Mine emner vises
-**Så** står boksen «Fortsett der du slapp» nederst med én rad per påbegynt økt, nyeste først etter `sist_endret`, med tekst som «Webutvikling › HTML · Middels · 5 av 10 besvart»
-**Og** hver rad lenker til første ubesvarte spørsmål, og menyen får *Fortsett der du slapp*
+**Når** Oversikt (S3) vises
+**Så** står boksen «Fortsett der du slapp» øverst med én rad per påbegynt økt, nyeste først etter `sist_endret`, med nivå og antall («Middels, 10 spørsmål»), sted og fremdrift («Webutvikling · HTML-forelesning · spørsmål 5 av 10») og knappen «Fortsett quizen» (UX-DR9)
+**Og** hver rad lenker til første ubesvarte spørsmål
 **Og** uten påbegynte økter vises ikke boksen
 
 **Gitt** at brukeren lukker fanen etter å ha svart på halvparten
 **Når** hen logger inn fra en annen nettleser og trykker på raden
-**Så** åpnes første ubesvarte spørsmål med de tidligere svarene lagret, og Tilbake går til notatet
+**Så** åpnes første ubesvarte spørsmål med de tidligere svarene lagret, og brødsmulestien viser notatet
 
 **Gitt** et påbegynt forsøk
 **Når** feilbanken og historikken sjekkes
@@ -831,7 +889,7 @@ slik at jeg kan øve i små pauser.
 
 ## Epic 4: Øv på feil til det sitter
 
-Studenten øver på feilbanken i oransje øvemodus, ser «Lært! ✓» med fasit og begrunnelse, og kan melde et spørsmål som feil. Epicen bruker de samme `Okt`-tjenestene som Epic 3, med `type=oving`.
+Studenten øver på feilbanken i øvemodus med terrakotta-aksent (S12), ser «Lært. Riktig svar var: …» med begrunnelse, og kan melde et spørsmål som feil. Epicen bruker de samme `Okt`-tjenestene som Epic 3, med `type=oving`.
 
 ### Story 4.1: Øve på feilbanken
 
@@ -845,8 +903,8 @@ slik at jeg husker svaret og ikke bare plasseringen.
 
 **Gitt** et notat med N spørsmål i feilbanken
 **Når** Notatsiden vises
-**Så** står feilbank-raden «N spørsmål å øve på» med den oransje knappen «Øv på feil»
-**Og** med tom feilbank og ingen påbegynt øvingsøkt er knappen låst og viser «Ingen feil å øve på»
+**Så** står knappen «Øv på feil (N)» (UX-DR23)
+**Og** med tom feilbank og ingen påbegynt øvingsøkt har knappen `aria-disabled` og viser «Ingen spørsmål i feilbanken»
 **Og** med en påbegynt øvingsøkt heter knappen «Fortsett» og virker selv om feilbanken er blitt tom (AD-16)
 
 **Gitt** «Øv på feil» (POST)
@@ -857,9 +915,10 @@ slik at jeg husker svaret og ikke bare plasseringen.
 
 **Gitt** en øvingsøkt
 **Når** et spørsmål vises
-**Så** brukes samme side og samme skjemaer som i story 3.1, med den oransje merkelappen «Øv på feil», og practice-fargene erstatter primary-fargene i knapper, valgt svar, fremdrift og fokusring
+**Så** brukes samme side og samme skjemaer som i story 3.1 og Se over og lever (S10) fra story 3.3, med overskriften «Øv på feil», og aksentfargen settes på seksjonen til terrakotta, slik at fremdrift, prikker og knapper blir terrakotta, som i prototypen (UX-DR21)
+**Og** valgt alternativ vises fortsatt med form (tykkere kant og fylt radioknapp), ikke bare med farge, og kontrasten holder 4,5:1
 **Og** KI-merket for spørsmålets quiz står over spørsmålet, og verken `er_riktig` eller `begrunnelse` sendes til malen (AD-20)
-**Og** Tilbake går til notatet, og påbegynte øvingsøkter står i «Fortsett der du slapp» (story 3.5)
+**Og** brødsmulestien viser notatet, og påbegynte øvingsøkter står i «Fortsett der du slapp» på S3 (story 3.5)
 
 **Gitt** en øvingsøkt
 **Når** historikken vises
@@ -872,7 +931,7 @@ slik at jeg husker svaret og ikke bare plasseringen.
 ### Story 4.2: Levere øvingen og se hva som er lært
 
 Som student,
-vil jeg se «Lært! ✓» med fasiten og begrunnelsen når jeg har svart riktig to ganger på rad,
+vil jeg se riktig svar og begrunnelsen når jeg har svart riktig to ganger på rad,
 slik at jeg forstår hvorfor svaret er riktig og ser at feilbanken krymper.
 
 *Prioritet: kjerne (visning av fasit når spørsmålet er lært). FR-22, FR-23, AD-2, AD-18, AD-20, UX-DR22, TF-2.*
@@ -884,16 +943,16 @@ slik at jeg forstår hvorfor svaret er riktig og ser at feilbanken krymper.
 **Så** leveres den med samme `lever_okt` som et forsøk, og `registrer_svar` kjøres for hvert spørsmål, slik at svar i øving og i forsøk teller likt (FR-23)
 **Og** ubesvarte spørsmål gir samme melding med lenker som i story 3.3
 
-**Gitt** Øv-resultat
+**Gitt** resultatet av øvingen (S12)
 **Når** det vises
-**Så** står poengsummen med `role="status"`, og øverst én lært-boks per spørsmål med `hendelse=laert`, med «Lært! ✓», spørsmålet, «Fasit: …» og begrunnelsen
-**Og** så følger resultatradene med «✓ Riktig» eller «✗ Feil», og telleren for spørsmål som ennå ikke er lært, for eksempel «1 av 2 riktige på rad»
+**Så** står poengsummen, for eksempel «4 av 5 riktige», med `role="status"`, og øverst for hvert spørsmål med `hendelse=laert` spørsmålet, «Lært. Riktig svar var: …» og begrunnelsen (UX-DR22)
+**Og** så følger resultatradene som i story 3.3, og for spørsmål som ennå ikke er lært, lært-prikkene og telleren, for eksempel «1 av 2 riktige på rad». Prikkene er pynt, og teksten gir samme informasjon
 **Og** fasiten vises ikke for spørsmål som ikke er lært (AD-20)
 
 **Gitt** at feilbanken er tom etter levering
-**Når** Øv-resultat vises
-**Så** står «Feilbanken er tom. Godt jobba!» og «Tilbake til <notat>»
-**Og** lært-boksen er det eneste stedet med en liten feiring, uten lyd og uten animasjon som varer
+**Når** resultatet av øvingen vises
+**Så** står «Alle spørsmålene er lært. Feilbanken er tom.» og en lenke tilbake til notatet
+**Og** siden har ingen feiring, ingen utropstegn, ingen lyd og ingen animasjon (UX-DR30)
 
 **Gitt** et lært spørsmål
 **Når** det senere besvares feil i et forsøk
@@ -913,7 +972,7 @@ slik at jeg ikke blir sittende fast med et spørsmål der KI-en har laget feil f
 **Når** storyen startes
 **Så** er AD-3, AD-4 og AD-16 oppdatert med at et meldt spørsmål ikke er i feilbanken, ikke telles i dekningsgraden og ikke kommer med i nye økter, og FR-31 står i PRD-en
 
-**Gitt** en resultatrad med «✗ Feil» på Resultat eller Øv-resultat
+**Gitt** en resultatrad med «✕ Feil» på Resultat (S11) eller resultatet av øving (S12)
 **Når** brukeren trykker «Meld som feil eller uklart» (POST) og bekrefter på en egen side
 **Så** setter en tjeneste `Sporsmal.meldt_tidspunkt` (feltet finnes fra story 1.1, så ingen ny migrering trengs), og raden viser «Meldt som feil»
 **Og** fasiten vises fortsatt ikke
@@ -958,8 +1017,9 @@ slik at jeg vet om jeg må øve mer, særlig på de vanskelige spørsmålene.
 
 **Gitt** Notatsiden
 **Når** den vises
-**Så** står dekningskortet øverst med «Dekningsgrad for <notat>», tallet avrundet til hele prosent i malen og stolpen med prosenttallet ved siden av
-**Og** under står tre nivåbokser «Lett · 20 %», «Middels · 30 %» og «Vanskelig · 50 %» med resultatet for hvert nivå, eller «Ingen quiz» for nivå uten quiz
+**Så** står totalen øverst, avrundet til hele prosent i malen, med reiserute-stolpen og prosenttallet som tekst ved siden av (UX-DR8)
+**Og** under står lett, middels og vanskelig med resultatet for hvert nivå, eller «Ingen quiz» for nivå uten quiz, og teksten «Vanskelige spørsmål teller mest (50 %)»
+**Og** stolpen har `role="img"` med prosenten i `aria-label`, eller er skjult for skjermleser fordi prosenten står som tekst
 **Og** en kort hjelpetekst forklarer at dekningsgraden kan gå ned når en ny quiz lages, og at quiz på vanskelig trengs for å komme over 50 % **[ordlyd ikke bestemt]**
 
 **Gitt** et nytt levert forsøk eller en levert øvingsøkt
@@ -982,14 +1042,14 @@ slik at jeg ser hva som gjenstår før eksamen.
 **Og** to notater med 80 % og 40 % gir 60 %, og et tredje notat uten quiz endrer ikke snittet (tester)
 **Og** et emne uten notater, eller der ingen notater har quiz, har ingen dekningsgrad
 
-**Gitt** Emnesiden
+**Gitt** Emnesiden (S4)
 **Når** den vises
-**Så** står dekningskortet med «Dekningsgrad for <emne>», eller «Ingen dekningsgrad», og hver notatrad har stolpe og prosenttall
+**Så** står tallflisene for emnets dekningsgrad (eller «Ingen dekningsgrad») og antall spørsmål i feilbanken, og hvert notatkort viser filnavn, opplastingsdato, dekningsgrad med stolpe og prosent, og antall spørsmål i feilbanken (UX-DR8)
 **Og** et notat uten quiz viser «Ingen quiz» i stedet for stolpen
 
-**Gitt** Mine emner
+**Gitt** Oversikt (S3)
 **Når** den vises
-**Så** har hver emnerad stolpe og prosenttall, eller «Ingen dekningsgrad»
+**Så** har hvert emnekort stolpe og prosenttall, «Ingen notater» for emne uten notater, eller «Ingen dekningsgrad» når ingen notater har quiz
 **Og** siden lastes uten én databasespørring per spørsmål, slik at den er rask også for testbrukeren
 
 ### Story 5.3: Historikk per notat
@@ -1014,11 +1074,12 @@ slik at jeg ser om jeg blir bedre.
 
 **Gitt** et notat uten leverte forsøk
 **Når** Notatsiden vises
-**Så** står «Ingen forsøk ennå» i stedet for tabellen
+**Så** står «Ingen forsøk ennå. Ta en quiz for å se historikken.» i stedet for tabellen
 
-**Gitt** en skjerm på 360 px
+**Gitt** en skjerm under `md`
 **Når** historikken vises
-**Så** er det ingen vannrett rulling, og tabellen har `<th scope="col">` for skjermleser (NFR-1, NFR-8)
+**Så** vises hver rad som et lite kort i stedet for en tabell, og det er ingen vannrett rulling ved 360 px (NFR-1, UX-DR29)
+**Og** fra `md` er historikken en ekte `<table>` med `<th scope="col">` for skjermleser (NFR-8)
 
 ## Epic 6: Klar for sensor
 
@@ -1049,7 +1110,7 @@ slik at jeg ser dekningsgrad, historikk og «Fortsett der du slapp» med en gang
 
 **Gitt** testbrukeren
 **Når** sensor logger inn
-**Så** viser Mine emner emnet med dekningsgrad og «Fortsett der du slapp», og Notatsiden viser fordeling per nivå, quizer med KI-merke, feilbank og historikk
+**Så** viser Oversikt (S3) emnet med dekningsgrad og «Fortsett der du slapp», og Notatsiden viser fordeling per nivå, quizer med KI-merke, feilbank og historikk
 **Og** en test kjører `seed_testdata` to ganger og sjekker antallet av hver ting
 
 ### Story 6.2: README og test med ny klone
@@ -1065,7 +1126,7 @@ slik at jeg kan vurdere hele appen uten hjelp fra gruppa og uten API-nøkkel.
 **Gitt** README-en
 **Når** den leses
 **Så** beskriver den kort hva appen gjør, hva som trengs (Python 3.14 og uv, eller pip), og nøyaktig stegene `uv sync` (eller `pip install -r requirements.txt`), `python manage.py migrate`, `python manage.py seed_testdata` og `python manage.py runserver`
-**Og** den oppgir testbrukerens e-post og passord, at testmodus er på uten `.env`, og hva testmodus-stripen betyr
+**Og** den oppgir testbrukerens e-post og passord, at testmodus er på uten `.env`, og hva testmodus-banneret betyr
 **Og** den forklarer hvordan sensor kopierer `.env.example` til `.env`, legger inn sin egen Anthropic-nøkkel og slår av testmodus for å teste med ekte modell, og at `KI_MODELL` kan byttes
 **Og** den forklarer hvordan `ALLOWED_HOSTS` utvides for å teste fra mobil på samme nett, og at dette ikke er hosting
 
@@ -1093,13 +1154,13 @@ slik at appen er trygg og tilgjengelig for alle.
 **Så** prøver den hver URL med GET og POST som en annen bruker og får 404 hver gang, og testen feiler hvis en ny URL med ID ikke er med (SM-5)
 **Og** alle sider unntatt Logg inn og Registrer sender en utlogget bruker til Logg inn
 
-**Gitt** alle sider i appen, med testbrukerens data og i hver tilstand fra EXPERIENCE.md (tom, påbegynt, feil, ventepanel, resultat, øving)
+**Gitt** alle skjermbildene S1–S16 med S1b, S6b og S6c, med testbrukerens data og i hver tilstand fra Martins EXPERIENCE.md (tom, påbegynt, feil, generering, resultat, øving)
 **Når** axe kjøres mot dem
 **Så** finnes ingen brudd på WCAG 2.2 A eller AA, og resultatet dokumenteres med dato og verktøyversjon (SM-7)
 
 **Gitt** kjerneflyten: registrere, logge inn, opprette emne, laste opp, lage quiz, svare, levere og øve på feil
 **Når** en i gruppa gjør den med bare tastatur og deretter med skjermleser (NVDA eller VoiceOver)
-**Så** er fokus alltid synlig og skjules aldri, ventepanelets steg og poengsummen leses opp som statusmeldinger, og feilmeldinger leses opp
+**Så** er fokus alltid synlig og skjules aldri, stegene på S8 og poengsummen leses opp som statusmeldinger, personvern-dialogen (S1b) holder fokus til den er bekreftet, og feilmeldinger leses opp
 **Og** sidene virker ved 320 px bredde og 200 % tekst uten vannrett rulling (NFR-1)
 **Og** funn rettes eller føres som åpne punkter med begrunnelse
 

@@ -1,7 +1,7 @@
 ---
 name: FåreQuiz
 description: Quizapp der studenter laster opp forelesningsnotater og får en KI-laget quiz tilbake. Responsiv web med Django-maler. Christians individuelle UX-versjon.
-status: final
+status: arkivert
 created: 2026-11-15
 updated: 2026-11-15
 author: Christian
