@@ -2,7 +2,7 @@
 title: 'Story 1.4: Opprette emne og se Oversikt'
 type: 'feature'
 created: '2026-11-24'
-status: 'in-review'
+status: 'done'
 route: 'dispatch'
 review_loop_iteration: 0
 baseline_commit: '0b1ff3c'
