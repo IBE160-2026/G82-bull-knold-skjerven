@@ -5,7 +5,7 @@ created: '2026-11-24'
 status: 'draft'
 route: 'dispatch'
 review_loop_iteration: 0
-baseline_commit: '2fc38b38'
+baseline_commit: '2fc38b3'
 context:
   - '{project-root}/_bmad-output/implementation-artifacts/epic-1-context.md'
 ---
