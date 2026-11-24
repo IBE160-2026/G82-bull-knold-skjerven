@@ -18,6 +18,10 @@ context:
 
 **Approach:** Bygg ut `base.html` med det mørke toppfeltet (logo, «‹ Tilbake», «Meny» og «Logg ut»), brødsmulesti, testmodus-banner, fotlinje og «Hopp til innhold». Sett opp Tailwind v4 med designtokenene fra DESIGN.md, htmx 2.0.11 lokalt og de to SVG-ene fra prototypen. Legg til 404-siden «Fant ikke siden».
 
+**Beslutninger 24.11 (brukeren):**
+- **Tailwind:** Tailwind v4 frittstående CLI, bygget til `static/css/app.css` og committet (alternativ A). Binæren lastes ned fra GitHub én gang, og det spørres før nedlasting.
+- **Logo:** Logoen vises alltid, også på 320 px (alternativ A).
+
 ## Boundaries & Constraints
 
 **Always:**
@@ -103,15 +107,6 @@ context:
 - **Tilbake** er en lenke til forelderen, ikke `history.back()`. Det gir en forutsigbar adresse som også fungerer uten historikk, og det er det epic-konteksten sier.
 - **Meny** bruker `<details>`, så den virker uten JavaScript. Lukking med Esc og klikk utenfor krever JavaScript og er ikke en del av kriteriene.
 - **S1b-modalen** holdes utenfor denne storyen. Den er en vanlig side i 1.2, og modal-oppførselen legges til når den er tatt inn i kriteriene.
-
-## Open Questions
-
-1. **Tailwind-bygg.** Spec-en sier Tailwind v4 frittstående CLI, bygget til `static/css/app.css` og committet. Det krever at en binær på rundt 40 MB lastes ned fra GitHub én gang. Alternativet er å skrive CSS for hånd i `app.css` med tokenene som CSS-variabler, uten byggesteg. Hva skal vi velge?
-   - **A. Tailwind-CLI (som spec-en):** nedlasting av binær, men samme utseende som Martins DESIGN.md-tokens og lett å holde i sync senere.
-   - **B. Håndskrevet CSS:** ingen nedlasting og ingen byggesteg, men mer manuelt arbeid, og tokenene må holdes i sync manuelt.
-2. **Logoen under 400 px.** Forrige versjon av story 1.3 skjulte logoen under 400 px, men den nye epic-konteksten nevner det ikke. Skal logoen skjules på smale skjermer, eller vises alltid?
-   - **A. Vises alltid:** toppfeltet får litt mindre plass på 320 px, men logoen er synlig.
-   - **B. Skjules under 400 px:** mer plass til Meny og Tilbake, men logoen forsvinner på mobil.
 
 ## Verification
 
