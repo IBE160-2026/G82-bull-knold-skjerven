@@ -106,7 +106,9 @@ context:
 - **Statiske filer uten DEBUG (24.11):** WhiteNoise serverer `static/` også med `DEBUG=False`, uten `collectstatic`. Pakken er lagt til i `pyproject.toml`. Testet i `StatiskeFilerTest`.
 - **Kontakt i personvernerklæringen:** Ola Normann, ola@normann.no, slik teksten sier. Setningen om kontosletting peker dit.
 - **Åpent:** «Nytt emne» i menyen går til Oversikt til story 1.4 lager S16. `handler404` er fjernet fra spec-en, siden Djangos standard 404 allerede bruker `templates/404.html`.
-- **Ikke testet i nettleser:** 320 px uten vannrett rulling, 200 % tekst, og axe. Det er manuelle sjekker i Verification.
+- **Manuell sjekk i nettleser (24.11), Chrome headless med `playwright-core` og `axe-core` 4.14.1, utenfor repoet:** 320 px og 200 % tekst (160 px CSS) gir ingen vannrett rulling på innlogging, registrering, personvern og 404 med `DEBUG=False`. Axe finner ingen brudd på WCAG 2.2 A/AA på de sidene som er sjekket. Meny åpnes, lukkes med Esc og klikk utenfor, og fokus går tilbake til «Meny». Første Tab gir «Hopp til innhold».
+- **Rettelser fra sjekken:** skjemafelt og lange ord brytes nå, slik at ingenting stikker ut på smale skjermer.
+- **Ikke sjekket:** kontrastverdier for alle tokenkombinasjoner, og Oversikt på 320 px, fordi Oversikt bare har én tekstboks.
 - Sprint-forslaget for 1.3 er oppdatert til å beholde Tilbake og Meny (gruppas beslutning 24.11). Meny-innholdet i forslaget står med «Øv på feil», som er feil. Det rettes til samme innhold som denne spec-en.
 
 ## Spec Change Log

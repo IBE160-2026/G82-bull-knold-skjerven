@@ -34,6 +34,20 @@
   background-size: 360px 360px;
 }
 
+/* Skjemafelt skal aldri være bredere enn containeren, også på 320 px og 200 % tekst */
+@layer base {
+  /* Lange ord som e-postadresser brytes, også på smale skjermer */
+  body {
+    overflow-wrap: anywhere;
+  }
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 /* Meny: skjul den innebygde markøren i Safari, slik at bare ‹Meny› vises */
 .meny summary::-webkit-details-marker {
   display: none;

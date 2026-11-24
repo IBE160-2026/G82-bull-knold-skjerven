@@ -8,7 +8,7 @@
 <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
 <link rel="stylesheet" href="{% static 'css/app.css' %}">
 </head>
-<body class="kart-bakgrunn min-h-screen bg-page-bg text-ink font-sans leading-normal">
+<body class="kart-bakgrunn min-h-screen bg-page-bg text-ink font-sans leading-normal break-words">
 <a href="#innhold" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-10 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2 focus:border-2 focus:border-accent-strong">Hopp til innhold</a>
 
 {% include "partials/topbar.html" %}
@@ -28,7 +28,7 @@
 </main>
 {% block skript %}<script src="{% static 'js/meny.js' %}" defer></script>{% endblock %}
 
-<footer class="mx-auto w-full max-w-3xl px-4 md:px-6 py-4 border-t border-border-subtle text-sm text-ink-secondary">
+<footer class="mx-auto w-full max-w-3xl px-4 md:px-6 py-4 border-t border-border-subtle text-sm text-ink-secondary break-words">
   © 2026 Christian Rogne Bull, Magnus Gjerstad og Martin Gomnæs Skjerven. Koden, designet og teksten i tjenesten er opphavsrettslig beskyttet. Du kan bruke tjenesten, men ikke ta ut, kopiere eller videreformidle innholdet uten skriftlig avtale. <a href="{% url 'kontoer:personvern' %}" class="underline">Personvernerklæring</a>
 </footer>
 </body>
