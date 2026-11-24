@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Personvernerklæring{% endblock %}
+
+{% block innhold %}
+<h1>Personvernerklæring for FåreQuiz</h1>
+<p>Sist oppdatert: 23.11.2026</p>
+<p>Denne personvernerklæringen beskriver hvordan FåreQuiz («vi», «oss» eller «behandlingsansvarlig») behandler personopplysninger når du bruker tjenesten <strong>FåreQuiz</strong>. Behandlingen skjer i samsvar med personopplysningsloven og EUs personvernforordning (GDPR).</p>
+
+<h2>1. Behandlingsansvarlig og virkeområde</h2>
+<p>FåreQuiz er behandlingsansvarlig for personopplysningene vi samler inn og behandler for å drifte FåreQuiz.</p>
+<ul>
+  <li><strong>Kontaktperson / virksomhet:</strong> Ola Normann</li>
+  <li><strong>E-post for personvernhenvendelser:</strong> ola@normann.no</li>
+</ul>
+<p>Denne erklæringen gjelder utelukkende for behandling av personopplysninger i FåreQuiz. Vi er ikke ansvarlige for innhold eller personvernpraksis på eksterne nettsider det lenkes til fra tjenesten.</p>
+
+<h2>2. Hvilke personopplysninger vi behandler – og brukerens ansvar</h2>
+<p>Vi praktiserer streng dataminimering og behandler kun opplysninger som er nødvendige for å levere tjenesten:</p>
+<ul>
+  <li><strong>Kontoinformasjon:</strong> E-postadresse og kryptografisk hashet passord for autentisering og kontroll av eierskap. Vi samler ikke inn navn, fødselsdato, adresse, profilbilde eller øvrige profilopplysninger.</li>
+  <li><strong>Brukergenerert innhold (notater og quizer):</strong> Tekst og notater du laster opp, samt emner og quizer som genereres i tjenesten.</li>
+  <li><strong>Dokumentasjons- og driftsdata:</strong> Tidspunkt for når du godtok brukervilkårene, samt nødvendige tekniske logger for drift, feilsøking og informasjonssikkerhet. Vi lagrer ikke IP-adresser eller tekst fra notatene i driftslogger. Feilmeldinger lagres med feiltype og tidspunkt, og slettes automatisk etter 30 dager.</li>
+</ul>
+<p><strong>Forbud mot personopplysninger i notater:</strong> FåreQuiz er utelukkende beregnet for faglige notater og pensumtekst. Det er <strong>ikke tillatt</strong> å laste opp særlige kategorier av personopplysninger (sensitive opplysninger, jf. GDPR art. 9), taushetsbelagt informasjon eller personopplysninger om deg selv eller tredjeparter (slik som navn på medstudenter, forelesere eller andre enkeltpersoner). Du er selv ansvarlig for at materialet du laster opp ikke inneholder slike opplysninger i strid med våre brukervilkår. Dersom vi blir kjent med at slikt materiale er lastet opp i strid med vilkårene, forbeholder vi oss retten til å slette innholdet uten forvarsel.</p>
+
+<h2>3. Formål og rettslig grunnlag</h2>
+<ul>
+  <li><strong>Oppfyllelse av avtale (GDPR art. 6 nr. 1 bokstav b):</strong> E-postadresse, passord-hash, emner, notater og quizer behandles utelukkende for å opprette og administrere brukerkontoen din, sikre tilgangskontroll og generere quizer på din forespørsel.</li>
+  <li><strong>Berettiget interesse (GDPR art. 6 nr. 1 bokstav f):</strong> Tidspunkt for aksept av brukervilkår samt tekniske drifts- og sikkerhetslogger behandles på grunnlag av vår berettigede interesse i å dokumentere avtaleinngåelse, forebygge misbruk og ivareta sikkerheten i tjenesten.</li>
+</ul>
+
+<h2>4. Bruk av kunstig intelligens (Anthropic) og databehandlere</h2>
+<p>Vi selger aldri personopplysninger til tredjeparter, og vi benytter ingen eksterne verktøy for markedsføring, sporing, profilering eller betalingsformidling i FåreQuiz.</p>
+
+<h3>4.1 KI-behandling hos Anthropic PBC</h3>
+<p>Når du aktiverer generering av en quiz fra et notat, sendes teksten via et kryptert grensesnitt (API) til vår databehandler <strong>Anthropic PBC</strong> (USA). Behandlingen reguleres av Anthropics kommersielle vilkår (<em>Commercial Terms of Service</em>) og databehandleravtale (<em>Data Processing Addendum – DPA</em>), tilgjengelig på <a href="https://www.anthropic.com/legal">anthropic.com/legal</a>.</p>
+<ul>
+  <li><strong>Ingen trening på kundedata:</strong> Tekst som sendes via Anthropics kommersielle API brukes utelukkende til å generere quizen på dine vegne, og brukes <strong>ikke</strong> til å trene eller forbedre Anthropics KI-modeller.</li>
+  <li><strong>Lagring og sletting hos Anthropic:</strong> Data slettes automatisk hos Anthropic i samsvar med deres kommersielle retningslinjer for datalagring (normalt innen 30 dager). Vi har ikke <em>Zero Data Retention</em>. Utfyllende informasjon om datalagring, sletting og underdatabehandlere fremgår av <a href="https://claude.com">Anthropic Privacy Center for Commercial Customers</a>.</li>
+  <li><strong>Overføring til tredjeland (USA):</strong> Overføring av tekst til Anthropics servere i USA skjer med rettslig grunnlag i EUs standard personvernbestemmelser (<em>Standard Contractual Clauses – SCC</em>), som er inkorporert i Anthropics DPA. Se nærmere redegjørelse for overføringsmekanismen i <a href="https://claude.com">Anthropics veiledning om DPA og SCC</a>.</li>
+  <li><strong>Sikkerhet og samsvar hos Anthropic:</strong> Anthropic benytter kryptering under overføring (TLS) og ved lagring (AES-256), og er sertifisert etter blant annet ISO 27001, ISO 42001 og SOC 2 Type II. Detaljert sikkerhetsdokumentasjon finnes i <a href="https://anthropic.com">Anthropic Trust Center</a>.</li>
+</ul>
+
+<h3>4.2 Drift og infrastruktur</h3>
+<ul>
+  <li><strong>Hosting / serverdrift:</strong> Tjenesten kjøres lokalt på maskinen der den installeres. Det er ingen hosting, ingen fjernserver og ingen databehandler for drift utover Anthropic.</li>
+</ul>
+
+<h2>5. Informasjonssikkerhet og ansvarsavgrensning</h2>
+<ul>
+  <li><strong>Våre sikkerhetstiltak (GDPR art. 32):</strong> Vi gjennomfører tekniske og organisatoriske tiltak for å beskytte opplysningene dine mot uautorisert tilgang, endring eller sletting. Passord lagres utelukkende som kryptografisk hash, og all tilgang til emner og quizer er underlagt autentisering og eierskapskontroll. Kryptering av data i hvile følger av maskinen der tjenesten kjøres, jf. punkt 4.2.</li>
+  <li><strong>Brukerens eget sikkerhetsansvar:</strong> Overføring av informasjon over internett innebærer alltid en iboende sikkerhetsrisiko. Du er selv ansvarlig for å velge et sterkt passord, holde innloggingsopplysningene dine konfidensielle og sørge for sikkerheten på enheten du benytter. Vi er ikke ansvarlige for tap eller eksponering av opplysninger som skyldes uautorisert tilgang til din konto som følge av forhold på din side, eller som skyldes at du har lastet opp personopplysninger i strid med punkt 2.</li>
+</ul>
+
+<h2>6. Lagringstid og sletting</h2>
+<ul>
+  <li><strong>Sletting av innhold:</strong> Du kan når som helst slette enkeltstående emner og tilhørende innhold direkte i tjenesten. Opplastede notater lagres sammen med emnet, slik at nye quizer kan lages uten ny opplasting. Når et emne slettes, slettes alle notater, quizer og historikk i emnet.</li>
+  <li><strong>Sletting av brukerkonto:</strong> Vi lagrer opplysningene dine så lenge du har en aktiv brukerkonto. Ved sletting av brukerkonto slettes alle tilknyttede personopplysninger, emner og quizer fra våre aktive systemer uten ugrunnet opphold.</li>
+</ul>
+
+<h2>7. Informasjonskapsler (cookies) og lokal lagring</h2>
+<p>Vi bruker ikke informasjonskapsler eller lignende teknologier til sporing, analyse eller markedsføring. Tjenesten benytter kun strengt nødvendige tekniske mekanismer (sesjonskapsel eller lokal lagring i nettleseren) som er påkrevd for å holde deg innlogget og ivareta tjenestens sikkerhet. Tjenesten bruker en sesjonskapsel (for innlogging) og en CSRF-kapsel (beskyttelse mot forfalskede forespørsler). Begge er strengt nødvendige, og vi bruker ingen andre kapsler.</p>
+
+<h2>8. Dine rettigheter</h2>
+<p>Etter personvernforordningen (GDPR kapittel III) har du, innenfor de begrensninger som følger av lovverket, rett til å be om:</p>
+<ul>
+  <li><strong>Innsyn</strong> i hvilke personopplysninger vi behandler om deg (art. 15).</li>
+  <li><strong>Retting</strong> av uriktige eller ufullstendige personopplysninger (art. 16).</li>
+  <li><strong>Sletting</strong> av personopplysningene dine (art. 17).</li>
+  <li><strong>Begrensning</strong> av behandling (art. 18) og <strong>dataportabilitet</strong> for opplysninger du selv har gitt oss (art. 20).</li>
+</ul>
+<p>Forespørsler om utøvelse av rettigheter sendes til <strong>ola@normann.no</strong>. Vi vil besvare henvendelsen uten ugrunnet opphold og senest innen én måned, forutsatt at vi kan bekrefte identiteten din. Dersom du mener at vår behandling av personopplysninger er i strid med personvernregelverket, har du rett til å klage til <strong>Datatilsynet</strong> (datatilsynet.no).</p>
+
+<h2>9. Endringer i personvernerklæringen</h2>
+<p>Vi forbeholder oss retten til å oppdatere denne personvernerklæringen ved endringer i tjenesten, underleverandører eller gjeldende regelverk. Den til enhver tid gjeldende versjonen vil være tilgjengelig i tjenesten. Ved vesentlige endringer vil du bli varslet ved innlogging eller per e-post.</p>
+
+<h2>10. Opphavsrett og bruk av innhold</h2>
+<p>FåreQuiz er laget for egen læring av pensum og forelesninger, ikke for undervisning eller vurdering. Opphavsretten til koden, designet og teksten i tjenesten tilhører rettighetshaverne Christian Rogne Bull, Magnus Gjerstad og Martin Gomnæs Skjerven. Det er kun det vi selv har produsert i tjenesten vi har opphavsrett til. Quizer som lages for en bruker, er bare tilgjengelige for den brukeren, og vi gjør ikke krav på opphavsrett til dem. Alle som får tilgang til tjenesten, kan bruke den til det den er laget for. De har ikke rett til å ta ut, kopiere, publisere, distribuere eller bruke deler av innholdet, herunder denne personvernerklæringen, utenfor tjenesten uten skriftlig avtale med rettighetshaverne. Notater og andre dokumenter som brukere laster opp, tilhører brukeren eller den som har rettighetene til dokumentet, ikke FåreQuiz.</p>
+
+{% if user.is_authenticated %}
+<p><a href="/">Tilbake til startsiden</a></p>
+{% else %}
+<p><a href="{% url 'kontoer:logg_inn' %}">Tilbake til innlogging</a></p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{% endblock %} – FåreQuiz</title>
+</head>
+<body>
+{% comment %}
+  Enkel grunnmal fra story 1.2. Story 1.3 fyller den med toppfelt, tokens og
+  fotlinje. Sidene arver blokkene title og innhold og endres ikke for det.
+{% endcomment %}
+{% if user.is_authenticated %}
+<header>
+  <form method="post" action="{% url 'kontoer:logg_ut' %}">
+    {% csrf_token %}
+    <button type="submit">Logg ut</button>
+  </form>
+</header>
+{% endif %}
+<main id="innhold">
+{% block innhold %}{% endblock %}
+</main>
+</body>
+</html>

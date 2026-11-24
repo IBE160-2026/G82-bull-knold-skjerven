@@ -1,8 +1,14 @@
 """
 URL-er for FåreQuiz.
 
-Sidene legges til i story 1.2–1.4. Det finnes ingen /admin/ og ingen rute til
-MEDIA_ROOT (AD-8, AD-14).
+Det finnes ingen /admin/ og ingen rute til MEDIA_ROOT (AD-8, AD-14).
 """
 
-urlpatterns = []
+from django.urls import include, path
+
+from farequiz import views
+
+urlpatterns = [
+    path("", views.startside, name="startside"),
+    path("", include("kontoer.urls")),
+]

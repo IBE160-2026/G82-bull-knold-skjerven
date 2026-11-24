@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Registrer deg{% endblock %}
+
+{% block innhold %}
+<h1>Registrer deg</h1>
+{% if form.errors %}
+<div id="feil" role="alert" tabindex="-1" autofocus>
+  <ul>
+    {% for feil in form.non_field_errors %}<li>{{ feil }}</li>{% endfor %}
+    {% if form.email.errors %}<li id="feil-epost">{{ form.email.errors|join:" " }}</li>{% endif %}
+    {% if form.passord.errors %}<li id="feil-passord">{{ form.passord.errors|join:" " }}</li>{% endif %}
+  </ul>
+</div>
+{% endif %}
+<form method="post" action="{% url 'kontoer:registrer' %}">
+  {% csrf_token %}
+  <div>
+    <label for="epost">E-post</label>
+    <input id="epost" type="email" name="{{ form.email.html_name }}" autocomplete="email" required maxlength="254"
+           value="{{ form.email.value|default_if_none:'' }}"
+           aria-describedby="{% if form.email.errors %}feil-epost {% endif %}hint-epost"
+           {% if form.email.errors %}aria-invalid="true"{% endif %}>
+    <span id="hint-epost">Bruk en gyldig e-postadresse.</span>
+  </div>
+  <div>
+    <label for="passord">Passord</label>
+    <input id="passord" type="password" name="{{ form.passord.html_name }}" autocomplete="new-password" required
+           aria-describedby="{% if form.passord.errors %}feil-passord {% endif %}hint-passord"
+           {% if form.passord.errors %}aria-invalid="true"{% endif %}>
+    <span id="hint-passord">Minst 8 tegn.</span>
+  </div>
+  <button type="submit">Registrer deg</button>
+</form>
+<p>Har du allerede konto? <a href="{% url 'kontoer:logg_inn' %}">Logg inn</a></p>
+{% endblock %}

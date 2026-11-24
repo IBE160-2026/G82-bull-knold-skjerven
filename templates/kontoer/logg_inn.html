@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Logg inn{% endblock %}
+
+{% block innhold %}
+{% if okt_utlopt %}
+<p role="status">{{ okt_utlopt }}</p>
+{% endif %}
+
+<div>
+  <h1>Øv på forelesningene dine</h1>
+  <p>Last opp et notat, få en quiz laget av KI, og øv på det du svarer feil. Det tar et par minutter.</p>
+  <a href="{% url 'kontoer:registrer' %}">Registrer deg</a>
+</div>
+<div aria-hidden="true">
+  <div>Hva er HTML?</div>
+  <div>Hva brukes &lt;a&gt; til?</div>
+  <div>Hva er en nettleser?</div>
+</div>
+
+<div>
+  <div><span aria-hidden="true">1</span><h2>Last opp notatet</h2><p>PDF, DOCX eller TXT, opptil 5 MB.</p></div>
+  <div><span aria-hidden="true">2</span><h2>Ta quizen</h2><p>Ett spørsmål om gangen, med svaralternativene under kortet.</p></div>
+  <div><span aria-hidden="true">3</span><h2>Øv på feilene</h2><p>Svar du bommet på, kommer tilbake til de er lært.</p></div>
+</div>
+
+<h2>Logg inn</h2>
+{% if form.errors %}
+<div id="feil-innlogging" role="alert" tabindex="-1" autofocus>
+  <p>{{ form.feilmelding }}</p>
+</div>
+{% endif %}
+<form method="post" action="{% url 'kontoer:logg_inn' %}">
+  {% csrf_token %}
+  {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+  <div>
+    <label for="epost">E-post</label>
+    <input id="epost" type="email" name="{{ form.username.html_name }}" autocomplete="email" required maxlength="254"
+           value="{{ form.username.value|default_if_none:'' }}"
+           {% if form.errors %}aria-invalid="true" aria-describedby="feil-innlogging"{% endif %}>
+  </div>
+  <div>
+    <label for="passord">Passord</label>
+    <input id="passord" type="password" name="{{ form.password.html_name }}" autocomplete="current-password" required
+           {% if form.errors %}aria-invalid="true" aria-describedby="feil-innlogging"{% endif %}>
+  </div>
+  <button type="submit">Logg inn</button>
+</form>
+<p>Har du ikke konto? <a href="{% url 'kontoer:registrer' %}">Registrer deg</a></p>
+<p><a href="{% url 'kontoer:personvern' %}">Personvernerklæring</a></p>
+{% endblock %}

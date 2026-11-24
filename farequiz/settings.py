@@ -72,6 +72,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.auth.middleware.LoginRequiredMiddleware",
+    "kontoer.middleware.VilkarMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -117,20 +118,19 @@ DATABASES = {
 
 AUTH_USER_MODEL = "kontoer.Bruker"
 
+# Bare minst 8 tegn (FR-1, beslutning 23.11). Meldingen står i feilmeldinger.py.
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        "OPTIONS": {"min_length": 8},
     },
 ]
+
+LOGIN_URL = "kontoer:logg_inn"
+
+LOGIN_REDIRECT_URL = "/"
+
+LOGOUT_REDIRECT_URL = "kontoer:logg_inn"
 
 
 # Språk og tid. Lagres i UTC og vises i Europe/Oslo.
