@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ emne.navn }}{% endblock %}
+
+{% block brodsmuler %}
+{% include "partials/brodsmuler.html" with brodsmuler=brodsmuler %}
+{% endblock %}
+
+{% block innhold %}
+<h1 class="mb-4 text-2xl font-semibold">{{ emne.navn }}</h1>
+
+<button type="button" disabled aria-disabled="true" class="mb-4 min-h-11 rounded-md border border-border-control px-4 py-2 font-semibold text-ink-secondary">Last opp notat</button>
+
+{% if notater %}
+<ul class="flex flex-col gap-3">
+  {% for notat in notater %}
+  <li class="rounded-lg border border-border-subtle bg-surface p-4">{{ notat.originalnavn }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Ingen notater ennå. Last opp det første.</p>
+{% endif %}
+{% endblock %}

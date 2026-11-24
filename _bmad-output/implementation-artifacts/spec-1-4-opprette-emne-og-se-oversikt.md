@@ -2,7 +2,7 @@
 title: 'Story 1.4: Opprette emne og se Oversikt'
 type: 'feature'
 created: '2026-11-24'
-status: 'draft'
+status: 'in-review'
 route: 'dispatch'
 review_loop_iteration: 0
 baseline_commit: '0b1ff3c'
@@ -71,14 +71,14 @@ context:
 ## Tasks & Acceptance
 
 **Execution:**
-- [ ] `studier/services/emner.py` -- `opprett_emne` med trimming, lengdesjekk og unikt navn
-- [ ] `studier/forms.py` -- `EmneForm` med unikhetssjekk uten å skille store og små bokstaver
-- [ ] `studier/views.py` og `studier/urls.py` -- `/emner/ny/` og `/emner/<pk>/`, med `hent_egen`
-- [ ] `farequiz/views.py` og `templates/studier/oversikt.html` -- `/` blir Oversikt med kort og tomtilstand
-- [ ] `templates/studier/ny_emne.html` og `templates/studier/emne.html` -- S16 og S4
-- [ ] `farequiz/feilmeldinger.py` -- tre nye feilmeldinger
-- [ ] Tester etter I/O-matrisen, og en test for at andres `pk` gir 404
-- [ ] Oppdater `kontoer/tests_sider.py` til Oversikt
+- [x] `studier/services/emner.py` -- `opprett_emne` med trimming, lengdesjekk og unikt navn
+- [x] `studier/forms.py` -- `EmneForm` med unikhetssjekk uten å skille store og små bokstaver
+- [x] `studier/views.py` og `studier/urls.py` -- `/emner/ny/` og `/emner/<pk>/`, med `hent_egen`
+- [x] `farequiz/views.py` og `templates/studier/oversikt.html` -- `/` blir Oversikt med kort og tomtilstand
+- [x] `templates/studier/ny_emne.html` og `templates/studier/emne.html` -- S16 og S4
+- [x] `farequiz/feilmeldinger.py` -- tre nye feilmeldinger
+- [x] Tester etter I/O-matrisen, og en test for at andres `pk` gir 404
+- [x] Oppdater `kontoer/tests_sider.py` til Oversikt
 
 **Acceptance Criteria:**
 - Gitt en innlogget bruker uten emner, når hen åpner `/`, så står kortet «Nytt emne» og teksten «Ingen emner ennå. Opprett ditt første emne.».
@@ -90,7 +90,10 @@ context:
 
 ## Implementation Notes
 
-- Ingen implementasjon ennå. Dette er et utkast.
+- **24.11, implementert og verifisert lokalt.** Oversikt er `/`, S16 er `/emner/ny/`, og S4 er `/emner/<pk>/`. `opprett_emne` er eneste skriveveien for `Emne`.
+- **Verifisert:** 120 tester er grønne, med 13 nye. ruff, format og migreringssjekk er grønne. Nettleser (Chrome headless, `DEBUG=False`): feil ved tomt navn, fokus på feilmeldingen, opprettelse og videre til S4, Oversikt, ingen vannrett rulling på 320 px, og axe finner ingen brudd på `/` og `/emner/ny/`.
+- **Endringer i eksisterende tester:** stand-in-ruten for «beskyttet side» er flyttet fra `/emner/<pk>/` til `/testside/<pk>/`, siden emnesiden nå finnes. Tittelen på Oversikt er «Oversikt».
+- **Åpent:** S4 har ingen «Gi nytt navn» og ingen «Slett emne». Det kommer i 1.5 og 1.6.
 - Branchen starter fra `story-1-3-toppfelt` (`0b1ff3c`), fordi PR #5 ikke er merget ennå.
 
 ## Spec Change Log

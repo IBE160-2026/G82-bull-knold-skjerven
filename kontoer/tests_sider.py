@@ -21,10 +21,10 @@ def _beskyttet(request, pk):
 
 
 # En beskyttet side i tillegg til de ekte, slik at «utløpt økt» kan testes med
-# `/emner/3/` før story 1.4 lager emnesidene.
+# `/testside/3/` før story 1.4 lager emnesidene.
 urlpatterns = [
     *farequiz_urlpatterns,
-    path("emner/<int:pk>/", _beskyttet),
+    path("testside/<int:pk>/", _beskyttet),
 ]
 
 Bruker = get_user_model()
@@ -132,9 +132,9 @@ class LoggInnTest(TestCase):
     def test_innlogging_med_neste(self):
         svar = self.client.post(
             self.url,
-            {"username": "ola@eks.no", "password": PASSORD, "next": "/emner/3/"},
+            {"username": "ola@eks.no", "password": PASSORD, "next": "/testside/3/"},
         )
-        self.assertRedirects(svar, "/emner/3/", fetch_redirect_response=False)
+        self.assertRedirects(svar, "/testside/3/", fetch_redirect_response=False)
 
     def test_usikker_neste_folges_ikke(self):
         svar = self.client.post(
@@ -156,18 +156,18 @@ class LoggInnTest(TestCase):
             self.assertNotIn("_auth_user_id", self.client.session)
 
     def test_utlopt_okt(self):
-        svar = self.client.get("/emner/3/")
+        svar = self.client.get("/testside/3/")
         self.assertRedirects(
-            svar, "/logg-inn/?next=/emner/3/", fetch_redirect_response=False
+            svar, "/logg-inn/?next=/testside/3/", fetch_redirect_response=False
         )
         side = self.client.get(svar.url)
         self.assertContains(side, feilmeldinger.OKT_UTLOPT)
         svar = self.client.post(
             "/logg-inn/",
-            {"username": "ola@eks.no", "password": PASSORD, "next": "/emner/3/"},
+            {"username": "ola@eks.no", "password": PASSORD, "next": "/testside/3/"},
         )
-        self.assertRedirects(svar, "/emner/3/", fetch_redirect_response=False)
-        self.assertContains(self.client.get("/emner/3/"), "emne 3")
+        self.assertRedirects(svar, "/testside/3/", fetch_redirect_response=False)
+        self.assertContains(self.client.get("/testside/3/"), "emne 3")
 
     def test_ny_besokende_paa_startsiden_far_ingen_melding(self):
         svar = self.client.get("/", follow=True)
@@ -195,11 +195,15 @@ class LoggInnTest(TestCase):
     def test_utlopt_melding_ogsa_etter_feil_innlogging(self):
         svar = self.client.post(
             self.url,
-            {"username": "ola@eks.no", "password": "feil-passord", "next": "/emner/3/"},
+            {
+                "username": "ola@eks.no",
+                "password": "feil-passord",
+                "next": "/testside/3/",
+            },
         )
         self.assertContains(svar, feilmeldinger.FEIL_INNLOGGING)
         self.assertContains(svar, feilmeldinger.OKT_UTLOPT)
-        self.assertContains(svar, 'name="next" value="/emner/3/"')
+        self.assertContains(svar, 'name="next" value="/testside/3/"')
 
     def test_innlogget_bruker_sendes_fra_innloggingen(self):
         self.client.force_login(self.bruker)
@@ -214,10 +218,10 @@ class VilkarTest(TestCase):
         self.client.force_login(self.bruker)
 
     def test_vilkar_mangler_sender_til_s1b(self):
-        svar = self.client.get("/emner/3/?side=2")
+        svar = self.client.get("/testside/3/?side=2")
         self.assertRedirects(
             svar,
-            "/vilkar/?next=%2Femner%2F3%2F%3Fside%3D2",
+            "/vilkar/?next=%2Ftestside%2F3%2F%3Fside%3D2",
             fetch_redirect_response=False,
         )
 
@@ -243,8 +247,8 @@ class VilkarTest(TestCase):
 
     def test_godta(self):
         for_ = timezone.now()
-        svar = self.client.post("/vilkar/", {"next": "/emner/3/"})
-        self.assertRedirects(svar, "/emner/3/", fetch_redirect_response=False)
+        svar = self.client.post("/vilkar/", {"next": "/testside/3/"})
+        self.assertRedirects(svar, "/testside/3/", fetch_redirect_response=False)
         self.bruker.refresh_from_db()
         self.assertIsNotNone(self.bruker.vilkar_godtatt)
         self.assertGreaterEqual(self.bruker.vilkar_godtatt, for_)
@@ -252,7 +256,7 @@ class VilkarTest(TestCase):
         self.assertRedirects(
             self.client.get("/vilkar/"), "/", fetch_redirect_response=False
         )
-        self.assertContains(self.client.get("/emner/3/"), "emne 3")
+        self.assertContains(self.client.get("/testside/3/"), "emne 3")
 
     def test_godta_uten_neste(self):
         svar = self.client.post("/vilkar/")
@@ -263,7 +267,7 @@ class VilkarTest(TestCase):
         self.assertRedirects(svar, "/", fetch_redirect_response=False)
 
     def test_s1b_innhold(self):
-        svar = self.client.get("/vilkar/?next=/emner/3/")
+        svar = self.client.get("/vilkar/?next=/testside/3/")
         for tekst in (
             "Behandling av notater:",
             "Ikke del personopplysninger:",
@@ -271,7 +275,7 @@ class VilkarTest(TestCase):
             "Vilkår og loggføring:",
             "Jeg har forstått og godtar",
             'href="/personvern/"',
-            'name="next" value="/emner/3/"',
+            'name="next" value="/testside/3/"',
             'method="post"',
         ):
             self.assertContains(svar, tekst)
@@ -283,7 +287,7 @@ class VilkarTest(TestCase):
 
     def test_post_uten_vilkar_sendes_uten_neste(self):
         # En POST kan ikke gjentas med GET, så den får ingen `next`.
-        svar = self.client.post("/emner/3/")
+        svar = self.client.post("/testside/3/")
         self.assertRedirects(svar, "/vilkar/", fetch_redirect_response=False)
 
 
@@ -315,7 +319,7 @@ class OffentligeSiderTest(TestCase):
     def test_bare_tre_sider_er_offentlige(self):
         for sti in ("/logg-inn/", "/registrer/", "/personvern/"):
             self.assertEqual(self.client.get(sti).status_code, 200, sti)
-        for sti in ("/", "/vilkar/", "/emner/3/"):
+        for sti in ("/", "/vilkar/", "/testside/3/"):
             self.assertEqual(self.client.get(sti).status_code, 302, sti)
 
     def test_s1_innhold(self):
@@ -354,7 +358,7 @@ class SidestrukturTest(TestCase):
             (None, "/registrer/", "Registrer deg – FåreQuiz"),
             (None, "/personvern/", "Personvernerklæring – FåreQuiz"),
             (ny, "/vilkar/", "Før du tar i bruk tjenesten – FåreQuiz"),
-            (bruker, "/", "Startside – FåreQuiz"),
+            (bruker, "/", "Oversikt – FåreQuiz"),
         ]
         for innlogget, sti, tittel in sider:
             with self.subTest(sti=sti):

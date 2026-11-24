@@ -1,6 +1,7 @@
 """Tester for toppfelt, brødsmuler, testmodus-banner, fotlinje og 404 i story 1.3."""
 
 import re
+from types import SimpleNamespace
 from unittest import mock
 
 from django.contrib.auth import get_user_model
@@ -15,22 +16,21 @@ Bruker = get_user_model()
 
 
 def _underside(request, pk):
-    """Testside for en underside med Tilbake til Oversikt. Emnesiden lages i story 1.4."""
+    """Testside for en underside med Tilbake til Oversikt, til emnesiden finnes i story 1.4."""
     return render(
         request,
-        "startside.html",
+        "studier/emne.html",
         {
+            "emne": SimpleNamespace(pk=pk, navn=f"Emne {pk}"),
+            "notater": [],
             "tilbake_url": "/",
             "tilbake_tekst": "Tilbake til Oversikt",
-            "brodsmuler_oversikt": [
-                {"tekst": "Oversikt", "url": "/"},
-                {"tekst": f"Emne {pk}"},
-            ],
+            "brodsmuler": [{"tekst": "Oversikt", "url": "/"}, {"tekst": f"Emne {pk}"}],
         },
     )
 
 
-urlpatterns = [*farequiz_urlpatterns, path("emner/<int:pk>/", _underside)]
+urlpatterns = [*farequiz_urlpatterns, path("testside/<int:pk>/", _underside)]
 
 
 def lag_bruker(email="ola@eks.no", godtatt=True):
@@ -82,7 +82,7 @@ class ToppfeltTest(TestCase):
 class UndersideTest(TestCase):
     def test_underside_har_tilbake_til_forelderen_og_brodsmuler_med_lenke(self):
         self.client.force_login(lag_bruker())
-        html = self.client.get("/emner/3/").content.decode()
+        html = self.client.get("/testside/3/").content.decode()
         self.assertIn('href="/" class="inline-flex', html)
         self.assertIn('aria-label="Tilbake til Oversikt"', html)
         self.assertIn('<a href="/" class="underline">Oversikt</a>', html)
