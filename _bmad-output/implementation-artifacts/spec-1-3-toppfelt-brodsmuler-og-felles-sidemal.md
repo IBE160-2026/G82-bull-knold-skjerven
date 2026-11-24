@@ -2,7 +2,7 @@
 title: 'Story 1.3: Toppfelt, brødsmuler og felles sidemal'
 type: 'feature'
 created: '2026-11-24'
-status: 'in-review'
+status: 'done'
 route: 'dispatch'
 review_loop_iteration: 0
 baseline_commit: '2fc38b3'
