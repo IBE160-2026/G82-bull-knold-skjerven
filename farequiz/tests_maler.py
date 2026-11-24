@@ -55,12 +55,17 @@ class ToppfeltTest(TestCase):
         self.assertIn('aria-label="Hovedmeny"', html)
         self.assertNotIn("‹ Tilbake", html)
 
-    def test_hopp_til_innhold_er_forste_lenke_og_peker_pa_main(self):
+    def test_hopp_til_innhold_er_forste_fokuserbare_element(self):
         html = self.client.get("/logg-inn/").content.decode()
-        forste_lenke = re.search(r"<a href=\"#innhold\"", html)
-        self.assertIsNotNone(forste_lenke)
+        body = html[html.index("<body") :]
+        forste_fokuserbare = re.search(
+            r"<(a|button|input|select|textarea|summary)\b", body
+        )
+        self.assertIsNotNone(forste_fokuserbare)
+        self.assertTrue(
+            body[forste_fokuserbare.start() :].startswith('<a href="#innhold"')
+        )
         self.assertIn('<main id="innhold"', html)
-        self.assertLess(forste_lenke.start(), html.index("<header"))
 
     def test_meny_har_riktige_lenker_og_ikke_ovp_pa_feil(self):
         self.client.force_login(lag_bruker())
@@ -154,3 +159,13 @@ class FantIkkeSideTest(TestCase):
         self.assertIn("<h1", html)
         self.assertIn("Fant ikke siden", html)
         self.assertIn('href="/"', html)
+
+
+class BrodsmulerTomTest(TestCase):
+    def test_tom_brodsmulesti_rendres_ikke(self):
+        from django.template import loader
+
+        html = loader.get_template("partials/brodsmuler.html").render(
+            {"brodsmuler": []}
+        )
+        self.assertNotIn("Brødsmuler", html)

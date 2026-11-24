@@ -34,6 +34,11 @@
   background-size: 360px 360px;
 }
 
+/* Meny: skjul den innebygde markøren i Safari, slik at bare ‹Meny› vises */
+.meny summary::-webkit-details-marker {
+  display: none;
+}
+
 /* Fokusring: 2 px, og i toppfeltet en lys variant */
 :focus-visible {
   outline: 2px solid var(--color-accent-strong);

@@ -30,7 +30,7 @@ context:
 - Tailwind bygges til `static/css/app.css`, og den ferdige filen committes, slik at sensor ikke trenger Node.
 - Toppfeltet, brødsmulestien og testmodus-banneret ligger på samme sted på alle sider (WCAG 3.2.6).
 - Logg ut, Tilbake og Meny vises bare for innloggede brukere. Tilbake vises ikke på S3.
-- «Meny» er en `<details>`-meny uten JavaScript. Den inneholder Oversikt, Nytt emne og Personvernerklæringen. **Ikke** Øv på feil, jf. gruppas beslutning 23.11.
+- «Meny» er en `<details>`-meny. Åpning virker uten JavaScript. Lukking med Esc og klikk utenfor krever `static/js/meny.js`. Den inneholder Oversikt, Nytt emne og Personvernerklæringen. **Ikke** Øv på feil, jf. gruppas beslutning 23.11.
 - «‹ Tilbake» er en vanlig lenke til forelderen, med `aria-label` som sier hva den går til.
 - Fokusringen er 2 px `accent-strong`, og i toppfeltet `focus-inverse`. Den fjernes aldri.
 - Knapper og lenker i toppfeltet er minst 44 px høye på mobil.
@@ -102,6 +102,7 @@ context:
 - **Avvik 1, htmx:** htmx ligger i `static/js/`, men lastes ikke på alle sider. S1b skal være uten JavaScript (kriteriet i 1.2), så `base.html` har et tomt `skript`-blokk som senere fragmenter kan fylle.
 - **Avvik 2, Meny (løst 24.11):** Meny lukkes med Esc og klikk utenfor. Det gjøres av `static/js/meny.js`, som lastes på alle sider unntatt S1b, der det ikke skal være JavaScript. Esc flytter fokus tilbake til «Meny».
 - **Review (24.11):** Rettet: knapper i toppfeltet er 44 px (`min-h-11`), tom brødsmulesti vises ikke, siste brødsmule har `aria-current`, `aria-label` faller tilbake til «Tilbake», og testmodus-banneret testes når det er av. 404-testen kjører med `DEBUG=False`.
+- **Avvik 3, dokumenterte endringer:** `brodsmuler` settes i `startside`-visningen, ikke i `context_processors.py`, som bare har `testmodus`. Personvernerklæringen ble endret etter beslutningen om kontosletting (24.11), og kontoer-sidene er endret for det. Det er ikke en tekstendring utover det.
 - **Åpent:** «Nytt emne» i menyen går til Oversikt til story 1.4 lager S16. `handler404` er fjernet fra spec-en, siden Djangos standard 404 allerede bruker `templates/404.html`.
 - **Ikke testet i nettleser:** 320 px uten vannrett rulling, 200 % tekst, og axe. Det er manuelle sjekker i Verification.
 - Sprint-forslaget for 1.3 er oppdatert til å beholde Tilbake og Meny (gruppas beslutning 24.11). Meny-innholdet i forslaget står med «Øv på feil», som er feil. Det rettes til samme innhold som denne spec-en.
@@ -111,7 +112,7 @@ context:
 ## Design Notes
 
 - **Tilbake** er en lenke til forelderen, ikke `history.back()`. Det gir en forutsigbar adresse som også fungerer uten historikk, og det er det epic-konteksten sier.
-- **Meny** bruker `<details>`, så den virker uten JavaScript. Lukking med Esc og klikk utenfor krever JavaScript og er ikke en del av kriteriene.
+- **Meny** bruker `<details>`, så åpning virker uten JavaScript. Lukking med Esc og klikk utenfor ligger i `static/js/meny.js`, og er et akseptansekriterium.
 - **S1b-modalen** holdes utenfor denne storyen. Den er en vanlig side i 1.2, og modal-oppførselen legges til når den er tatt inn i kriteriene.
 
 ## Verification
