@@ -64,7 +64,7 @@ context:
 - `templates/partials/brodsmuler.html` -- brødsmulesti som tar en liste over steg.
 - `templates/404.html` -- «Fant ikke siden» med lenke til Oversikt.
 - `farequiz/context_processors.py` -- legg til `testmodus`-flagget i kontekst for banneret, og `brodsmuler` der det trengs. Bruker `ki.er_testmodus()` som eneste kilde.
-- `farequiz/settings.py` -- `handler404`, og `STATICFILES_DIRS` peker til `static/`.
+- `farequiz/settings.py` -- `STATICFILES_DIRS` peker til `static/`. 404 er Djangos standard, med `templates/404.html`.
 - `static/css/app.css` -- bygget fra `static/css/input.css` med Tailwind v4 frittstående CLI. `@theme` kommer fra DESIGN.md.
 - `static/css/input.css` -- `@import "tailwindcss"`, og `@theme` med fargene, skriftstørrelsene og radiusene fra DESIGN.md.
 - `static/js/htmx.min.js` -- htmx 2.0.11, lokal fil. Ingen CDN.
@@ -80,7 +80,7 @@ context:
 - [x] `static/img/` -- `favicon.svg` og `kart.svg` fra prototypen
 - [x] `templates/base.html` -- `lang="nb"`, `<title>`, toppfelt, Hopp til innhold som første fokuserbare element, testmodus-banner, brødsmulesti, `<main>` og fotlinje
 - [x] `templates/partials/topbar.html` -- Tilbake, Meny og Logg ut, vises bare for innloggede
-- [x] `templates/404.html` og `handler404` -- «Fant ikke siden» med lenke til Oversikt
+- [x] `templates/404.html` -- «Fant ikke siden» med lenke til Oversikt, brukt av Djangos standard 404 når `DEBUG=False`
 - [x] `farequiz/context_processors.py` -- `testmodus` og brødsmulestien
 - [x] Oppdater `kontoer`-sidene til å bruke den nye malen, uten å endre innhold eller tekst
 - [x] Tester etter I/O-matrisen, pluss en test for at Meny ikke inneholder Øv på feil
@@ -102,7 +102,7 @@ context:
 - **Avvik 1, htmx:** htmx ligger i `static/js/`, men lastes ikke på alle sider. S1b skal være uten JavaScript (kriteriet i 1.2), så `base.html` har et tomt `skript`-blokk som senere fragmenter kan fylle.
 - **Avvik 2, Meny (løst 24.11):** Meny lukkes med Esc og klikk utenfor. Det gjøres av `static/js/meny.js`, som lastes på alle sider unntatt S1b, der det ikke skal være JavaScript. Esc flytter fokus tilbake til «Meny».
 - **Review (24.11):** Rettet: knapper i toppfeltet er 44 px (`min-h-11`), tom brødsmulesti vises ikke, siste brødsmule har `aria-current`, `aria-label` faller tilbake til «Tilbake», og testmodus-banneret testes når det er av. 404-testen kjører med `DEBUG=False`.
-- **Åpent:** «Nytt emne» i menyen går til Oversikt til story 1.4 lager S16. `handler404` er ikke lagt inn, siden den ikke gjelder når `DEBUG=True`. Kravet i spec-en må enten fjernes eller bekreftes.
+- **Åpent:** «Nytt emne» i menyen går til Oversikt til story 1.4 lager S16. `handler404` er fjernet fra spec-en, siden Djangos standard 404 allerede bruker `templates/404.html`.
 - **Ikke testet i nettleser:** 320 px uten vannrett rulling, 200 % tekst, og axe. Det er manuelle sjekker i Verification.
 - Sprint-forslaget for 1.3 er oppdatert til å beholde Tilbake og Meny (gruppas beslutning 24.11). Meny-innholdet i forslaget står med «Øv på feil», som er feil. Det rettes til samme innhold som denne spec-en.
 
