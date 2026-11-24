@@ -30,3 +30,7 @@
 - [x] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa bekrefter at «første gang» for S5 betyr «ingen notater ennå» (løst 2026-11-23: PR #4)
 - [x] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — EXPERIENCE.md sier «alle 14 skjermbildene», men designet har nå flere (løst 2026-11-23: PR #4)
 - [ ] 2026-11-23 [branch-gjennomgang](995-2026-11-23-16-59-11-branch-gjennomgang.md) — gruppa bekrefter at menyen og Tilbake er tilbake i toppfeltet, uten «Øv på feil» i menyen
+- [ ] 2026-11-24 [story-1-2-konto-og-vilkar](994-2026-11-24-17-17-37-story-1-2-konto-og-vilkar.md) — bytte kontaktpersonen «Ola Normann, ola@normann.no» i personvernerklæringen hvis det bare er en plassholder
+- [ ] 2026-11-24 [story-1-2-konto-og-vilkar](994-2026-11-24-17-17-37-story-1-2-konto-og-vilkar.md) — personvernerklæringen lover kontosletting, varsel per e-post og sletting av logger etter 30 dager, som v1 ikke har
+- [ ] 2026-11-24 [story-1-2-konto-og-vilkar](994-2026-11-24-17-17-37-story-1-2-konto-og-vilkar.md) — tre lenker i §4.1 i personvernerklæringen går til forsider i stedet for dokumentene
+- [ ] 2026-11-24 [story-1-2-konto-og-vilkar](994-2026-11-24-17-17-37-story-1-2-konto-og-vilkar.md) — S1b viser til «brukervilkår» som ikke finnes som egen side, og vilkårene har ingen versjon
