@@ -70,6 +70,7 @@ def endre_navn(request, pk):
         try:
             gi_nytt_navn(objekt, form.cleaned_data["navn"])
         except IntegrityError:
+            objekt.refresh_from_db(fields=["navn"])
             form.add_error("navn", feilmeldinger.NAVN_TATT)
         else:
             return redirect("studier:emne", pk=objekt.pk)

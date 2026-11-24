@@ -2,7 +2,7 @@
 title: 'Story 1.5: Gi emne nytt navn'
 type: 'feature'
 created: '2026-11-24'
-status: 'in-review'
+status: 'done'
 route: 'dispatch'
 review_loop_iteration: 0
 baseline_commit: '92830e5'
@@ -48,14 +48,16 @@ context:
 | Andres emne | Innlogget, `pk` tilhører en annen bruker | «Fant ikke siden», 404 | 404 |
 | Utlogget | POST uten innlogging | Sendt til innlogging | N/A |
 
+</frozen-after-approval>
+
 ## Code Map
 
-- `studier/services/emner.py` -- `gi_nytt_navn(emne, navn)`: trimmer, validerer og lagrer. Samme validering som `opprett_emne`, med `ValueError` for ugyldig navn.
-- `studier/forms.py` -- `EmneForm` tar et valgfritt `emne`-argument. Med `emne` utelates emnet selv i duplikatsjekken.
-- `studier/views.py` -- ny `gi_nytt_navn_visning` for POST på `/emner/<pk>/navn/`. Bruker `hent_egen`. Ved feil vises S4 med skjemaet og feilmeldingen.
+- `studier/services/emner.py` -- `gi_nytt_navn(emne, navn)`: bruker `_rens_navn`, samme validering som `opprett_emne`. Lagring er én UPDATE, og 404 hvis emnet er borte.
+- `studier/forms.py` -- `EmneForm(forms.Form)` tar et valgfritt `emne`-argument. Med `emne` utelates emnet selv i duplikatsjekken.
+- `studier/views.py` -- ny `endre_navn` for POST på `/emner/<pk>/navn/`. Bruker `hent_egen`. Ved feil vises S4 med skjemaet og feilmeldingen.
 - `studier/urls.py` -- `emner/<int:pk>/navn/`, navn `studier:endre_navn`.
 - `templates/studier/emne.html` -- skjemaet «Gi nytt navn» under «Last opp notat». Knappen er sekundær.
-- `studier/tests/test_emner.py` -- tester for hver rad i I/O-matrisen.
+- `studier/tests/test_endre_navn.py` -- tester for hver rad i I/O-matrisen, pluss at notater, quizer, økter, svar og feilbank er uendret.
 
 ## Tasks & Acceptance
 
@@ -81,7 +83,9 @@ context:
 
 ## Spec Change Log
 
-- **24.11:** Skjemaet er en `<details>` på S4, ikke åpent alltid. Innholdet er uendret.
+- **24.11:** Skjemaet er en `<details>` på S4, ikke åpent alltid. Innholdet er uendret. Akseptansekriteriet «står skjemaet» er oppfylt når brukeren åpner det, eller når det er feil.
+- **24.11, review:** Rettet: `maxlength` er 100 i begge skjemaene. Etter IntegrityError hentes emnet på nytt, så overskriften viser ikke avvist navn. Lagring er én UPDATE, med 404 hvis emnet er slettet. Tester for uendrede relasjoner, samme navn og Oversikt etter endring.
+- **Avvist:** tilgjengelighetstest automatisk (gjort manuelt), CI for ruff og migreringer (ikke i denne storyen), og `autofocus` som ikke flytter fokus (nettleserkontrollen viste at det virker).
 
 ## Design Notes
 

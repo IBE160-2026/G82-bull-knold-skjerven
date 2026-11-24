@@ -70,11 +70,42 @@ class EndreNavnTest(TestCase):
     def test_notater_og_quizer_er_uendret(self):
         lag_kjede(self.bruker, "Fysikk")
         emne = Emne.objects.get(eier=self.bruker, navn="Fysikk")
-        antall = Notat.objects.filter(emne=emne).count()
+        from studier.models import Feilbankrad, Okt, Quiz, Svar
+
+        far = {
+            "notat": Notat.objects.filter(emne=emne).count(),
+            "quiz": Quiz.objects.filter(notat__emne=emne).count(),
+            "okt": Okt.objects.filter(notat__emne=emne).count(),
+            "svar": Svar.objects.filter(okt__notat__emne=emne).count(),
+            "feilbank": Feilbankrad.objects.filter(
+                sporsmal__quiz__notat__emne=emne
+            ).count(),
+        }
         self.client.post(f"/emner/{emne.pk}/navn/", {"navn": "Biologi fysikk"})
-        self.assertEqual(Notat.objects.filter(emne=emne).count(), antall)
+        etter = {
+            "notat": Notat.objects.filter(emne=emne).count(),
+            "quiz": Quiz.objects.filter(notat__emne=emne).count(),
+            "okt": Okt.objects.filter(notat__emne=emne).count(),
+            "svar": Svar.objects.filter(okt__notat__emne=emne).count(),
+            "feilbank": Feilbankrad.objects.filter(
+                sporsmal__quiz__notat__emne=emne
+            ).count(),
+        }
+        self.assertEqual(etter, far)
         emne.refresh_from_db()
         self.assertEqual(emne.navn, "Biologi fysikk")
+
+    def test_samme_navn_er_lov(self):
+        svar = self.client.post(self._url(), {"navn": "Kjemi"})
+        self.assertRedirects(
+            svar, f"/emner/{self.emne.pk}/", fetch_redirect_response=False
+        )
+
+    def test_nytt_navn_vises_pa_oversikt(self):
+        self.client.post(self._url(), {"navn": "Biologi"})
+        html = self.client.get("/").content.decode()
+        self.assertIn('font-semibold">Biologi</span>', html)
+        self.assertNotIn('font-semibold">Kjemi</span>', html)
 
     def test_andres_emne_gir_404(self):
         annens = Emne.objects.create(eier=lag_bruker("annen@eks.no"), navn="Hemmelig")
