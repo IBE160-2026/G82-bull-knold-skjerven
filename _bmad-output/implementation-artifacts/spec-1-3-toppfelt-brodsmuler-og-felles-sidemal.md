@@ -103,6 +103,8 @@ context:
 - **Avvik 2, Meny (løst 24.11):** Meny lukkes med Esc og klikk utenfor. Det gjøres av `static/js/meny.js`, som lastes på alle sider unntatt S1b, der det ikke skal være JavaScript. Esc flytter fokus tilbake til «Meny».
 - **Review (24.11):** Rettet: knapper i toppfeltet er 44 px (`min-h-11`), tom brødsmulesti vises ikke, siste brødsmule har `aria-current`, `aria-label` faller tilbake til «Tilbake», og testmodus-banneret testes når det er av. 404-testen kjører med `DEBUG=False`.
 - **Avvik 3, dokumenterte endringer:** `brodsmuler` settes i `startside`-visningen, ikke i `context_processors.py`, som bare har `testmodus`. Personvernerklæringen ble endret etter beslutningen om kontosletting (24.11), og kontoer-sidene er endret for det. Det er ikke en tekstendring utover det.
+- **Statiske filer uten DEBUG (24.11):** WhiteNoise serverer `static/` også med `DEBUG=False`, uten `collectstatic`. Pakken er lagt til i `pyproject.toml`. Testet i `StatiskeFilerTest`.
+- **Kontakt i personvernerklæringen:** Ola Normann, ola@normann.no, slik teksten sier. Setningen om kontosletting peker dit.
 - **Åpent:** «Nytt emne» i menyen går til Oversikt til story 1.4 lager S16. `handler404` er fjernet fra spec-en, siden Djangos standard 404 allerede bruker `templates/404.html`.
 - **Ikke testet i nettleser:** 320 px uten vannrett rulling, 200 % tekst, og axe. Det er manuelle sjekker i Verification.
 - Sprint-forslaget for 1.3 er oppdatert til å beholde Tilbake og Meny (gruppas beslutning 24.11). Meny-innholdet i forslaget står med «Øv på feil», som er feil. Det rettes til samme innhold som denne spec-en.

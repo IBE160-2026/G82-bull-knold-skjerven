@@ -169,3 +169,15 @@ class BrodsmulerTomTest(TestCase):
             {"brodsmuler": []}
         )
         self.assertNotIn("Brødsmuler", html)
+
+
+class StatiskeFilerTest(TestCase):
+    @override_settings(DEBUG=False)
+    def test_stylesheet_og_meny_skript_serveres_uten_debug(self):
+        for sti in (
+            "/static/css/app.css",
+            "/static/js/meny.js",
+            "/static/img/favicon.svg",
+        ):
+            with self.subTest(sti=sti):
+                self.assertEqual(self.client.get(sti).status_code, 200)
