@@ -18,7 +18,9 @@ def _oversikt_brodsmule():
 
 @require_http_methods(["GET", "HEAD", "POST"])
 def ny_emne(request):
-    form = EmneForm(request.POST or None, eier=request.user)
+    form = EmneForm(
+        request.POST if request.method == "POST" else None, eier=request.user
+    )
     if request.method == "POST" and form.is_valid():
         try:
             emne = opprett_emne(request.user, form.cleaned_data["navn"])

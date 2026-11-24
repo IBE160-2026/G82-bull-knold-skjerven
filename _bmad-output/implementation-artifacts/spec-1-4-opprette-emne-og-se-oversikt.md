@@ -58,7 +58,7 @@ context:
 
 - `farequiz/views.py` -- `startside` blir Oversikt: henter `egne(Emne, bruker)` sortert på `navn` (`Lower`). Brødsmulesti er bare «Oversikt». Navnet `startside` beholdes, og tittelen blir «Oversikt».
 - `studier/services/emner.py` -- ny. `opprett_emne(eier, navn)` trimmer, sjekker tomt og lengde, og lagrer. Unikt navn fanges av skjemaet, og `IntegrityError` mappes til «Du har allerede et emne med dette navnet.». Samme mønster som `studier/services/vilkar.py`.
-- `studier/forms.py` -- ny. `EmneForm(ModelForm)` med `navn`, `eier` gis i konstruktøren og brukes til unikhetssjekken uten å skille store og små bokstaver.
+- `studier/forms.py` -- ny. `EmneForm(forms.Form)` med `navn`. `eier` gis i konstruktøren og brukes i unikhetssjekken. Sammenligningen gjøres i Python med `casefold`, fordi SQLite-LOWER bare gjelder ASCII (Øl og øl ga ellers ikke duplikat).
 - `studier/views.py` -- ny. `ny_emne` (GET og POST på `/emner/ny/`) og `emne` (GET på `/emner/<pk>/`, med `hent_egen(Emne, pk, request.user)`).
 - `studier/urls.py` -- ny, `app_name = "studier"`. Inkluderes i `farequiz/urls.py`.
 - `templates/studier/oversikt.html` -- avløser `templates/startside.html`. Kortet «Nytt emne» først, så emnekortene, og tomtilstanden.
@@ -93,6 +93,9 @@ context:
 - **24.11, implementert og verifisert lokalt.** Oversikt er `/`, S16 er `/emner/ny/`, og S4 er `/emner/<pk>/`. `opprett_emne` er eneste skriveveien for `Emne`.
 - **Verifisert:** 120 tester er grønne, med 13 nye. ruff, format og migreringssjekk er grønne. Nettleser (Chrome headless, `DEBUG=False`): feil ved tomt navn, fokus på feilmeldingen, opprettelse og videre til S4, Oversikt, ingen vannrett rulling på 320 px, og axe finner ingen brudd på `/` og `/emner/ny/`.
 - **Endringer i eksisterende tester:** stand-in-ruten for «beskyttet side» er flyttet fra `/emner/<pk>/` til `/testside/<pk>/`, siden emnesiden nå finnes. Tittelen på Oversikt er «Oversikt».
+- **Review 1.4 (24.11), triage:** Rettet: lengdegrensen er 100 tegn i skjemaet og i tjenesten, tom innsending gir feilmelding, Æ/Ø/Å regnes likt ved duplikat, og `opprett_emne` avviser tomt og for langt navn. Testene dekker sorteringen med store og små bokstaver, IntegrityError, antall notater, Tilbake på S4 og S16, utlogget tilgang og 404-teksten.
+  - **Avvist:** fokus på feilmeldingen (nettleserkontroll viste at fokus gikk dit), `transaction.atomic` (ATOMIC_REQUESTS er av, og databasen er SQLite), sortering på Æ/Ø/Å (codepoint-sortering gir norsk rekkefølge i SQLite), og 320 px som automatisk test (sjekket manuelt).
+  - **Utsatt:** sortering med norsk collation i PostgreSQL, hvis databasen byttes.
 - **Åpent:** S4 har ingen «Gi nytt navn» og ingen «Slett emne». Det kommer i 1.5 og 1.6.
 - Branchen starter fra `story-1-3-toppfelt` (`0b1ff3c`), fordi PR #5 ikke er merget ennå.
 
