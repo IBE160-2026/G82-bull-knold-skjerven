@@ -3,7 +3,11 @@
 
 {% block title %}Startside{% endblock %}
 
+{% block brodsmuler %}
+{% include "partials/brodsmuler.html" with brodsmuler=brodsmuler_oversikt %}
+{% endblock %}
+
 {% block innhold %}
-<h1>FåreQuiz</h1>
+<h1 class="mb-4 text-2xl font-semibold">Oversikt</h1>
 <p>Du er logget inn som {{ user.email }}.</p>
 {% endblock %}

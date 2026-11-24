@@ -89,6 +89,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "farequiz.context_processors.testmodus",
             ],
         },
     },
@@ -147,6 +148,7 @@ USE_TZ = True
 # Statiske filer og opplastede filer. MEDIA_ROOT har ingen URL-rute (AD-8).
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_ROOT = BASE_DIR / "media"
 

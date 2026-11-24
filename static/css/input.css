@@ -1,0 +1,48 @@
+/* Tailwind v4-inngang. Tokenene kommer fra DESIGN.md (farger, skrift, radius). */
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #FAF7F2;
+  --color-surface-muted: #F5EFE6;
+  --color-surface-sunken: #E3D6C2;
+  --color-page-bg: #EFE6D8;
+  --color-border-subtle: #DFD2BE;
+  --color-border-control: #5C3A21;
+  --color-ink: #2B1D14;
+  --color-ink-secondary: #5E4636;
+  --color-accent: #D5BC96;
+  --color-accent-strong: #5C3A21;
+  --color-accent-hover: #3E2716;
+  --color-card-hover: #D5BC96;
+  --color-success: #3F624D;
+  --color-error: #A34420;
+  --color-surface-inverse: #2B1D14;
+  --color-ink-inverse: #FAF7F2;
+  --color-ink-inverse-secondary: #D5BC96;
+  --color-focus-inverse: #D5BC96;
+
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --spacing-tap-min: 44px;
+  --container-content: 768px;
+}
+
+/* Kartbakgrunnen fra prototypen. Egen klasse, så malene ikke trenger arbitrære verdier. */
+.kart-bakgrunn {
+  background-image: url("/static/img/kart.svg");
+  background-size: 360px 360px;
+}
+
+/* Fokusring: 2 px, og i toppfeltet en lys variant */
+:focus-visible {
+  outline: 2px solid var(--color-accent-strong);
+  outline-offset: 2px;
+}
+.topbar :focus-visible {
+  outline-color: var(--color-focus-inverse);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

@@ -2,7 +2,7 @@
 title: 'Story 1.3: Toppfelt, brødsmuler og felles sidemal'
 type: 'feature'
 created: '2026-11-24'
-status: 'draft'
+status: 'in-review'
 route: 'dispatch'
 review_loop_iteration: 0
 baseline_commit: '2fc38b3'
@@ -75,15 +75,15 @@ context:
 ## Tasks & Acceptance
 
 **Execution:**
-- [ ] `static/css/input.css` og `static/css/app.css` -- Tailwind v4 med `@theme` fra DESIGN.md -- ingen verdier hardkodet i malene
-- [ ] `static/js/htmx.min.js` -- htmx 2.0.11 lokalt, med lisens i `static/js/LICENSE.htmx`
-- [ ] `static/img/` -- `favicon.svg` og `kart.svg` fra prototypen
-- [ ] `templates/base.html` -- `lang="nb"`, `<title>`, toppfelt, Hopp til innhold som første fokuserbare element, testmodus-banner, brødsmulesti, `<main>` og fotlinje
-- [ ] `templates/partials/topbar.html` -- Tilbake, Meny og Logg ut, vises bare for innloggede
-- [ ] `templates/404.html` og `handler404` -- «Fant ikke siden» med lenke til Oversikt
-- [ ] `farequiz/context_processors.py` -- `testmodus` og brødsmulestien
-- [ ] Oppdater `kontoer`-sidene til å bruke den nye malen, uten å endre innhold eller tekst
-- [ ] Tester etter I/O-matrisen, pluss en test for at Meny ikke inneholder Øv på feil
+- [x] `static/css/input.css` og `static/css/app.css` -- Tailwind v4 med `@theme` fra DESIGN.md -- ingen verdier hardkodet i malene
+- [x] `static/js/htmx.min.js` -- htmx 2.0.11 lokalt, med lisens i `static/js/LICENSE.htmx`
+- [x] `static/img/` -- `favicon.svg` og `kart.svg` fra prototypen
+- [x] `templates/base.html` -- `lang="nb"`, `<title>`, toppfelt, Hopp til innhold som første fokuserbare element, testmodus-banner, brødsmulesti, `<main>` og fotlinje
+- [x] `templates/partials/topbar.html` -- Tilbake, Meny og Logg ut, vises bare for innloggede
+- [x] `templates/404.html` og `handler404` -- «Fant ikke siden» med lenke til Oversikt
+- [x] `farequiz/context_processors.py` -- `testmodus` og brødsmulestien
+- [x] Oppdater `kontoer`-sidene til å bruke den nye malen, uten å endre innhold eller tekst
+- [x] Tester etter I/O-matrisen, pluss en test for at Meny ikke inneholder Øv på feil
 
 **Acceptance Criteria:**
 - Gitt en innlogget bruker, når hen er på S3, så vises logo, Meny og Logg ut, og Tilbake vises ikke.
@@ -97,7 +97,11 @@ context:
 
 ## Implementation Notes
 
-- Ingen implementasjon ennå. Dette er et utkast.
+- **24.11, implementert og verifisert lokalt.** Tailwind-CLI v4.3.5 (84 MB) og htmx 2.0.11 er lastet ned etter godkjenning. Binæren ligger utenfor repoet, i `~/.cache/farequiz-verktoy`, og bygges med `scripts/bygg-css.sh`.
+- **Verifisert:** ruff check og format er grønne, `makemigrations --check` er grønn, og 101 tester er grønne (10 nye). Alle klasser som brukes i malene finnes i `app.css`.
+- **Avvik 1, htmx:** htmx ligger i `static/js/`, men lastes ikke på alle sider. S1b skal være uten JavaScript (kriteriet i 1.2), så `base.html` har et tomt `skript`-blokk som senere fragmenter kan fylle.
+- **Avvik 2, Meny:** `<details>` åpnes og lukkes med klikk på «Meny». Lukking med Esc og klikk utenfor krever JavaScript, og er ikke implementert. Det står som gjenstående punkt i spec-en.
+- **Ikke testet i nettleser:** 320 px uten vannrett rulling, 200 % tekst, og axe. Det er manuelle sjekker i Verification.
 - Sprint-forslaget for 1.3 er oppdatert til å beholde Tilbake og Meny (gruppas beslutning 24.11). Meny-innholdet i forslaget står med «Øv på feil», som er feil. Det rettes til samme innhold som denne spec-en.
 
 ## Spec Change Log

@@ -6,4 +6,8 @@ from django.views.decorators.http import require_http_methods
 
 @require_http_methods(["GET", "HEAD"])
 def startside(request):
-    return render(request, "startside.html")
+    return render(
+        request,
+        "startside.html",
+        {"brodsmuler_oversikt": [{"tekst": "Oversikt"}]},
+    )

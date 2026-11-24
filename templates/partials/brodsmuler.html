@@ -1,0 +1,7 @@
+<nav aria-label="Brødsmuler" class="py-2 text-sm text-ink-secondary">
+  <ol class="flex flex-wrap items-center gap-1">
+    {% for steg in brodsmuler %}
+    <li>{% if steg.url %}<a href="{{ steg.url }}" class="underline">{{ steg.tekst }}</a>{% else %}<span aria-current="page">{{ steg.tekst }}</span>{% endif %}{% if not forloop.last %} <span aria-hidden="true">›</span>{% endif %}</li>
+    {% endfor %}
+  </ol>
+</nav>
