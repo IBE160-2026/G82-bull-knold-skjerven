@@ -9,3 +9,13 @@ def opprett_emne(eier, navn):
     if not navn or len(navn) > 100:
         raise ValueError("Ugyldig navn for emne.")
     return Emne.objects.create(eier=eier, navn=navn)
+
+
+def gi_nytt_navn(emne, navn):
+    """Endrer navnet på `emne`. Notater, quizer og historikk er uendret."""
+    navn = navn.strip()
+    if not navn or len(navn) > 100:
+        raise ValueError("Ugyldig navn for emne.")
+    emne.navn = navn
+    emne.save(update_fields=["navn"])
+    return emne

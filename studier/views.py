@@ -8,7 +8,7 @@ from django.views.decorators.http import require_http_methods
 from farequiz import feilmeldinger
 from studier.forms import EmneForm
 from studier.models import Emne
-from studier.services.emner import opprett_emne
+from studier.services.emner import gi_nytt_navn, opprett_emne
 from studier.tilgang import hent_egen
 
 
@@ -40,17 +40,37 @@ def ny_emne(request):
     )
 
 
-@require_http_methods(["GET", "HEAD"])
-def emne(request, pk):
-    objekt = hent_egen(Emne, pk, request.user)
+def _vis_emne(request, objekt, form):
     return render(
         request,
         "studier/emne.html",
         {
             "emne": objekt,
             "notater": objekt.notater.all(),
+            "navn_form": form,
             "tilbake_url": reverse("startside"),
             "tilbake_tekst": "Tilbake til Oversikt",
             "brodsmuler": [*_oversikt_brodsmule(), {"tekst": objekt.navn}],
         },
     )
+
+
+@require_http_methods(["GET", "HEAD"])
+def emne(request, pk):
+    objekt = hent_egen(Emne, pk, request.user)
+    form = EmneForm(initial={"navn": objekt.navn}, eier=request.user, emne=objekt)
+    return _vis_emne(request, objekt, form)
+
+
+@require_http_methods(["POST"])
+def endre_navn(request, pk):
+    objekt = hent_egen(Emne, pk, request.user)
+    form = EmneForm(request.POST, eier=request.user, emne=objekt)
+    if form.is_valid():
+        try:
+            gi_nytt_navn(objekt, form.cleaned_data["navn"])
+        except IntegrityError:
+            form.add_error("navn", feilmeldinger.NAVN_TATT)
+        else:
+            return redirect("studier:emne", pk=objekt.pk)
+    return _vis_emne(request, objekt, form)

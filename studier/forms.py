@@ -17,18 +17,20 @@ class EmneForm(forms.Form):
         widget=forms.TextInput(attrs={"autocomplete": "off"}),
     )
 
-    def __init__(self, *args, eier, **kwargs):
+    def __init__(self, *args, eier, emne=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.eier = eier
+        # Ved endring av navn telles ikke emnet selv som duplikat.
+        self.emne = emne
 
     def clean_navn(self):
         navn = self.cleaned_data["navn"].strip()
         if not navn:
             raise forms.ValidationError(feilmeldinger.NAVN_TOMT)
         # Python-sammenligning, slik at også Æ, Ø og Å regnes likt. SQLite-LOWER gjør bare ASCII.
-        if any(
-            emne.navn.casefold() == navn.casefold()
-            for emne in Emne.objects.filter(eier=self.eier).only("navn")
-        ):
+        andre = Emne.objects.filter(eier=self.eier).only("navn")
+        if self.emne is not None:
+            andre = andre.exclude(pk=self.emne.pk)
+        if any(annet.navn.casefold() == navn.casefold() for annet in andre):
             raise forms.ValidationError(feilmeldinger.NAVN_TATT)
         return navn

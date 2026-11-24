@@ -2,10 +2,10 @@
 title: 'Story 1.5: Gi emne nytt navn'
 type: 'feature'
 created: '2026-11-24'
-status: 'draft'
+status: 'in-review'
 route: 'dispatch'
 review_loop_iteration: 0
-baseline_commit: 'TBD'
+baseline_commit: '92830e5'
 context:
   - '{project-root}/_bmad-output/implementation-artifacts/epic-1-context.md'
 ---
@@ -60,11 +60,11 @@ context:
 ## Tasks & Acceptance
 
 **Execution:**
-- [ ] `studier/services/emner.py` -- `gi_nytt_navn` med validering
-- [ ] `studier/forms.py` -- `EmneForm` med valgfritt `emne`
-- [ ] `studier/views.py` og `studier/urls.py` -- POST på `/emner/<pk>/navn/` med `hent_egen`
-- [ ] `templates/studier/emne.html` -- skjema med feltet og knappen «Lagre navn»
-- [ ] Tester etter I/O-matrisen, pluss en test for at notater og quizer er uendret
+- [x] `studier/services/emner.py` -- `gi_nytt_navn` med validering
+- [x] `studier/forms.py` -- `EmneForm` med valgfritt `emne`
+- [x] `studier/views.py` og `studier/urls.py` -- POST på `/emner/<pk>/navn/` med `hent_egen`
+- [x] `templates/studier/emne.html` -- skjema med feltet og knappen «Lagre navn»
+- [x] Tester etter I/O-matrisen, pluss en test for at notater og quizer er uendret
 
 **Acceptance Criteria:**
 - Gitt et emne, når eieren åpner S4, så står skjemaet med dagens navn og knappen «Lagre navn».
@@ -74,10 +74,14 @@ context:
 
 ## Implementation Notes
 
-- Ingen implementasjon ennå. Dette er et utkast.
+- **24.11, implementert og verifisert lokalt.** Skjemaet «Gi nytt navn» ligger i en `<details>` på S4, som er lukket til brukeren åpner den, eller åpen når feil vises. Det er en tilpasning til skjermen, og innholdet er det samme som i spec-en.
+- **Verifisert:** 141 tester er grønne. ruff, format og migreringssjekk er grønne. Chrome headless med `DEBUG=False`: tomt navn gir feil med fokus, nytt navn vises, ingen vannrett rulling på 320 px, og axe finner ingen brudd på S4.
+- **Funnet under sjekken:** toppfeltet var for bredt på S4 på 320 px, fordi Tilbake, Meny og Logg ut står samme sted der. Toppfeltet bryter nå linje på smale skjermer.
 - Branchen starter fra `story-1-4-oversikt` (`92830e5`), fordi PR #5 og #6 ikke er merget ennå.
 
 ## Spec Change Log
+
+- **24.11:** Skjemaet er en `<details>` på S4, ikke åpent alltid. Innholdet er uendret.
 
 ## Design Notes
 
