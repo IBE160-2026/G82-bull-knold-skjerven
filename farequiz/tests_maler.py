@@ -1,10 +1,11 @@
 """Tester for toppfelt, brødsmuler, testmodus-banner, fotlinje og 404 i story 1.3."""
 
 import re
+from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
-from django.test import TestCase, override_settings
+from django.test import RequestFactory, TestCase, override_settings
 from django.urls import path
 from django.utils import timezone
 
@@ -32,10 +33,11 @@ def _underside(request, pk):
 urlpatterns = [*farequiz_urlpatterns, path("emner/<int:pk>/", _underside)]
 
 
-def lag_bruker(email="ola@eks.no"):
+def lag_bruker(email="ola@eks.no", godtatt=True):
     bruker = Bruker.objects.create_user(email, "hemmelig123")
-    bruker.vilkar_godtatt = timezone.now()
-    bruker.save(update_fields=["vilkar_godtatt"])
+    if godtatt:
+        bruker.vilkar_godtatt = timezone.now()
+        bruker.save(update_fields=["vilkar_godtatt"])
     return bruker
 
 
@@ -111,6 +113,29 @@ class TestmodusBannerTest(TestCase):
         self.assertIn("Testmodus: quizene bruker mock-svar, ingen KI kalles.", html)
         self.assertLess(html.index("Testmodus:"), html.index("<main"))
 
+    def test_banner_skjules_nar_testmodus_er_av(self):
+        with mock.patch("farequiz.context_processors.er_testmodus", return_value=False):
+            html = self.client.get("/logg-inn/").content.decode()
+        self.assertNotIn("Testmodus:", html)
+
+    def test_kontekstprosessoren_folger_er_testmodus(self):
+        from farequiz.context_processors import testmodus
+
+        with mock.patch("farequiz.context_processors.er_testmodus", return_value=False):
+            self.assertEqual(testmodus(RequestFactory().get("/")), {"testmodus": False})
+
+
+class MenyScriptTest(TestCase):
+    def test_meny_lukkes_med_esc_og_klikk_utenfor_pa_oversikt(self):
+        self.client.force_login(lag_bruker())
+        html = self.client.get("/").content.decode()
+        self.assertIn('<script src="/static/js/meny.js" defer>', html)
+
+    def test_s1b_har_ingen_javascript(self):
+        self.client.force_login(lag_bruker(godtatt=False))
+        html = self.client.get("/vilkar/").content.decode()
+        self.assertNotIn("<script", html)
+
 
 class FotlinjeTest(TestCase):
     def test_fotlinje_har_opphavsrett_og_lenke_til_personvern(self):
@@ -121,6 +146,7 @@ class FotlinjeTest(TestCase):
 
 
 class FantIkkeSideTest(TestCase):
+    @override_settings(DEBUG=False)
     def test_ukjent_side_gir_404_med_lenke_til_oversikt(self):
         response = self.client.get("/finnes-ikke/")
         self.assertEqual(response.status_code, 404)

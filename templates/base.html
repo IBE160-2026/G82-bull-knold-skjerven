@@ -25,7 +25,7 @@
 <main id="innhold" class="mx-auto w-full max-w-3xl px-4 md:px-6 py-6 pb-12">
 {% block innhold %}{% endblock %}
 </main>
-{% block skript %}{% endblock %}
+{% block skript %}<script src="{% static 'js/meny.js' %}" defer></script>{% endblock %}
 
 <footer class="mx-auto w-full max-w-3xl px-4 md:px-6 py-4 border-t border-border-subtle text-sm text-ink-secondary">
   © 2026 Christian Rogne Bull, Magnus Gjerstad og Martin Gomnæs Skjerven. Koden, designet og teksten i tjenesten er opphavsrettslig beskyttet. Du kan bruke tjenesten, men ikke ta ut, kopiere eller videreformidle innholdet uten skriftlig avtale. <a href="{% url 'kontoer:personvern' %}" class="underline">Personvernerklæring</a>

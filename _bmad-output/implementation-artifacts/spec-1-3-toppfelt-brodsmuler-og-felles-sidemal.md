@@ -100,7 +100,9 @@ context:
 - **24.11, implementert og verifisert lokalt.** Tailwind-CLI v4.3.5 (84 MB) og htmx 2.0.11 er lastet ned etter godkjenning. Binæren ligger utenfor repoet, i `~/.cache/farequiz-verktoy`, og bygges med `scripts/bygg-css.sh`.
 - **Verifisert:** ruff check og format er grønne, `makemigrations --check` er grønn, og 101 tester er grønne (10 nye). Alle klasser som brukes i malene finnes i `app.css`.
 - **Avvik 1, htmx:** htmx ligger i `static/js/`, men lastes ikke på alle sider. S1b skal være uten JavaScript (kriteriet i 1.2), så `base.html` har et tomt `skript`-blokk som senere fragmenter kan fylle.
-- **Avvik 2, Meny:** `<details>` åpnes og lukkes med klikk på «Meny». Lukking med Esc og klikk utenfor krever JavaScript, og er ikke implementert. Det står som gjenstående punkt i spec-en.
+- **Avvik 2, Meny (løst 24.11):** Meny lukkes med Esc og klikk utenfor. Det gjøres av `static/js/meny.js`, som lastes på alle sider unntatt S1b, der det ikke skal være JavaScript. Esc flytter fokus tilbake til «Meny».
+- **Review (24.11):** Rettet: knapper i toppfeltet er 44 px (`min-h-11`), tom brødsmulesti vises ikke, siste brødsmule har `aria-current`, `aria-label` faller tilbake til «Tilbake», og testmodus-banneret testes når det er av. 404-testen kjører med `DEBUG=False`.
+- **Åpent:** «Nytt emne» i menyen går til Oversikt til story 1.4 lager S16. `handler404` er ikke lagt inn, siden den ikke gjelder når `DEBUG=True`. Kravet i spec-en må enten fjernes eller bekreftes.
 - **Ikke testet i nettleser:** 320 px uten vannrett rulling, 200 % tekst, og axe. Det er manuelle sjekker i Verification.
 - Sprint-forslaget for 1.3 er oppdatert til å beholde Tilbake og Meny (gruppas beslutning 24.11). Meny-innholdet i forslaget står med «Øv på feil», som er feil. Det rettes til samme innhold som denne spec-en.
 
