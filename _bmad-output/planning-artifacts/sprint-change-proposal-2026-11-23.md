@@ -142,7 +142,7 @@ Bare det som endres, er tatt med. Ellers står storyene som før.
 
 **Story 1.3 → «Toppfelt, brødsmuler og felles sidemal»** (UX-DR1–UX-DR6, UX-DR26, UX-DR27, UX-DR29, UX-DR30)
 - GAMMELT: topplinje med Tilbake, logo og «☰ Meny», `<details>`-meny, Tilbake-knapp, 760 px, og logoen skjules under 400 px.
-- NYTT: mørkt toppfelt med logo og «Logg ut», «Hopp til innhold», brødsmulesti, testmodus-banner med Martins tekst, fotlinje med lenke til S15, kartbakgrunn, `favicon.svg` og `kart.svg` i `static/img/`, og 768 px. Ingen meny og ingen Tilbake-knapp.
+- NYTT: mørkt toppfelt med logo, «‹ Tilbake», «Meny» (rullgardin med Oversikt, Nytt emne, Øv på feil og Personvernerklæring) og «Logg ut», «Hopp til innhold», brødsmulesti, testmodus-banner med Martins tekst, fotlinje med lenke til S15, kartbakgrunn, `favicon.svg` og `kart.svg` i `static/img/`, og 768 px. Meny og Tilbake vises på alle sider. Beslutningen er tatt av gruppa 24.11.2026 etter at sprint-forslaget ble skrevet.
 - Kriteriene for knapper og fokus følger UX-DR5 og UX-DR6 (2 px fokusring, `focus-inverse` i toppfeltet).
 - «Fant ikke siden» lenker til Emner (S3).
 
