@@ -11,4 +11,5 @@ from farequiz import views
 urlpatterns = [
     path("", views.startside, name="startside"),
     path("", include("kontoer.urls")),
+    path("", include("studier.urls")),
 ]

@@ -13,7 +13,7 @@
       <summary class="inline-flex min-h-11 cursor-pointer list-none items-center rounded-md border border-accent px-3 py-1.5 text-sm font-semibold text-ink-inverse hover:bg-white/10">Meny</summary>
       <nav aria-label="Hovedmeny" class="absolute right-0 top-full z-10 mt-2 flex min-w-52 flex-col rounded-lg bg-surface p-2 shadow-lg">
         <a href="{% url 'startside' %}" class="rounded-md px-3 py-2.5 font-semibold text-ink no-underline hover:bg-surface-muted">Oversikt</a>
-        <a href="{% url 'startside' %}" class="rounded-md px-3 py-2.5 font-semibold text-ink no-underline hover:bg-surface-muted">Nytt emne</a>
+        <a href="{% url 'studier:ny_emne' %}" class="rounded-md px-3 py-2.5 font-semibold text-ink no-underline hover:bg-surface-muted">Nytt emne</a>
         <a href="{% url 'kontoer:personvern' %}" class="rounded-md px-3 py-2.5 font-semibold text-ink no-underline hover:bg-surface-muted">Personvernerklæring</a>
       </nav>
     </details>
