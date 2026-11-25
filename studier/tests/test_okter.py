@@ -259,11 +259,13 @@ class SvareTest(OktTestCase):
                 self.assertEqual(svar.status_code, 404)
         self.assertFalse(Svar.objects.exists())
 
-    def test_levert_okt_lagrer_ingenting_og_sender_til_s10(self):
+    def test_levert_okt_lagrer_ingenting_og_sender_til_s11(self):
         Okt.objects.filter(pk=self.okt.pk).update(status=Oktstatus.LEVERT)
         _, alternativer = self._rad(self.okt, 1)
         svar = self._svar(self.okt, 1, alternativ=alternativer[0])
-        self.assertRedirects(svar, f"/okter/{self.okt.pk}/lever/")
+        self.assertRedirects(
+            svar, f"/okter/{self.okt.pk}/resultat/", fetch_redirect_response=False
+        )
         self.assertFalse(Svar.objects.exists())
 
     def test_ukjent_nr_gir_404(self):
@@ -529,7 +531,7 @@ class S9Test(OktTestCase):
         )
         for nr in (1, 3, 4, 5):
             self.assertIn(f"Spørsmål {nr} – ikke besvart</a>", html)
-        self.assertNotIn(">Lever<", html)
+        self.assertIn(">Lever</button>", html)
         nav = re.search(
             r'<nav aria-label="Brødsmuler".*?</nav>', html, re.DOTALL
         ).group()

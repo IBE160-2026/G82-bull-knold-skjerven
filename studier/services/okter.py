@@ -12,6 +12,7 @@ from django.db import IntegrityError, transaction
 from django.utils import timezone
 
 from studier.models import Okt, Oktstatus, Okttype, Svar
+from studier.services.feilbank import registrer_svar
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +23,14 @@ class SvarAvvist(ValueError):
 
 class OktErLevert(SvarAvvist):
     """`lagre_svar` lagret ingenting fordi økten ikke er påbegynt lenger."""
+
+
+class UbesvarteSporsmal(ValueError):
+    """`lever_okt` leverte ikke: `nr` er numrene (1-basert) til spørsmålene uten svar."""
+
+    def __init__(self, nr):
+        self.nr = list(nr)
+        super().__init__(f"Ubesvarte spørsmål: {self.nr}.")
 
 
 def _pabegynt_forsok(quiz):
@@ -122,3 +131,48 @@ def lagre_svar(okt, sporsmal, alternativ):
         )
     okt.sist_endret = naa
     return svar
+
+
+def lever_okt(okt):
+    """Leverer økten (AD-18). Gir `True` hvis dette kallet leverte, `False` hvis den alt var levert.
+
+    Hever `UbesvarteSporsmal` (og rulles tilbake) hvis et spørsmål mangler svar.
+    Eneste sted som kaller `registrer_svar`, én gang per spørsmål i `okt.innhold`.
+    """
+    naa = timezone.now()
+    with transaction.atomic():
+        # Første skriving sjekker statusen og tar skrivelåsen, så to samtidige
+        # leveringer ikke begge registrerer mot feilbanken.
+        endret = Okt.objects.filter(pk=okt.pk, status=Oktstatus.PABEGYNT).update(
+            status=Oktstatus.LEVERT, levert_tidspunkt=naa
+        )
+        if not endret:
+            return False
+        svar_per_sporsmal = {
+            svar.sporsmal_id: svar
+            for svar in Svar.objects.filter(okt=okt).select_related(
+                "alternativ", "sporsmal"
+            )
+        }
+        ubesvarte = [
+            nr
+            for nr, rad in enumerate(okt.innhold, start=1)
+            if rad["sporsmal"] not in svar_per_sporsmal
+        ]
+        if ubesvarte:
+            raise UbesvarteSporsmal(ubesvarte)
+        poengsum = 0
+        for rad in okt.innhold:
+            svar = svar_per_sporsmal[rad["sporsmal"]]
+            riktig = svar.alternativ.er_riktig
+            poengsum += bool(riktig)
+            svar.hendelse = registrer_svar(svar.sporsmal, riktig=riktig)
+            svar.save(update_fields=["hendelse"])
+        antall = len(okt.innhold)
+        Okt.objects.filter(pk=okt.pk).update(poengsum=poengsum, antall=antall)
+    okt.status = Oktstatus.LEVERT
+    okt.levert_tidspunkt = naa
+    okt.poengsum = poengsum
+    okt.antall = antall
+    logger.info("Økt %s levert: %s av %s.", okt.pk, poengsum, antall)
+    return True

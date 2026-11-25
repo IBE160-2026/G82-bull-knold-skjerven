@@ -50,3 +50,10 @@ def registrer_svar(sporsmal, *, riktig) -> Hendelse:
             return Hendelse.LAERT
         rad.save(update_fields=["riktige_pa_rad"])
         return Hendelse.OPP
+
+
+def fasit_synlig(sporsmal):
+    """Sann når spørsmålet er lært: raden har `laert_tidspunkt` (AD-20). Bare lesing."""
+    return Feilbankrad.objects.filter(
+        sporsmal=sporsmal, laert_tidspunkt__isnull=False
+    ).exists()

@@ -1,6 +1,6 @@
 """Views for emner og notater: Nytt emne (S16), emnesiden (S4), Slett emne (S13),
-Last opp notat (S5/S6), notatsiden (S7), generering (S8), Ta quiz (S9) og Se over og
-lever (S10). Oversikt (S3) ligger i farequiz/views.py."""
+Last opp notat (S5/S6), notatsiden (S7), generering (S8), Ta quiz (S9), Se over og
+lever (S10) og Resultat (S11). Oversikt (S3) ligger i farequiz/views.py."""
 
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
@@ -18,26 +18,31 @@ from studier.models import (
     Emne,
     Feilkode,
     Genereringsjobb,
+    Hendelse,
     Jobbstatus,
     Notat,
     Okt,
     Oktstatus,
+    Okttype,
     Quiz,
     Sporsmal,
     Svar,
 )
 from studier.services.emner import gi_nytt_navn, opprett_emne
 from studier.services.emner import slett_emne as slett_emne_tjeneste
+from studier.services.feilbank import fasit_synlig
 from studier.services.generering import aktiv_jobb, kjor_steg, opprett_jobb
 from studier.services.notater import MAKS_STORRELSE
 from studier.services.notater import last_opp as last_opp_tjeneste
 from studier.services.okter import (
     OktErLevert,
     SvarAvvist,
+    UbesvarteSporsmal,
     besvarte,
     element,
     forste_ubesvarte,
     lagre_svar,
+    lever_okt,
     start_eller_fortsett_okt,
 )
 from studier.tilgang import egne, hent_egen, hent_egen_eller_none
@@ -330,8 +335,17 @@ def steg(request, pk):
         {**_fremdrift_kontekst(objekt, vent=not kjort), "endret": endret},
     )
     if objekt.status == Jobbstatus.FERDIG:
+        quiz = objekt.quiz
+        forsok = Okt.objects.filter(quiz=quiz, type=Okttype.FORSOK)
+        if (
+            forsok.filter(status=Oktstatus.LEVERT).exists()
+            and not forsok.filter(status=Oktstatus.PABEGYNT).exists()
+        ):
+            # Gammel S8-fane etter levering: ikke lag et nytt forsøk.
+            svar["HX-Redirect"] = reverse("studier:notat", args=[quiz.notat_id])
+            return svar
         # Quizen åpnes på spørsmål 1. En annen fane som spør etterpå, får samme økt.
-        okt = start_eller_fortsett_okt(objekt.quiz)
+        okt = start_eller_fortsett_okt(quiz)
         svar["HX-Redirect"] = reverse("studier:sporsmal", args=[okt.pk, 1])
     return svar
 
@@ -409,13 +423,13 @@ def sporsmal(request, pk, nr):
     rad = element(okt, nr)
     if rad is None:
         raise Http404("Fant ikke siden.")
+    resultat_url = reverse("studier:resultat", args=[okt.pk])
+    if okt.status != Oktstatus.PABEGYNT:
+        return redirect(resultat_url)
     if request.method != "POST":
         return _vis_sporsmal(request, okt, nr)
 
     lever_url = reverse("studier:lever", args=[okt.pk])
-    if okt.status != Oktstatus.PABEGYNT:
-        # Story 3.3 sender til resultatsiden i stedet.
-        return redirect(lever_url)
     retning = request.POST.get("retning")
     if retning not in ("forrige", "neste", "lever"):
         return HttpResponseBadRequest("Ukjent retning.")
@@ -428,7 +442,7 @@ def sporsmal(request, pk, nr):
         try:
             lagre_svar(okt, sporsmal_objekt, alternativ)
         except OktErLevert:
-            return redirect(lever_url)
+            return redirect(resultat_url)
         except SvarAvvist:
             return _vis_sporsmal(request, okt, nr, feil=True)
     if retning == "forrige":
@@ -438,13 +452,8 @@ def sporsmal(request, pk, nr):
     return redirect("studier:sporsmal", pk=okt.pk, nr=nr + 1)
 
 
-@require_http_methods(["GET", "HEAD"])
-def lever(request, pk):
-    """S10 (skall): én lenke per spørsmål til S9 med «besvart» eller «ikke besvart».
-
-    Levering kommer i story 3.3.
-    """
-    okt = hent_egen(Okt, pk, request.user)
+def _vis_lever(request, okt, ubesvarte_nr=None, alert=False):
+    """S10: lenkene, «Lever»-knappen og teksten om ubesvarte spørsmål."""
     svart = besvarte(okt)
     notat = okt.notat
     sporsmal_liste = [
@@ -455,6 +464,11 @@ def lever(request, pk):
         }
         for nr, rad in enumerate(okt.innhold, start=1)
     ]
+    ubesvarte = (
+        ubesvarte_nr
+        if ubesvarte_nr is not None
+        else [s["nr"] for s in sporsmal_liste if not s["besvart"]]
+    )
     return render(
         request,
         "studier/lever.html",
@@ -462,6 +476,74 @@ def lever(request, pk):
             "okt": okt,
             "notat": notat,
             "sporsmal_liste": sporsmal_liste,
+            "ubesvarte_tekst": feilmeldinger.ubesvarte_tekst(ubesvarte)
+            if ubesvarte
+            else "",
+            "lever_hjelp": feilmeldinger.LEVER_HJELP,
+            "som_alert": alert,
             **_emne_kontekst(notat.emne, "Se over og lever", notat=notat),
+        },
+    )
+
+
+@require_http_methods(["GET", "HEAD", "POST"])
+def lever(request, pk):
+    """S10: GET viser lenkene og «Lever». POST leverer når alle er besvart (AD-18)."""
+    okt = hent_egen(Okt, pk, request.user)
+    resultat_url = reverse("studier:resultat", args=[okt.pk])
+    if okt.status != Oktstatus.PABEGYNT:
+        return redirect(resultat_url)
+    if request.method != "POST":
+        return _vis_lever(request, okt)
+    try:
+        lever_okt(okt)
+    except UbesvarteSporsmal as feil:
+        return _vis_lever(request, okt, ubesvarte_nr=feil.nr, alert=True)
+    return redirect(resultat_url)
+
+
+@require_http_methods(["GET", "HEAD"])
+def resultat(request, pk):
+    """S11: poengsum og riktig/feil per spørsmål. Fasit bare for lærte spørsmål (AD-20)."""
+    okt = hent_egen(Okt, pk, request.user)
+    if okt.status != Oktstatus.LEVERT:
+        return redirect("studier:lever", pk=okt.pk)
+    svar_per_sporsmal = {
+        svar.sporsmal_id: svar
+        for svar in egne(Svar, request.user)
+        .filter(okt=okt)
+        .select_related("alternativ", "sporsmal", "sporsmal__quiz")
+    }
+    rader = []
+    lagt_i = 0
+    for nr, rad in enumerate(okt.innhold, start=1):
+        svar = svar_per_sporsmal[rad["sporsmal"]]
+        sporsmal_objekt = svar.sporsmal
+        lagt_i += svar.hendelse == Hendelse.LAGT_I
+        visning = {
+            "nr": nr,
+            "tekst": sporsmal_objekt.tekst,
+            "svar": svar.alternativ.tekst,
+            "riktig": svar.alternativ.er_riktig,
+            "lang": _lang(sporsmal_objekt.quiz.sprak),
+            "fasit": None,
+        }
+        if fasit_synlig(sporsmal_objekt):
+            riktig = sporsmal_objekt.alternativer.get(er_riktig=True)
+            visning["fasit"] = {
+                "tekst": riktig.tekst,
+                "begrunnelse": sporsmal_objekt.begrunnelse,
+            }
+        rader.append(visning)
+    notat = okt.notat
+    return render(
+        request,
+        "studier/resultat.html",
+        {
+            "okt": okt,
+            "notat": notat,
+            "rader": rader,
+            "lagt_i_feilbanken": lagt_i,
+            **_emne_kontekst(notat.emne, "Resultat", notat=notat),
         },
     )

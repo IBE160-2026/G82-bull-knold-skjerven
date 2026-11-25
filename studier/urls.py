@@ -16,4 +16,5 @@ urlpatterns = [
     path("quizer/<int:pk>/start/", views.start_quiz, name="start_quiz"),
     path("okter/<int:pk>/sporsmal/<int:nr>/", views.sporsmal, name="sporsmal"),
     path("okter/<int:pk>/lever/", views.lever, name="lever"),
+    path("okter/<int:pk>/resultat/", views.resultat, name="resultat"),
 ]

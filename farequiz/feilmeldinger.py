@@ -48,6 +48,17 @@ NOTAT_FINNES_IKKE = "Notatet finnes ikke lenger, så quizen ble ikke laget."
 INGEN_SERVERKONTAKT = "Fikk ikke kontakt med serveren. Last inn siden på nytt."
 # S9 når et svar avvises (spec 3.1).
 SVAR_IKKE_LAGRET = "Svaret ble ikke lagret. Sjekk nettet og prøv igjen."
+# S10 når spørsmål mangler svar (spec 3.3).
+LEVER_HJELP = "Du kan levere når alle spørsmålene er besvart."
+
+
+def ubesvarte_tekst(nr):
+    """«Du har ikke svart på spørsmål 4 og 7.» for nummerlisten `nr`."""
+    nr = [str(n) for n in nr]
+    liste = nr[0] if len(nr) == 1 else f"{', '.join(nr[:-1])} og {nr[-1]}"
+    return f"Du har ikke svart på spørsmål {liste}."
+
+
 # Quizkort på S7 for quiz med `forhandslagret=True` (FR-27, UX-DR26).
 TESTMODUS_FORHANDSLAGRET = (
     "Testmodus: denne quizen er laget fra et forhåndslagret testdokument, "

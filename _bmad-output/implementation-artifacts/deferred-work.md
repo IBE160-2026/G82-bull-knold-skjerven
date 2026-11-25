@@ -41,3 +41,6 @@
 - source_spec: `_bmad-output/implementation-artifacts/spec-3-2-regelen-for-feilbanken.md`
   summary: En kildesjekk som slår ut hvis `registrer_svar` kalles fra noe annet enn `lever_okt` (AD-2: påbegynte forsøk skal aldri påvirke feilbanken).
   evidence: Review av 3.2 (B9). `lever_okt` finnes ikke før story 3.3, så sjekken legges til der, på samme måte som `EnesteStedTest` i `studier/tests/test_feilbank.py`.
+- source_spec: `_bmad-output/implementation-artifacts/spec-3-3-levere-og-se-resultatet.md`
+  summary: Produktspørsmål for 3.4: «N spørsmål er lagt i feilbanken» på S11 teller bare `lagt_i`, så et lært spørsmål som besvares feil (`nullstilt`) og kommer tilbake i feilbanken, telles ikke.
+  evidence: Review av 3.3 (B1). Spec 3.3 definerer N som antall `lagt_i`. `Svar.hendelse` skiller ikke `nullstilt` fra lært og fra i feilbanken, så en endring krever en beslutning (ny hendelse, egen tekst eller å godta det). Kan først skje når en quiz tas på nytt (story 3.4).

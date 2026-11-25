@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% comment %}
+  S11. Poengsum og riktig/feil per spørsmål. Fasit og begrunnelse står bare i rader der
+  viewet har satt `fasit` (spørsmålet er lært, AD-20). Hendelsene leses fra Svar.hendelse.
+{% endcomment %}
+
+{% block title %}Resultat – {{ notat.originalnavn }}{% endblock %}
+
+{% block brodsmuler %}
+{% include "partials/brodsmuler.html" with brodsmuler=brodsmuler %}
+{% endblock %}
+
+{% block innhold %}
+<h1 class="mb-4 text-2xl font-semibold">Resultat</h1>
+
+<p role="status" class="text-3xl font-semibold tabular-nums">{{ okt.poengsum }} av {{ okt.antall }} riktige</p>
+{% if lagt_i_feilbanken %}
+<p class="mt-2 text-ink-secondary">{{ lagt_i_feilbanken }} spørsmål er lagt i feilbanken.</p>
+{% endif %}
+
+<h2 class="mb-2 mt-8 text-lg font-semibold">Svar</h2>
+<ol class="flex flex-col gap-4">
+  {% for rad in rader %}
+  <li class="flex gap-3">
+    <span class="{% if rad.riktig %}text-success{% else %}text-error{% endif %} font-semibold" aria-hidden="true">{% if rad.riktig %}✓{% else %}✕{% endif %}</span>
+    <span class="min-w-0 break-words">
+      <strong{% if rad.lang %} lang="{{ rad.lang }}"{% endif %}>{{ rad.nr }}. {{ rad.tekst }}</strong><br>
+      <span class="text-ink-secondary">Ditt svar: <span{% if rad.lang %} lang="{{ rad.lang }}"{% endif %}>{{ rad.svar }}</span></span><br>
+      <strong class="{% if rad.riktig %}text-success{% else %}text-error{% endif %}">{% if rad.riktig %}Riktig{% else %}Feil{% endif %}</strong>
+      {% if rad.fasit %}
+      <br><span class="text-ink-secondary">Riktig svar: <span{% if rad.lang %} lang="{{ rad.lang }}"{% endif %}>{{ rad.fasit.tekst }}</span></span>
+      <br><span class="text-ink-secondary">Begrunnelse: <span{% if rad.lang %} lang="{{ rad.lang }}"{% endif %}>{{ rad.fasit.begrunnelse }}</span></span>
+      {% endif %}
+    </span>
+  </li>
+  {% endfor %}
+</ol>
+
+<p class="mt-8"><a href="{% url 'studier:notat' notat.pk %}" class="inline-flex min-h-11 items-center font-semibold underline">Tilbake til notatet</a></p>
+{% endblock %}

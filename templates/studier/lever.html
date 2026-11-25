@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% comment %}
-  S10, foreløpig bare et skall: én lenke per spørsmål til S9. Lever-knappen kommer i story 3.3.
+  S10. Lenker til hvert spørsmål og «Lever» i et vanlig POST-skjema (AD-13). Med
+  ubesvarte spørsmål er knappen aria-disabled (ikke disabled, så den kan nås med
+  tastatur), og serveren avviser POST uansett.
 {% endcomment %}
 
 {% block title %}Se over og lever – {{ notat.originalnavn }}{% endblock %}
@@ -17,4 +19,15 @@
   <li><a href="{{ s.url }}" class="inline-flex min-h-11 items-center font-semibold underline">Spørsmål {{ s.nr }} – {% if s.besvart %}besvart{% else %}ikke besvart{% endif %}</a></li>
   {% endfor %}
 </ol>
+
+<form method="post" action="{% url 'studier:lever' okt.pk %}" class="mt-6" novalidate>
+  {% csrf_token %}
+  {% if ubesvarte_tekst %}
+  <p id="lever-ubesvarte"{% if som_alert %} role="alert" tabindex="-1" autofocus{% endif %} class="mb-2 font-semibold text-error">{{ ubesvarte_tekst }}</p>
+  <p id="lever-hjelp" class="mb-2 text-sm text-ink-secondary">{{ lever_hjelp }}</p>
+  <button type="submit" aria-disabled="true" aria-describedby="lever-ubesvarte lever-hjelp" class="min-h-11 w-full rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface aria-disabled:cursor-not-allowed aria-disabled:opacity-60 md:w-auto">Lever</button>
+  {% else %}
+  <button type="submit" class="min-h-11 w-full cursor-pointer rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface hover:bg-accent-hover md:w-auto">Lever</button>
+  {% endif %}
+</form>
 {% endblock %}
