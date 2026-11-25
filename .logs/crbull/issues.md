@@ -29,3 +29,4 @@
 - [ ] 2026-11-25 [story-2-5-feil-timeout-og-prov-igjen](991-2026-11-25-15-53-24-story-2-5-feil-timeout-og-prov-igjen.md) — fremdrift.js (feilmelding på S8) har ingen automatisk test, kontrollert manuelt
 - [ ] 2026-11-25 [story-3-1-starte-og-svare-pa-en-quiz](989-2026-11-25-16-40-53-story-3-1-starte-og-svare-pa-en-quiz.md) — Story 3.3: håndter leverte økter i steg og S9, og test OktErLevert i viewet (deferred-work.md)
 - [ ] 2026-11-25 [story-3-1-starte-og-svare-pa-en-quiz](989-2026-11-25-16-40-53-story-3-1-starte-og-svare-pa-en-quiz.md) — Sjekk Enter i radiogruppen på S9 i Safari (skjult standardknapp)
+- [ ] 2026-11-25 [story-3-2-regelen-for-feilbanken](988-2026-11-25-16-48-28-story-3-2-regelen-for-feilbanken.md) — Story 3.3: kildesjekk for at registrer_svar bare kalles fra lever_okt
