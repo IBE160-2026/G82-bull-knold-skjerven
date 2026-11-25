@@ -15,3 +15,10 @@ OKT_UTLOPT = "Du er logget ut. Logg inn igjen for å fortsette."
 NAVN_TOMT = "Navnet kan ikke være tomt."
 NAVN_TATT = "Du har allerede et emne med dette navnet."
 NAVN_FOR_LANGT = "Navnet kan være høyst 100 tegn."
+
+# Opplasting av notat (FR-8).
+VELG_FIL = "Velg en fil først."
+FIL_FOR_STOR = "Filen er over 5 MB. Velg en mindre fil."
+FIL_FEIL_FORMAT = "Formatet støttes ikke. Bruk PDF, DOCX eller TXT."
+FIL_TOM = "Filen er tom. Velg en annen fil."
+OPPLASTING_AVBRUTT = "Opplastingen ble avbrutt. Filen er ikke lagret. Last opp på nytt."

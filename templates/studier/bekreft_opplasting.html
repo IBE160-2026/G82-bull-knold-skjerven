@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% comment %}
+  S5. Vises første gang, det vil si når brukeren ikke har noen notater i noen emner.
+{% endcomment %}
+
+{% block title %}Vilkår{% endblock %}
+
+{% block brodsmuler %}
+{% include "partials/brodsmuler.html" with brodsmuler=brodsmuler %}
+{% endblock %}
+
+{% block innhold %}
+<h1 class="mb-4 text-2xl font-semibold">Vilkår</h1>
+
+<div class="mb-6 rounded-lg border border-border-subtle bg-surface p-4">
+  <p class="mb-2"><strong>Du har godtatt vilkårene.</strong> Det skjedde da du logget inn første gang, og tidspunktet er lagret på kontoen din.</p>
+  <p class="text-sm text-ink-secondary">Vilkårene og personvernerklæringen finner du i <a href="{% url 'kontoer:personvern' %}" class="underline">personvernerklæringen</a>.</p>
+</div>
+
+<div class="flex flex-wrap items-center gap-3">
+  <a href="{% url 'studier:last_opp' emne.pk %}?videre=1" class="inline-flex min-h-11 items-center rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface no-underline hover:bg-accent-hover">Gå videre til opplasting</a>
+  <a href="{% url 'studier:emne' emne.pk %}" class="inline-flex min-h-11 items-center rounded-md border border-border-control bg-surface px-4 py-2 font-semibold text-ink no-underline">Avbryt</a>
+</div>
+{% endblock %}

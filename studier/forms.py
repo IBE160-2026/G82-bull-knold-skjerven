@@ -1,9 +1,10 @@
-"""Skjema for emner (FR-4)."""
+"""Skjema for emner (FR-4) og notater (FR-8)."""
 
 from django import forms
 
 from farequiz import feilmeldinger
 from studier.models import Emne
+from studier.services.notater import valider_fil
 
 
 class EmneForm(forms.Form):
@@ -34,3 +35,24 @@ class EmneForm(forms.Form):
         if any(annet.navn.casefold() == navn.casefold() for annet in andre):
             raise forms.ValidationError(feilmeldinger.NAVN_TATT)
         return navn
+
+
+class NotatForm(forms.Form):
+    """Ett filfelt. Reglene for filen ligger i `valider_fil`, som også `last_opp` kjører."""
+
+    # Ikke påkrevd og tom fil tillatt her, slik at `valider_fil` gir alle feiltekstene.
+    fil = forms.FileField(
+        label="Velg fil",
+        required=False,
+        allow_empty_file=True,
+        error_messages={
+            "invalid": feilmeldinger.VELG_FIL,
+            "missing": feilmeldinger.VELG_FIL,
+        },
+        widget=forms.FileInput,
+    )
+
+    def clean_fil(self):
+        fil = self.cleaned_data.get("fil")
+        valider_fil(fil)
+        return fil

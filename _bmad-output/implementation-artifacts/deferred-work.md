@@ -26,3 +26,9 @@
 - source_spec: `_bmad-output/implementation-artifacts/spec-2-2-generere-med-modellen-eller-mock-svar.md`
   summary: Når `ki/mock/` committes, må vakten i `EkteMockfilerTest` (`skipTest` når manifestet mangler) fjernes. Det må også komme en test som kaller `generer` mot den ekte, upatchede `MOCK_MAPPE` for hvert testdokument.
   evidence: Utsatt med vilje etter beslutningen «Bygg nå, kjør senere» (25.11). Til da kan testmodus mangle mock-filer uten at CI feiler.
+- source_spec: `_bmad-output/implementation-artifacts/spec-2-3-laste-opp-notat.md`
+  summary: Nytt emne (S16) med valgfrie filer (UX-DR34): opprett emnet og last opp hver fil med `last_opp` og samme regler som S6. Feiler én fil, opprettes ikke emnet, og ingen filer blir liggende.
+  evidence: Skilt ut fra story 2.3 etter brukerens valg 25.11, slik at 2.3 blir mindre. Det kan leveres for seg, og det gjenbruker `valider_fil` og `last_opp` fra 2.3.
+- source_spec: `_bmad-output/implementation-artifacts/spec-2-3-laste-opp-notat.md`
+  summary: Opplastingsflyten i `static/js/opplasting.js` har ingen automatisk test. Det gjelder sjekken i nettleseren, valget mellom omdirigering og utbytting, fremdriften og S6c.
+  evidence: Repoet har ikke noe testoppsett for JavaScript. Flyten ble prøvd manuelt i headless Edge i story 2.3. En Playwright-test eller lignende hører hjemme i en egen oppgave (for eksempel sammen med axe-testen i Epic 6).
