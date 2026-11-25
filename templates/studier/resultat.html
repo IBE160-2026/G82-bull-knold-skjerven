@@ -1,23 +1,42 @@
 {% extends "base.html" %}
 {% comment %}
-  S11. Poengsum og riktig/feil per spørsmål. Fasit og begrunnelse står bare i rader der
-  viewet har satt `fasit` (spørsmålet er lært, AD-20). Hendelsene leses fra Svar.hendelse.
+  S11, og S12-resultatet når `er_oving`. Poengsum og riktig/feil per spørsmål. Fasit og
+  begrunnelse står bare der viewet har satt dem (spørsmålet er lært, AD-20). Hendelsene
+  leses fra Svar.hendelse.
   «Ta på nytt» (som heter «Fortsett» når quizen har et påbegynt forsøk) er et POST-skjema til start_quiz, som fortsetter et påbegynt forsøk
-  eller lager et nytt (FR-20, AD-6).
+  eller lager et nytt (FR-20, AD-6). Øvingsøkter har ingen quiz og får ikke skjemaet.
+  For øving (FR-23): terrakotta-omslaget `ovemodus`, «Lært»-seksjonen med spørsmålene som
+  ble lært i økten, prikker og teller på radene som ikke er lært, og meldingen når
+  feilbanken er tom. Prikkene er pynt (aria-hidden), og teksten gir samme informasjon.
+  Øvingsgrenene står inne i taggene, så forsøk gir samme HTML som før story 4.2.
 {% endcomment %}
 
-{% block title %}Resultat – {{ notat.originalnavn }}{% endblock %}
+{% block title %}{% if er_oving %}Øv på feil – {% endif %}Resultat – {{ notat.originalnavn }}{% endblock %}
 
 {% block brodsmuler %}
 {% include "partials/brodsmuler.html" with brodsmuler=brodsmuler %}
 {% endblock %}
 
 {% block innhold %}
-<h1 class="mb-4 text-2xl font-semibold">Resultat</h1>
+{% if er_oving %}<div class="ovemodus">
+<h1 class="mb-4 text-2xl font-semibold">Øv på feil</h1>{% else %}<h1 class="mb-4 text-2xl font-semibold">Resultat</h1>{% endif %}
 
 <p role="status" class="text-3xl font-semibold tabular-nums">{{ okt.poengsum }} av {{ okt.antall }} riktige</p>
 {% if lagt_i_feilbanken %}
 <p class="mt-2 text-ink-secondary">{{ lagt_i_feilbanken }} spørsmål er lagt i feilbanken.</p>
+{% endif %}{% if antall_laert %}
+<p class="mt-2 text-ink-secondary">{{ antall_laert }} spørsmål er lært.</p>
+
+<h2 class="mb-2 mt-8 text-lg font-semibold">Lært</h2>
+<ul class="flex flex-col gap-4">
+  {% for s in laerte %}
+  <li class="min-w-0 break-words">
+    <strong{% if s.lang %} lang="{{ s.lang }}"{% endif %}>{{ s.nr }}. {{ s.tekst }}</strong><br>
+    <span class="font-semibold">Lært. Riktig svar var: <span{% if s.lang %} lang="{{ s.lang }}"{% endif %}>{{ s.fasit.tekst }}</span></span><br>
+    <span class="text-ink-secondary">Begrunnelse: <span{% if s.lang %} lang="{{ s.lang }}"{% endif %}>{{ s.fasit.begrunnelse }}</span></span>
+  </li>
+  {% endfor %}
+</ul>
 {% endif %}
 
 <h2 class="mb-2 mt-8 text-lg font-semibold">Svar</h2>
@@ -32,13 +51,16 @@
       {% if rad.fasit %}
       <br><span class="text-ink-secondary">Riktig svar: <span{% if rad.lang %} lang="{{ rad.lang }}"{% endif %}>{{ rad.fasit.tekst }}</span></span>
       <br><span class="text-ink-secondary">Begrunnelse: <span{% if rad.lang %} lang="{{ rad.lang }}"{% endif %}>{{ rad.fasit.begrunnelse }}</span></span>
-      {% endif %}
+      {% endif %}{% if er_oving %}{% if rad.laert %}
+      <br><span class="font-semibold">Lært</span>{% else %}
+      <br><span class="inline-flex flex-wrap items-center gap-2"><span class="inline-flex gap-1" aria-hidden="true">{% for fylt in rad.prikker %}<span class="inline-block h-3 w-3 rounded-full border-2 border-accent-strong{% if fylt %} bg-accent-strong{% endif %}"></span>{% endfor %}</span><span class="text-ink-secondary">{{ rad.teller }} av {{ riktige_for_laert }} riktige på rad</span></span>{% endif %}{% endif %}
     </span>
   </li>
   {% endfor %}
 </ol>
 
-<div class="mt-8 flex flex-wrap items-center gap-3">
+<div class="mt-8 flex flex-wrap items-center gap-3">{% if feilbank_tom %}
+  <p class="w-full font-semibold">Alle spørsmålene er lært. Feilbanken er tom.</p>{% endif %}
   {% if okt.quiz_id %}
   <form method="post" action="{% url 'studier:start_quiz' okt.quiz_id %}" class="w-full md:w-auto">
     {% csrf_token %}
@@ -50,5 +72,6 @@
   {% include "studier/_ov_pa_feil.html" with id_prefiks="ov" %}
   {% endif %}
   <a href="{% url 'studier:notat' notat.pk %}" class="inline-flex min-h-11 items-center font-semibold underline">Tilbake til notatet</a>
-</div>
+</div>{% if er_oving %}
+</div>{% endif %}
 {% endblock %}

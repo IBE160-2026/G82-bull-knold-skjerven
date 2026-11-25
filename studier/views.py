@@ -16,6 +16,7 @@ from studier.forms import EmneForm, NotatForm, NyQuizForm
 from studier.models import (
     Alternativ,
     Emne,
+    Feilbankrad,
     Feilkode,
     Genereringsjobb,
     Hendelse,
@@ -30,7 +31,7 @@ from studier.models import (
 )
 from studier.services.emner import gi_nytt_navn, opprett_emne
 from studier.services.emner import slett_emne as slett_emne_tjeneste
-from studier.services.feilbank import apne_rader, fasit_synlig
+from studier.services.feilbank import RIKTIGE_FOR_LAERT, apne_rader, fasit_synlig
 from studier.services.generering import aktiv_jobb, kjor_steg, opprett_jobb
 from studier.services.notater import MAKS_STORRELSE
 from studier.services.notater import last_opp as last_opp_tjeneste
@@ -556,7 +557,12 @@ def lever(request, pk):
 
 @require_http_methods(["GET", "HEAD"])
 def resultat(request, pk):
-    """S11: poengsum og riktig/feil per spørsmål. Fasit bare for lærte spørsmål (AD-20)."""
+    """S11 og S12-resultatet: poengsum og riktig/feil per spørsmål. Fasit bare for lærte spørsmål (AD-20).
+
+    For øving står spørsmålene som ble lært i økten (`hendelse=laert` og fortsatt
+    lært), øverst med fasit og begrunnelse. De andre radene får telleren fra
+    `Feilbankrad.riktige_pa_rad` (FR-23, AD-18).
+    """
     okt = hent_egen(Okt, pk, request.user)
     if okt.status != Oktstatus.LEVERT:
         return redirect("studier:lever", pk=okt.pk)
@@ -566,28 +572,65 @@ def resultat(request, pk):
         .filter(okt=okt)
         .select_related("alternativ", "sporsmal", "sporsmal__quiz")
     }
+    er_oving = okt.type == Okttype.OVING
+    # Én spørring for alle radene i økten. Spørsmålene er alt eierkontrollert via svarene.
+    feilbank = (
+        dict(
+            Feilbankrad.objects.filter(
+                sporsmal_id__in=list(svar_per_sporsmal)
+            ).values_list("sporsmal_id", "riktige_pa_rad")
+        )
+        if er_oving
+        else {}
+    )
     rader = []
+    laerte = []
     lagt_i = 0
     for nr, rad in enumerate(okt.innhold, start=1):
         svar = svar_per_sporsmal[rad["sporsmal"]]
         sporsmal_objekt = svar.sporsmal
         lagt_i += svar.hendelse == Hendelse.LAGT_I
+        lang = _lang(sporsmal_objekt.quiz.sprak)
         visning = {
             "nr": nr,
             "tekst": sporsmal_objekt.tekst,
             "svar": svar.alternativ.tekst,
             "riktig": svar.alternativ.er_riktig,
-            "lang": _lang(sporsmal_objekt.quiz.sprak),
+            "lang": lang,
             "fasit": None,
         }
-        if fasit_synlig(sporsmal_objekt):
+        synlig = fasit_synlig(sporsmal_objekt)
+        fasit = None
+        if synlig:
             riktig = sporsmal_objekt.alternativer.get(er_riktig=True)
-            visning["fasit"] = {
+            fasit = {
                 "tekst": riktig.tekst,
                 "begrunnelse": sporsmal_objekt.begrunnelse,
             }
+        if er_oving:
+            visning["laert"] = synlig
+            if synlig and svar.hendelse == Hendelse.LAERT:
+                # Lært i økten: fasiten står i «Lært»-seksjonen og gjentas ikke i raden.
+                laerte.append(
+                    {
+                        "nr": nr,
+                        "tekst": sporsmal_objekt.tekst,
+                        "lang": lang,
+                        "fasit": fasit,
+                    }
+                )
+            else:
+                visning["fasit"] = fasit
+            if not synlig:
+                riktige = feilbank.get(sporsmal_objekt.pk, 0)
+                visning["teller"] = riktige
+                visning["prikker"] = [i < riktige for i in range(RIKTIGE_FOR_LAERT)]
+        else:
+            visning["fasit"] = fasit
         rader.append(visning)
     notat = okt.notat
+    ov = _ov_knapp(notat, request.user)
+    siste = "Øv på feil – Resultat" if er_oving else "Resultat"
     return render(
         request,
         "studier/resultat.html",
@@ -596,11 +639,17 @@ def resultat(request, pk):
             and egne(Okt, request.user)
             .filter(quiz_id=okt.quiz_id, type=Okttype.FORSOK, status=Oktstatus.PABEGYNT)
             .exists(),
-            "ov": _ov_knapp(notat, request.user),
+            "ov": ov,
             "okt": okt,
             "notat": notat,
             "rader": rader,
             "lagt_i_feilbanken": lagt_i,
-            **_emne_kontekst(notat.emne, "Resultat", notat=notat),
+            "er_oving": er_oving,
+            "laerte": laerte,
+            "antall_laert": len(laerte),
+            "riktige_for_laert": RIKTIGE_FOR_LAERT,
+            # `ov["n"]` er `apne_rader(notat).count()`, så ingen ekstra spørring.
+            "feilbank_tom": er_oving and ov["n"] == 0,
+            **_emne_kontekst(notat.emne, siste, notat=notat),
         },
     )
