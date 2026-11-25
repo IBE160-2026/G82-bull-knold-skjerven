@@ -22,3 +22,7 @@ FIL_FOR_STOR = "Filen er over 5 MB. Velg en mindre fil."
 FIL_FEIL_FORMAT = "Formatet støttes ikke. Bruk PDF, DOCX eller TXT."
 FIL_TOM = "Filen er tom. Velg en annen fil."
 OPPLASTING_AVBRUTT = "Opplastingen ble avbrutt. Filen er ikke lagret. Last opp på nytt."
+
+# Lage quiz (FR-11–FR-14).
+ANTALL_UGYLDIG = "Velg et antall fra 5 til 30."
+GENERERING_FEILET = "Klarte ikke å lage quizen."

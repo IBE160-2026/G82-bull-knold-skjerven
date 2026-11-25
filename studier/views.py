@@ -1,17 +1,20 @@
 """Views for emner og notater: Nytt emne (S16), emnesiden (S4), Slett emne (S13),
-Last opp notat (S5/S6) og notatsiden (S7). Oversikt (S3) ligger i farequiz/views.py."""
+Last opp notat (S5/S6), notatsiden (S7) og generering (S8). Oversikt (S3) ligger i
+farequiz/views.py."""
 
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
+from django.db.models import Count
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_POST
 
 from farequiz import feilmeldinger
-from studier.forms import EmneForm, NotatForm
-from studier.models import Emne, Notat, Quiz
+from studier.forms import EmneForm, NotatForm, NyQuizForm
+from studier.models import Emne, Genereringsjobb, Jobbstatus, Notat, Quiz
 from studier.services.emner import gi_nytt_navn, opprett_emne
 from studier.services.emner import slett_emne as slett_emne_tjeneste
+from studier.services.generering import aktiv_jobb, kjor_steg, opprett_jobb
 from studier.services.notater import MAKS_STORRELSE
 from studier.services.notater import last_opp as last_opp_tjeneste
 from studier.tilgang import egne, hent_egen
@@ -107,10 +110,13 @@ def slett_emne(request, pk):
     )
 
 
-def _emne_kontekst(objekt, siste):
-    """Tilbake og brødsmuler for en side under emnet: Oversikt › emne › `siste`."""
+def _emne_kontekst(objekt, siste, notat=None):
+    """Tilbake og brødsmuler for en side under emnet: Oversikt › emne › `siste`.
+
+    Med `notat` står notatet mellom emnet og `siste`, og Tilbake går til notatet.
+    """
     emne_url = reverse("studier:emne", args=[objekt.pk])
-    return {
+    kontekst = {
         "emne": objekt,
         "tilbake_url": emne_url,
         "tilbake_tekst": f"Tilbake til {objekt.navn}",
@@ -120,6 +126,14 @@ def _emne_kontekst(objekt, siste):
             {"tekst": siste},
         ],
     }
+    if notat is not None:
+        notat_url = reverse("studier:notat", args=[notat.pk])
+        kontekst["tilbake_url"] = notat_url
+        kontekst["tilbake_tekst"] = f"Tilbake til {notat.originalnavn}"
+        kontekst["brodsmuler"].insert(
+            -1, {"tekst": notat.originalnavn, "url": notat_url}
+        )
+    return kontekst
 
 
 @require_http_methods(["GET", "HEAD", "POST"])
@@ -163,12 +177,103 @@ def last_opp(request, pk):
     )
 
 
-@require_http_methods(["GET", "HEAD"])
+@require_http_methods(["GET", "HEAD", "POST"])
 def notat(request, pk):
-    """S7, skallet. Quizskjemaet og quizlisten kommer i story 2.4."""
+    """S7: quizkortene og skjemaet for ny quiz (FR-11). POST lager eller gjenbruker jobben (FR-14)."""
     objekt = hent_egen(Notat, pk, request.user)
+    if request.method == "POST":
+        form = NyQuizForm(request.POST)
+        if form.is_valid():
+            jobb = opprett_jobb(
+                objekt,
+                form.cleaned_data["vanskelighetsgrad"],
+                form.cleaned_data["antall"],
+            )
+            return redirect("studier:jobb", pk=jobb.pk)
+    else:
+        form = NyQuizForm()
+    quizer = objekt.quizer.annotate(antall_sporsmal=Count("sporsmal")).order_by(
+        "-opprettet", "-pk"
+    )
     return render(
         request,
         "studier/notat.html",
-        {"notat": objekt, **_emne_kontekst(objekt.emne, objekt.originalnavn)},
+        {
+            "notat": objekt,
+            "form": form,
+            "nivaer": NyQuizForm.base_fields["vanskelighetsgrad"].choices,
+            "quizer": quizer,
+            "aktiv_jobb": aktiv_jobb(objekt),
+            **_emne_kontekst(objekt.emne, objekt.originalnavn),
+        },
     )
+
+
+# De tre stegene på S8, i rekkefølge, med statusen som betyr at steget pågår.
+_STEG = (
+    (Jobbstatus.LESER, "Leser filen"),
+    (Jobbstatus.LAGER, "Lager spørsmål"),
+    (Jobbstatus.SJEKKER, "Sjekker quizen"),
+)
+_IKONER = {"ferdig": "✓", "pågår": "…", "venter": "○"}
+
+
+def _fremdrift_kontekst(jobb, vent=False):
+    rekkefolge = [status for status, _ in _STEG]
+    if jobb.status == Jobbstatus.FERDIG:
+        naa = len(_STEG)
+    elif jobb.status in rekkefolge:
+        naa = rekkefolge.index(jobb.status)
+    else:
+        naa = -1
+    steg = []
+    for nr, (_, tekst) in enumerate(_STEG):
+        tilstand = "ferdig" if nr < naa else "pågår" if nr == naa else "venter"
+        steg.append({"tekst": tekst, "tilstand": tilstand, "ikon": _IKONER[tilstand]})
+    return {
+        "jobb": jobb,
+        "steg": steg,
+        "vent": vent,
+        "feilmelding": feilmeldinger.GENERERING_FEILET,
+    }
+
+
+@require_http_methods(["GET", "HEAD"])
+def jobb(request, pk):
+    """S8: fremdriften. HTMX driver ett steg om gangen via `steg`."""
+    objekt = hent_egen(Genereringsjobb, pk, request.user)
+    if objekt.status == Jobbstatus.FERDIG:
+        return redirect("studier:notat", pk=objekt.notat_id)
+    notat_objekt = objekt.notat
+    return render(
+        request,
+        "studier/jobb.html",
+        {
+            **_fremdrift_kontekst(objekt),
+            **_emne_kontekst(notat_objekt.emne, "Lager quiz", notat=notat_objekt),
+        },
+    )
+
+
+@require_POST
+def steg(request, pk):
+    """Kjører ett steg og gir fremdriftsfragmentet. En ferdig jobb gir `HX-Redirect` til S7.
+
+    `vist` er statusen siden sist viste. Er den uendret, byttes ikke #fremdrift.
+    """
+    objekt = hent_egen(Genereringsjobb, pk, request.user)
+    kjort = kjor_steg(objekt.pk)
+    objekt.refresh_from_db()
+    # #fremdrift byttes bare når statusen er en annen enn den siden viser.
+    endret = objekt.status != request.POST.get("vist") or objekt.status in (
+        Jobbstatus.FERDIG,
+        Jobbstatus.FEILET,
+    )
+    svar = render(
+        request,
+        "studier/_fremdrift.html",
+        {**_fremdrift_kontekst(objekt, vent=not kjort), "endret": endret},
+    )
+    if objekt.status == Jobbstatus.FERDIG:
+        svar["HX-Redirect"] = reverse("studier:notat", args=[objekt.notat_id])
+    return svar

@@ -1,9 +1,10 @@
-"""Skjema for emner (FR-4) og notater (FR-8)."""
+"""Skjema for emner (FR-4), notater (FR-8) og ny quiz (FR-11)."""
 
 from django import forms
 
 from farequiz import feilmeldinger
-from studier.models import Emne
+from studier.models import Emne, Vanskelighetsgrad
+from studier.services.generering import MAKS_ANTALL, MIN_ANTALL
 from studier.services.notater import valider_fil
 
 
@@ -56,3 +57,26 @@ class NotatForm(forms.Form):
         fil = self.cleaned_data.get("fil")
         valider_fil(fil)
         return fil
+
+
+class NyQuizForm(forms.Form):
+    """Vanskelighetsgrad og antall for en ny quiz (FR-11). Malen skriver feltene selv."""
+
+    vanskelighetsgrad = forms.ChoiceField(
+        label="Vanskelighetsgrad",
+        choices=Vanskelighetsgrad.choices,
+        initial=Vanskelighetsgrad.MIDDELS,
+        widget=forms.RadioSelect,
+    )
+    antall = forms.IntegerField(
+        label="Antall spørsmål",
+        min_value=MIN_ANTALL,
+        max_value=MAKS_ANTALL,
+        initial=10,
+        error_messages={
+            "required": feilmeldinger.ANTALL_UGYLDIG,
+            "invalid": feilmeldinger.ANTALL_UGYLDIG,
+            "min_value": feilmeldinger.ANTALL_UGYLDIG,
+            "max_value": feilmeldinger.ANTALL_UGYLDIG,
+        },
+    )

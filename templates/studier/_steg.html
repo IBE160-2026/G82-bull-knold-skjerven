@@ -1,0 +1,14 @@
+{% comment %}
+  Innholdet i den faste aria-live-regionen #fremdrift på S8: stegene, eller
+  feilmeldingen når jobben har feilet.
+{% endcomment %}
+{% if jobb.status == "feilet" %}
+<p role="alert" class="mb-2 font-semibold text-error">{{ feilmelding }}</p>
+<p><a href="{% url 'studier:notat' jobb.notat_id %}" class="underline">Tilbake til notatet</a></p>
+{% else %}
+<ol class="flex flex-col gap-2">
+  {% for s in steg %}
+  <li class="flex items-center gap-2"><span aria-hidden="true" class="font-bold">{{ s.ikon }}</span><span>{{ s.tekst }} ({{ s.tilstand }})</span></li>
+  {% endfor %}
+</ol>
+{% endif %}
