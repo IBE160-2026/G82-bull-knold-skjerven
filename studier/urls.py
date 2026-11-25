@@ -13,4 +13,7 @@ urlpatterns = [
     path("notater/<int:pk>/", views.notat, name="notat"),
     path("jobber/<int:pk>/", views.jobb, name="jobb"),
     path("jobber/<int:pk>/steg/", views.steg, name="steg"),
+    path("quizer/<int:pk>/start/", views.start_quiz, name="start_quiz"),
+    path("okter/<int:pk>/sporsmal/<int:nr>/", views.sporsmal, name="sporsmal"),
+    path("okter/<int:pk>/lever/", views.lever, name="lever"),
 ]

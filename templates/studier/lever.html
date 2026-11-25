@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% comment %}
+  S10, foreløpig bare et skall: én lenke per spørsmål til S9. Lever-knappen kommer i story 3.3.
+{% endcomment %}
+
+{% block title %}Se over og lever – {{ notat.originalnavn }}{% endblock %}
+
+{% block brodsmuler %}
+{% include "partials/brodsmuler.html" with brodsmuler=brodsmuler %}
+{% endblock %}
+
+{% block innhold %}
+<h1 class="mb-4 text-2xl font-semibold">Se over og lever</h1>
+
+<ol class="flex flex-col gap-2">
+  {% for s in sporsmal_liste %}
+  <li><a href="{{ s.url }}" class="inline-flex min-h-11 items-center font-semibold underline">Spørsmål {{ s.nr }} – {% if s.besvart %}besvart{% else %}ikke besvart{% endif %}</a></li>
+  {% endfor %}
+</ol>
+{% endblock %}

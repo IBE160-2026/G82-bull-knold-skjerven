@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% comment %}
+  S9. Ett spørsmål om gangen, med vanlige POST-skjemaer for Forrige og Neste (AD-13).
+  Ingen JavaScript. Alternativene står i rekkefølgen fra Okt.innhold, og malen får
+  aldri er_riktig eller begrunnelse (AD-20). Den skjulte Neste-knappen først i
+  skjemaet gjør at Enter i radiogruppen går videre, ikke tilbake. «Se over og lever»
+  er en knapp i samme skjema, så et valgt svar lagres før S10.
+{% endcomment %}
+
+{% block title %}{{ posisjon }} – {{ notat.originalnavn }}{% endblock %}
+
+{% block brodsmuler %}
+{% include "partials/brodsmuler.html" with brodsmuler=brodsmuler %}
+{% endblock %}
+
+{% block innhold %}
+<p class="mb-4 border-l-4 border-ink-secondary bg-surface-sunken px-4 py-3 text-sm">Laget av KI ({{ modellnavn }}). Spørsmålene kan inneholde feil.</p>
+
+<h1 class="text-base font-semibold tabular-nums">{{ posisjon }}</h1>
+<div class="reiserute reiserute-faar" aria-hidden="true">
+  <span style="width: {% widthratio nr antall 100 %}%"></span>
+  <svg class="faar" style="left: {% widthratio nr antall 100 %}%" viewBox="0 0 64 64" focusable="false" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#FAF7F2" stroke="#5C3A21" stroke-width="2"/><g transform="translate(8 8) scale(0.75)" stroke="#5C3A21" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M32 4 C20 4 14 14 14 24 C14 34 24 38 32 38 C40 38 50 34 50 24 C50 14 44 4 32 4 Z" fill="#D5BC96"/><path d="M22 37 L25 51 M42 37 L39 51" fill="none"/><ellipse cx="24" cy="45" rx="3.5" ry="2.5" fill="#FAF7F2"/><ellipse cx="40" cy="45" rx="3.5" ry="2.5" fill="#FAF7F2"/><circle cx="32" cy="46" r="7" fill="#FAF7F2"/><path d="M25 51 H39 L37 58 H27 Z" fill="#5C3A21"/></g><g transform="translate(8 8) scale(0.75)"><circle cx="29" cy="45" r="1.3" fill="#5C3A21"/><circle cx="35" cy="45" r="1.3" fill="#5C3A21"/><path d="M29.5 49 Q32 51 34.5 49" fill="none" stroke="#5C3A21" stroke-width="1.2" stroke-linecap="round"/></g></svg>
+  <svg class="flagg" viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path d="M4 22 V3" fill="none" stroke="#5C3A21" stroke-width="2" stroke-linecap="round"/><path d="M4 3 H19 L15.5 8 L19 13 H4 Z" fill="#5C3A21"/></svg>
+</div>
+
+<form method="post" action="{% url 'studier:sporsmal' okt.pk nr %}" novalidate>
+  {% csrf_token %}
+  <button type="submit" name="retning" value="neste" class="hidden" tabindex="-1">Neste</button>
+  <fieldset class="mx-auto min-w-0 max-w-[560px]">
+    <legend id="sporsmal" class="flashcard" tabindex="-1"{% if not feilmelding %} autofocus{% endif %}{% if lang %} lang="{{ lang }}"{% endif %}>{{ sporsmalstekst }}</legend>
+    <div class="mt-6 flex flex-col gap-2">
+      {% for alternativ in alternativer %}
+      <label class="svaralternativ"><input type="radio" name="alternativ" value="{{ alternativ.id }}"{% if alternativ.id == valgt %} checked{% endif %}> <span{% if lang %} lang="{{ lang }}"{% endif %}>{{ alternativ.tekst }}</span></label>
+      {% endfor %}
+    </div>
+  </fieldset>
+
+  <p class="mx-auto mt-4 max-w-[560px]"><button type="submit" name="retning" value="lever" class="min-h-11 cursor-pointer font-semibold underline">Se over og lever</button></p>
+
+  <div class="mx-auto mt-6 max-w-[560px]">
+    {% if feilmelding %}
+    <p id="feil-svar" role="alert" tabindex="-1" autofocus class="mb-4 rounded-md border border-error px-4 py-2 font-semibold text-error">{{ feilmelding }}</p>
+    {% endif %}
+    <div class="grid gap-2 md:grid-cols-2">
+      <button type="submit" name="retning" value="forrige" class="min-h-11 w-full rounded-md border border-border-control bg-surface px-4 py-2 font-semibold text-ink hover:bg-surface-muted">Forrige</button>
+      <button type="submit" name="retning" value="neste" class="min-h-11 w-full rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface hover:bg-accent-hover">Neste</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

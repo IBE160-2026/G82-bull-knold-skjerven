@@ -81,6 +81,75 @@
   transition: width 300ms ease-out;
 }
 
+/* S9: fåret i ballongen følger streken, og flagget står i enden. Ruten har
+   innrykk, så fåret og flagget aldri gir vannrett rulling. */
+.reiserute-faar {
+  margin: 36px 18px 24px;
+}
+.reiserute-faar .faar {
+  position: absolute;
+  top: -28px;
+  width: 36px;
+  height: 36px;
+  transform: translateX(-50%);
+  transition: left 300ms ease-out;
+}
+.reiserute-faar .flagg {
+  position: absolute;
+  top: -20px;
+  right: -10px;
+  width: 22px;
+  height: 22px;
+}
+
+/* Flashcard med spørsmålet (S9). Brukes på en <legend>, derfor full bredde. */
+.flashcard {
+  display: block;
+  width: 100%;
+  padding: 28px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: 0 12px 32px rgba(62, 39, 35, 0.18), 0 2px 6px rgba(62, 39, 35, 0.10);
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+/* Svaralternativ (option-card): hele kortet er etiketten til radioknappen.
+   Valgt: 2 px kant, beige bakgrunn og fylt radioknapp, så valget vises med form. */
+.svaralternativ {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--spacing-tap-min);
+  padding: 10px 14px;
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: transform 150ms ease-out, background-color 150ms ease-out, border-color 150ms ease-out, box-shadow 150ms ease-out;
+}
+.svaralternativ:hover {
+  background: var(--color-card-hover);
+  border-color: var(--color-accent-strong);
+  box-shadow: 0 4px 10px rgba(62, 39, 35, 0.08);
+  transform: translateY(-1px);
+}
+.svaralternativ:has(input:checked) {
+  padding: 9px 13px;
+  border: 2px solid var(--color-accent-strong);
+  background: var(--color-surface-muted);
+}
+.svaralternativ input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--color-accent-strong);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
+  .svaralternativ:hover { transform: none; }
 }

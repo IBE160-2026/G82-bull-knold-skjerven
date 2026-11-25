@@ -1,10 +1,11 @@
 """Views for emner og notater: Nytt emne (S16), emnesiden (S4), Slett emne (S13),
-Last opp notat (S5/S6), notatsiden (S7) og generering (S8). Oversikt (S3) ligger i
-farequiz/views.py."""
+Last opp notat (S5/S6), notatsiden (S7), generering (S8), Ta quiz (S9) og Se over og
+lever (S10). Oversikt (S3) ligger i farequiz/views.py."""
 
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.db.models import Count
+from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods, require_POST
@@ -12,12 +13,33 @@ from django.views.decorators.http import require_http_methods, require_POST
 import ki
 from farequiz import feilmeldinger
 from studier.forms import EmneForm, NotatForm, NyQuizForm
-from studier.models import Emne, Feilkode, Genereringsjobb, Jobbstatus, Notat, Quiz
+from studier.models import (
+    Alternativ,
+    Emne,
+    Feilkode,
+    Genereringsjobb,
+    Jobbstatus,
+    Notat,
+    Okt,
+    Oktstatus,
+    Quiz,
+    Sporsmal,
+    Svar,
+)
 from studier.services.emner import gi_nytt_navn, opprett_emne
 from studier.services.emner import slett_emne as slett_emne_tjeneste
 from studier.services.generering import aktiv_jobb, kjor_steg, opprett_jobb
 from studier.services.notater import MAKS_STORRELSE
 from studier.services.notater import last_opp as last_opp_tjeneste
+from studier.services.okter import (
+    OktErLevert,
+    SvarAvvist,
+    besvarte,
+    element,
+    forste_ubesvarte,
+    lagre_svar,
+    start_eller_fortsett_okt,
+)
 from studier.tilgang import egne, hent_egen, hent_egen_eller_none
 
 
@@ -283,7 +305,7 @@ def _sluttfragment(request):
 
 @require_POST
 def steg(request, pk):
-    """Kjører ett steg og gir fremdriftsfragmentet. En ferdig jobb gir `HX-Redirect` til S7.
+    """Kjører ett steg og gir fremdriftsfragmentet. En ferdig jobb gir `HX-Redirect` til S9.
 
     `vist` er statusen siden sist viste. Er den uendret, byttes ikke #fremdrift.
     Finnes ikke jobben (aldri, eller slettet med notatet, også midt i et steg),
@@ -308,5 +330,138 @@ def steg(request, pk):
         {**_fremdrift_kontekst(objekt, vent=not kjort), "endret": endret},
     )
     if objekt.status == Jobbstatus.FERDIG:
-        svar["HX-Redirect"] = reverse("studier:notat", args=[objekt.notat_id])
+        # Quizen åpnes på spørsmål 1. En annen fane som spør etterpå, får samme økt.
+        okt = start_eller_fortsett_okt(objekt.quiz)
+        svar["HX-Redirect"] = reverse("studier:sporsmal", args=[okt.pk, 1])
     return svar
+
+
+@require_POST
+def start_quiz(request, pk):
+    """«Ta quiz» på S7: fortsetter det påbegynte forsøket eller starter et nytt (AD-6)."""
+    quiz = hent_egen(Quiz, pk, request.user)
+    okt = start_eller_fortsett_okt(quiz)
+    return redirect("studier:sporsmal", pk=okt.pk, nr=forste_ubesvarte(okt))
+
+
+_NORSK = {"nb", "no", "nn"}
+
+
+def _lang(sprak):
+    """`lang`-verdien for spørsmål og alternativer. Tom for norsk, som sidemalen har."""
+    hoved = (sprak or "").split("-")[0].lower()
+    return "" if not hoved or hoved in _NORSK else sprak
+
+
+def _vis_sporsmal(request, okt, nr, feil=False):
+    """S9 for spørsmål `nr`. Aldri `er_riktig` eller `begrunnelse` i konteksten (AD-20)."""
+    rad = element(okt, nr)
+    sporsmal = (
+        egne(Sporsmal, request.user)
+        .select_related("quiz")
+        .only("pk", "tekst", "quiz__modell", "quiz__sprak")
+        .get(pk=rad["sporsmal"])
+    )
+    tekster = dict(
+        egne(Alternativ, request.user)
+        .filter(pk__in=rad["alternativer"])
+        .values_list("pk", "tekst")
+    )
+    # Rekkefølgen kommer fra den stokkede listen, aldri fra databasen.
+    alternativer = [{"id": pk, "tekst": tekster[pk]} for pk in rad["alternativer"]]
+    valgt = (
+        egne(Svar, request.user)
+        .filter(okt=okt, sporsmal_id=sporsmal.pk)
+        .values_list("alternativ_id", flat=True)
+        .first()
+    )
+    notat = okt.notat
+    antall = len(okt.innhold)
+    posisjon = f"Spørsmål {nr} av {antall}"
+    return render(
+        request,
+        "studier/sporsmal.html",
+        {
+            "okt": okt,
+            "nr": nr,
+            "antall": antall,
+            "posisjon": posisjon,
+            "notat": notat,
+            "sporsmalstekst": sporsmal.tekst,
+            "alternativer": alternativer,
+            "valgt": valgt,
+            "lang": _lang(sporsmal.quiz.sprak),
+            "modellnavn": ki.visningsnavn(sporsmal.quiz.modell),
+            "feilmelding": feilmeldinger.SVAR_IKKE_LAGRET if feil else "",
+            **_emne_kontekst(notat.emne, posisjon, notat=notat),
+        },
+        status=400 if feil else 200,
+    )
+
+
+@require_http_methods(["GET", "HEAD", "POST"])
+def sporsmal(request, pk, nr):
+    """S9: ett spørsmål. POST lagrer svaret (hvis valgt) og går til Forrige, Neste eller S10 (AD-13).
+
+    Virker uten JavaScript. Neste på siste spørsmål og «Se over og lever» går til S10.
+    """
+    okt = hent_egen(Okt, pk, request.user)
+    rad = element(okt, nr)
+    if rad is None:
+        raise Http404("Fant ikke siden.")
+    if request.method != "POST":
+        return _vis_sporsmal(request, okt, nr)
+
+    lever_url = reverse("studier:lever", args=[okt.pk])
+    if okt.status != Oktstatus.PABEGYNT:
+        # Story 3.3 sender til resultatsiden i stedet.
+        return redirect(lever_url)
+    retning = request.POST.get("retning")
+    if retning not in ("forrige", "neste", "lever"):
+        return HttpResponseBadRequest("Ukjent retning.")
+    alternativ_id = request.POST.get("alternativ")
+    if alternativ_id:
+        alternativ = hent_egen(Alternativ, alternativ_id, request.user)
+        if alternativ.pk not in rad["alternativer"]:
+            return _vis_sporsmal(request, okt, nr, feil=True)
+        sporsmal_objekt = hent_egen(Sporsmal, rad["sporsmal"], request.user)
+        try:
+            lagre_svar(okt, sporsmal_objekt, alternativ)
+        except OktErLevert:
+            return redirect(lever_url)
+        except SvarAvvist:
+            return _vis_sporsmal(request, okt, nr, feil=True)
+    if retning == "forrige":
+        return redirect("studier:sporsmal", pk=okt.pk, nr=max(nr - 1, 1))
+    if retning == "lever" or nr >= len(okt.innhold):
+        return redirect(lever_url)
+    return redirect("studier:sporsmal", pk=okt.pk, nr=nr + 1)
+
+
+@require_http_methods(["GET", "HEAD"])
+def lever(request, pk):
+    """S10 (skall): én lenke per spørsmål til S9 med «besvart» eller «ikke besvart».
+
+    Levering kommer i story 3.3.
+    """
+    okt = hent_egen(Okt, pk, request.user)
+    svart = besvarte(okt)
+    notat = okt.notat
+    sporsmal_liste = [
+        {
+            "nr": nr,
+            "besvart": rad["sporsmal"] in svart,
+            "url": reverse("studier:sporsmal", args=[okt.pk, nr]),
+        }
+        for nr, rad in enumerate(okt.innhold, start=1)
+    ]
+    return render(
+        request,
+        "studier/lever.html",
+        {
+            "okt": okt,
+            "notat": notat,
+            "sporsmal_liste": sporsmal_liste,
+            **_emne_kontekst(notat.emne, "Se over og lever", notat=notat),
+        },
+    )

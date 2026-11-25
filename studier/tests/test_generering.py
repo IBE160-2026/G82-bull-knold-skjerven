@@ -21,6 +21,7 @@ from studier.models import (
     Emne,
     Genereringsjobb,
     Jobbstatus,
+    Okt,
     Quiz,
     Sporsmal,
 )
@@ -197,9 +198,12 @@ class HeleKjedenTest(GenereringTestCase):
         svar = self._steg(jobb)
         jobb.refresh_from_db()
         self.assertEqual(jobb.status, Jobbstatus.FERDIG)
-        self.assertEqual(svar["HX-Redirect"], self.notat_url)
+        # Quizen åpnes på spørsmål 1 i en ny økt (story 3.1).
+        okt = Okt.objects.get()
+        self.assertEqual(svar["HX-Redirect"], f"/okter/{okt.pk}/sporsmal/1/")
 
         quiz = Quiz.objects.get()
+        self.assertEqual(okt.quiz, quiz)
         self.assertEqual(quiz.jobb, jobb)
         self.assertEqual(quiz.notat, self.notat)
         self.assertEqual(quiz.vanskelighetsgrad, "vanskelig")
@@ -531,7 +535,11 @@ class SiderTest(GenereringTestCase):
             html.index(f'<form method="post" action="{self.notat_url}"'),
         )
         self.assertIn(timezone.localtime(nyeste.opprettet).strftime("%Y"), html)
-        self.assertNotIn("/quizer/", html)
+        # Eneste lenker til quizene er «Ta quiz»-skjemaene (story 3.1).
+        self.assertEqual(
+            re.findall(r'"/quizer/[^"]*"', html),
+            [f'"/quizer/{nyeste.pk}/start/"', f'"/quizer/{eldste.pk}/start/"'],
+        )
         self.assertNotIn("Testmodus: denne quizen", html)
 
     def test_s7_med_aktiv_jobb_lenker_til_s8(self):

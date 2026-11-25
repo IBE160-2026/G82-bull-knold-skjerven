@@ -35,3 +35,6 @@
 - source_spec: `_bmad-output/implementation-artifacts/spec-2-5-feil-timeout-og-prov-igjen.md`
   summary: Feilhåndteringen på S8 i `static/js/fremdrift.js` har ingen automatisk test (melding ved `htmx:responseError`/`htmx:sendError` fra `#spor`, at `#spor` fjernes og at hendelser fra andre elementer ignoreres).
   evidence: Repoet har ikke noe testoppsett for JavaScript. Flyten ble kontrollert manuelt i headless Edge i story 2.5 (500 på `/steg/` ga meldingen, og ingen nye spørringer gikk). Hører sammen med det tilsvarende punktet for `opplasting.js` fra 2.3.
+- source_spec: `_bmad-output/implementation-artifacts/spec-3-1-starte-og-svare-pa-en-quiz.md`
+  summary: Story 3.3 må håndtere leverte økter i flyten fra 3.1. `steg` for en ferdig jobb kaller alltid `start_eller_fortsett_okt`, så en gammel S8-fane kan lage et nytt påbegynt forsøk etter levering. GET på S9 for en levert økt viser et skjema som kan redigeres. `except OktErLevert` i `sporsmal` har ingen view-test.
+  evidence: Review av 3.1 (B3/E1, B7/E4, V3). Kan ikke nås før 3.3 kan levere. Forslag: `steg` sender til S7 når quizen har et levert forsøk og ikke noe påbegynt, S9 (GET og POST) for en levert økt sender til resultatsiden, og en view-test patcher `lagre_svar` til å heve `OktErLevert`.

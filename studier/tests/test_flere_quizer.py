@@ -153,11 +153,11 @@ class FlereQuizerTest(FlereQuizerTestCase):
         html = self._html()
         self.assertNotIn("Slett", html)
         self.assertNotIn("slett", html)
-        self.assertNotIn("/quizer/", html)
-        # Eneste skjema i innholdet er «Lag ny quiz», mot notatet selv.
+        # Skjemaene i innholdet er «Ta quiz» (story 3.1) og «Lag ny quiz».
         innhold = re.search(r"<main .*?</main>", html, re.DOTALL).group()
         self.assertEqual(
-            re.findall(r'<form[^>]*action="([^"]*)"', innhold), [self.notat_url]
+            re.findall(r'<form[^>]*action="([^"]*)"', innhold),
+            [f"/quizer/{quiz.pk}/start/", self.notat_url],
         )
         for metode in (self.client.get, self.client.post):
             with self.subTest(metode=metode.__name__):
