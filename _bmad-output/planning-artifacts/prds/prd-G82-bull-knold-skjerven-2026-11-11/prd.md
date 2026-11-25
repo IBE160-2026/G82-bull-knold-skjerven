@@ -2,7 +2,7 @@
 title: "PRD: Foredragsnotater → Quiz"
 status: final
 created: 2026-11-11
-updated: 2026-11-11
+updated: 2026-11-25
 ---
 
 # PRD: Foredragsnotater → Quiz
@@ -73,6 +73,7 @@ Sensor kloner repoet og følger README-en. Testmodus er på som standard. Sensor
 - **Feilbank:** Spørsmålene i et notat som brukeren har svart feil på og ennå ikke har lært. Én feilbank per notat.
 - **Øv på feil:** En økt med spørsmålene i feilbanken, med alternativene i ny rekkefølge og uten fasit.
 - **Lært:** Et spørsmål er lært når det er besvart riktig to ganger på rad etter at det kom i feilbanken. Det tas da ut av feilbanken.
+- **Meldt spørsmål:** Et spørsmål brukeren har meldt som feil eller uklart (FR-31). Det er ute av feilbanken, dekningsgraden og nye økter.
 - **Dekket:** Et spørsmål er dekket når det er besvart riktig og ikke ligger i feilbanken.
 - **Dekningsgrad:** Andelen dekkede spørsmål, vektet etter vanskelighetsgrad (se FR-24). Finnes for notat og emne.
 - **Historikk:** Liste over alle leverte forsøk for et notat, med dato og poengsum.
@@ -234,6 +235,14 @@ Et spørsmål er lært når det er besvart riktig to ganger på rad etter at det
 - Fasiten vises ikke før spørsmålet er lært.
 - Svar i «Øv på feil» og i nye forsøk på den opprinnelige quizen teller begge.
 
+#### FR-31: Melde et spørsmål som feil eller uklart
+En bruker kan melde et spørsmål som feil eller uklart fra resultatet av et forsøk eller en øvingsøkt. Meldingen lagres med tidspunkt og kan ikke angres. Realiserer UJ-2.
+- Et meldt spørsmål er ikke i feilbanken og kommer ikke med i nye forsøk eller øvingsøkter.
+- Et meldt spørsmål telles ikke i dekningsgraden, verken som dekket eller i nevneren.
+- Fasiten vises fortsatt ikke.
+- Står spørsmålet i en påbegynt økt, vises det der som før, men svaret påvirker ikke feilbanken.
+- Prioritet: kan kuttes. *(Lagt til 25.11.2026 etter faglærers tilbakemelding, § 4.1.)*
+
 ### 4.7 Progresjon
 
 **Beskrivelse:** Brukeren ser hvor godt hen kan stoffet, per notat og per emne. Dekningsgraden belønner at brukeren mestrer de vanskelige spørsmålene.
@@ -245,6 +254,7 @@ Appen viser dekningsgraden for hvert notat. Realiserer UJ-2.
 - Et nivå uten quiz teller som 0 %.
 - Lett 100 %, middels 50 % og vanskelig uten quiz gir 35 %.
 - Spørsmål som ennå ikke er besvart i et levert forsøk, er ikke dekket.
+- Meldte spørsmål telles ikke (FR-31).
 
 #### FR-25: Dekningsgrad per emne
 Appen viser dekningsgraden for hvert emne som snittet av notatenes dekningsgrad, uavhengig av hvor lange notatene er. Realiserer UJ-2.

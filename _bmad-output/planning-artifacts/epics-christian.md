@@ -976,7 +976,7 @@ Som student,
 vil jeg melde et spørsmål jeg mener er feil eller uklart,
 slik at jeg ikke blir sittende fast med et spørsmål der KI-en har laget feil fasit.
 
-*Prioritet: kan kuttes. FR-31, TF-1. Forutsetter at gruppa først har lagt til regelen i arkitekturen (AD-3, AD-4 og AD-16) og FR-31 i PRD-en.*
+*Prioritet: kan kuttes. FR-31, TF-1. Regelen står i arkitekturen (AD-1, AD-2, AD-3, AD-4 og AD-16) og FR-31 i PRD-en, godkjent av gruppa 25.11 ([sprint-change-proposal-2026-11-25-fr31.md](sprint-change-proposal-2026-11-25-fr31.md)).*
 
 **Akseptansekriterier:**
 
@@ -994,6 +994,8 @@ slik at jeg ikke blir sittende fast med et spørsmål der KI-en har laget feil f
 **Så** er spørsmålet ikke i feilbanken, og det kommer ikke med i `Okt.innhold` for nye forsøk eller øvingsøkter. Én hjelper, for eksempel `Sporsmal.objects.ikke_meldt()`, brukes alle steder
 **Og** i en påbegynt økt der spørsmålet alt står, gir `registrer_svar` `ingen` ved levering
 **Og** `Feilbankrad` slettes ikke
+**Og** en quiz der alle spørsmålene er meldt, kan ikke startes, og knappen er låst med «Alle spørsmålene er meldt som feil»
+**Og** meldingen kan ikke angres, og bekreftelsessiden sier det
 
 **Gitt** et spørsmål i en annen brukers quiz
 **Når** noen sender meldingen for det

@@ -7,9 +7,9 @@ paradigm: 'Lagdelt Django-monolitt med tjenestelag (views → services → model
 scope: 'Hele FåreQuiz v1: konto, emner, opplasting, generering, quiz, feilbank, progresjon, testmodus og lokal kjøring'
 status: final
 created: '2026-11-15'
-updated: '2026-11-23'
+updated: '2026-11-25'
 author: Christian
-binds: [FR-1, FR-2, FR-3, FR-4, FR-5, FR-6, FR-7, FR-8, FR-9, FR-11, FR-12, FR-13, FR-14, FR-15, FR-16, FR-17, FR-18, FR-19, FR-20, FR-21, FR-22, FR-23, FR-24, FR-25, FR-26, FR-27, FR-28, FR-29, FR-30, NFR-1, NFR-2, NFR-3, NFR-4, NFR-5, NFR-6, NFR-7, NFR-8, NFR-9]
+binds: [FR-1, FR-2, FR-3, FR-4, FR-5, FR-6, FR-7, FR-8, FR-9, FR-11, FR-12, FR-13, FR-14, FR-15, FR-16, FR-17, FR-18, FR-19, FR-20, FR-21, FR-22, FR-23, FR-24, FR-25, FR-26, FR-27, FR-28, FR-29, FR-30, FR-31, NFR-1, NFR-2, NFR-3, NFR-4, NFR-5, NFR-6, NFR-7, NFR-8, NFR-9]
 sources:
   - ../../prds/prd-G82-bull-knold-skjerven-2026-11-11/prd.md
   - ../../prds/prd-G82-bull-knold-skjerven-2026-11-11/addendum.md
@@ -17,12 +17,13 @@ sources:
   - ../../ux-designs/ux-G82-bull-knold-skjerven-2026-11-11/EXPERIENCE.md
   - ../../ux-designs/ux-G82-bull-knold-skjerven-2026-11-11/DESIGN.md
   - ../../sprint-change-proposal-2026-11-23.md
+  - ../../sprint-change-proposal-2026-11-25-fr31.md
 companions: []
 ---
 
 # Arkitektur-spine – FåreQuiz v1
 
-Christians individuelle versjon, laget med `bmad-architecture` på grunnlag av PRD-en og Christians UX-versjon (15.11). **Endret 23.11:** UX-kilden er Martins design (ux-G82-bull-knold-skjerven-2026-11-11), som gruppa valgte som felles UX. Endringene er AD-8 (personvernerklæringen er offentlig), AD-13 (JavaScript-forbedringer), den nye AD-23 og konvensjonene for URL-er og CSS, se [sprint-change-proposal-2026-11-23.md](../../sprint-change-proposal-2026-11-23.md).
+Christians individuelle versjon, laget med `bmad-architecture` på grunnlag av PRD-en og Christians UX-versjon (15.11). **Endret 23.11:** UX-kilden er Martins design (ux-G82-bull-knold-skjerven-2026-11-11), som gruppa valgte som felles UX. Endringene er AD-8 (personvernerklæringen er offentlig), AD-13 (JavaScript-forbedringer), den nye AD-23 og konvensjonene for URL-er og CSS, se [sprint-change-proposal-2026-11-23.md](../../sprint-change-proposal-2026-11-23.md). **Endret 25.11:** FR-31 (melde et spørsmål som feil) er lagt inn i AD-1, AD-2, AD-3, AD-4, AD-16 og URL-konvensjonen, se [sprint-change-proposal-2026-11-25-fr31.md](../../sprint-change-proposal-2026-11-25-fr31.md).
 
 ## Designparadigme
 
@@ -52,33 +53,36 @@ flowchart TD
 
 ### AD-1 – Domeneskrivinger bor i tjenestelaget
 
-- **Binds:** FR-6–FR-8, FR-12–FR-23, FR-28
+- **Binds:** FR-6–FR-8, FR-12–FR-23, FR-28, FR-31
 - **Prevents:** At views, skjemaer og seed hver får sin egen versjon av reglene.
-- **Rule:** Bare funksjoner i `studier/services/` oppretter, endrer eller sletter `Notat` (via `last_opp`), `Quiz`, `Okt`, `Svar`, `Feilbankrad`, `Genereringsjobb`, filer på disk og `Bruker.vilkar_godtatt`. Views og management-kommandoer kaller tjenestene. Bare `Emne` (opprette, gi nytt navn) kan lagres rett fra et skjema. Skjemaet får `eier` i konstruktøren og sjekker selv at navnet er unikt hos eieren, uten å skille mellom store og små bokstaver.
+- **Rule:** Bare funksjoner i `studier/services/` oppretter, endrer eller sletter `Notat` (via `last_opp`), `Quiz`, `Okt`, `Svar`, `Feilbankrad`, `Genereringsjobb`, filer på disk, `Bruker.vilkar_godtatt` og `Sporsmal.meldt_tidspunkt`. Views og management-kommandoer kaller tjenestene. Bare `Emne` (opprette, gi nytt navn) kan lagres rett fra et skjema. Skjemaet får `eier` i konstruktøren og sjekker selv at navnet er unikt hos eieren, uten å skille mellom store og små bokstaver.
+- **Meldte spørsmål (FR-31):** Bare `services.sporsmal.meld_sporsmal(sporsmal)` skriver `meldt_tidspunkt`, og meldingen kan ikke angres. `Sporsmal.objects.ikke_meldt()` er eneste filter for meldte spørsmål og brukes i `apne_rader`, innholdet i nye økter (AD-16) og `services.dekningsgrad` (AD-4).
 
 ### AD-2 – Én funksjon registrerer et svar mot feilbanken
 
-- **Binds:** FR-19, FR-21, FR-22, FR-23
+- **Binds:** FR-19, FR-21, FR-22, FR-23, FR-31
 - **Prevents:** Ulik telling av «to riktige på rad» og ulik telling av hva som skjedde i en økt.
 - **Rule:** `registrer_svar(sporsmal, riktig) -> Hendelse` er eneste vei til `Feilbankrad`. `Hendelse` ∈ {`lagt_i`, `nullstilt`, `opp`, `laert`, `ingen`}.
   - Feil svar: oppretter raden med `get_or_create` (`lagt_i`), eller åpner en lært rad på nytt og nullstiller telleren (`nullstilt`).
   - Riktig svar på et spørsmål i feilbanken: telleren øker med 1 (`opp`). Ved 2 settes `laert_tidspunkt` (`laert`).
   - Ellers: `ingen`.
+  - Et meldt spørsmål (`meldt_tidspunkt` satt) gir alltid `ingen`, og raden endres ikke.
 
   Kalles bare fra `lever_okt` (AD-18). Hendelsen lagres på `Svar.hendelse`. Resultatsidene leser hendelsene og regner dem aldri ut på nytt.
 
 ### AD-3 – Feilbankrader slettes aldri, de merkes som lært
 
-- **Binds:** FR-21, FR-23, FR-24
+- **Binds:** FR-21, FR-23, FR-24, FR-31
 - **Prevents:** At én utvikler sletter rader ved «lært» mens en annen trenger dem til fasit og dekningsgrad.
-- **Rule:** Høyst én `Feilbankrad` per `Sporsmal` (unik). «I feilbanken» betyr `laert_tidspunkt IS NULL`. Rader forsvinner bare når emnet slettes (AD-14).
+- **Rule:** Høyst én `Feilbankrad` per `Sporsmal` (unik). «I feilbanken» betyr `laert_tidspunkt IS NULL`. Rader forsvinner bare når emnet slettes (AD-14). Et meldt spørsmål er ikke i feilbanken, uansett raden, og raden slettes ikke.
 
 ### AD-4 – Dekningsgrad regnes ut, lagres aldri
 
-- **Binds:** FR-24, FR-25
+- **Binds:** FR-24, FR-25, FR-31
 - **Prevents:** En lagret verdi som blir utdatert, og ulike definisjoner av «dekket».
 - **Rule:** `services.dekningsgrad` er eneste implementasjon.
   - Et spørsmål er **dekket** når det har minst ett riktig `Svar` i en levert `Okt` (begge typer) og ingen åpen `Feilbankrad`.
+  - **Meldte spørsmål** telles verken som dekket eller i nevneren. Et nivå der alle spørsmålene er meldt, teller som et nivå uten quiz.
   - **Notat:** vektet etter FR-24.
   - **Emne:** snittet av notatene som har minst én quiz. Har ingen notater quiz, vises ingen dekningsgrad.
 
@@ -205,12 +209,13 @@ stateDiagram-v2
 
 ### AD-16 – Innholdet i en økt låses når den opprettes
 
-- **Binds:** FR-17, FR-18, FR-22, FR-23
+- **Binds:** FR-17, FR-18, FR-22, FR-23, FR-31
 - **Prevents:** At en øvingsøkt endrer seg når feilbanken endres i en annen fane, og at alternativene stokkes på nytt når brukeren kommer tilbake.
 - **Rule:**
   - **Format:** `Okt.innhold` er en `JSONField` med formatet `[{"sporsmal": <id>, "alternativer": [<id>, <id>, <id>]}, …]` i visningsrekkefølge, og listen endres aldri.
-  - **Forsøk:** inneholder quizens spørsmål i quizens rekkefølge.
-  - **Øvingsøkt:** inneholder spørsmålene med åpen `Feilbankrad` når økten opprettes, sortert på når raden ble opprettet.
+  - **Forsøk:** inneholder quizens spørsmål i quizens rekkefølge, uten meldte spørsmål (FR-31). En quiz der alle spørsmålene er meldt, kan ikke startes.
+  - **Øvingsøkt:** inneholder spørsmålene med åpen `Feilbankrad` når økten opprettes, uten meldte spørsmål, sortert på når raden ble opprettet.
+  - **Meldt etter start:** et spørsmål som meldes mens det står i en påbegynt økt, blir stående og må besvares. Ved levering gir det `ingen` (AD-2), og poengsummen telles som før.
   - **Stokking:** Alternativene stokkes for begge typer.
   - **Bruk:** Visning, telling av hva som mangler, levering og resultat bruker bare listen.
   - **Fortsett-lenken:** peker på det første spørsmålet uten svar.
@@ -272,7 +277,7 @@ stateDiagram-v2
 | Navn i kode | Norske identifikatorer uten æ, ø og å (`Sporsmal`, `Okt`, `Feilbankrad`, `vilkar_godtatt`). Ord fra PRD-ens ordliste brukes med samme betydning. |
 | Navn i grensesnitt | Norsk med æ, ø og å, ordene fra ordlisten, tone etter EXPERIENCE.md. |
 | Faste verdier | `vanskelighetsgrad` ∈ {`lett`, `middels`, `vanskelig`}. Andre faste verdier er definert i AD-ene. Alle lagres som `TextChoices`. |
-| URL-er | `/` (S3 Oversikt), `/emner/ny/` (S16), `/emner/<id>/`, `/emner/<id>/last-opp/` (S5/S6), `/emner/<id>/slett/` (S13), `/notater/<id>/`, `/quizer/<id>/`, `/jobber/<id>/` (S8), `/jobber/<id>/steg/`, `/okter/<id>/sporsmal/<nr>/`, `/okter/<id>/lever/` (GET viser S10, POST leverer), `/okter/<id>/resultat/`, `/vilkar/` (S1b), `/personvern/` (S15). S-numrene viser til EXPERIENCE.md. Heltalls-pk. |
+| URL-er | `/` (S3 Oversikt), `/emner/ny/` (S16), `/emner/<id>/`, `/emner/<id>/last-opp/` (S5/S6), `/emner/<id>/slett/` (S13), `/notater/<id>/`, `/quizer/<id>/`, `/jobber/<id>/` (S8), `/jobber/<id>/steg/`, `/okter/<id>/sporsmal/<nr>/`, `/okter/<id>/lever/` (GET viser S10, POST leverer), `/okter/<id>/resultat/`, `/okter/<id>/meld/<nr>/` (GET bekreftelse, POST melder spørsmålet, FR-31), `/vilkar/` (S1b), `/personvern/` (S15). S-numrene viser til EXPERIENCE.md. Heltalls-pk. |
 | Tid og språk | Lagres i UTC (`USE_TZ=True`) og vises i `Europe/Oslo`. Sidens `lang="nb"`. Spørsmål og alternativer får `lang="{{ quiz.sprak }}"` når språket ikke er norsk. |
 | Brukerendringer | Skjema → tjeneste → redirect (POST/redirect/GET). HTMX-svar er fragmenter i `templates/<app>/_<navn>.html`. CSRF-token sendes i `hx-headers` på `<body>`. |
 | Feilmeldinger | Tekster i `farequiz/feilmeldinger.py`. Plassering og roller etter EXPERIENCE.md. |
