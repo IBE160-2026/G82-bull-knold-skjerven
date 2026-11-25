@@ -46,6 +46,8 @@ development_status:
 
   epic-2: in-progress
   2-1-lese-filen-og-sjekke-quizutkastet: done
+  # 2.2 venter på mock-filene: Magnus konfigurerer API-nøkkelen og kjører
+  # `manage.py lag_mocksvar` når de andre storyene er gjennomført, og committer ki/mock/.
   2-2-generere-med-modellen-eller-mock-svar: review
   2-3-laste-opp-notat: done
   2-4-lage-quiz-med-fremdrift: backlog
