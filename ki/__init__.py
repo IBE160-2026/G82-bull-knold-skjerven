@@ -7,6 +7,20 @@ KI-adapteren: fil inn, sjekket quizutkast ut.
 
 from django.conf import settings
 
+from .feil import KIFeil
+from .fil import Innhold, les_fil
+from .format import QuizUtkast, sjekk
+
+__all__ = [
+    "Innhold",
+    "KIFeil",
+    "QuizUtkast",
+    "er_testmodus",
+    "les_fil",
+    "sjekk",
+    "tving_testmodus",
+]
+
 _SANNE_VERDIER = frozenset({"1", "true", "yes", "on"})
 
 _tvunget = False

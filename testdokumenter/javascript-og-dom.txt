@@ -1,0 +1,84 @@
+JavaScript and the DOM
+Web development, lecture 5. Notes written by group G82.
+
+1. What is the DOM?
+The Document Object Model (DOM) is the browser's representation of an HTML
+page as a tree of objects. Every element, attribute and piece of text becomes a
+node in the tree. The document object is the root, and document.documentElement
+is the <html> element. JavaScript can read and change the tree, and the browser
+updates the page on screen right away.
+
+The DOM is not the same as the HTML source. If the HTML contains errors, the
+browser fixes them when it builds the tree. And when a script changes the DOM,
+the source file stays the same. To see the current DOM, open the Elements panel
+in the browser's developer tools.
+
+2. Loading scripts
+Scripts are added with the <script> element. A script in <head> runs before the
+body has been parsed, so it cannot find elements that do not exist yet. The
+attribute defer tells the browser to download the script in parallel and run it
+after the whole document has been parsed, in the order the scripts appear. The
+attribute async also downloads in parallel, but runs the script as soon as it
+is ready, in any order. Scripts with type="module" are deferred by default.
+
+3. Finding elements
+document.getElementById("menu") returns the element with that id, or null.
+document.querySelector(".card") returns the first element that matches a CSS
+selector, and document.querySelectorAll("li") returns all matches as a static
+NodeList. The older getElementsByClassName returns a live HTMLCollection that
+updates when the document changes. querySelector and querySelectorAll are the
+most flexible, because they accept any CSS selector.
+
+4. Changing content
+textContent gets or sets the text of an element. innerHTML gets or sets the
+HTML inside it. innerHTML is risky with user input: if a user can put
+<script> or <img onerror=...> into the string, the code may run. This is called
+cross-site scripting (XSS). Use textContent for text from users.
+
+Attributes are changed with setAttribute and read with getAttribute. Classes
+are best handled with classList: classList.add, classList.remove,
+classList.toggle and classList.contains. Inline styles can be set through the
+style property, for example element.style.display = "none", but it is usually
+cleaner to toggle a class and keep the styling in CSS.
+
+5. Creating and removing elements
+document.createElement("li") creates a new element that is not yet part of the
+page. It is added with append, prepend, before or after (or the older
+appendChild). element.remove() takes an element out of the tree. Each change
+to the DOM can make the browser recalculate the layout, so when adding many
+elements it is faster to build them in a DocumentFragment and insert the
+fragment once.
+
+6. Events
+addEventListener("click", handler) runs the handler function every time the
+event happens. Common events are click, input, change, submit, keydown and
+DOMContentLoaded. The handler receives an event object. event.target is the
+element where the event started, and event.currentTarget is the element the
+listener is attached to. event.preventDefault() stops the browser's default
+action, such as following a link or submitting a form.
+
+Events bubble: after an event fires on an element, it travels up through the
+parents to the document. Event delegation uses this. Instead of adding a
+listener to every list item, add one listener to the list and check
+event.target. This also works for items added later. event.stopPropagation()
+stops the bubbling, but it should be used with care.
+
+7. Forms
+The submit event fires on the <form>, not on the button. Calling
+preventDefault in the handler lets a script send the data with fetch instead of
+reloading the page. new FormData(form) collects all fields that have a name
+attribute. The input event fires on every keystroke, while change fires when
+the user leaves the field after changing it.
+
+8. Accessibility
+Use real <button> elements for things that can be clicked. They can be reached
+with the Tab key and activated with Enter and Space without extra code. When a
+script updates part of the page, screen readers may not notice. A region with
+aria-live="polite" makes the screen reader announce the change when the user is
+idle. After showing an error, move focus to it with element.focus() so keyboard
+users know what happened.
+
+9. Summary
+The DOM is a live tree. Find nodes with querySelector, change them with
+textContent and classList, react to the user with addEventListener, and use
+event delegation for lists. Avoid innerHTML with user input.
