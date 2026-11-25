@@ -24,5 +24,6 @@
 - [ ] 2026-11-20 [story-1-1-prosjektskjelett](993-2026-11-20-13-20-29-story-1-1-prosjektskjelett.md) — Sjekk at CI-workflowen blir grønn ved første PR mot main
 - [ ] 2026-11-20 [story-1-1-prosjektskjelett](993-2026-11-20-13-20-29-story-1-1-prosjektskjelett.md) — Story 1.4: sammenlign emnenavn med casefold() i Python (SQLite LOWER er bare ASCII)
 - [ ] 2026-11-25 [story-2-4-lage-quiz-med-fremdrift](992-2026-11-25-15-11-45-story-2-4-lage-quiz-med-fremdrift.md) — Sjekk S8 manuelt med bare tastatur og skjermleser
-- [ ] 2026-11-25 [story-2-4-lage-quiz-med-fremdrift](992-2026-11-25-15-11-45-story-2-4-lage-quiz-med-fremdrift.md) — Story 2.5: S8 stopper stille ved 500, nettfeil eller utløpt økt, og slettet notat eller jobb gir 500 på /steg/
+- [x] 2026-11-25 [story-2-4-lage-quiz-med-fremdrift](992-2026-11-25-15-11-45-story-2-4-lage-quiz-med-fremdrift.md) — Story 2.5: S8 stopper stille ved 500, nettfeil eller utløpt økt, og slettet notat eller jobb gir 500 på /steg/ (løst 2026-11-25 i [story-2-5](991-2026-11-25-15-53-24-story-2-5-feil-timeout-og-prov-igjen.md))
 - [ ] 2026-11-25 [story-2-4-lage-quiz-med-fremdrift](992-2026-11-25-15-11-45-story-2-4-lage-quiz-med-fremdrift.md) — Undersøk hvorfor innloggingsskjemaet ikke ble sendt fra headless Edge (CDP)
+- [ ] 2026-11-25 [story-2-5-feil-timeout-og-prov-igjen](991-2026-11-25-15-53-24-story-2-5-feil-timeout-og-prov-igjen.md) — fremdrift.js (feilmelding på S8) har ingen automatisk test, kontrollert manuelt
