@@ -229,9 +229,20 @@ def notat(request, pk):
             antall_sporsmal=Count("sporsmal"), har_levert=Exists(levert_forsok)
         ).order_by("-opprettet", "-pk")
     )
-    # Modellen som laget quizen, aldri gjeldende innstilling (AD-11).
+    pabegynte = {
+        okt.quiz_id: okt
+        for okt in egne(Okt, request.user)
+        .filter(notat=objekt, type=Okttype.FORSOK, status=Oktstatus.PABEGYNT)
+        .annotate(antall_svar=Count("svar"))
+    }
     for quiz in quizer:
+        # Modellen som laget quizen, aldri gjeldende innstilling (AD-11).
         quiz.modellnavn = ki.visningsnavn(quiz.modell)
+        pabegynt = pabegynte.get(quiz.pk)
+        if pabegynt is not None:
+            quiz.fremdrift = (
+                f"spørsmål {max(pabegynt.antall_svar, 1)} av {len(pabegynt.innhold)}"
+            )
     return render(
         request,
         "studier/notat.html",
@@ -544,6 +555,9 @@ def resultat(request, pk):
         request,
         "studier/resultat.html",
         {
+            "har_pabegynt": egne(Okt, request.user)
+            .filter(quiz_id=okt.quiz_id, type=Okttype.FORSOK, status=Oktstatus.PABEGYNT)
+            .exists(),
             "okt": okt,
             "notat": notat,
             "rader": rader,

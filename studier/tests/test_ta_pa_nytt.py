@@ -35,7 +35,8 @@ class TaPaNyttTestCase(LeveringTestCase):
 
 class QuizkortTest(TaPaNyttTestCase):
     def test_uten_levert_forsok_heter_knappen_ta_quiz(self):
-        # setUp har laget et påbegynt forsøk.
+        # setUp har laget et påbegynt forsøk, som gir «Fortsett» (3.5).
+        Okt.objects.filter(pk=self.okt.pk).delete()
         html = self.client.get(self.notat_url).content.decode()
         self.assertEqual(self._kortknapp(html), "Ta quiz")
         self.assertNotIn("Ta på nytt", html)
@@ -50,7 +51,7 @@ class QuizkortTest(TaPaNyttTestCase):
         self._levert()
         self._ta_pa_nytt()
         html = self.client.get(self.notat_url).content.decode()
-        self.assertEqual(self._kortknapp(html), "Ta på nytt")
+        self.assertEqual(self._kortknapp(html), "Fortsett")
 
     def test_knappen_gjelder_hvert_kort_for_seg(self):
         self._levert()

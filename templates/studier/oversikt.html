@@ -7,6 +7,21 @@
 {% endblock %}
 
 {% block innhold %}
+{% if fortsett_rader %}
+<section aria-labelledby="fortsett-overskrift" class="mb-6">
+  <h2 id="fortsett-overskrift" class="mb-3 text-lg font-semibold">Fortsett der du slapp</h2>
+  <ul class="flex flex-col gap-3">
+    {% for rad in fortsett_rader %}
+    <li class="rounded-lg border border-accent bg-surface p-4 shadow-md">
+      <p id="{{ rad.tittel_id }}" class="text-lg font-semibold">{{ rad.tittel }}</p>
+      <p id="{{ rad.fremdrift_id }}" class="text-sm text-ink-secondary">{{ rad.emne }} · {{ rad.notat }} · spørsmål {{ rad.n }} av {{ rad.m }}</p>
+      <a href="{{ rad.url }}" aria-describedby="{{ rad.tittel_id }} {{ rad.fremdrift_id }}" class="mt-3 inline-flex min-h-11 items-center rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface no-underline hover:bg-accent-hover">Fortsett quizen</a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
 <h1 class="mb-4 text-2xl font-semibold">Oversikt</h1>
 
 <a href="{% url 'studier:ny_emne' %}" class="mb-3 flex items-center gap-4 rounded-lg border border-dashed border-border-control bg-surface p-4 no-underline text-ink shadow-md hover:shadow-lg">
