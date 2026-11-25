@@ -7,7 +7,9 @@
   øverst, ellers under kortene. «Ta quiz» på hvert kort er et POST-skjema som
   starter eller fortsetter forsøket og åpner S9. Har quizen et levert forsøk, heter
   knappen «Ta på nytt» (FR-20). Et påbegynt forsøk gir «Påbegynt – spørsmål N av M» og
-  knappen «Fortsett» (FR-18).
+  knappen «Fortsett» (FR-18). Er alle spørsmålene i quizen meldt som feil og ingen forsøk
+  påbegynt, er knappen låst med aria-disabled (ikke disabled, så den kan nås med tastatur),
+  og serveren sender tilbake til S7 (FR-31).
 {% endcomment %}
 
 {% block title %}{{ notat.originalnavn }}{% endblock %}
@@ -62,7 +64,12 @@
     {% endif %}
     <form method="post" action="{% url 'studier:start_quiz' quiz.pk %}" class="mt-3">
       {% csrf_token %}
+      {% if quiz.alle_meldt %}
+      <p id="meldt-{{ quiz.pk }}" class="mb-2 text-sm text-ink-secondary">Alle spørsmålene er meldt som feil</p>
+      <button type="submit" aria-disabled="true" aria-describedby="quiz-{{ quiz.pk }} meldt-{{ quiz.pk }}" class="min-h-11 w-full rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface aria-disabled:cursor-not-allowed aria-disabled:opacity-60 md:w-auto">{% if quiz.har_levert %}Ta på nytt{% else %}Ta quiz{% endif %}</button>
+      {% else %}
       <button type="submit" aria-describedby="quiz-{{ quiz.pk }}{% if quiz.fremdrift %} fremdrift-{{ quiz.pk }}{% endif %}" class="min-h-11 w-full rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface hover:bg-accent-hover md:w-auto">{% if quiz.fremdrift %}Fortsett{% elif quiz.har_levert %}Ta på nytt{% else %}Ta quiz{% endif %}</button>
+      {% endif %}
     </form>
   </li>
   {% endfor %}

@@ -18,4 +18,5 @@ urlpatterns = [
     path("okter/<int:pk>/sporsmal/<int:nr>/", views.sporsmal, name="sporsmal"),
     path("okter/<int:pk>/lever/", views.lever, name="lever"),
     path("okter/<int:pk>/resultat/", views.resultat, name="resultat"),
+    path("okter/<int:pk>/meld/<int:nr>/", views.meld, name="meld"),
 ]

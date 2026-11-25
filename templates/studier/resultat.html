@@ -9,6 +9,9 @@
   ble lært i økten, prikker og teller på radene som ikke er lært, og meldingen når
   feilbanken er tom. Prikkene er pynt (aria-hidden), og teksten gir samme informasjon.
   Øvingsgrenene står inne i taggene, så forsøk gir samme HTML som før story 4.2.
+  FR-31: en ✕-rad der spørsmålet ikke er meldt, får lenken «Meld som feil eller uklart» til
+  bekreftelsessiden (GET), beskrevet av spørsmålet. En meldt rad viser «Meldt som feil», på S12
+  i stedet for prikkene og telleren. Fasiten følger fortsatt bare `fasit_synlig`.
 {% endcomment %}
 
 {% block title %}{% if er_oving %}Øv på feil – {% endif %}Resultat – {{ notat.originalnavn }}{% endblock %}
@@ -45,15 +48,17 @@
   <li class="flex gap-3">
     <span class="{% if rad.riktig %}text-success{% else %}text-error{% endif %} font-semibold" aria-hidden="true">{% if rad.riktig %}✓{% else %}✕{% endif %}</span>
     <span class="min-w-0 break-words">
-      <strong{% if rad.lang %} lang="{{ rad.lang }}"{% endif %}>{{ rad.nr }}. {{ rad.tekst }}</strong><br>
+      <strong{% if rad.lang %} lang="{{ rad.lang }}"{% endif %}{% if rad.kan_meldes %} id="sporsmal-{{ rad.nr }}"{% endif %}>{{ rad.nr }}. {{ rad.tekst }}</strong><br>
       <span class="text-ink-secondary">Ditt svar: <span{% if rad.lang %} lang="{{ rad.lang }}"{% endif %}>{{ rad.svar }}</span></span><br>
       <strong class="{% if rad.riktig %}text-success{% else %}text-error{% endif %}">{% if rad.riktig %}Riktig{% else %}Feil{% endif %}</strong>
       {% if rad.fasit %}
       <br><span class="text-ink-secondary">Riktig svar: <span{% if rad.lang %} lang="{{ rad.lang }}"{% endif %}>{{ rad.fasit.tekst }}</span></span>
       <br><span class="text-ink-secondary">Begrunnelse: <span{% if rad.lang %} lang="{{ rad.lang }}"{% endif %}>{{ rad.fasit.begrunnelse }}</span></span>
-      {% endif %}{% if er_oving %}{% if rad.laert %}
+      {% endif %}{% if rad.meldt %}
+      <br><span class="font-semibold">Meldt som feil</span>{% elif er_oving %}{% if rad.laert %}
       <br><span class="font-semibold">Lært</span>{% else %}
-      <br><span class="inline-flex flex-wrap items-center gap-2"><span class="inline-flex gap-1" aria-hidden="true">{% for fylt in rad.prikker %}<span class="inline-block h-3 w-3 rounded-full border-2 border-accent-strong{% if fylt %} bg-accent-strong{% endif %}"></span>{% endfor %}</span><span class="text-ink-secondary">{{ rad.teller }} av {{ riktige_for_laert }} riktige på rad</span></span>{% endif %}{% endif %}
+      <br><span class="inline-flex flex-wrap items-center gap-2"><span class="inline-flex gap-1" aria-hidden="true">{% for fylt in rad.prikker %}<span class="inline-block h-3 w-3 rounded-full border-2 border-accent-strong{% if fylt %} bg-accent-strong{% endif %}"></span>{% endfor %}</span><span class="text-ink-secondary">{{ rad.teller }} av {{ riktige_for_laert }} riktige på rad</span></span>{% endif %}{% endif %}{% if rad.kan_meldes %}
+      <br><a href="{% url 'studier:meld' okt.pk rad.nr %}" aria-describedby="sporsmal-{{ rad.nr }}" class="inline-flex min-h-11 items-center font-semibold underline">Meld som feil eller uklart</a>{% endif %}
     </span>
   </li>
   {% endfor %}

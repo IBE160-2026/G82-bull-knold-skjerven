@@ -1,6 +1,7 @@
 """Feilbanken (FR-21, FR-23, AD-2, AD-3). Eneste sted som oppretter eller endrer `Feilbankrad`.
 
-Et spørsmål er i feilbanken når raden finnes og `laert_tidspunkt` er tom. Det
+Et spørsmål er i feilbanken når raden finnes, `laert_tidspunkt` er tom og
+spørsmålet ikke er meldt som feil (FR-31, `Sporsmal.objects.ikke_meldt()`). Det
 blir lært etter `RIKTIGE_FOR_LAERT` riktige svar på rad. Feil svar nullstiller
 telleren, også for et lært spørsmål, som da kommer tilbake. Rader slettes aldri
 (bare med emnet, AD-14). Kalles bare fra leveringen (`lever_okt`, story 3.3).
@@ -9,7 +10,7 @@ telleren, også for et lært spørsmål, som da kommer tilbake. Rader slettes al
 from django.db import transaction
 from django.utils import timezone
 
-from studier.models import Feilbankrad, Hendelse
+from studier.models import Feilbankrad, Hendelse, Sporsmal
 
 RIKTIGE_FOR_LAERT = 2
 
@@ -19,8 +20,11 @@ def registrer_svar(sporsmal, *, riktig) -> Hendelse:
 
     Gir `lagt_i`, `nullstilt`, `opp`, `laert` eller `ingen`. `riktig` må gis som
     nøkkelord, så sant og usant ikke byttes om. Spørsmål identifiseres bare av
-    ID, så lik tekst i en annen quiz påvirkes ikke (AD-5).
+    ID, så lik tekst i en annen quiz påvirkes ikke (AD-5). Et meldt spørsmål gir
+    alltid `ingen`, og raden endres ikke (FR-31).
     """
+    if sporsmal.meldt_tidspunkt is not None:
+        return Hendelse.INGEN
     with transaction.atomic():
         rad = Feilbankrad.objects.select_for_update().filter(sporsmal=sporsmal).first()
         if rad is None:
@@ -60,10 +64,12 @@ def fasit_synlig(sporsmal):
 
 
 def apne_rader(notat):
-    """Feilbankradene for notatets quizer som ikke er lært, eldste først. Bare lesing.
+    """Feilbankradene for notatets quizer som ikke er lært eller meldt, eldste først. Bare lesing.
 
     `notat` må alt være hentet med `hent_egen`, som sikrer eieren.
     """
     return Feilbankrad.objects.filter(
-        sporsmal__quiz__notat=notat, laert_tidspunkt__isnull=True
+        sporsmal__quiz__notat=notat,
+        laert_tidspunkt__isnull=True,
+        sporsmal__in=Sporsmal.objects.ikke_meldt(),
     ).order_by("opprettet", "pk")

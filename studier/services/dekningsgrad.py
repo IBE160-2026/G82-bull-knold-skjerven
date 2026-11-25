@@ -2,9 +2,10 @@
 
 Et spørsmål er dekket når det har minst ett riktig svar i en levert økt (forsøk
 eller øving) og ingen åpen feilbankrad (`laert_tidspunkt` er tom, som
-`apne_rader`). Tallene er mellom 0 og 1 uten avrunding. Avrundingen skjer bare i
-malen (`hel_prosent`). Meldte spørsmål telles med til story 4.3 legger til
-`ikke_meldt()` her.
+`apne_rader`). Meldte spørsmål (FR-31) telles verken som dekket eller i
+nevneren, og et nivå der alle spørsmålene er meldt, teller som et nivå uten
+quiz. Tallene er mellom 0 og 1 uten avrunding. Avrundingen skjer bare i malen
+(`hel_prosent`).
 """
 
 from typing import NamedTuple
@@ -30,7 +31,8 @@ def for_notat(notat) -> Dekning:
     """Dekningsgraden for `notat`, totalt og per nivå. To spørringer uansett antall spørsmål.
 
     `notat` må alt være hentet med `hent_egen`, som sikrer eieren. Totalen er
-    vektet med `VEKTER`, og et nivå uten quiz teller 0.
+    vektet med `VEKTER`, og et nivå uten quiz teller 0. Bare spørsmål som ikke
+    er meldt, telles.
     """
     riktig = Svar.objects.filter(
         sporsmal=OuterRef("pk"),
@@ -42,7 +44,8 @@ def for_notat(notat) -> Dekning:
     )
     tall = {
         rad["quiz__vanskelighetsgrad"]: rad
-        for rad in Sporsmal.objects.filter(quiz__notat=notat)
+        for rad in Sporsmal.objects.ikke_meldt()
+        .filter(quiz__notat=notat)
         .alias(riktig=Exists(riktig), apen=Exists(apen))
         .values("quiz__vanskelighetsgrad")
         .annotate(
@@ -50,7 +53,12 @@ def for_notat(notat) -> Dekning:
         )
         .order_by()
     }
-    med_quiz = set(notat.quizer.values_list("vanskelighetsgrad", flat=True))
+    # Et nivå teller som uten quiz når ingen av quizene har spørsmål som ikke er meldt.
+    med_quiz = set(
+        notat.quizer.filter(sporsmal__in=Sporsmal.objects.ikke_meldt()).values_list(
+            "vanskelighetsgrad", flat=True
+        )
+    )
 
     nivaer = {}
     for nivaa in Vanskelighetsgrad:

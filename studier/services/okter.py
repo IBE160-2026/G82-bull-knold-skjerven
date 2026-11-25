@@ -3,7 +3,8 @@
 `Okt.innhold` er `[{"sporsmal": id, "alternativer": [id, id, id]}, …]` i
 visningsrekkefølge. Listen lages når økten opprettes og endres aldri etterpå.
 Hos en øvingsøkt kommer `innhold` fra de åpne feilbankradene, sortert på
-`Feilbankrad.opprettet`. `nr` (1-basert) brukes bare til navigering.
+`Feilbankrad.opprettet`. Meldte spørsmål (FR-31) kommer ikke med i nye økter,
+men står de alt i en påbegynt økt, blir de stående. `nr` (1-basert) brukes bare til navigering.
 """
 
 import logging
@@ -41,9 +42,11 @@ def _pabegynt_forsok(quiz):
 
 
 def _lag_innhold(quiz):
-    """Spørsmålene i quizens rekkefølge, hvert med alternativene stokket."""
+    """Spørsmålene som ikke er meldt, i quizens rekkefølge, hvert med alternativene stokket."""
     innhold = []
-    for sporsmal in quiz.sporsmal.order_by("id").prefetch_related("alternativer"):
+    for sporsmal in (
+        quiz.sporsmal.ikke_meldt().order_by("id").prefetch_related("alternativer")
+    ):
         alternativer = [alternativ.pk for alternativ in sporsmal.alternativer.all()]
         random.shuffle(alternativer)
         innhold.append({"sporsmal": sporsmal.pk, "alternativer": alternativer})
@@ -57,7 +60,10 @@ def _pabegynt_oving(notat):
 
 
 def _lag_oving_innhold(notat):
-    """Spørsmålene med åpen feilbankrad, eldste rad først, hvert med alternativene stokket."""
+    """Spørsmålene med åpen feilbankrad, eldste rad først, hvert med alternativene stokket.
+
+    `apne_rader` utelater alt meldte spørsmål.
+    """
     rader = (
         apne_rader(notat)
         .select_related("sporsmal")
@@ -74,9 +80,10 @@ def _lag_oving_innhold(notat):
 def start_eller_fortsett_okt(quiz=None, *, notat=None):
     """Den påbegynte økten, eller en ny (AD-6, AD-16). Nøyaktig én av `quiz` og `notat`.
 
-    Med `quiz`: `forsok`. Med `notat`: `oving` fra de åpne feilbankradene, eller
-    `None` (og ingenting lages) når feilbanken er tom og ingen øving er påbegynt.
-    Kalles bare fra POST. To samtidige kall gir samme økt: den betingede unike
+    Med `quiz`: `forsok` med spørsmålene som ikke er meldt. Med `notat`: `oving`
+    fra de åpne feilbankradene. Gir `None` (og ingenting lages) når den nye økten
+    ville blitt tom og ingen økt er påbegynt: quizen har bare meldte spørsmål,
+    eller feilbanken er tom. Kalles bare fra POST. To samtidige kall gir samme økt: den betingede unike
     begrensningen stopper den andre opprettelsen, og da hentes den første.
     """
     if (quiz is None) == (notat is None):
@@ -95,7 +102,7 @@ def start_eller_fortsett_okt(quiz=None, *, notat=None):
             innhold = (
                 _lag_innhold(quiz) if quiz is not None else _lag_oving_innhold(notat)
             )
-            if not innhold and notat is not None:
+            if not innhold:
                 return None
             okt = Okt.objects.create(status=Oktstatus.PABEGYNT, innhold=innhold, **felt)
     except IntegrityError:

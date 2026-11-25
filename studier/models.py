@@ -154,11 +154,20 @@ class Quiz(models.Model):
         return f"Quiz {self.pk} ({self.vanskelighetsgrad})"
 
 
+class SporsmalQuerySet(models.QuerySet):
+    def ikke_meldt(self):
+        """Spørsmålene som ikke er meldt som feil (FR-31). Eneste filter for meldte spørsmål."""
+        return self.filter(meldt_tidspunkt__isnull=True)
+
+
 class Sporsmal(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="sporsmal")
     tekst = models.TextField()
     begrunnelse = models.TextField()
+    # Skrives bare av `services.sporsmal.meld_sporsmal` (FR-31).
     meldt_tidspunkt = models.DateTimeField(null=True, blank=True)
+
+    objects = SporsmalQuerySet.as_manager()
 
     class Meta:
         verbose_name = "spørsmål"

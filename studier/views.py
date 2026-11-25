@@ -1,6 +1,6 @@
 """Views for emner og notater: Nytt emne (S16), emnesiden (S4), Slett emne (S13),
 Last opp notat (S5/S6), notatsiden (S7), generering (S8), Ta quiz (S9), Se over og
-lever (S10) og Resultat (S11). Oversikt (S3) ligger i farequiz/views.py."""
+lever (S10), Resultat (S11) og Meld som feil. Oversikt (S3) ligger i farequiz/views.py."""
 
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
@@ -48,6 +48,7 @@ from studier.services.okter import (
     lever_okt,
     start_eller_fortsett_okt,
 )
+from studier.services.sporsmal import meld_sporsmal
 from studier.tilgang import egne, hent_egen, hent_egen_eller_none
 
 
@@ -271,9 +272,13 @@ def notat(request, pk):
     levert_forsok = Okt.objects.filter(
         quiz=OuterRef("pk"), type=Okttype.FORSOK, status=Oktstatus.LEVERT
     )
+    # Uten spørsmål som ikke er meldt, kan quizen ikke startes (FR-31).
+    ikke_meldt = Sporsmal.objects.ikke_meldt().filter(quiz=OuterRef("pk"))
     quizer = list(
         objekt.quizer.annotate(
-            antall_sporsmal=Count("sporsmal"), har_levert=Exists(levert_forsok)
+            antall_sporsmal=Count("sporsmal"),
+            har_levert=Exists(levert_forsok),
+            har_ikke_meldt=Exists(ikke_meldt),
         ).order_by("-opprettet", "-pk")
     )
     pabegynte = {
@@ -290,6 +295,7 @@ def notat(request, pk):
             quiz.fremdrift = (
                 f"spørsmål {max(pabegynt.antall_svar, 1)} av {len(pabegynt.innhold)}"
             )
+        quiz.alle_meldt = not quiz.har_ikke_meldt and pabegynt is None
     return render(
         request,
         "studier/notat.html",
@@ -410,15 +416,24 @@ def steg(request, pk):
             return svar
         # Quizen åpnes på spørsmål 1. En annen fane som spør etterpå, får samme økt.
         okt = start_eller_fortsett_okt(quiz)
+        if okt is None:
+            # Alle spørsmålene er meldt som feil (FR-31): ingen økt å åpne.
+            svar["HX-Redirect"] = reverse("studier:notat", args=[quiz.notat_id])
+            return svar
         svar["HX-Redirect"] = reverse("studier:sporsmal", args=[okt.pk, 1])
     return svar
 
 
 @require_POST
 def start_quiz(request, pk):
-    """«Ta quiz» og «Ta på nytt» på S7 og S11: fortsetter det påbegynte forsøket eller starter et nytt (AD-6, FR-20)."""
+    """«Ta quiz» og «Ta på nytt» på S7 og S11: fortsetter det påbegynte forsøket eller starter et nytt (AD-6, FR-20).
+
+    Er alle spørsmålene meldt og ingen forsøk påbegynt, lages ingenting, og S7 vises (FR-31).
+    """
     quiz = hent_egen(Quiz, pk, request.user)
     okt = start_eller_fortsett_okt(quiz)
+    if okt is None:
+        return redirect("studier:notat", pk=quiz.notat_id)
     return redirect("studier:sporsmal", pk=okt.pk, nr=forste_ubesvarte(okt))
 
 
@@ -606,6 +621,7 @@ def resultat(request, pk):
         sporsmal_objekt = svar.sporsmal
         lagt_i += svar.hendelse == Hendelse.LAGT_I
         lang = _lang(sporsmal_objekt.quiz.sprak)
+        meldt = sporsmal_objekt.meldt_tidspunkt is not None
         visning = {
             "nr": nr,
             "tekst": sporsmal_objekt.tekst,
@@ -613,8 +629,12 @@ def resultat(request, pk):
             "riktig": svar.alternativ.er_riktig,
             "lang": lang,
             "fasit": None,
+            # FR-31: ✕-rader kan meldes. En meldt rad viser «Meldt som feil».
+            "meldt": meldt,
+            "kan_meldes": not meldt and not svar.alternativ.er_riktig,
         }
-        synlig = fasit_synlig(sporsmal_objekt)
+        # Aldri fasit for et meldt spørsmål, heller ikke om det var lært (FR-31).
+        synlig = not meldt and fasit_synlig(sporsmal_objekt)
         fasit = None
         if synlig:
             riktig = sporsmal_objekt.alternativer.get(er_riktig=True)
@@ -663,8 +683,53 @@ def resultat(request, pk):
             "laerte": laerte,
             "antall_laert": len(laerte),
             "riktige_for_laert": RIKTIGE_FOR_LAERT,
-            # `ov["n"]` er `apne_rader(notat).count()`, så ingen ekstra spørring.
-            "feilbank_tom": er_oving and ov["n"] == 0,
+            # Også meldte rader som ikke er lært, teller: da er ikke alt lært (FR-31).
+            "feilbank_tom": er_oving
+            and not Feilbankrad.objects.filter(
+                sporsmal__quiz__notat=notat, laert_tidspunkt__isnull=True
+            ).exists(),
             **_emne_kontekst(notat.emne, siste, notat=notat),
+        },
+    )
+
+
+@require_http_methods(["GET", "HEAD", "POST"])
+def meld(request, pk, nr):
+    """Meld som feil eller uklart (FR-31): GET viser bekreftelsen, POST melder og sender til resultatet.
+
+    Bare for en ✕-rad i en levert økt. Ellers 404, og ingenting endres. Er
+    spørsmålet alt meldt, sendes både GET og POST til resultatet.
+    """
+    okt = hent_egen(Okt, pk, request.user)
+    rad = element(okt, nr)
+    if okt.status != Oktstatus.LEVERT or rad is None:
+        raise Http404("Fant ikke siden.")
+    svar = (
+        egne(Svar, request.user)
+        .filter(okt=okt, sporsmal_id=rad["sporsmal"])
+        .select_related("alternativ", "sporsmal__quiz")
+        .first()
+    )
+    if svar is None or svar.alternativ.er_riktig:
+        raise Http404("Fant ikke siden.")
+    sporsmal_objekt = svar.sporsmal
+    resultat_url = reverse("studier:resultat", args=[okt.pk])
+    if request.method == "POST":
+        meld_sporsmal(sporsmal_objekt)
+        return redirect(resultat_url)
+    if not Sporsmal.objects.ikke_meldt().filter(pk=sporsmal_objekt.pk).exists():
+        return redirect(resultat_url)
+    notat = okt.notat
+    return render(
+        request,
+        "studier/meld.html",
+        {
+            "okt": okt,
+            "nr": nr,
+            "notat": notat,
+            "sporsmalstekst": sporsmal_objekt.tekst,
+            "lang": _lang(sporsmal_objekt.quiz.sprak),
+            "resultat_url": resultat_url,
+            **_emne_kontekst(notat.emne, "Meld som feil", notat=notat),
         },
     )

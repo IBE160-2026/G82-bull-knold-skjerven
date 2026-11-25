@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% comment %}
+  Bekreftelsen før et spørsmål meldes som feil eller uklart (FR-31), fra en ✕-rad på S11 eller
+  S12. Egen side, ikke popup. «Avbryt» står før knappen, som i slett_emne.html. POST på samme
+  URL melder og sender til resultatet (AD-13). Fasiten vises ikke.
+{% endcomment %}
+
+{% block title %}Meld som feil – {{ notat.originalnavn }}{% endblock %}
+
+{% block brodsmuler %}
+{% include "partials/brodsmuler.html" with brodsmuler=brodsmuler %}
+{% endblock %}
+
+{% block innhold %}
+<h1 class="mb-4 text-2xl font-semibold">Melde spørsmålet som feil eller uklart?</h1>
+
+<p class="mb-4 min-w-0 break-words font-semibold"{% if lang %} lang="{{ lang }}"{% endif %}>{{ nr }}. {{ sporsmalstekst }}</p>
+
+<p class="mb-6">Spørsmålet tas ut av feilbanken og dekningsgraden og kommer ikke med i nye quizer eller øvinger. Det kan ikke angres.</p>
+
+<div class="flex flex-wrap items-center gap-3">
+  <a href="{{ resultat_url }}" class="inline-flex min-h-11 items-center rounded-md border border-border-control bg-surface px-4 py-2 font-semibold text-ink no-underline">Avbryt</a>
+  <form method="post" action="{% url 'studier:meld' okt.pk nr %}" class="m-0">
+    {% csrf_token %}
+    <button type="submit" class="min-h-11 rounded-md bg-error px-4 py-2 font-semibold text-surface hover:brightness-90">Meld som feil</button>
+  </form>
+</div>
+{% endblock %}
