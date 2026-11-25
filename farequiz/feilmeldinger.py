@@ -46,6 +46,11 @@ GENERERING_FEIL = {
 FIL_ER_LAGRET = "Filen er lagret, så du trenger ikke laste den opp på nytt."
 NOTAT_FINNES_IKKE = "Notatet finnes ikke lenger, så quizen ble ikke laget."
 INGEN_SERVERKONTAKT = "Fikk ikke kontakt med serveren. Last inn siden på nytt."
+# Quizkort på S7 for quiz med `forhandslagret=True` (FR-27, UX-DR26).
+TESTMODUS_FORHANDSLAGRET = (
+    "Testmodus: denne quizen er laget fra et forhåndslagret testdokument, "
+    "ikke fra filen din."
+)
 
 
 def generering_feilet(kode):

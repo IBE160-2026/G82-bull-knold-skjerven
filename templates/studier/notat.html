@@ -26,7 +26,10 @@
       <h3 class="text-lg font-semibold">{{ quiz.get_vanskelighetsgrad_display }}, {{ quiz.antall_sporsmal }} spørsmål</h3>
       <span class="rounded-md bg-surface-sunken px-2 py-1 text-sm font-semibold">Laget av KI</span>
     </div>
-    <p class="text-sm text-ink-secondary">{{ quiz.opprettet|date:"j. F Y" }}</p>
+    <p class="text-sm text-ink-secondary">{{ quiz.opprettet|date:"j. F Y" }} · {{ quiz.modellnavn }}</p>
+    {% if quiz.forhandslagret %}
+    <p class="mt-2 text-sm">{{ testmodus_forhandslagret }}</p>
+    {% endif %}
   </li>
   {% endfor %}
 </ul>

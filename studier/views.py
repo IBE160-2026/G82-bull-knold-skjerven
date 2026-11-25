@@ -9,6 +9,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods, require_POST
 
+import ki
 from farequiz import feilmeldinger
 from studier.forms import EmneForm, NotatForm, NyQuizForm
 from studier.models import Emne, Feilkode, Genereringsjobb, Jobbstatus, Notat, Quiz
@@ -192,9 +193,14 @@ def notat(request, pk):
             return redirect("studier:jobb", pk=jobb.pk)
     else:
         form = NyQuizForm()
-    quizer = objekt.quizer.annotate(antall_sporsmal=Count("sporsmal")).order_by(
-        "-opprettet", "-pk"
+    quizer = list(
+        objekt.quizer.annotate(antall_sporsmal=Count("sporsmal")).order_by(
+            "-opprettet", "-pk"
+        )
     )
+    # Modellen som laget quizen, aldri gjeldende innstilling (AD-11).
+    for quiz in quizer:
+        quiz.modellnavn = ki.visningsnavn(quiz.modell)
     return render(
         request,
         "studier/notat.html",
@@ -203,6 +209,7 @@ def notat(request, pk):
             "form": form,
             "nivaer": NyQuizForm.base_fields["vanskelighetsgrad"].choices,
             "quizer": quizer,
+            "testmodus_forhandslagret": feilmeldinger.TESTMODUS_FORHANDSLAGRET,
             "aktiv_jobb": aktiv_jobb(objekt),
             **_emne_kontekst(objekt.emne, objekt.originalnavn),
         },
