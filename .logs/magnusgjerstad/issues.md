@@ -47,3 +47,5 @@
 - [ ] 2026-11-25 [story-2-3-laste-opp-notat](989-2026-11-25-13-51-51-story-2-3-laste-opp-notat.md) — Nytt emne (S16) med valgfrie filer er skilt ut som egen story (står i `deferred-work.md`)
 - [ ] 2026-11-25 [story-2-3-laste-opp-notat](989-2026-11-25-13-51-51-story-2-3-laste-opp-notat.md) — `opplasting.js` har ingen automatisk test. S6 bør prøves i nettleser etter rettelsene fra reviewen: feil fil, avbrudd og fremdrift
 - [ ] 2026-11-25 [story-4-2-levere-ovingen](987-2026-11-25-20-17-54-story-4-2-levere-ovingen.md) — S12-resultatet er ikke sjekket i nettleser (360 px, terrakotta prikker og knapper, skjermleser)
+- [ ] 2026-11-25 [fr31-story-4-3-og-5-1](986-2026-11-25-21-26-02-fr31-story-4-3-og-5-1.md) — S7 (dekningskortet), S11/S12 («Meld som feil eller uklart») og bekreftelsessiden er ikke sjekket i nettleser (360 px, tastatur, skjermleser)
+- [ ] 2026-11-25 [fr31-story-4-3-og-5-1](986-2026-11-25-21-26-02-fr31-story-4-3-og-5-1.md) — «Ta på nytt» på S11 er ikke låst når alle spørsmålene i quizen er meldt; vurder lås som på S7
