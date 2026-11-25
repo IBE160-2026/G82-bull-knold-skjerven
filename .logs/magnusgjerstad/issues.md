@@ -46,3 +46,4 @@
 - [ ] 2026-11-25 [story-2-2-generere-med-modellen-eller-mock-svar](990-2026-11-25-13-12-15-story-2-2-generere-med-modellen-eller-mock-svar.md) — ved første ekte kjøring: sjekk om noen kall ender med `max_tokens` (grensen er 16000), og noter varigheten mot fristen på 120 s
 - [ ] 2026-11-25 [story-2-3-laste-opp-notat](989-2026-11-25-13-51-51-story-2-3-laste-opp-notat.md) — Nytt emne (S16) med valgfrie filer er skilt ut som egen story (står i `deferred-work.md`)
 - [ ] 2026-11-25 [story-2-3-laste-opp-notat](989-2026-11-25-13-51-51-story-2-3-laste-opp-notat.md) — `opplasting.js` har ingen automatisk test. S6 bør prøves i nettleser etter rettelsene fra reviewen: feil fil, avbrudd og fremdrift
+- [ ] 2026-11-25 [story-4-2-levere-ovingen](987-2026-11-25-20-17-54-story-4-2-levere-ovingen.md) — S12-resultatet er ikke sjekket i nettleser (360 px, terrakotta prikker og knapper, skjermleser)
