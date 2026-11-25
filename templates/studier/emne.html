@@ -33,4 +33,6 @@
 {% else %}
 <p>Ingen notater ennå. Last opp det første.</p>
 {% endif %}
+
+<p class="mt-8"><a href="{% url 'studier:slett_emne' emne.pk %}" class="inline-flex min-h-11 items-center font-semibold text-error underline">Slett emne</a></p>
 {% endblock %}
