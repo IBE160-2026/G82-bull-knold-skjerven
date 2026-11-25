@@ -8,7 +8,7 @@
 - [x] 2026-10-28 [brief-v2-magnus](999-2026-10-26-20-24-58-brief-v2-magnus.md) — bestemme hvordan dekningsgraden for et emne regnes ut (antatt snittet av notatene) (løst 2026-11-11: snittet av notatene, uavhengig av lengde)
 - [x] 2026-10-28 [brief-v2-magnus](999-2026-10-26-20-24-58-brief-v2-magnus.md) — del B: PRD-beslutninger i gruppa, deretter skriver hver sin tredjedel av PRD-en (løst 2026-11-11: hele PRD-en laget sammen i gruppemøtet, [prd-v1](997-2026-11-11-21-40-00-prd-v1.md))
 - [ ] 2026-11-11 [prd-v1](997-2026-11-11-21-40-00-prd-v1.md) — testfasen: hele PDF-en eller uthentet tekst, og Haiku 5.5 eller Sonnet 5.5
-- [ ] 2026-11-11 [prd-v1](997-2026-11-11-21-40-00-prd-v1.md) — testfasen: hvilke testdokumenter som kan brukes uten å bryte opphavsretten
+- [x] 2026-11-11 [prd-v1](997-2026-11-11-21-40-00-prd-v1.md) — testfasen: hvilke testdokumenter som kan brukes uten å bryte opphavsretten (løst 2026-11-25: gruppa lager dem selv, CC BY 4.0, se story 2.1)
 - [ ] 2026-11-11 [prd-v1](997-2026-11-11-21-40-00-prd-v1.md) — testfasen: typisk genereringstid for 30 spørsmål sammenlignet med timeout på 120 s (FR-15)
 - [ ] 2026-11-11 [prd-v1](997-2026-11-11-21-40-00-prd-v1.md) — språkvasken av PRD-en med bmad-review (structure og prose) ble ikke kjørt
 - [x] 2026-11-11 [ux-design-farequiz](996-2026-11-11-22-30-00-ux-design-farequiz.md) — HTML-skisser av nøkkelskjermbilder («Ta quiz» på mobil, «Notat») ble ikke laget (løst 2026-11-14: wireframes/index.html på forslag-design-martin)
@@ -39,3 +39,6 @@
 - [ ] 2026-11-25 [story-1-6-slette-emne](992-2026-11-25-07-57-55-story-1-6-slette-emne.md) — CSS kan ikke bygges med én kommando uten Tailwind-binæren: `scripts/bygg-css.sh` trenger en reserve med npx eller en `package.json`
 - [ ] 2026-11-25 [story-1-6-slette-emne](992-2026-11-25-07-57-55-story-1-6-slette-emne.md) — story 2.3: en opplasting som pågår mens emnet slettes, må ikke etterlate en fil på disk
 - [ ] 2026-11-25 [story-1-6-slette-emne](992-2026-11-25-07-57-55-story-1-6-slette-emne.md) — S1 (innlogging), S2, S1b og S15 har ingen CSS-klasser: designet (UX-DR35) falt mellom story 1.2 og 1.3, og ingen senere story tar det. Avklar med gruppa og lag en egen story
+- [ ] 2026-11-25 [story-2-1-lese-filen-og-sjekke-quizutkastet](991-2026-11-25-11-21-33-story-2-1-lese-filen-og-sjekke-quizutkastet.md) — story 2.2: sjekk at den skannede PDF-en (2 sider) og lysbilde-PDF-en gir 30 gyldige spørsmål per nivå, ellers må testdokumentene få mer innhold (da endres hashene)
+- [ ] 2026-11-25 [story-2-1-lese-filen-og-sjekke-quizutkastet](991-2026-11-25-11-21-33-story-2-1-lese-filen-og-sjekke-quizutkastet.md) — story 2.3/2.4: `les_fil` godtar en tom PDF eller en fil som ikke er PDF. Opplastingen eller `leser`-steget må validere den
+- [ ] 2026-11-25 [story-2-1-lese-filen-og-sjekke-quizutkastet](991-2026-11-25-11-21-33-story-2-1-lese-filen-og-sjekke-quizutkastet.md) — `les_fil` leser bare avsnittene i en DOCX. Tekst i tabeller, topptekster og tekstbokser kommer ikke med i quizen
