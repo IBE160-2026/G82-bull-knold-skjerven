@@ -34,3 +34,4 @@
 - [x] 2026-11-24 [story-1-2-konto-og-vilkar](994-2026-11-24-17-17-37-story-1-2-konto-og-vilkar.md) — personvernerklæringen lover kontosletting (løst 2026-11-24: teksten sier at sletting av konto ikke er mulig i v1). Gjenstår: varsel per e-post og sletting av logger etter 30 dager, som v1 ikke har
 - [ ] 2026-11-24 [story-1-2-konto-og-vilkar](994-2026-11-24-17-17-37-story-1-2-konto-og-vilkar.md) — tre lenker i §4.1 i personvernerklæringen går til forsider i stedet for dokumentene
 - [ ] 2026-11-24 [story-1-2-konto-og-vilkar](994-2026-11-24-17-17-37-story-1-2-konto-og-vilkar.md) — S1b viser til «brukervilkår» som ikke finnes som egen side, og vilkårene har ingen versjon
+- [ ] 2026-11-25 [synk-main-story-1-3-til-1-5](993-2026-11-25-07-28-02-synk-main-story-1-3-til-1-5.md) — sprint-status sier `review` for story 1.2, selv om den er merget
