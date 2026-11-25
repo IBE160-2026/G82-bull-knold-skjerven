@@ -71,7 +71,7 @@ development_status:
 
   epic-5: in-progress
   5-1-dekningsgrad-per-notat: review
-  5-2-dekningsgrad-per-emne: backlog
+  5-2-dekningsgrad-per-emne: review
   5-3-historikk-per-notat: backlog
   epic-5-retrospective: optional
 

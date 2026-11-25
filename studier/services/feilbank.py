@@ -8,6 +8,7 @@ telleren, også for et lært spørsmål, som da kommer tilbake. Rader slettes al
 """
 
 from django.db import transaction
+from django.db.models import Count
 from django.utils import timezone
 
 from studier.models import Feilbankrad, Hendelse, Sporsmal
@@ -63,13 +64,35 @@ def fasit_synlig(sporsmal):
     ).exists()
 
 
+def _apne():
+    """Radene som ikke er lært eller meldt. Felles utvalg for `apne_rader` og `antall_apne_per_notat`."""
+    return Feilbankrad.objects.filter(
+        laert_tidspunkt__isnull=True,
+        sporsmal__in=Sporsmal.objects.ikke_meldt(),
+    )
+
+
 def apne_rader(notat):
     """Feilbankradene for notatets quizer som ikke er lært eller meldt, eldste først. Bare lesing.
 
     `notat` må alt være hentet med `hent_egen`, som sikrer eieren.
     """
-    return Feilbankrad.objects.filter(
-        sporsmal__quiz__notat=notat,
-        laert_tidspunkt__isnull=True,
-        sporsmal__in=Sporsmal.objects.ikke_meldt(),
-    ).order_by("opprettet", "pk")
+    return _apne().filter(sporsmal__quiz__notat=notat).order_by("opprettet", "pk")
+
+
+def antall_apne_per_notat(notater):
+    """Antall åpne rader (som `apne_rader`) per notat, som `{notat_id: antall}`. Én spørring.
+
+    Notater uten åpne rader får 0. `notater` må alt være hentet med `hent_egen`
+    eller `egne`, som sikrer eieren. Bare lesing.
+    """
+    notater = list(notater)
+    antall = dict(
+        _apne()
+        .filter(sporsmal__quiz__notat__in=notater)
+        .values("sporsmal__quiz__notat")
+        .annotate(antall=Count("pk"))
+        .order_by()
+        .values_list("sporsmal__quiz__notat", "antall")
+    )
+    return {notat.pk: antall.get(notat.pk, 0) for notat in notater}

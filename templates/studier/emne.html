@@ -1,4 +1,12 @@
 {% extends "base.html" %}
+{% load dekning %}
+{% comment %}
+  S4. Med notater: to tallfliser (en <dl>) under h1 med emnets dekningsgrad (snittet av
+  notatene med quiz, FR-25) og antall i feilbanken. Hvert notatkort viser
+  dekningsgraden med en stolpe, eller «Ingen quiz», og antall i feilbanken.
+  Stolpen er skjult for skjermleser, fordi prosenten står som tekst. Avrundingen
+  skjer bare her, med `hel_prosent` (AD-4).
+{% endcomment %}
 
 {% block title %}{{ emne.navn }}{% endblock %}
 
@@ -8,6 +16,23 @@
 
 {% block innhold %}
 <h1 class="mb-4 text-2xl font-semibold">{{ emne.navn }}</h1>
+
+{% if notater %}
+<dl class="mb-6 grid gap-3 md:grid-cols-2">
+  <div class="stat-tile rounded-lg bg-surface-inverse p-4 text-ink-inverse">
+    <dt class="text-sm text-ink-inverse-secondary">Dekningsgrad</dt>
+    {% if emne_dekning is None %}
+    <dd class="text-lg font-semibold">Ingen dekningsgrad</dd>
+    {% else %}
+    <dd class="text-3xl font-semibold tabular-nums">{{ emne_dekning|hel_prosent }} %</dd>
+    {% endif %}
+  </div>
+  <div class="stat-tile rounded-lg bg-surface-inverse p-4 text-ink-inverse">
+    <dt class="text-sm text-ink-inverse-secondary">I feilbanken</dt>
+    <dd class="text-3xl font-semibold tabular-nums">{{ emne_i_feilbanken }}</dd>
+  </div>
+</dl>
+{% endif %}
 
 <p class="mb-4"><a href="{% url 'studier:last_opp' emne.pk %}" class="inline-flex min-h-11 items-center rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface no-underline hover:bg-accent-hover">Last opp notat</a></p>
 
@@ -29,8 +54,17 @@
   {% for notat in notater %}
   <li>
     <a href="{% url 'studier:notat' notat.pk %}" class="block rounded-lg border border-border-subtle bg-surface p-4 no-underline text-ink shadow-md hover:shadow-lg">
-      <span class="block text-lg font-semibold">{{ notat.originalnavn }}</span>
-      <span class="block text-sm text-ink-secondary">Lastet opp {{ notat.opprettet|date:"j. F Y" }}</span>
+      <span class="block text-lg font-semibold">{{ notat.originalnavn }}</span><span class="sr-only">, </span>
+      <span class="block text-sm text-ink-secondary">Lastet opp {{ notat.opprettet|date:"j. F Y" }}</span><span class="sr-only">, </span>
+      {% if notat.dekning.har_quiz %}
+      {% with prosent=notat.dekning.total|hel_prosent %}
+      <div class="reiserute" aria-hidden="true"><span style="width: {{ prosent }}%"></span></div>
+      <span class="block text-sm font-semibold tabular-nums">Dekningsgrad {{ prosent }} %</span><span class="sr-only">, </span>
+      {% endwith %}
+      {% else %}
+      <span class="mt-2 block text-sm font-semibold">Ingen quiz</span><span class="sr-only">, </span>
+      {% endif %}
+      <span class="block text-sm tabular-nums">{{ notat.i_feilbanken }} i feilbanken</span>
     </a>
   </li>
   {% endfor %}

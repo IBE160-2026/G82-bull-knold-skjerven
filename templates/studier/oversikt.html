@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+{% load dekning %}
+{% comment %}
+  S3. Emnekortene viser antall notater og dekningsgraden (FR-25), eller «Ingen
+  notater» / «Ingen dekningsgrad». Teksten står i lenken, og stolpen er skjult
+  for skjermleser, fordi prosenten står som tekst. Usynlige komma gjør at
+  lenken leses som «Webutvikling, 4 notater, Dekningsgrad 62 %, Åpne emnet».
+{% endcomment %}
 
 {% block title %}Oversikt{% endblock %}
 
@@ -37,8 +44,18 @@
   {% for emne in emner %}
   <li>
     <a href="{% url 'studier:emne' emne.pk %}" class="block rounded-lg border border-border-subtle bg-surface p-4 no-underline text-ink shadow-md hover:shadow-lg">
-      <span class="block text-lg font-semibold">{{ emne.navn }}</span>
-      <span class="block text-sm text-ink-secondary">{{ emne.antall_notater }} {% if emne.antall_notater == 1 %}notat{% else %}notater{% endif %}</span>
+      <span class="block text-lg font-semibold">{{ emne.navn }}</span><span class="sr-only">, </span>
+      <span class="block text-sm text-ink-secondary">{{ emne.antall_notater }} {% if emne.antall_notater == 1 %}notat{% else %}notater{% endif %}</span><span class="sr-only">, </span>
+      {% if not emne.antall_notater %}
+      <span class="mt-2 block text-sm font-semibold">Ingen notater</span><span class="sr-only">, </span>
+      {% elif emne.dekning is None %}
+      <span class="mt-2 block text-sm font-semibold">Ingen dekningsgrad</span><span class="sr-only">, </span>
+      {% else %}
+      {% with prosent=emne.dekning|hel_prosent %}
+      <div class="reiserute" aria-hidden="true"><span style="width: {{ prosent }}%"></span></div>
+      <span class="block text-sm font-semibold tabular-nums">Dekningsgrad {{ prosent }} %</span><span class="sr-only">, </span>
+      {% endwith %}
+      {% endif %}
       <span class="mt-2 inline-block font-semibold text-accent-strong">Åpne emnet →</span>
     </a>
   </li>

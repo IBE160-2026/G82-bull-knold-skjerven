@@ -33,7 +33,12 @@ from studier.models import (
 from studier.services import dekningsgrad
 from studier.services.emner import gi_nytt_navn, opprett_emne
 from studier.services.emner import slett_emne as slett_emne_tjeneste
-from studier.services.feilbank import RIKTIGE_FOR_LAERT, apne_rader, fasit_synlig
+from studier.services.feilbank import (
+    RIKTIGE_FOR_LAERT,
+    antall_apne_per_notat,
+    apne_rader,
+    fasit_synlig,
+)
 from studier.services.generering import aktiv_jobb, kjor_steg, opprett_jobb
 from studier.services.notater import MAKS_STORRELSE
 from studier.services.notater import last_opp as last_opp_tjeneste
@@ -81,12 +86,21 @@ def ny_emne(request):
 
 
 def _vis_emne(request, objekt, form):
+    """S4. Dekningsgraden og feilbanken for emnet og hvert notat, i et fast antall spørringer (FR-25)."""
+    notater = list(objekt.notater.order_by("-opprettet", "-pk"))
+    dekninger = dekningsgrad.for_notater(notater)
+    i_feilbanken = antall_apne_per_notat(notater)
+    for notat in notater:
+        notat.dekning = dekninger[notat.pk]
+        notat.i_feilbanken = i_feilbanken[notat.pk]
     return render(
         request,
         "studier/emne.html",
         {
             "emne": objekt,
-            "notater": objekt.notater.order_by("-opprettet", "-pk"),
+            "notater": notater,
+            "emne_dekning": dekningsgrad.snitt(dekninger.values()),
+            "emne_i_feilbanken": sum(i_feilbanken.values()),
             "navn_form": form,
             "tilbake_url": reverse("startside"),
             "tilbake_tekst": "Tilbake til Oversikt",

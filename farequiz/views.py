@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 
 from studier.models import Emne, Okt, Oktstatus, Okttype, Svar
+from studier.services import dekningsgrad
 from studier.tilgang import egne
 
 
@@ -62,12 +63,16 @@ def _fortsett_rader(bruker):
 
 @require_http_methods(["GET", "HEAD"])
 def startside(request):
-    """Oversikt (S3): boksen «Fortsett der du slapp» og emnene til innlogget bruker, alfabetisk."""
-    emner = (
+    """Oversikt (S3): boksen «Fortsett der du slapp» og emnene til innlogget bruker, alfabetisk, med dekningsgrad."""
+    emner = list(
         egne(Emne, request.user)
         .annotate(antall_notater=Count("notater"))
         .order_by(Lower("navn"))
     )
+    # Dekningsgraden for alle emnene i et fast antall spørringer (FR-25).
+    dekninger = dekningsgrad.for_emner(emner)
+    for emne in emner:
+        emne.dekning = dekninger[emne.pk]
     return render(
         request,
         "studier/oversikt.html",
