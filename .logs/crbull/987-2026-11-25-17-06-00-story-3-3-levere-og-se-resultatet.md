@@ -25,5 +25,5 @@ Bygge story 3.3 med bmad-build: levere quizen fra S10, se poengsummen og riktig/
 - `sprint-status.yaml`: 3.3 står som `review`.
 
 ### Åpne punkter
-- Produktspørsmål før 3.4: skal «N spørsmål er lagt i feilbanken» også telle lærte spørsmål som kommer tilbake (`nullstilt`)? Se `deferred-work.md`.
+- ~~Produktspørsmål før 3.4~~ Avgjort samme dag: Christian valgte alternativ 1. «N spørsmål er lagt i feilbanken» teller bare `lagt_i`, altså spørsmål som legges i feilbanken for første gang. Lærte spørsmål som kommer tilbake (`nullstilt`), telles ikke. Punktet i `deferred-work.md` trenger ingen kodeendring.
 - S10 og S11 er ikke sjekket i nettleser (tastatur, 360 px).
