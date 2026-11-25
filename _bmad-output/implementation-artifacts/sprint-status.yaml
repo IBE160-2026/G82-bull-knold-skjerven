@@ -46,7 +46,7 @@ development_status:
 
   epic-2: in-progress
   2-1-lese-filen-og-sjekke-quizutkastet: done
-  2-2-generere-med-modellen-eller-mock-svar: backlog
+  2-2-generere-med-modellen-eller-mock-svar: review
   2-3-laste-opp-notat: review
   2-4-lage-quiz-med-fremdrift: backlog
   2-5-feil-timeout-og-prøv-igjen: backlog

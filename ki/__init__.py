@@ -10,15 +10,20 @@ from django.conf import settings
 from .feil import KIFeil
 from .fil import Innhold, les_fil
 from .format import QuizUtkast, sjekk
+from .generering import PROMPT_VERSJON, RaattSvar, generer, visningsnavn
 
 __all__ = [
+    "PROMPT_VERSJON",
     "Innhold",
     "KIFeil",
     "QuizUtkast",
+    "RaattSvar",
     "er_testmodus",
+    "generer",
     "les_fil",
     "sjekk",
     "tving_testmodus",
+    "visningsnavn",
 ]
 
 _SANNE_VERDIER = frozenset({"1", "true", "yes", "on"})
