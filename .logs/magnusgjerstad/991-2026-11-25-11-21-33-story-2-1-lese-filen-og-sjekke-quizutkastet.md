@@ -52,3 +52,25 @@ Starte Epic 2 med story 2.1. `ki` skal kunne lese en notatfil og sjekke et svar 
 - Story 2.2: sjekk at den skannede PDF-en (2 sider) og lysbilde-PDF-en gir 30 gyldige spørsmål per nivå. Ellers må testdokumentene få mer innhold, og da endres hashene.
 - Story 2.3/2.4: `les_fil` godtar en tom PDF eller en fil som ikke er PDF. Opplastingen eller `leser`-steget må validere den.
 - `les_fil` leser bare avsnittene i en DOCX. Tekst i tabeller, topptekster og tekstbokser kommer ikke med i quizen.
+
+## 2026-11-25 kl. 11:27 — MagnusGjerstad
+
+### Oppgave
+Flette 1.6 og 2.1 inn i `main` med PR-er, og jobbe videre fra `main`.
+
+### Plan
+- Forklarte brukeren hva en PR er.
+- PR #8 (1.6) først. Deretter `main` inn i 2.1, med konfliktløsning, og så PR #9.
+- Merget hver PR først når CI var grønn.
+
+### Resultat
+- **PR #8** «Story 1.6: slette emne»: CI grønn, merget som `8dcf079`.
+- **PR #9** «Story 2.1: lese filen og sjekke quizutkastet»: CI grønn, merget som `80523b2`.
+  - Før PR-en ble `main` merget inn i 2.1-branchen (`244b898`).
+  - Konflikten i `last_updated` i `sprint-status.yaml` og i slutten av `issues.md` ble løst ved å beholde 2.1-siden. `1-6` ble satt til `done`.
+  - 192 tester var grønne etter mergen.
+- **Sprint-status på `main`** (`e82a129`): `1-6` og `2-1` er `done`, og `epic-1` er `done`. Retrospektiven for Epic 1 er fortsatt valgfri.
+- Lokal `main` er oppdatert, og arbeidet fortsetter derfra. Storybranchene finnes fortsatt lokalt og på origin.
+
+### Åpne punkter
+Ingen nye.
