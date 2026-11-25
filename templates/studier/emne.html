@@ -9,7 +9,7 @@
 {% block innhold %}
 <h1 class="mb-4 text-2xl font-semibold">{{ emne.navn }}</h1>
 
-<button type="button" disabled class="mb-4 min-h-11 rounded-md border border-border-control px-4 py-2 font-semibold text-ink-secondary">Last opp notat</button>
+<p class="mb-4"><a href="{% url 'studier:last_opp' emne.pk %}" class="inline-flex min-h-11 items-center rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface no-underline hover:bg-accent-hover">Last opp notat</a></p>
 
 <details class="mb-6 rounded-lg border border-border-subtle bg-surface p-4"{% if navn_form.navn.errors %} open{% endif %}>
   <summary class="cursor-pointer min-h-11 font-semibold">Gi nytt navn</summary>
@@ -27,7 +27,12 @@
 {% if notater %}
 <ul class="flex flex-col gap-3">
   {% for notat in notater %}
-  <li class="rounded-lg border border-border-subtle bg-surface p-4">{{ notat.originalnavn }}</li>
+  <li>
+    <a href="{% url 'studier:notat' notat.pk %}" class="block rounded-lg border border-border-subtle bg-surface p-4 no-underline text-ink shadow-md hover:shadow-lg">
+      <span class="block text-lg font-semibold">{{ notat.originalnavn }}</span>
+      <span class="block text-sm text-ink-secondary">Lastet opp {{ notat.opprettet|date:"j. F Y" }}</span>
+    </a>
+  </li>
   {% endfor %}
 </ul>
 {% else %}

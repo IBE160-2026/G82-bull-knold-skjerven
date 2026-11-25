@@ -105,7 +105,12 @@ class EmnesidenTest(TestCase):
         self.assertIn("<h1", html)
         self.assertIn("HTML", html)
         self.assertIn("Ingen notater ennå. Last opp det første.", html)
-        self.assertIn("disabled", html)
+        knapp = html.index(">Last opp notat</")
+        start = html.rindex("<", 0, knapp)
+        self.assertTrue(html.startswith("<a ", start))
+        self.assertIn(f'href="/emner/{emne.pk}/last-opp/"', html[start:knapp])
+        self.assertNotIn("disabled", html[start:knapp])
+        self.assertNotIn(">Last opp notat</button>", html)
 
     def test_andres_emne_gir_404(self):
         annens = Emne.objects.create(eier=lag_bruker("annen@eks.no"), navn="Hemmelig")

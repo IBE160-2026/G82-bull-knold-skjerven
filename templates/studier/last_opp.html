@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% comment %}
+  S6. Et vanlig skjema som virker uten JavaScript (AD-13). static/js/opplasting.js
+  legger til sjekk i nettleseren, fremdrift (S6b) og melding om avbrutt opplasting (S6c).
+{% endcomment %}
+
+{% block title %}Last opp notat – {{ emne.navn }}{% endblock %}
+
+{% block brodsmuler %}
+{% include "partials/brodsmuler.html" with brodsmuler=brodsmuler %}
+{% endblock %}
+
+{% block innhold %}
+<h1 id="opplasting-overskrift" class="mb-4 text-2xl font-semibold">Last opp notat</h1>
+
+<p id="opplasting-avbrutt" role="alert" tabindex="-1" hidden class="mb-4 rounded-md border border-error px-4 py-2 font-semibold text-error"></p>
+
+<form id="opplasting" method="post" action="{% url 'studier:last_opp' emne.pk %}" enctype="multipart/form-data" novalidate
+      data-maks="{{ maks_storrelse }}"
+      data-feil-ingen="{{ feil.ingen }}"
+      data-feil-for-stor="{{ feil.for_stor }}"
+      data-feil-format="{{ feil.format }}"
+      data-feil-tom="{{ feil.tom }}"
+      data-feil-avbrutt="{{ feil.avbrutt }}">
+  {% csrf_token %}
+  <div class="mb-4">
+    <label for="{{ form.fil.id_for_label }}" class="mb-1 block font-semibold">Velg fil</label>
+    <p id="hjelp-fil" class="mb-2 text-sm text-ink-secondary">PDF, DOCX eller TXT. Maks 5 MB.</p>
+    <input id="{{ form.fil.id_for_label }}" name="{{ form.fil.html_name }}" type="file" accept=".pdf,.docx,.txt" class="rounded-md border border-border-control bg-surface px-3 py-2 min-h-11" aria-describedby="hjelp-fil{% if form.fil.errors %} feil-fil{% endif %}"{% if form.fil.errors %} aria-invalid="true"{% endif %}>
+    {% if form.fil.errors %}
+    <p id="feil-fil" role="alert" tabindex="-1" autofocus class="mt-2 font-semibold text-error">{{ form.fil.errors.0 }}</p>
+    {% endif %}
+  </div>
+
+  <p class="mb-4 border-l-4 border-ink-secondary bg-surface-sunken px-4 py-3 text-sm">Innholdet i filen sendes til en ekstern KI-tjeneste for å lage quiz.</p>
+
+  <button id="opplasting-knapp" type="submit" class="min-h-11 rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface hover:bg-accent-hover aria-disabled:cursor-not-allowed aria-disabled:opacity-60">Last opp</button>
+
+  <p id="opplasting-status" role="status" class="mt-4 font-semibold"></p>
+  <div id="opplasting-fremdrift" hidden>
+    <div class="reiserute" aria-hidden="true"><span></span></div>
+    <p class="text-sm text-ink-secondary">Ikke lukk fanen før opplastingen er ferdig. Du får beskjed når filen er lagret.</p>
+  </div>
+</form>
+{% endblock %}
+
+{% block skript %}{{ block.super }}<script src="{% static 'js/opplasting.js' %}" defer></script>{% endblock %}

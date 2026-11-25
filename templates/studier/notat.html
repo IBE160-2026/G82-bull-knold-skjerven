@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% comment %}
+  S7, skallet. Skjemaet for ny quiz og quizlisten kommer i story 2.4.
+{% endcomment %}
+
+{% block title %}{{ notat.originalnavn }}{% endblock %}
+
+{% block brodsmuler %}
+{% include "partials/brodsmuler.html" with brodsmuler=brodsmuler %}
+{% endblock %}
+
+{% block innhold %}
+<h1 class="mb-4 text-2xl font-semibold">{{ notat.originalnavn }}</h1>
+
+<p>Lag en quiz for å komme i gang</p>
+{% endblock %}

@@ -20,3 +20,9 @@
 - source_spec: `_bmad-output/implementation-artifacts/spec-1-6-slette-emne.md`
   summary: En opplasting som kjører samtidig som emnet slettes, kan skrive fila til disk før `Notat`-raden feiler, slik at fila blir liggende uten rad.
   evidence: Ikke verifisert, fordi opplasting først kommer i story 2.3. `last_opp` må sørge for at fila slettes hvis raden ikke kan lagres, eller lagre fila etter raden. Sjekkes når 2.3 skrives.
+- source_spec: `_bmad-output/implementation-artifacts/spec-2-3-laste-opp-notat.md`
+  summary: Nytt emne (S16) med valgfrie filer (UX-DR34): opprett emnet og last opp hver fil med `last_opp` og samme regler som S6. Feiler én fil, opprettes ikke emnet, og ingen filer blir liggende.
+  evidence: Skilt ut fra story 2.3 etter brukerens valg 25.11, slik at 2.3 blir mindre. Det kan leveres for seg, og det gjenbruker `valider_fil` og `last_opp` fra 2.3.
+- source_spec: `_bmad-output/implementation-artifacts/spec-2-3-laste-opp-notat.md`
+  summary: Opplastingsflyten i `static/js/opplasting.js` har ingen automatisk test. Det gjelder sjekken i nettleseren, valget mellom omdirigering og utbytting, fremdriften og S6c.
+  evidence: Repoet har ikke noe testoppsett for JavaScript. Flyten ble prøvd manuelt i headless Edge i story 2.3. En Playwright-test eller lignende hører hjemme i en egen oppgave (for eksempel sammen med axe-testen i Epic 6).
