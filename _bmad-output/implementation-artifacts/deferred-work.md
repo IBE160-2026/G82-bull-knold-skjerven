@@ -38,3 +38,6 @@
 - source_spec: `_bmad-output/implementation-artifacts/spec-3-1-starte-og-svare-pa-en-quiz.md`
   summary: Story 3.3 må håndtere leverte økter i flyten fra 3.1. `steg` for en ferdig jobb kaller alltid `start_eller_fortsett_okt`, så en gammel S8-fane kan lage et nytt påbegynt forsøk etter levering. GET på S9 for en levert økt viser et skjema som kan redigeres. `except OktErLevert` i `sporsmal` har ingen view-test.
   evidence: Review av 3.1 (B3/E1, B7/E4, V3). Kan ikke nås før 3.3 kan levere. Forslag: `steg` sender til S7 når quizen har et levert forsøk og ikke noe påbegynt, S9 (GET og POST) for en levert økt sender til resultatsiden, og en view-test patcher `lagre_svar` til å heve `OktErLevert`.
+- source_spec: `_bmad-output/implementation-artifacts/spec-3-2-regelen-for-feilbanken.md`
+  summary: En kildesjekk som slår ut hvis `registrer_svar` kalles fra noe annet enn `lever_okt` (AD-2: påbegynte forsøk skal aldri påvirke feilbanken).
+  evidence: Review av 3.2 (B9). `lever_okt` finnes ikke før story 3.3, så sjekken legges til der, på samme måte som `EnesteStedTest` i `studier/tests/test_feilbank.py`.
