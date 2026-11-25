@@ -27,3 +27,5 @@
 - [x] 2026-11-25 [story-2-4-lage-quiz-med-fremdrift](992-2026-11-25-15-11-45-story-2-4-lage-quiz-med-fremdrift.md) — Story 2.5: S8 stopper stille ved 500, nettfeil eller utløpt økt, og slettet notat eller jobb gir 500 på /steg/ (løst 2026-11-25 i [story-2-5](991-2026-11-25-15-53-24-story-2-5-feil-timeout-og-prov-igjen.md))
 - [ ] 2026-11-25 [story-2-4-lage-quiz-med-fremdrift](992-2026-11-25-15-11-45-story-2-4-lage-quiz-med-fremdrift.md) — Undersøk hvorfor innloggingsskjemaet ikke ble sendt fra headless Edge (CDP)
 - [ ] 2026-11-25 [story-2-5-feil-timeout-og-prov-igjen](991-2026-11-25-15-53-24-story-2-5-feil-timeout-og-prov-igjen.md) — fremdrift.js (feilmelding på S8) har ingen automatisk test, kontrollert manuelt
+- [ ] 2026-11-25 [story-3-1-starte-og-svare-pa-en-quiz](989-2026-11-25-16-40-53-story-3-1-starte-og-svare-pa-en-quiz.md) — Story 3.3: håndter leverte økter i steg og S9, og test OktErLevert i viewet (deferred-work.md)
+- [ ] 2026-11-25 [story-3-1-starte-og-svare-pa-en-quiz](989-2026-11-25-16-40-53-story-3-1-starte-og-svare-pa-en-quiz.md) — Sjekk Enter i radiogruppen på S9 i Safari (skjult standardknapp)
