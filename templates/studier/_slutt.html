@@ -1,0 +1,10 @@
+{% comment %}
+  Sluttfragmentet fra /jobber/<id>/steg/ når jobben ikke finnes lenger, for
+  eksempel fordi notatet eller emnet er slettet. Ingen #spor, så spørringen
+  stopper.
+{% endcomment %}
+<div id="fremdrift" hx-swap-oob="innerHTML">
+<p role="alert" class="mb-2 font-semibold text-error">{{ melding }}</p>
+<p><a href="{% url 'startside' %}" class="underline">Gå til Oversikt</a></p>
+</div>
+<div id="handlinger" hx-swap-oob="innerHTML"></div>

@@ -2,8 +2,10 @@
 {% load static %}
 {% comment %}
   S8. Regionen #fremdrift ligger fast, og HTMX bytter bare innholdet, og bare når
-  statusen endres. #spor (i _fremdrift.html) driver ett steg om gangen. Bare
-  genereringskjeden krever JavaScript.
+  statusen endres. #spor (i _fremdrift.html) driver ett steg om gangen. Ved feil
+  byttes også #handlinger, med «Prøv igjen» (et vanlig skjema). #handlinger
+  ligger utenfor aria-live-regionen. Bare genereringskjeden krever JavaScript.
+  fremdrift.js viser data-feil-server i #fremdrift når spørringen feiler.
 {% endcomment %}
 
 {% block title %}Lager quiz – {{ jobb.notat.originalnavn }}{% endblock %}
@@ -15,15 +17,18 @@
 {% block innhold %}
 <h1 class="mb-4 text-2xl font-semibold">Lager quiz</h1>
 
-<div id="fremdrift" aria-live="polite" class="mb-4">
+<div id="fremdrift" aria-live="polite" class="mb-4" data-feil-server="{{ ingen_serverkontakt }}">
 {% include "studier/_steg.html" %}
 </div>
 {% include "studier/_fremdrift.html" with endret=False %}
 
-<p class="mb-4 text-sm text-ink-secondary">Dette kan ta opptil to minutter. Hold fanen åpen til quizen er klar.</p>
-<button type="button" aria-disabled="true" class="min-h-11 rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface aria-disabled:cursor-not-allowed aria-disabled:opacity-60">Lag quiz</button>
+<div id="handlinger">
+{% include "studier/_handlinger.html" %}
+</div>
 
+{% if jobb.status != "feilet" %}
 <noscript><p class="mt-4 font-semibold">JavaScript må være på for å lage quiz. Slå det på i nettleseren og last inn siden på nytt.</p></noscript>
+{% endif %}
 {% endblock %}
 
-{% block skript %}{{ block.super }}<script src="{% static 'js/htmx.min.js' %}" defer></script>{% endblock %}
+{% block skript %}{{ block.super }}<script src="{% static 'js/htmx.min.js' %}" defer></script><script src="{% static 'js/fremdrift.js' %}" defer></script>{% endblock %}

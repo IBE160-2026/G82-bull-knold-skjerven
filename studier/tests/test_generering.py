@@ -272,12 +272,12 @@ class FormatfeilTest(StubbetGenereringTestCase):
         html = svar.content.decode()
         self.assertIn(
             f'<p role="alert" class="mb-2 font-semibold text-error">'
-            f"{feilmeldinger.GENERERING_FEILET}</p>",
+            f"{feilmeldinger.GENERERING_FEIL['format']}</p>",
             html,
         )
         self.assertIn(f'href="{self.notat_url}"', html)
         self.assertNotIn("hx-post", html)
-        self.assertNotIn("Prøv igjen", html)
+        self.assertIn("Prøv igjen</button>", html)
 
 
 class KIFeilTest(StubbetGenereringTestCase):
@@ -299,7 +299,7 @@ class KIFeilTest(StubbetGenereringTestCase):
 
         html = self._steg(jobb).content.decode()
         self.assertIn('role="alert"', html)
-        self.assertIn(feilmeldinger.GENERERING_FEILET, html)
+        self.assertIn(feilmeldinger.GENERERING_FEIL["api_feil"], html)
 
     def test_uventet_feil_i_steg_gir_feilet_api_feil(self):
         jobb = opprett_jobb(self.notat, "lett", 5)
@@ -315,7 +315,7 @@ class KIFeilTest(StubbetGenereringTestCase):
         self.assertTrue(any(str(jobb.pk) in linje for linje in logg.output))
         self.assertFalse(any(FILINNHOLD in linje for linje in logg.output))
         html = self._steg(jobb).content.decode()
-        self.assertIn(feilmeldinger.GENERERING_FEILET, html)
+        self.assertIn(feilmeldinger.GENERERING_FEIL["api_feil"], html)
 
     def test_kifeil_i_leser_gir_feilet_med_koden(self):
         jobb = opprett_jobb(self.notat, "lett", 5)
@@ -425,7 +425,7 @@ class GammelJobbTest(GenereringTestCase):
         ):
             html = self._steg(jobb).content.decode()
         generer.assert_not_called()
-        self.assertIn(feilmeldinger.GENERERING_FEILET, html)
+        self.assertIn(feilmeldinger.GENERERING_FEIL["timeout"], html)
 
 
 class AnnensJobbTest(GenereringTestCase):

@@ -72,6 +72,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "kontoer.middleware.HtmxOmdirigeringMiddleware",
     "django.contrib.auth.middleware.LoginRequiredMiddleware",
     "kontoer.middleware.VilkarMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",

@@ -11,13 +11,13 @@ from django.views.decorators.http import require_http_methods, require_POST
 
 from farequiz import feilmeldinger
 from studier.forms import EmneForm, NotatForm, NyQuizForm
-from studier.models import Emne, Genereringsjobb, Jobbstatus, Notat, Quiz
+from studier.models import Emne, Feilkode, Genereringsjobb, Jobbstatus, Notat, Quiz
 from studier.services.emner import gi_nytt_navn, opprett_emne
 from studier.services.emner import slett_emne as slett_emne_tjeneste
 from studier.services.generering import aktiv_jobb, kjor_steg, opprett_jobb
 from studier.services.notater import MAKS_STORRELSE
 from studier.services.notater import last_opp as last_opp_tjeneste
-from studier.tilgang import egne, hent_egen
+from studier.tilgang import egne, hent_egen, hent_egen_eller_none
 
 
 def _oversikt_brodsmule():
@@ -216,6 +216,8 @@ _STEG = (
     (Jobbstatus.SJEKKER, "Sjekker quizen"),
 )
 _IKONER = {"ferdig": "✓", "pågår": "…", "venter": "○"}
+# Feilkodene der S8 sier at filen er lagret (spec 2.5, B3).
+_FIL_ER_LAGRET_KODER = (Feilkode.FORMAT, Feilkode.API_FEIL, Feilkode.API_NOKKEL)
 
 
 def _fremdrift_kontekst(jobb, vent=False):
@@ -230,28 +232,45 @@ def _fremdrift_kontekst(jobb, vent=False):
     for nr, (_, tekst) in enumerate(_STEG):
         tilstand = "ferdig" if nr < naa else "pågår" if nr == naa else "venter"
         steg.append({"tekst": tekst, "tilstand": tilstand, "ikon": _IKONER[tilstand]})
-    return {
-        "jobb": jobb,
-        "steg": steg,
-        "vent": vent,
-        "feilmelding": feilmeldinger.GENERERING_FEILET,
-    }
+    kontekst = {"jobb": jobb, "steg": steg, "vent": vent}
+    if jobb.status == Jobbstatus.FEILET:
+        kontekst["feilmelding"] = feilmeldinger.generering_feilet(jobb.feilkode)
+        # Ikke for timeout (teksten sier det selv) eller koder som ber om ny opplasting.
+        if jobb.feilkode in _FIL_ER_LAGRET_KODER:
+            kontekst["fil_er_lagret"] = feilmeldinger.FIL_ER_LAGRET
+    return kontekst
 
 
 @require_http_methods(["GET", "HEAD"])
 def jobb(request, pk):
-    """S8: fremdriften. HTMX driver ett steg om gangen via `steg`."""
+    """S8: fremdriften. HTMX driver ett steg om gangen via `steg`.
+
+    Ved feil står kodens tekst og «Prøv igjen», som virker uten JavaScript.
+    """
     objekt = hent_egen(Genereringsjobb, pk, request.user)
+    notat_objekt = objekt.notat
+    # Setter jobben til `feilet`/`timeout` hvis fristen er ute (FR-15).
+    aktiv_jobb(notat_objekt)
+    objekt.refresh_from_db()
     if objekt.status == Jobbstatus.FERDIG:
         return redirect("studier:notat", pk=objekt.notat_id)
-    notat_objekt = objekt.notat
     return render(
         request,
         "studier/jobb.html",
         {
             **_fremdrift_kontekst(objekt),
             **_emne_kontekst(notat_objekt.emne, "Lager quiz", notat=notat_objekt),
+            "ingen_serverkontakt": feilmeldinger.INGEN_SERVERKONTAKT,
         },
+    )
+
+
+def _sluttfragment(request):
+    """Svaret når jobben ikke finnes lenger, for eksempel fordi notatet er slettet."""
+    return render(
+        request,
+        "studier/_slutt.html",
+        {"melding": feilmeldinger.NOTAT_FINNES_IKKE},
     )
 
 
@@ -260,10 +279,17 @@ def steg(request, pk):
     """Kjører ett steg og gir fremdriftsfragmentet. En ferdig jobb gir `HX-Redirect` til S7.
 
     `vist` er statusen siden sist viste. Er den uendret, byttes ikke #fremdrift.
+    Finnes ikke jobben (aldri, eller slettet med notatet, også midt i et steg),
+    gis et sluttfragment med status 200. En annens jobb gir 404.
     """
-    objekt = hent_egen(Genereringsjobb, pk, request.user)
+    objekt = hent_egen_eller_none(Genereringsjobb, pk, request.user)
+    if objekt is None:
+        return _sluttfragment(request)
     kjort = kjor_steg(objekt.pk)
-    objekt.refresh_from_db()
+    try:
+        objekt.refresh_from_db()
+    except Genereringsjobb.DoesNotExist:
+        return _sluttfragment(request)
     # #fremdrift byttes bare når statusen er en annen enn den siden viser.
     endret = objekt.status != request.POST.get("vist") or objekt.status in (
         Jobbstatus.FERDIG,

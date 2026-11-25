@@ -32,3 +32,6 @@
 - source_spec: `_bmad-output/implementation-artifacts/spec-2-3-laste-opp-notat.md`
   summary: Opplastingsflyten i `static/js/opplasting.js` har ingen automatisk test. Det gjelder sjekken i nettleseren, valget mellom omdirigering og utbytting, fremdriften og S6c.
   evidence: Repoet har ikke noe testoppsett for JavaScript. Flyten ble prøvd manuelt i headless Edge i story 2.3. En Playwright-test eller lignende hører hjemme i en egen oppgave (for eksempel sammen med axe-testen i Epic 6).
+- source_spec: `_bmad-output/implementation-artifacts/spec-2-5-feil-timeout-og-prov-igjen.md`
+  summary: Feilhåndteringen på S8 i `static/js/fremdrift.js` har ingen automatisk test (melding ved `htmx:responseError`/`htmx:sendError` fra `#spor`, at `#spor` fjernes og at hendelser fra andre elementer ignoreres).
+  evidence: Repoet har ikke noe testoppsett for JavaScript. Flyten ble kontrollert manuelt i headless Edge i story 2.5 (500 på `/steg/` ga meldingen, og ingen nye spørringer gikk). Hører sammen med det tilsvarende punktet for `opplasting.js` fra 2.3.

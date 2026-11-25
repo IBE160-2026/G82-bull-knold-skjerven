@@ -1,14 +1,19 @@
 {% comment %}
   Svaret fra /jobber/<id>/steg/, og spørreelementet på S8. #fremdrift byttes
   (hx-swap-oob, bare innholdet) kun når statusen er endret, så skjermlesere ikke
-  leser opp de samme stegene på nytt. Så lenge jobben er i gang, spør #spor etter
-  neste steg med statusen den sist viste: med en gang etter et fullført steg,
-  ellers etter 1 s.
+  leser opp de samme stegene på nytt. Ved feil byttes også #handlinger, med
+  «Prøv igjen». Så lenge jobben er i gang, spør #spor etter neste steg med
+  statusen den sist viste: med en gang etter et fullført steg, ellers etter 1 s.
 {% endcomment %}
 {% if endret %}
 <div id="fremdrift" hx-swap-oob="innerHTML">
 {% include "studier/_steg.html" %}
 </div>
+{% if jobb.status == "feilet" %}
+<div id="handlinger" hx-swap-oob="innerHTML">
+{% include "studier/_handlinger.html" %}
+</div>
+{% endif %}
 {% endif %}
 {% if jobb.status != "feilet" and jobb.status != "ferdig" %}
 <div id="spor" hx-post="{% url 'studier:steg' jobb.pk %}" hx-trigger="load{% if vent %} delay:1s{% endif %}" hx-vals='{"vist": "{{ jobb.status }}"}' hx-target="this" hx-swap="outerHTML"></div>

@@ -1,11 +1,58 @@
-"""Vilkårene håndheves i én mellomvare (AD-23)."""
+"""Vilkårene håndheves i én mellomvare (AD-23). HTMX-forespørsler får `HX-Redirect`
+i stedet for en omdirigering til innloggingen eller vilkårene."""
 
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlsplit
 
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.shortcuts import redirect
+from django.http import HttpResponse
+from django.shortcuts import redirect, resolve_url
 from django.urls import reverse
+from django.utils.http import url_has_allowed_host_and_scheme
+
+_OMDIRIGERINGER = (301, 302, 303, 307, 308)
+
+
+class HtmxOmdirigeringMiddleware:
+    """
+    En HTMX-forespørsel (`HX-Request: true`) som ville fått en omdirigering til
+    innloggingen eller `/vilkar/`, får i stedet status 200 med tom kropp og
+    `HX-Redirect` til samme side. `next` er stien i `HX-Current-URL`, altså siden
+    brukeren står på, ikke endepunktet forespørselen gikk til. Mangler headeren
+    eller er den ugyldig, sendes ingen `next`. Da bytter nettleseren hele siden,
+    og innloggingssiden byttes ikke inn i en del av siden (for eksempel S8).
+
+    Ligger før `LoginRequiredMiddleware`, slik at den ser omdirigeringene fra
+    både den og `VilkarMiddleware`.
+    """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        svar = self.get_response(request)
+        if request.headers.get("HX-Request") != "true":
+            return svar
+        if svar.status_code not in _OMDIRIGERINGER or not svar.has_header("Location"):
+            return svar
+        side = urlsplit(svar["Location"]).path
+        if side not in self._sider():
+            return svar
+        naa = request.headers.get("HX-Current-URL", "")
+        neste = urlsplit(naa).path
+        if (
+            neste.startswith("/")
+            and not neste.startswith("//")
+            and url_has_allowed_host_and_scheme(naa, {request.get_host()})
+        ):
+            side = f"{side}?{urlencode({REDIRECT_FIELD_NAME: neste})}"
+        nytt = HttpResponse(status=200)
+        nytt["HX-Redirect"] = side
+        return nytt
+
+    @staticmethod
+    def _sider():
+        return {resolve_url(settings.LOGIN_URL), reverse("kontoer:vilkar")}
 
 
 class VilkarMiddleware:

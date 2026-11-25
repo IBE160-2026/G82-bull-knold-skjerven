@@ -1,0 +1,18 @@
+{% comment %}
+  Innholdet i #handlinger på S8: hjelpeteksten og den låste «Lag quiz» mens
+  jobben går. Ved feil «Prøv igjen», som sender samme valg til S7 og virker uten
+  JavaScript, og lenken tilbake til notatet. htmx fokuserer [autofocus] etter
+  byttet.
+{% endcomment %}
+{% if jobb.status == "feilet" %}
+<form method="post" action="{% url 'studier:notat' jobb.notat_id %}" class="mb-4">
+  {% csrf_token %}
+  <input type="hidden" name="vanskelighetsgrad" value="{{ jobb.vanskelighetsgrad }}">
+  <input type="hidden" name="antall" value="{{ jobb.antall }}">
+  <button type="submit" autofocus class="min-h-11 rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface">Prøv igjen</button>
+</form>
+<p><a href="{% url 'studier:notat' jobb.notat_id %}" class="underline">Tilbake til notatet</a></p>
+{% else %}
+<p class="mb-4 text-sm text-ink-secondary">Dette kan ta opptil to minutter. Hold fanen åpen til quizen er klar.</p>
+<button type="button" aria-disabled="true" class="min-h-11 rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface aria-disabled:cursor-not-allowed aria-disabled:opacity-60">Lag quiz</button>
+{% endif %}

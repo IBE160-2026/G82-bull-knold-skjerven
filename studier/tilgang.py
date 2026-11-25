@@ -59,3 +59,22 @@ def hent_egen(modell, pk, bruker):
         return queryset.get(pk=pk)
     except modell.DoesNotExist, ValueError, TypeError, ValidationError:
         raise Http404("Fant ikke siden.") from None
+
+
+def hent_egen_eller_none(modell, pk, bruker):
+    """Som `hent_egen`, men gir `None` når objektet ikke finnes i det hele tatt.
+
+    Et objekt som finnes, men tilhører en annen, gir fortsatt `Http404`. Brukes
+    der en slettet rad skal gi et eget svar, for eksempel en jobb som er slettet
+    sammen med notatet.
+    """
+    try:
+        return hent_egen(modell, pk, bruker)
+    except Http404:
+        try:
+            finnes = modell.objects.filter(pk=pk).exists()
+        except ValueError, TypeError, ValidationError:
+            raise Http404("Fant ikke siden.") from None
+        if finnes:
+            raise
+        return None

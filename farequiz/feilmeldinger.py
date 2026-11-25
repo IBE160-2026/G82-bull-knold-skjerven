@@ -25,4 +25,29 @@ OPPLASTING_AVBRUTT = "Opplastingen ble avbrutt. Filen er ikke lagret. Last opp p
 
 # Lage quiz (FR-11–FR-14).
 ANTALL_UGYLDIG = "Velg et antall fra 5 til 30."
-GENERERING_FEILET = "Klarte ikke å lage quizen."
+# Feil under generering, én tekst per feilkode fra `ki` (FR-13, FR-15, AD-10).
+GENERERING_FEIL = {
+    "timeout": "Genereringen tok for lang tid. Filen er lagret, så du kan prøve igjen.",
+    "format": "Klarte ikke å lage en gyldig quiz. Prøv igjen, eller velg færre spørsmål.",
+    "api_feil": "KI-tjenesten svarte ikke. Prøv igjen.",
+    "for_lite_innhold": (
+        "Filen har for lite tekst til å lage en quiz. "
+        "Last opp et notat med mer innhold."
+    ),
+    "for_stor": (
+        "Filen er for stor til at KI-tjenesten kan lese den. "
+        "Del opp notatet og last opp delene hver for seg."
+    ),
+    "api_nokkel": (
+        "KI-tjenesten godtok ikke API-nøkkelen. "
+        "Sjekk nøkkelen i .env, eller slå på testmodus."
+    ),
+}
+FIL_ER_LAGRET = "Filen er lagret, så du trenger ikke laste den opp på nytt."
+NOTAT_FINNES_IKKE = "Notatet finnes ikke lenger, så quizen ble ikke laget."
+INGEN_SERVERKONTAKT = "Fikk ikke kontakt med serveren. Last inn siden på nytt."
+
+
+def generering_feilet(kode):
+    """Teksten for feilkoden. Tom eller ukjent kode gir teksten for `api_feil`."""
+    return GENERERING_FEIL.get(kode or "", GENERERING_FEIL["api_feil"])
