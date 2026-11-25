@@ -14,3 +14,9 @@
   summary: S1b sier «Ved å gå videre godtar du våre brukervilkår», men det finnes ingen egen vilkårsside, og `vilkar_godtatt` har ingen versjon, så dialogen kan ikke vises på nytt når vilkårene endres.
   evidence: Teksten kommer fra prototypen. Versjonering står ikke i PRD-en, men §9 i personvernerklæringen lover varsel ved vesentlige endringer.
 
+- source_spec: `_bmad-output/implementation-artifacts/spec-1-6-slette-emne.md`
+  summary: CSS kan ikke bygges på en maskin uten Tailwind-binæren: `scripts/bygg-css.sh` krever `tailwindcss` i PATH, og `npx @tailwindcss/cli@4.3.5` i repoet feiler med «Can't resolve 'tailwindcss'».
+  evidence: I story 1.6 måtte `tailwindcss@4.3.5` og `@tailwindcss/cli@4.3.5` installeres i en midlertidig mappe og kjøres mot en kopi av `input.css`. Skriptet bør få en reserve med npx (eller en `package.json` med låste versjoner), så neste story som endrer CSS, kan bygge med én kommando.
+- source_spec: `_bmad-output/implementation-artifacts/spec-1-6-slette-emne.md`
+  summary: En opplasting som kjører samtidig som emnet slettes, kan skrive fila til disk før `Notat`-raden feiler, slik at fila blir liggende uten rad.
+  evidence: Ikke verifisert, fordi opplasting først kommer i story 2.3. `last_opp` må sørge for at fila slettes hvis raden ikke kan lagres, eller lagre fila etter raden. Sjekkes når 2.3 skrives.

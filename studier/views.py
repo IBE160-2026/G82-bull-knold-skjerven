@@ -1,4 +1,4 @@
-"""Views for emner: Nytt emne (S16) og emnesiden (S4). Oversikt (S3) ligger i farequiz/views.py."""
+"""Views for emner: Nytt emne (S16), emnesiden (S4) og Slett emne (S13). Oversikt (S3) ligger i farequiz/views.py."""
 
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
@@ -7,8 +7,9 @@ from django.views.decorators.http import require_http_methods
 
 from farequiz import feilmeldinger
 from studier.forms import EmneForm
-from studier.models import Emne
+from studier.models import Emne, Quiz
 from studier.services.emner import gi_nytt_navn, opprett_emne
+from studier.services.emner import slett_emne as slett_emne_tjeneste
 from studier.tilgang import hent_egen
 
 
@@ -75,3 +76,28 @@ def endre_navn(request, pk):
         else:
             return redirect("studier:emne", pk=objekt.pk)
     return _vis_emne(request, objekt, form)
+
+
+@require_http_methods(["GET", "HEAD", "POST"])
+def slett_emne(request, pk):
+    objekt = hent_egen(Emne, pk, request.user)
+    if request.method == "POST":
+        slett_emne_tjeneste(objekt)
+        return redirect("startside")
+    emne_url = reverse("studier:emne", args=[objekt.pk])
+    return render(
+        request,
+        "studier/slett_emne.html",
+        {
+            "emne": objekt,
+            "antall_notater": objekt.notater.count(),
+            "antall_quizer": Quiz.objects.filter(notat__emne=objekt).count(),
+            "tilbake_url": emne_url,
+            "tilbake_tekst": f"Tilbake til {objekt.navn}",
+            "brodsmuler": [
+                *_oversikt_brodsmule(),
+                {"tekst": objekt.navn, "url": emne_url},
+                {"tekst": "Slett emne"},
+            ],
+        },
+    )

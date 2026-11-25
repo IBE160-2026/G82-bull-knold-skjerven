@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Slett emne – {{ emne.navn }}{% endblock %}
+
+{% block brodsmuler %}
+{% include "partials/brodsmuler.html" with brodsmuler=brodsmuler %}
+{% endblock %}
+
+{% block innhold %}
+<h1 class="mb-4 text-2xl font-semibold">Slette emnet «{{ emne.navn }}»?</h1>
+
+{% if antall_notater or antall_quizer %}
+<p class="mb-6">Dette sletter {{ antall_notater }} {% if antall_notater == 1 %}notat{% else %}notater{% endif %}, {{ antall_quizer }} {% if antall_quizer == 1 %}quiz{% else %}quizer{% endif %} og all historikk. Det kan ikke angres.</p>
+{% else %}
+<p class="mb-6">Dette sletter emnet. Det har ingen notater eller quizer ennå. Det kan ikke angres.</p>
+{% endif %}
+
+<div class="flex flex-wrap items-center gap-3">
+  <a href="{% url 'studier:emne' emne.pk %}" class="inline-flex min-h-11 items-center rounded-md border border-border-control bg-surface px-4 py-2 font-semibold text-ink no-underline">Avbryt</a>
+  <form method="post" action="{% url 'studier:slett_emne' emne.pk %}" class="m-0">
+    {% csrf_token %}
+    <button type="submit" class="min-h-11 rounded-md bg-error px-4 py-2 font-semibold text-surface hover:brightness-90">Slett emnet og alt innhold</button>
+  </form>
+</div>
+{% endblock %}
