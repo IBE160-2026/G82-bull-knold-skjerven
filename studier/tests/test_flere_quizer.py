@@ -157,7 +157,11 @@ class FlereQuizerTest(FlereQuizerTestCase):
         innhold = re.search(r"<main .*?</main>", html, re.DOTALL).group()
         self.assertEqual(
             re.findall(r'<form[^>]*action="([^"]*)"', innhold),
-            [f"/quizer/{quiz.pk}/start/", self.notat_url],
+            [
+                f"/notater/{self.notat.pk}/ov/",
+                f"/quizer/{quiz.pk}/start/",
+                self.notat_url,
+            ],
         )
         for metode in (self.client.get, self.client.post):
             with self.subTest(metode=metode.__name__):

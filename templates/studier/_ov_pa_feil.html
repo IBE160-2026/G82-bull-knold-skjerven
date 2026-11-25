@@ -1,0 +1,18 @@
+{% comment %}
+  «Øv på feil (N)» / «Fortsett» for notatet (FR-22). POST til ov_pa_feil. Påbegynt øving gir
+  «Fortsett» også når feilbanken er tom. Tom feilbank uten påbegynt øving gir aria-disabled
+  (ikke disabled, så knappen kan nås med tastatur), og serveren sender tilbake til S7.
+  Parametere: ov, notat, id_prefiks.
+{% endcomment %}
+<form method="post" action="{% url 'studier:ov_pa_feil' notat.pk %}" class="w-full md:w-auto">
+  {% csrf_token %}
+  {% if ov.pabegynt %}
+  <p id="{{ id_prefiks }}-fremdrift" class="mb-2 font-semibold">Påbegynt – {{ ov.fremdrift }}</p>
+  <button type="submit" aria-describedby="{{ id_prefiks }}-overskrift {{ id_prefiks }}-fremdrift" class="min-h-11 w-full rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface hover:bg-accent-hover md:w-auto">Fortsett</button>
+  {% elif ov.last %}
+  <p id="{{ id_prefiks }}-tom" class="mb-2 text-sm text-ink-secondary">Ingen spørsmål i feilbanken</p>
+  <button type="submit" aria-disabled="true" aria-describedby="{{ id_prefiks }}-overskrift {{ id_prefiks }}-tom" class="min-h-11 w-full rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface aria-disabled:cursor-not-allowed aria-disabled:opacity-60 md:w-auto">Øv på feil ({{ ov.n }})</button>
+  {% else %}
+  <button type="submit" aria-describedby="{{ id_prefiks }}-overskrift" class="min-h-11 w-full rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface hover:bg-accent-hover md:w-auto">Øv på feil ({{ ov.n }})</button>
+  {% endif %}
+</form>

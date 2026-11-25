@@ -1,8 +1,9 @@
-"""Økter: forsøk på en quiz (AD-6, AD-16, AD-17). Eneste sted som lager `Okt` og skriver `Svar`.
+"""Økter: forsøk på en quiz og øvingsøkter for et notat (AD-6, AD-16, AD-17). Eneste sted som lager `Okt` og skriver `Svar`.
 
 `Okt.innhold` er `[{"sporsmal": id, "alternativer": [id, id, id]}, …]` i
 visningsrekkefølge. Listen lages når økten opprettes og endres aldri etterpå.
-`nr` (1-basert) brukes bare til navigering.
+Hos en øvingsøkt kommer `innhold` fra de åpne feilbankradene, sortert på
+`Feilbankrad.opprettet`. `nr` (1-basert) brukes bare til navigering.
 """
 
 import logging
@@ -12,7 +13,7 @@ from django.db import IntegrityError, transaction
 from django.utils import timezone
 
 from studier.models import Okt, Oktstatus, Okttype, Svar
-from studier.services.feilbank import registrer_svar
+from studier.services.feilbank import apne_rader, registrer_svar
 
 logger = logging.getLogger(__name__)
 
@@ -49,30 +50,65 @@ def _lag_innhold(quiz):
     return innhold
 
 
-def start_eller_fortsett_okt(quiz):
-    """Den påbegynte `forsok`-økten for quizen, eller en ny (AD-6, AD-16).
+def _pabegynt_oving(notat):
+    return Okt.objects.filter(
+        notat=notat, type=Okttype.OVING, status=Oktstatus.PABEGYNT
+    ).first()
 
+
+def _lag_oving_innhold(notat):
+    """Spørsmålene med åpen feilbankrad, eldste rad først, hvert med alternativene stokket."""
+    rader = (
+        apne_rader(notat)
+        .select_related("sporsmal")
+        .prefetch_related("sporsmal__alternativer")
+    )
+    innhold = []
+    for rad in rader:
+        alternativer = [alt.pk for alt in rad.sporsmal.alternativer.all()]
+        random.shuffle(alternativer)
+        innhold.append({"sporsmal": rad.sporsmal_id, "alternativer": alternativer})
+    return innhold
+
+
+def start_eller_fortsett_okt(quiz=None, *, notat=None):
+    """Den påbegynte økten, eller en ny (AD-6, AD-16). Nøyaktig én av `quiz` og `notat`.
+
+    Med `quiz`: `forsok`. Med `notat`: `oving` fra de åpne feilbankradene, eller
+    `None` (og ingenting lages) når feilbanken er tom og ingen øving er påbegynt.
     Kalles bare fra POST. To samtidige kall gir samme økt: den betingede unike
     begrensningen stopper den andre opprettelsen, og da hentes den første.
     """
+    if (quiz is None) == (notat is None):
+        raise ValueError("Gi nøyaktig én av quiz og notat.")
+    if quiz is not None:
+        hent = lambda: _pabegynt_forsok(quiz)
+        felt = {"notat_id": quiz.notat_id, "quiz": quiz, "type": Okttype.FORSOK}
+    else:
+        hent = lambda: _pabegynt_oving(notat)
+        felt = {"notat": notat, "quiz": None, "type": Okttype.OVING}
     try:
         with transaction.atomic():
-            okt = _pabegynt_forsok(quiz)
+            okt = hent()
             if okt is not None:
                 return okt
-            okt = Okt.objects.create(
-                notat_id=quiz.notat_id,
-                quiz=quiz,
-                type=Okttype.FORSOK,
-                status=Oktstatus.PABEGYNT,
-                innhold=_lag_innhold(quiz),
+            innhold = (
+                _lag_innhold(quiz) if quiz is not None else _lag_oving_innhold(notat)
             )
+            if not innhold and notat is not None:
+                return None
+            okt = Okt.objects.create(status=Oktstatus.PABEGYNT, innhold=innhold, **felt)
     except IntegrityError:
-        okt = _pabegynt_forsok(quiz)
+        okt = hent()
         if okt is None:
             raise
         return okt
-    logger.info("Økt %s startet for quiz %s.", okt.pk, quiz.pk)
+    logger.info(
+        "Økt %s startet for %s %s.",
+        okt.pk,
+        "quiz" if quiz is not None else "notat",
+        quiz.pk if quiz is not None else notat.pk,
+    )
     return okt
 
 

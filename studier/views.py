@@ -30,7 +30,7 @@ from studier.models import (
 )
 from studier.services.emner import gi_nytt_navn, opprett_emne
 from studier.services.emner import slett_emne as slett_emne_tjeneste
-from studier.services.feilbank import fasit_synlig
+from studier.services.feilbank import apne_rader, fasit_synlig
 from studier.services.generering import aktiv_jobb, kjor_steg, opprett_jobb
 from studier.services.notater import MAKS_STORRELSE
 from studier.services.notater import last_opp as last_opp_tjeneste
@@ -205,6 +205,38 @@ def last_opp(request, pk):
     )
 
 
+def _ov_knapp(notat, bruker):
+    """Tilstanden til «Øv på feil» for notatet: antall åpne rader og påbegynt øving."""
+    n = apne_rader(notat).count()
+    pabegynt = (
+        egne(Okt, bruker)
+        .filter(notat=notat, type=Okttype.OVING, status=Oktstatus.PABEGYNT)
+        .annotate(antall_svar=Count("svar"))
+        .first()
+    )
+    fremdrift = (
+        f"spørsmål {max(pabegynt.antall_svar, 1)} av {len(pabegynt.innhold)}"
+        if pabegynt is not None
+        else ""
+    )
+    return {
+        "n": n,
+        "pabegynt": pabegynt is not None,
+        "fremdrift": fremdrift,
+        "last": n == 0 and pabegynt is None,
+    }
+
+
+@require_POST
+def ov_pa_feil(request, pk):
+    """«Øv på feil» på S7 og S11: fortsetter notatets øving eller starter en ny (FR-22)."""
+    objekt = hent_egen(Notat, pk, request.user)
+    okt = start_eller_fortsett_okt(notat=objekt)
+    if okt is None:
+        return redirect("studier:notat", pk=objekt.pk)
+    return redirect("studier:sporsmal", pk=okt.pk, nr=forste_ubesvarte(okt))
+
+
 @require_http_methods(["GET", "HEAD", "POST"])
 def notat(request, pk):
     """S7: quizkortene og skjemaet for ny quiz (FR-11). POST lager eller gjenbruker jobben (FR-14)."""
@@ -253,6 +285,7 @@ def notat(request, pk):
             "quizer": quizer,
             "testmodus_forhandslagret": feilmeldinger.TESTMODUS_FORHANDSLAGRET,
             "aktiv_jobb": aktiv_jobb(objekt),
+            "ov": _ov_knapp(objekt, request.user),
             **_emne_kontekst(objekt.emne, objekt.originalnavn),
         },
     )
@@ -407,6 +440,8 @@ def _vis_sporsmal(request, okt, nr, feil=False):
     notat = okt.notat
     antall = len(okt.innhold)
     posisjon = f"Spørsmål {nr} av {antall}"
+    er_oving = okt.type == Okttype.OVING
+    siste = f"Øv på feil – {posisjon}" if er_oving else posisjon
     return render(
         request,
         "studier/sporsmal.html",
@@ -415,6 +450,7 @@ def _vis_sporsmal(request, okt, nr, feil=False):
             "nr": nr,
             "antall": antall,
             "posisjon": posisjon,
+            "er_oving": er_oving,
             "notat": notat,
             "sporsmalstekst": sporsmal.tekst,
             "alternativer": alternativer,
@@ -422,7 +458,7 @@ def _vis_sporsmal(request, okt, nr, feil=False):
             "lang": _lang(sporsmal.quiz.sprak),
             "modellnavn": ki.visningsnavn(sporsmal.quiz.modell),
             "feilmelding": feilmeldinger.SVAR_IKKE_LAGRET if feil else "",
-            **_emne_kontekst(notat.emne, posisjon, notat=notat),
+            **_emne_kontekst(notat.emne, siste, notat=notat),
         },
         status=400 if feil else 200,
     )
@@ -494,6 +530,7 @@ def _vis_lever(request, okt, ubesvarte_nr=None, alert=False):
             "ubesvarte_tekst": feilmeldinger.ubesvarte_tekst(ubesvarte)
             if ubesvarte
             else "",
+            "er_oving": okt.type == Okttype.OVING,
             "lever_hjelp": feilmeldinger.LEVER_HJELP,
             "som_alert": alert,
             **_emne_kontekst(notat.emne, "Se over og lever", notat=notat),
@@ -555,9 +592,11 @@ def resultat(request, pk):
         request,
         "studier/resultat.html",
         {
-            "har_pabegynt": egne(Okt, request.user)
+            "har_pabegynt": okt.quiz_id is not None
+            and egne(Okt, request.user)
             .filter(quiz_id=okt.quiz_id, type=Okttype.FORSOK, status=Oktstatus.PABEGYNT)
             .exists(),
+            "ov": _ov_knapp(notat, request.user),
             "okt": okt,
             "notat": notat,
             "rader": rader,

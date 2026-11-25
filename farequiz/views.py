@@ -11,13 +11,13 @@ from studier.tilgang import egne
 
 
 def _fortsett_rader(bruker):
-    """Påbegynte forsøk, nyeste først, for «Fortsett der du slapp» (FR-18).
+    """Påbegynte forsøk og øvingsøkter, nyeste først, for «Fortsett der du slapp» (FR-18).
 
-    Svarene hentes med én ekstra spørring uansett antall rader. Øvingsøkter kommer i Epic 4.
+    Svarene hentes med én ekstra spørring uansett antall rader.
     """
     okter = (
         egne(Okt, bruker)
-        .filter(type=Okttype.FORSOK, status=Oktstatus.PABEGYNT)
+        .filter(status=Oktstatus.PABEGYNT)
         .select_related("quiz", "notat__emne")
         .prefetch_related(
             Prefetch("svar", queryset=Svar.objects.only("okt_id", "sporsmal_id"))
@@ -37,12 +37,19 @@ def _fortsett_rader(bruker):
             ),
             1,
         )
+        oving = okt.type == Okttype.OVING
+        tittel = (
+            f"Øv på feil, {len(okt.innhold)} spørsmål"
+            if oving
+            else f"{okt.quiz.get_vanskelighetsgrad_display()}, {len(okt.innhold)} spørsmål"
+        )
         rader.append(
             {
                 "okt": okt,
                 "tittel_id": f"fortsett-{okt.pk}",
                 "fremdrift_id": f"fortsett-fremdrift-{okt.pk}",
-                "tittel": f"{okt.quiz.get_vanskelighetsgrad_display()}, {len(okt.innhold)} spørsmål",
+                "tittel": tittel,
+                "lenketekst": "Fortsett øvingen" if oving else "Fortsett quizen",
                 "emne": okt.notat.emne.navn,
                 "notat": okt.notat.originalnavn,
                 "n": max(len(svart), 1),

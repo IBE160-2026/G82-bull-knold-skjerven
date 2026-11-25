@@ -20,6 +20,11 @@
 <p class="mb-4 rounded-md border border-accent bg-surface px-4 py-2">En quiz lages nå. <a href="{% url 'studier:jobb' aktiv_jobb.pk %}" class="font-semibold underline">Se fremdriften</a></p>
 {% endif %}
 
+<section aria-labelledby="ov-overskrift" class="mb-6 rounded-lg border border-border-subtle bg-surface p-4 shadow-md">
+  <h2 id="ov-overskrift" class="mb-3 text-lg font-semibold">Øv på feil</h2>
+  {% include "studier/_ov_pa_feil.html" with id_prefiks="ov" %}
+</section>
+
 {% if quizer %}
 <h2 class="mb-3 text-lg font-semibold">Quizer</h2>
 <ul class="mb-6 flex flex-col gap-3">

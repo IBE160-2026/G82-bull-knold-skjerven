@@ -15,7 +15,7 @@
     <li class="rounded-lg border border-accent bg-surface p-4 shadow-md">
       <p id="{{ rad.tittel_id }}" class="text-lg font-semibold">{{ rad.tittel }}</p>
       <p id="{{ rad.fremdrift_id }}" class="text-sm text-ink-secondary">{{ rad.emne }} · {{ rad.notat }} · spørsmål {{ rad.n }} av {{ rad.m }}</p>
-      <a href="{{ rad.url }}" aria-describedby="{{ rad.tittel_id }} {{ rad.fremdrift_id }}" class="mt-3 inline-flex min-h-11 items-center rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface no-underline hover:bg-accent-hover">Fortsett quizen</a>
+      <a href="{{ rad.url }}" aria-describedby="{{ rad.tittel_id }} {{ rad.fremdrift_id }}" class="mt-3 inline-flex min-h-11 items-center rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface no-underline hover:bg-accent-hover">{{ rad.lenketekst }}</a>
     </li>
     {% endfor %}
   </ul>

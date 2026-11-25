@@ -153,3 +153,10 @@
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .svaralternativ:hover { transform: none; }
 }
+
+/* Øv på feil (S12): terrakotta-aksent på seksjonen. Går foran DESIGN.md, som ellers bare bruker terrakotta til feil svar. */
+.ovemodus {
+  --color-accent-strong: #A34420;
+  --color-accent-hover: #7A3214;
+  --color-card-hover: #F3D9CC;
+}

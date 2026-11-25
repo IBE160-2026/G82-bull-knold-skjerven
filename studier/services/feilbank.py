@@ -57,3 +57,13 @@ def fasit_synlig(sporsmal):
     return Feilbankrad.objects.filter(
         sporsmal=sporsmal, laert_tidspunkt__isnull=False
     ).exists()
+
+
+def apne_rader(notat):
+    """Feilbankradene for notatets quizer som ikke er lært, eldste først. Bare lesing.
+
+    `notat` må alt være hentet med `hent_egen`, som sikrer eieren.
+    """
+    return Feilbankrad.objects.filter(
+        sporsmal__quiz__notat=notat, laert_tidspunkt__isnull=True
+    ).order_by("opprettet", "pk")
