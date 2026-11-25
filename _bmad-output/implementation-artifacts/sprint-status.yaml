@@ -69,8 +69,8 @@ development_status:
   4-3-melde-et-spørsmål-som-feil: backlog
   epic-4-retrospective: optional
 
-  epic-5: backlog
-  5-1-dekningsgrad-per-notat: backlog
+  epic-5: in-progress
+  5-1-dekningsgrad-per-notat: review
   5-2-dekningsgrad-per-emne: backlog
   5-3-historikk-per-notat: backlog
   epic-5-retrospective: optional

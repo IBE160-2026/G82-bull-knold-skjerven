@@ -1,6 +1,9 @@
 {% extends "base.html" %}
+{% load dekning %}
 {% comment %}
-  S7. Quizkortene, nyeste først, og skjemaet for ny quiz. Uten quiz står skjemaet
+  S7. Dekningsgraden øverst (FR-24, UX-DR23), avrundet med `hel_prosent` (AD-4).
+  Reiseruten er skjult for skjermleser, fordi prosenten står som tekst.
+  Quizkortene, nyeste først, og skjemaet for ny quiz. Uten quiz står skjemaet
   øverst, ellers under kortene. «Ta quiz» på hvert kort er et POST-skjema som
   starter eller fortsetter forsøket og åpner S9. Har quizen et levert forsøk, heter
   knappen «Ta på nytt» (FR-20). Et påbegynt forsøk gir «Påbegynt – spørsmål N av M» og
@@ -19,6 +22,22 @@
 {% if aktiv_jobb %}
 <p class="mb-4 rounded-md border border-accent bg-surface px-4 py-2">En quiz lages nå. <a href="{% url 'studier:jobb' aktiv_jobb.pk %}" class="font-semibold underline">Se fremdriften</a></p>
 {% endif %}
+
+<section aria-labelledby="dekning-overskrift" class="mb-6 rounded-lg border border-border-subtle bg-surface p-4 shadow-md">
+  <h2 id="dekning-overskrift" class="mb-3 text-lg font-semibold">Dekningsgrad</h2>
+  <p class="text-2xl font-semibold tabular-nums">{{ dekning.total|hel_prosent }} %</p>
+  {% include "partials/reiserute.html" with prosent=dekning.total|hel_prosent %}
+  <dl class="flex flex-wrap gap-4">
+    {% for nivaa in dekning.nivaer %}
+    <div>
+      <dt class="text-sm text-ink-secondary">{{ nivaa.navn }}</dt>
+      <dd class="font-semibold tabular-nums">{% if nivaa.andel is None %}Ingen quiz{% else %}{{ nivaa.andel|hel_prosent }} %{% endif %}</dd>
+    </div>
+    {% endfor %}
+  </dl>
+  <p class="mt-3">Vanskelige spørsmål teller mest (50 %).</p>
+  <p class="mt-2 text-sm text-ink-secondary">Dekningsgraden kan gå ned når du lager en ny quiz, fordi de nye spørsmålene ikke er besvart ennå. Uten quiz på vanskelig kommer du ikke over 50 %.</p>
+</section>
 
 <section aria-labelledby="ov-overskrift" class="mb-6 rounded-lg border border-border-subtle bg-surface p-4 shadow-md">
   <h2 id="ov-overskrift" class="mb-3 text-lg font-semibold">Øv på feil</h2>

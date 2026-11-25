@@ -28,7 +28,9 @@ from studier.models import (
     Quiz,
     Sporsmal,
     Svar,
+    Vanskelighetsgrad,
 )
+from studier.services import dekningsgrad
 from studier.services.emner import gi_nytt_navn, opprett_emne
 from studier.services.emner import slett_emne as slett_emne_tjeneste
 from studier.services.feilbank import RIKTIGE_FOR_LAERT, apne_rader, fasit_synlig
@@ -238,9 +240,21 @@ def ov_pa_feil(request, pk):
     return redirect("studier:sporsmal", pk=okt.pk, nr=forste_ubesvarte(okt))
 
 
+def _dekning(notat):
+    """Dekningsgraden til kortet på S7, med nivåene i rekkefølgen fra `Vanskelighetsgrad`."""
+    dekning = dekningsgrad.for_notat(notat)
+    return {
+        "total": dekning.total,
+        "nivaer": [
+            {"navn": nivaa.label, "andel": dekning.nivaer[nivaa]}
+            for nivaa in Vanskelighetsgrad
+        ],
+    }
+
+
 @require_http_methods(["GET", "HEAD", "POST"])
 def notat(request, pk):
-    """S7: quizkortene og skjemaet for ny quiz (FR-11). POST lager eller gjenbruker jobben (FR-14)."""
+    """S7: dekningsgraden (FR-24), quizkortene og skjemaet for ny quiz (FR-11). POST lager eller gjenbruker jobben (FR-14)."""
     objekt = hent_egen(Notat, pk, request.user)
     if request.method == "POST":
         form = NyQuizForm(request.POST)
@@ -287,6 +301,7 @@ def notat(request, pk):
             "testmodus_forhandslagret": feilmeldinger.TESTMODUS_FORHANDSLAGRET,
             "aktiv_jobb": aktiv_jobb(objekt),
             "ov": _ov_knapp(objekt, request.user),
+            "dekning": _dekning(objekt),
             **_emne_kontekst(objekt.emne, objekt.originalnavn),
         },
     )
