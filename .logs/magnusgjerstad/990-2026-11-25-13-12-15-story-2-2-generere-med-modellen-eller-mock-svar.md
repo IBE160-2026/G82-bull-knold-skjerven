@@ -37,3 +37,19 @@ Neste story i Epic 2: `ki` skal kunne lage et quizsvar med Claude, eller fra lag
 ### Åpne punkter
 - Noen med gruppas API-nøkkel må kjøre `uv run python manage.py lag_mocksvar` og committe `ki/mock/`. Det er 15 kall med Sonnet 5.5, anslagsvis noen få dollar. Til da gir generering i testmodus `api_feil`, og story 2.2 står i `review`.
 - Ved den første kjøringen må vi sjekke om noen kall ender med `max_tokens` (grensen er 16000), og notere varigheten mot 120 s.
+
+## 2026-11-25 kl. 14:15 — MagnusGjerstad
+
+### Oppgave
+Skrive i statusen for story 2.2 at Magnus konfigurerer API-nøkkelen når storyene er gjennomført.
+
+### Plan
+- Kommentar over `2-2` i `sprint-status.yaml`, som hele gruppa ser.
+- Samme ansvar i det åpne punktet i `issues.md`.
+
+### Resultat
+- `sprint-status.yaml` på `main` har fått kommentaren «2.2 venter på mock-filene: Magnus konfigurerer API-nøkkelen og kjører `manage.py lag_mocksvar` når de andre storyene er gjennomført, og committer ki/mock/.» Statusen er fortsatt `review`.
+- Punktet i `issues.md` er oppdatert med samme ansvar og tidspunkt.
+
+### Åpne punkter
+Ingen nye. Punktet om mock-filene står fortsatt åpent, nå med Magnus som ansvarlig.
