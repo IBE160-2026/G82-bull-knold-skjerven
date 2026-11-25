@@ -19,7 +19,7 @@ Starte Epic 2 med story 2.1. `ki` skal kunne lese en notatfil og sjekke et svar 
   - Implementert av en subagent. Deretter review i tre lag og rettelser.
 
 ### Resultat
-- Commit `01df4ad` på `story-2-1-lese-filen-og-sjekke-quizutkastet`, ikke pushet.
+- Commit `01df4ad` på `story-2-1-lese-filen-og-sjekke-quizutkastet`. Branchen ble pushet til origin etter ønske fra brukeren, sammen med `story-1-6-slette-emne`. Ingen PR ennå.
 - **Kode i `ki`:**
   - `ki/feil.py`: `KIFeil` med de seks kodene fra AD-10.
   - `ki/fil.py`: `les_fil` og `Innhold`.
