@@ -20,3 +20,9 @@
 - source_spec: `_bmad-output/implementation-artifacts/spec-1-6-slette-emne.md`
   summary: En opplasting som kjører samtidig som emnet slettes, kan skrive fila til disk før `Notat`-raden feiler, slik at fila blir liggende uten rad.
   evidence: Ikke verifisert, fordi opplasting først kommer i story 2.3. `last_opp` må sørge for at fila slettes hvis raden ikke kan lagres, eller lagre fila etter raden. Sjekkes når 2.3 skrives.
+- source_spec: `_bmad-output/implementation-artifacts/spec-2-2-generere-med-modellen-eller-mock-svar.md`
+  summary: Når svaret ender med `stop_reason == "max_tokens"`, er det avkuttet og blir `format`. Et nytt forsøk med samme `MAKS_TOKENS = 16000` feiler trolig på samme måte (ikke verifisert, middels).
+  evidence: Det er uvisst om 30 spørsmål med begrunnelse og tenking ved `effort: "medium"` får plass i 16000 tokens. Det avgjøres ved første ekte kjøring av `lag_mocksvar`. Ender noen kall med `max_tokens`, øk `MAKS_TOKENS` (under SDK-grensen for kall uten streaming) eller bytt til streaming.
+- source_spec: `_bmad-output/implementation-artifacts/spec-2-2-generere-med-modellen-eller-mock-svar.md`
+  summary: Når `ki/mock/` committes, må vakten i `EkteMockfilerTest` (`skipTest` når manifestet mangler) fjernes. Det må også komme en test som kaller `generer` mot den ekte, upatchede `MOCK_MAPPE` for hvert testdokument.
+  evidence: Utsatt med vilje etter beslutningen «Bygg nå, kjør senere» (25.11). Til da kan testmodus mangle mock-filer uten at CI feiler.
