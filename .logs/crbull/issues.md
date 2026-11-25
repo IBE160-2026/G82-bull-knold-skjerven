@@ -32,3 +32,7 @@
 - [x] 2026-11-25 [story-3-2-regelen-for-feilbanken](988-2026-11-25-16-48-28-story-3-2-regelen-for-feilbanken.md) — Story 3.3: kildesjekk for at registrer_svar bare kalles fra lever_okt (løst 2026-11-25 i [story-3-3](987-2026-11-25-17-06-00-story-3-3-levere-og-se-resultatet.md))
 - [x] 2026-11-25 [story-3-3-levere-og-se-resultatet](987-2026-11-25-17-06-00-story-3-3-levere-og-se-resultatet.md) — Avgjør før 3.4: skal «N spørsmål er lagt i feilbanken» også telle lærte spørsmål som kommer tilbake (nullstilt)? (løst 2026-11-25: Christian valgte å la det være. Teksten teller bare spørsmål som legges i feilbanken for første gang)
 - [ ] 2026-11-25 [story-3-3-levere-og-se-resultatet](987-2026-11-25-17-06-00-story-3-3-levere-og-se-resultatet.md) — Sjekk S10 og S11 i nettleser (tastatur, 360 px)
+- [ ] 2026-11-25 [story-3-4-ta-en-quiz-pa-nytt](986-2026-11-25-17-24-07-story-3-4-ta-en-quiz-pa-nytt.md) — Story 4.2: skjul «Ta på nytt» på S11 for øvingsøkter (quiz er None)
+- [ ] 2026-11-25 [story-3-4-ta-en-quiz-pa-nytt](986-2026-11-25-17-24-07-story-3-4-ta-en-quiz-pa-nytt.md) — Story 3.5: «Ta på nytt» på S11 skal følge «Fortsett»-regelen når et forsøk er påbegynt
+- [ ] 2026-11-25 [story-3-4-ta-en-quiz-pa-nytt](986-2026-11-25-17-24-07-story-3-4-ta-en-quiz-pa-nytt.md) — Sekundærknappene (Forrige, Ta på nytt) er grå, ikke grønne som i DESIGN.md
+- [ ] 2026-11-25 [story-3-4-ta-en-quiz-pa-nytt](986-2026-11-25-17-24-07-story-3-4-ta-en-quiz-pa-nytt.md) — Sjekk «Ta på nytt» på S7 og S11 i nettleser (tastatur, 360 px)
