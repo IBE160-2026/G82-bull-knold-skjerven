@@ -67,6 +67,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -89,6 +90,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "farequiz.context_processors.testmodus",
             ],
         },
     },
@@ -147,6 +149,10 @@ USE_TZ = True
 # Statiske filer og opplastede filer. MEDIA_ROOT har ingen URL-rute (AD-8).
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+# Serverer også fra STATICFILES_DIRS når DEBUG=False, uten collectstatic.
+WHITENOISE_USE_FINDERS = True
 
 MEDIA_ROOT = BASE_DIR / "media"
 

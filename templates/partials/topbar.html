@@ -1,0 +1,26 @@
+{% load static %}
+<header class="topbar sticky top-0 z-10 flex min-h-14 items-center justify-between gap-2 border-b border-surface-inverse bg-surface-inverse px-4 md:px-6">
+  <a href="{% url 'startside' %}" class="flex items-center gap-2 text-lg font-extrabold tracking-tight text-ink-inverse no-underline">
+    <img src="{% static 'img/favicon.svg' %}" alt="" class="h-8 w-8 shrink-0">
+    FåreQuiz
+  </a>
+  {% if user.is_authenticated %}
+  <div class="flex items-center gap-2">
+    {% if tilbake_url %}
+    <a href="{{ tilbake_url }}" class="inline-flex min-h-11 items-center rounded-md border border-accent px-3 py-1.5 text-sm font-semibold text-ink-inverse no-underline hover:bg-white/10" aria-label="{{ tilbake_tekst|default:'Tilbake' }}">‹ Tilbake</a>
+    {% endif %}
+    <details class="meny relative">
+      <summary class="inline-flex min-h-11 cursor-pointer list-none items-center rounded-md border border-accent px-3 py-1.5 text-sm font-semibold text-ink-inverse hover:bg-white/10">Meny</summary>
+      <nav aria-label="Hovedmeny" class="absolute right-0 top-full z-10 mt-2 flex min-w-52 flex-col rounded-lg bg-surface p-2 shadow-lg">
+        <a href="{% url 'startside' %}" class="rounded-md px-3 py-2.5 font-semibold text-ink no-underline hover:bg-surface-muted">Oversikt</a>
+        <a href="{% url 'startside' %}" class="rounded-md px-3 py-2.5 font-semibold text-ink no-underline hover:bg-surface-muted">Nytt emne</a>
+        <a href="{% url 'kontoer:personvern' %}" class="rounded-md px-3 py-2.5 font-semibold text-ink no-underline hover:bg-surface-muted">Personvernerklæring</a>
+      </nav>
+    </details>
+    <form method="post" action="{% url 'kontoer:logg_ut' %}" class="m-0">
+      {% csrf_token %}
+      <button type="submit" class="min-h-11 rounded-md px-2 py-1.5 text-sm font-semibold text-ink-inverse-secondary underline hover:text-ink-inverse">Logg ut</button>
+    </form>
+  </div>
+  {% endif %}
+</header>

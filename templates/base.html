@@ -1,25 +1,35 @@
+{% load static %}
 <!doctype html>
 <html lang="nb">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{% endblock %} – FåreQuiz</title>
+<link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+<link rel="stylesheet" href="{% static 'css/app.css' %}">
 </head>
-<body>
-{% comment %}
-  Enkel grunnmal fra story 1.2. Story 1.3 fyller den med toppfelt, tokens og
-  fotlinje. Sidene arver blokkene title og innhold og endres ikke for det.
-{% endcomment %}
-{% if user.is_authenticated %}
-<header>
-  <form method="post" action="{% url 'kontoer:logg_ut' %}">
-    {% csrf_token %}
-    <button type="submit">Logg ut</button>
-  </form>
-</header>
+<body class="kart-bakgrunn min-h-screen bg-page-bg text-ink font-sans leading-normal break-words">
+<a href="#innhold" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-10 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2 focus:border-2 focus:border-accent-strong">Hopp til innhold</a>
+
+{% include "partials/topbar.html" %}
+
+{% if testmodus %}
+<div class="bg-surface-sunken text-ink border-b-2 border-accent px-4 py-2 text-sm" role="note">
+  Testmodus: quizene bruker mock-svar, ingen KI kalles.
+</div>
 {% endif %}
-<main id="innhold">
+
+<div class="mx-auto w-full max-w-3xl px-4 md:px-6">
+{% block brodsmuler %}{% endblock %}
+</div>
+
+<main id="innhold" class="mx-auto w-full max-w-3xl px-4 md:px-6 py-6 pb-12">
 {% block innhold %}{% endblock %}
 </main>
+{% block skript %}<script src="{% static 'js/meny.js' %}" defer></script>{% endblock %}
+
+<footer class="mx-auto w-full max-w-3xl px-4 md:px-6 py-4 border-t border-border-subtle text-sm text-ink-secondary break-words">
+  © 2026 Christian Rogne Bull, Magnus Gjerstad og Martin Gomnæs Skjerven. Koden, designet og teksten i tjenesten er opphavsrettslig beskyttet. Du kan bruke tjenesten, men ikke ta ut, kopiere eller videreformidle innholdet uten skriftlig avtale. <a href="{% url 'kontoer:personvern' %}" class="underline">Personvernerklæring</a>
+</footer>
 </body>
 </html>
