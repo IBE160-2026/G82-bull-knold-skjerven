@@ -211,7 +211,7 @@ class S11Test(LeveringTestCase):
         self.assertLess(html.index("1. "), html.index("5. "))
         self.assertIn("Tilbake til notatet", html)
         self.assertNotIn("Øv på feil", html)
-        self.assertNotIn("Ta på nytt", html)
+        # «Ta på nytt» kom i 3.4 og testes i test_ta_pa_nytt.py.
         nav = re.search(
             r'<nav aria-label="Brødsmuler".*?</nav>', html, re.DOTALL
         ).group()

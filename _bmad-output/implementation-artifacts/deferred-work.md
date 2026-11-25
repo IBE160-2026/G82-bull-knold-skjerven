@@ -44,3 +44,12 @@
 - source_spec: `_bmad-output/implementation-artifacts/spec-3-3-levere-og-se-resultatet.md`
   summary: Produktspørsmål for 3.4: «N spørsmål er lagt i feilbanken» på S11 teller bare `lagt_i`, så et lært spørsmål som besvares feil (`nullstilt`) og kommer tilbake i feilbanken, telles ikke.
   evidence: Review av 3.3 (B1). Spec 3.3 definerer N som antall `lagt_i`. `Svar.hendelse` skiller ikke `nullstilt` fra lært og fra i feilbanken, så en endring krever en beslutning (ny hendelse, egen tekst eller å godta det). Kan først skje når en quiz tas på nytt (story 3.4).
+- source_spec: `_bmad-output/implementation-artifacts/spec-3-4-ta-en-quiz-pa-nytt.md`
+  summary: Epic 4 (4.2) må skjule «Ta på nytt» på S11 for øvingsøkter. Skjemaet bruker `{% url 'studier:start_quiz' okt.quiz_id %}`, og `quiz` er alltid `None` for `type=oving`.
+  evidence: Review av 3.4 (B1). Kan ikke nås ennå, for ingen tjeneste lager `oving`-økter. Når 4.2 gjenbruker S11, gir første leverte øvingsøkt `NoReverseMatch` (500). Forslag: `{% if okt.quiz_id %}` rundt skjemaet, og en test.
+- source_spec: `_bmad-output/implementation-artifacts/spec-3-4-ta-en-quiz-pa-nytt.md`
+  summary: Story 3.5 må også se på «Ta på nytt» på S11. Når quizen har et påbegynt forsøk, fortsetter knappen det i stedet for å lage et nytt, akkurat som på S7.
+  evidence: Review av 3.4 (B4). AC 3 i 3.4 krever at et påbegynt forsøk fortsettes, så oppførselen er riktig. Det er bare teksten som kan villede, for eksempel fra et eldre resultat. 3.5 bytter S7-knappen til «Fortsett», og S11 bør følge samme regel.
+- source_spec: `_bmad-output/implementation-artifacts/spec-3-4-ta-en-quiz-pa-nytt.md`
+  summary: Sekundærknappene («Forrige» på S9 og «Ta på nytt» på S11) har grå kant og tekst. DESIGN.md (`button-secondary`) sier grønn kant og tekst på gjennomsiktig bakgrunn.
+  evidence: Review av 3.4 (B7). «Forrige» har avveket siden 3.1. Rettingen krever nye klasser (`border-accent-strong`), og da må `app.css` bygges på nytt med Tailwind. Begge knappene bør rettes samtidig.

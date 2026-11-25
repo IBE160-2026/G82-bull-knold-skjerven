@@ -4,7 +4,7 @@ lever (S10) og Resultat (S11). Oversikt (S3) ligger i farequiz/views.py."""
 
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
-from django.db.models import Count
+from django.db.models import Count, Exists, OuterRef
 from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -220,10 +220,14 @@ def notat(request, pk):
             return redirect("studier:jobb", pk=jobb.pk)
     else:
         form = NyQuizForm()
+    # `har_levert` gir «Ta på nytt» i stedet for «Ta quiz» på kortet (FR-20).
+    levert_forsok = Okt.objects.filter(
+        quiz=OuterRef("pk"), type=Okttype.FORSOK, status=Oktstatus.LEVERT
+    )
     quizer = list(
-        objekt.quizer.annotate(antall_sporsmal=Count("sporsmal")).order_by(
-            "-opprettet", "-pk"
-        )
+        objekt.quizer.annotate(
+            antall_sporsmal=Count("sporsmal"), har_levert=Exists(levert_forsok)
+        ).order_by("-opprettet", "-pk")
     )
     # Modellen som laget quizen, aldri gjeldende innstilling (AD-11).
     for quiz in quizer:
@@ -352,7 +356,7 @@ def steg(request, pk):
 
 @require_POST
 def start_quiz(request, pk):
-    """«Ta quiz» på S7: fortsetter det påbegynte forsøket eller starter et nytt (AD-6)."""
+    """«Ta quiz» og «Ta på nytt» på S7 og S11: fortsetter det påbegynte forsøket eller starter et nytt (AD-6, FR-20)."""
     quiz = hent_egen(Quiz, pk, request.user)
     okt = start_eller_fortsett_okt(quiz)
     return redirect("studier:sporsmal", pk=okt.pk, nr=forste_ubesvarte(okt))

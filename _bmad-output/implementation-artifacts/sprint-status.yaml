@@ -29,7 +29,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 # - Retrospective appends its action items to action_items; the status view surfaces open ones
 generated: 11-20-2026 12:26
-last_updated: 11-25-2026 17:05
+last_updated: 11-25-2026 18:00
 project: G82-bull-knold-skjerven
 project_key: NOKEY
 tracking_system: file-system
@@ -59,7 +59,7 @@ development_status:
   3-1-starte-og-svare-på-en-quiz: review
   3-2-regelen-for-feilbanken: review
   3-3-levere-og-se-resultatet: review
-  3-4-ta-en-quiz-på-nytt: backlog
+  3-4-ta-en-quiz-på-nytt: review
   3-5-fortsette-der-jeg-slapp: backlog
   epic-3-retrospective: optional
 

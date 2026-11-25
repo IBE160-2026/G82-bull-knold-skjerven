@@ -2,6 +2,8 @@
 {% comment %}
   S11. Poengsum og riktig/feil per spørsmål. Fasit og begrunnelse står bare i rader der
   viewet har satt `fasit` (spørsmålet er lært, AD-20). Hendelsene leses fra Svar.hendelse.
+  «Ta på nytt» er et POST-skjema til start_quiz, som fortsetter et påbegynt forsøk
+  eller lager et nytt (FR-20, AD-6).
 {% endcomment %}
 
 {% block title %}Resultat – {{ notat.originalnavn }}{% endblock %}
@@ -36,5 +38,11 @@
   {% endfor %}
 </ol>
 
-<p class="mt-8"><a href="{% url 'studier:notat' notat.pk %}" class="inline-flex min-h-11 items-center font-semibold underline">Tilbake til notatet</a></p>
+<div class="mt-8 flex flex-wrap items-center gap-3">
+  <form method="post" action="{% url 'studier:start_quiz' okt.quiz_id %}" class="w-full md:w-auto">
+    {% csrf_token %}
+    <button type="submit" class="min-h-11 w-full rounded-md border border-border-control bg-surface px-4 py-2 font-semibold text-ink hover:bg-surface-muted md:w-auto">Ta på nytt</button>
+  </form>
+  <a href="{% url 'studier:notat' notat.pk %}" class="inline-flex min-h-11 items-center font-semibold underline">Tilbake til notatet</a>
+</div>
 {% endblock %}
