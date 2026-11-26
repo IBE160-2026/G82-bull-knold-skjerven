@@ -7,6 +7,7 @@ Slik fører du funn: se [README.md](README.md). ID-er: `CHR-01`, `CHR-02` …
 | Dato | Hva ble testet | Enhet, OS og nettleser | Modus (testmodus / ekte modell) |
 |---|---|---|---|
 | 26.11.2026 | Kjerneflyten med testbrukeren | PC, Windows 10, nettleser: | testmodus |
+| 26.11.2026 | Quiz og «Øv på feil» med ekte modell | PC, Windows 10, nettleser: | ekte modell (claude-sonnet-5-5) |
 
 ## Oversikt
 
@@ -17,6 +18,7 @@ Slik fører du funn: se [README.md](README.md). ID-er: `CHR-01`, `CHR-02` …
 | CHR-03 | forbedring | S12 | Etter «Øv på feil» bør man få tre valg: tilbake til emnet, øv på feil igjen og avslutt | mindre | åpen |
 | CHR-04 | forbedring | S4 | Emnesiden mangler en underoverskrift over notatene/quizene som er lastet opp | mindre | åpen |
 | CHR-05 | forbedring | S4 | «Gi nytt navn» tar for mye plass og er for synlig | kosmetisk | åpen |
+| CHR-06 | observasjon | S7, S12 | «Øv på feil» samler feilene fra alle quizene på notatet; skal det heller være per quiz? | mindre | åpen (må avgjøres i gruppa) |
 
 ## Funn
 
@@ -117,3 +119,21 @@ Slik fører du funn: se [README.md](README.md). ID-er: `CHR-01`, `CHR-02` …
 - **Forslag:** Gjør den mindre, for eksempel som en vanlig tekstlenke eller en liten knapp ved siden av emnenavnet eller sammen med «Slett emne». Behold `<details>` og målet på minst 44 px, så den fortsatt virker uten JavaScript og er lett å treffe.
 - **Skjermbilde eller lenke:**
 - **Status:** åpen
+
+### CHR-06: Skal «Øv på feil» samle alle feilene eller være per quiz?
+
+- **Type:** observasjon (spørsmål til gruppa)
+- **Skjermbilde:** S7, S12
+- **Alvorlighet:** mindre
+- **Dato og enhet:** 26.11.2026, PC med Windows 10, ekte modell
+- **Steg for å gjenskape:**
+  1. Ta to eller flere quizer på samme notat, for eksempel lett og vanskelig, og svar feil på noen spørsmål i hver.
+  2. Trykk «Øv på feil» på notatet (S7) eller på resultatsiden.
+- **Forventet:** Uavklart. Det er dette spørsmålet gjelder.
+- **Faktisk:** «Øv på feil» er en samlet øving med alle feilene fra alle quizene man har tatt på notatet. Man kan ikke øve bare på feilene fra én bestemt quiz. Slik er det spesifisert: PRD-en sier at hvert notat har én feilbank (§4.6, FR-21 og FR-22), og at svar i «Øv på feil» og i nye forsøk på quizen teller begge (FR-23).
+- **Forslag:** Gruppa avgjør om vi vil ha det slik:
+  - **Beholde én feilbank per notat** (som nå): enkelt, og man øver på alt man ikke kan i notatet. Med mange quizer kan økten bli lang og blande nivåer.
+  - **Feil per quiz:** knappen «Øv på feil» på hvert quizkort, med bare den quizens feil. Det krever endringer i PRD (FR-21 til FR-23), arkitekturen og datamodellen, og det kommer sent før levering.
+  - **Mellomløsning:** behold én feilbank, men vis hvilken quiz eller hvilket nivå hvert spørsmål kom fra, eller la brukeren filtrere på nivå når økten startes.
+- **Skjermbilde eller lenke:** [prd.md §4.6](../../planning-artifacts/prds/prd-G82-bull-knold-skjerven-2026-11-11/prd.md)
+- **Status:** åpen (må avgjøres i gruppa)
