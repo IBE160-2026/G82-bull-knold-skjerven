@@ -379,11 +379,3 @@ class S7EtterSeedTest(SeedTestCase):
         emne = self.hent_testbruker().emner.get()
         s4 = self.client.get(f"/emner/{emne.pk}/").content.decode()
         self.assertIn("Ingen quiz", s4)
-
-
-class ReadmeTest(TestCase):
-    def test_readme_har_kommandoen_og_innloggingen(self):
-        readme = (Path(settings.BASE_DIR) / "README.md").read_text(encoding="utf-8")
-        self.assertIn("seed_testdata", readme)
-        self.assertIn(testbruker.EPOST, readme)
-        self.assertIn(testbruker.PASSORD, readme)

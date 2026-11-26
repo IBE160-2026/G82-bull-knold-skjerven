@@ -79,7 +79,9 @@ development_status:
   # 6.1 venter også på mock-filene fra 2.2: kjør `manage.py seed_testdata` på ekte
   # når ki/mock/ er committet, før 6.1 settes til done.
   6-1-testbruker-med-eksempeldata: review
-  6-2-readme-og-test-med-ny-klone: backlog
+  # 6.2 venter på den manuelle testen med ny klone (Windows og macOS/Linux, av en som ikke
+  # skrev README-en) og på ki/mock/, så CI-seed kjører på ekte.
+  6-2-readme-og-test-med-ny-klone: review
   6-3-sluttkontroll-av-tilgang-og-universell-utforming: backlog
   6-4-ki-kvalitet-og-genereringstid: backlog
   6-5-brukertest-med-medstudenter: backlog

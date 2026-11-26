@@ -15,6 +15,11 @@ jobs:
       - uses: astral-sh/setup-uv@v10.3.3
       - name: Installer avhengigheter
         run: uv sync --locked
+      - name: requirements.txt er i takt
+        # pip-veien i README-en. `uv sync --locked` over sjekker at uv.lock er i takt med pyproject.toml.
+        run: |
+          uv export --no-hashes --frozen --no-dev -o requirements.txt
+          git diff --exit-code requirements.txt
       - name: Migreringer er oppdatert
         run: uv run python manage.py makemigrations --check --dry-run
       - name: Ruff check
@@ -23,3 +28,12 @@ jobs:
         run: uv run ruff format --check .
       - name: Tester
         run: uv run python manage.py test
+      - name: Seed på tom database
+        # Seed trenger mock-svarene i ki/mock/. Til de er committet, hoppes steget over med en advarsel.
+        run: |
+          if [ -f ki/mock/manifest.json ]; then
+            uv run python manage.py migrate --noinput
+            uv run python manage.py seed_testdata
+          else
+            echo "::warning::Seed på tom database er hoppet over fordi mock-svarene mangler (ki/mock/manifest.json). Kjør lag_mocksvar og commit ki/mock/."
+          fi

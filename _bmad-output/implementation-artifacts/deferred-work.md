@@ -53,3 +53,6 @@
 - source_spec: `_bmad-output/implementation-artifacts/spec-3-4-ta-en-quiz-pa-nytt.md`
   summary: Sekundærknappene («Forrige» på S9 og «Ta på nytt» på S11) har grå kant og tekst. DESIGN.md (`button-secondary`) sier grønn kant og tekst på gjennomsiktig bakgrunn.
   evidence: Review av 3.4 (B7). «Forrige» har avveket siden 3.1. Rettingen krever nye klasser (`border-accent-strong`), og da må `app.css` bygges på nytt med Tailwind. Begge knappene bør rettes samtidig.
+- source_spec: `_bmad-output/implementation-artifacts/spec-6-2-readme-og-test-med-ny-klone.md`
+  summary: CI-steget «requirements.txt er i takt» kan feile falskt hvis uv-versjonen i CI (siste fra `setup-uv`) formaterer `uv export` annerledes enn den lokale (0.12.21).
+  evidence: Review av 6.2 (E2), ikke påvist (maybe-false, medium hvis sant). Avgjøres ved første CI-kjøring av PR-en. Feiler steget uten at avhengighetene er endret, kan versjonen låses med `with: version: "0.12.21"` i `astral-sh/setup-uv`.
