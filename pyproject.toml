@@ -23,5 +23,7 @@ ignore = ["RUF012"]
 
 [dependency-groups]
 dev = [
+    "axe-playwright-python==0.1.9",
+    "playwright==1.65.2",
     "ruff==0.17.6",
 ]

@@ -27,13 +27,14 @@ jobs:
       - name: Ruff format
         run: uv run ruff format --check .
       - name: Tester
+        # Nettlesertesten (taggen nettleser) er utelatt her og kjøres i eget steg under.
         run: uv run python manage.py test
+      - name: Chromium for nettlesertesten
+        run: uv run playwright install --with-deps chromium
+      - name: Nettlesertest med axe (SM-7)
+        # axe-core mot skjermbildene. Brudd på WCAG 2.2 A/AA stopper merge.
+        run: uv run python manage.py test --tag nettleser
       - name: Seed på tom database
-        # Seed trenger mock-svarene i ki/mock/. Til de er committet, hoppes steget over med en advarsel.
         run: |
-          if [ -f ki/mock/manifest.json ]; then
-            uv run python manage.py migrate --noinput
-            uv run python manage.py seed_testdata
-          else
-            echo "::warning::Seed på tom database er hoppet over fordi mock-svarene mangler (ki/mock/manifest.json). Kjør lag_mocksvar og commit ki/mock/."
-          fi
+          uv run python manage.py migrate --noinput
+          uv run python manage.py seed_testdata

@@ -82,7 +82,9 @@ development_status:
   # 6.2 venter på den manuelle testen med ny klone (Windows og macOS/Linux, av en som ikke
   # skrev README-en).
   6-2-readme-og-test-med-ny-klone: review
-  6-3-sluttkontroll-av-tilgang-og-universell-utforming: backlog
+  # 6.3 venter på den manuelle kontrollen med tastatur og skjermleser (sjekklisten i
+  # sluttkontroll-6-3.md) og gruppas valg om feiltekstens kontrast mot kartlinjene.
+  6-3-sluttkontroll-av-tilgang-og-universell-utforming: review
   6-4-ki-kvalitet-og-genereringstid: backlog
   6-5-brukertest-med-medstudenter: backlog
   epic-6-retrospective: optional

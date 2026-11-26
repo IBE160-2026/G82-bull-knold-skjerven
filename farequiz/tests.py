@@ -7,6 +7,7 @@ from django.test import SimpleTestCase, TestCase, override_settings
 
 import farequiz.settings as innstillinger
 import ki
+from farequiz.testrunner import TestmodusRunner
 
 ENV_NAVN = (
     "SECRET_KEY",
@@ -74,3 +75,13 @@ class StandardverdierTest(SimpleTestCase):
 class UrlTest(TestCase):
     def test_admin_finnes_ikke(self):
         self.assertEqual(self.client.get("/admin/").status_code, 404)
+
+
+class TestmodusRunnerTaggTest(SimpleTestCase):
+    """Nettlesertestene kjøres bare med `--tag nettleser`."""
+
+    def test_nettleser_er_utelatt_som_standard(self):
+        self.assertIn("nettleser", TestmodusRunner().exclude_tags)
+
+    def test_nettleser_er_med_med_tag(self):
+        self.assertNotIn("nettleser", TestmodusRunner(tags=["nettleser"]).exclude_tags)

@@ -108,6 +108,8 @@ Når du endrer avhengigheter, oppdaterer du `requirements.txt` slik. CI feiler h
 
     uv export --no-hashes --frozen --no-dev -o requirements.txt
 
+Nettlesertesten med axe (universell utforming) kjøres med `uv run playwright install chromium` én gang (på Linux `uv run playwright install --with-deps chromium`) og så `uv run python manage.py test --tag nettleser`. Vanlig `manage.py test` hopper over den.
+
 ## Medlemmer
 
 - Christian R Bull
