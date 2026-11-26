@@ -375,7 +375,7 @@ class PromptVersjonTest(SimpleTestCase):
 
 
 class EkteMockfilerTest(SimpleTestCase):
-    """Sjekker mock-filene i `ki/mock/`. Ingen feil så lenge mappen er tom."""
+    """Sjekker de committede mock-filene i `ki/mock/`."""
 
     def test_alle_mockfiler_er_gyldige_med_30_sporsmal(self):
         for fil in sorted(EKTE_MOCK.glob("*/*.json")):
@@ -386,10 +386,7 @@ class EkteMockfilerTest(SimpleTestCase):
                 self.assertEqual(utkast.prompt_versjon, ki.PROMPT_VERSJON)
 
     def test_manifestet_dekker_testdokumentene(self):
-        manifest_fil = EKTE_MOCK / "manifest.json"
-        if not manifest_fil.exists():
-            self.skipTest("ki/mock/ er ikke laget ennå")
-        manifest = json.loads(manifest_fil.read_text(encoding="utf-8"))
+        manifest = json.loads((EKTE_MOCK / "manifest.json").read_text(encoding="utf-8"))
         dokumenter = {manifest["standard"], *manifest["filer"].values()}
         for dokument in dokumenter:
             for nivaa in NIVAER:
