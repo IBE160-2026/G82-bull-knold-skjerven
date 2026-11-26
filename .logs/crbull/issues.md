@@ -44,3 +44,4 @@
 - [ ] 2026-11-26 [manuell-test-christian](983-2026-11-26-15-21-15-manuell-test-christian.md) — Manuell test: funn CHR-01 til CHR-05 er åpne, avgjør i gruppa hvilke som rettes før levering
 - [ ] 2026-11-26 [manuell-test-christian](983-2026-11-26-15-21-15-manuell-test-christian.md) — CHR-03: avklar om «Tilbake til notatet» erstattes, og om S11 skal få de samme tre valgene
 - [ ] 2026-11-26 [manuell-test-christian](983-2026-11-26-15-21-15-manuell-test-christian.md) — Fyll inn nettleseren i raden for testøkta i test_feedback_christian.md
+- [ ] 2026-11-26 [manuell-test-christian](983-2026-11-26-15-21-15-manuell-test-christian.md) — CHR-06: avgjør om «Øv på feil» skal være per notat (som nå) eller per quiz
