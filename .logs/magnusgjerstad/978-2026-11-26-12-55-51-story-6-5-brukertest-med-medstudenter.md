@@ -21,6 +21,7 @@ Forberede 6.5, som er en brukertest med 3–5 medstudenter (SM-6), og deretter p
   - et observasjonsskjema per deltaker;
   - en funntabell med fire nivåer for alvorlighet og en oppsummering for SM-6.
 - Sprint-status: `6-5: in-progress`, med en kommentar om at testen gjøres av gruppa.
+- PR #16 (6.4) og #17 (6.5) er laget. Deretter er #15, #16 og #17 merget til `main` med fast-forward til `b71386d`. CI på `main` er grønn.
 
 ### Åpne punkter
 - Gjennomfør brukertesten med 3–5 medstudenter etter `brukertest-6-5.md`. Minst én skal fortsette et påbegynt forsøk på mobil. Fyll ut funnene, og rett dem eller før dem som åpne punkter.
