@@ -50,3 +50,4 @@
 - [ ] 2026-11-25 [fr31-story-4-3-og-5-1](986-2026-11-25-21-26-02-fr31-story-4-3-og-5-1.md) — S7 (dekningskortet), S11/S12 («Meld som feil eller uklart») og bekreftelsessiden er ikke sjekket i nettleser (360 px, tastatur, skjermleser)
 - [ ] 2026-11-25 [fr31-story-4-3-og-5-1](986-2026-11-25-21-26-02-fr31-story-4-3-og-5-1.md) — «Ta på nytt» på S11 er ikke låst når alle spørsmålene i quizen er meldt; vurder lås som på S7
 - [ ] 2026-11-25 [story-5-2-dekningsgrad-per-emne](985-2026-11-25-21-51-09-story-5-2-dekningsgrad-per-emne.md) — S3 og S4 med dekningsgrad er ikke sjekket i nettleser (360 px, tallflisene, skjermleser på kortene)
+- [ ] 2026-11-26 [story-5-3-historikk-per-notat](984-2026-11-26-06-59-30-story-5-3-historikk-per-notat.md) — Historikken på S7 er ikke sjekket i nettleser (360 px med kort, tabell fra `md`, skjermleser i tabellen)
