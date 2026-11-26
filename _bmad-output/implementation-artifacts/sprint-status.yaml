@@ -88,5 +88,6 @@ development_status:
   # 6.4: verktøyet er bygget. Venter på kjøringen med API-nøkkel (`maal_ki_kvalitet`),
   # den manuelle vurderingen og utfyllingen av ki-kvalitet-6-4.md.
   6-4-ki-kvalitet-og-genereringstid: review
-  6-5-brukertest-med-medstudenter: backlog
+  # 6.5: opplegget står i brukertest-6-5.md. Selve testen med 3–5 medstudenter gjøres av gruppa.
+  6-5-brukertest-med-medstudenter: in-progress
   epic-6-retrospective: optional
