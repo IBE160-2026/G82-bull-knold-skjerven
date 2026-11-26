@@ -51,3 +51,5 @@
 - [ ] 2026-11-25 [fr31-story-4-3-og-5-1](986-2026-11-25-21-26-02-fr31-story-4-3-og-5-1.md) — «Ta på nytt» på S11 er ikke låst når alle spørsmålene i quizen er meldt; vurder lås som på S7
 - [ ] 2026-11-25 [story-5-2-dekningsgrad-per-emne](985-2026-11-25-21-51-09-story-5-2-dekningsgrad-per-emne.md) — S3 og S4 med dekningsgrad er ikke sjekket i nettleser (360 px, tallflisene, skjermleser på kortene)
 - [ ] 2026-11-26 [story-5-3-historikk-per-notat](984-2026-11-26-06-59-30-story-5-3-historikk-per-notat.md) — Historikken på S7 er ikke sjekket i nettleser (360 px med kort, tabell fra `md`, skjermleser i tabellen)
+- [ ] 2026-11-26 [story-6-1-testbruker-med-eksempeldata](983-2026-11-26-08-10-00-story-6-1-testbruker-med-eksempeldata.md) — Kjør `seed_testdata` på ekte når `ki/mock/` er committet, og sjekk S3, S4 og S7 som testbrukeren før 6.1 settes til `done`
+- [ ] 2026-11-26 [story-6-1-testbruker-med-eksempeldata](983-2026-11-26-08-10-00-story-6-1-testbruker-med-eksempeldata.md) — Avklar med Christian om «Påbegynt – spørsmål N av M» skal vise antall svar (i dag) eller spørsmålet du fortsetter på (etter 4 svar står det «4 av 10», men du fortsetter på 5)
