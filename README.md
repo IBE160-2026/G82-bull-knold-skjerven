@@ -104,6 +104,8 @@ Mock-svarene som ligger i `ki/mock/` nå, er skrevet av Claude Opus 5.5 utenfor 
 
 Kommandoen nekter å kjøre i testmodus, så sett `ANTHROPIC_API_KEY` og `TESTMODUS=0` i `.env` først. Den skriver `ki/mock/` (filene og `manifest.json`), som så committes. Det er 30 spørsmål per dokument og nivå, og appen bruker de første N. Kjør den på nytt når et testdokument, prompten eller `PROMPT_VERSJON` endres.
 
+KI-kvaliteten og genereringstiden (story 6.4) måles med `uv run python manage.py maal_ki_kvalitet`. Den krever nøkkel og testmodus av som `lag_mocksvar`, koster API-kall og skriver en rapport for manuell vurdering i `_bmad-output/implementation-artifacts/ki-kvalitet/` (se `ki-kvalitet-6-4.md`).
+
 Når du endrer avhengigheter, oppdaterer du `requirements.txt` slik. CI feiler hvis den ikke er i takt med `uv.lock`.
 
     uv export --no-hashes --frozen --no-dev -o requirements.txt

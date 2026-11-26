@@ -85,6 +85,8 @@ development_status:
   # 6.3 venter på den manuelle kontrollen med tastatur og skjermleser (sjekklisten i
   # sluttkontroll-6-3.md) og gruppas valg om feiltekstens kontrast mot kartlinjene.
   6-3-sluttkontroll-av-tilgang-og-universell-utforming: review
-  6-4-ki-kvalitet-og-genereringstid: backlog
+  # 6.4: verktøyet er bygget. Venter på kjøringen med API-nøkkel (`maal_ki_kvalitet`),
+  # den manuelle vurderingen og utfyllingen av ki-kvalitet-6-4.md.
+  6-4-ki-kvalitet-og-genereringstid: review
   6-5-brukertest-med-medstudenter: backlog
   epic-6-retrospective: optional

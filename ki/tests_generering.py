@@ -1,3 +1,4 @@
+import hashlib
 import json
 import shutil
 import socket
@@ -243,6 +244,7 @@ class ModellGenereringTest(SimpleTestCase):
         self.assertEqual(raatt.modell, "claude-sonnet-5")
         self.assertEqual(raatt.prompt_versjon, PROMPT_VERSJON)
         self.assertIs(raatt.forhandslagret, False)
+        self.assertEqual(raatt.stoppgrunn, "end_turn")
         data = json.loads(raatt.tekst)
         self.assertEqual(data["modell"], "claude-sonnet-5")
         self.assertEqual(data["prompt_versjon"], PROMPT_VERSJON)
@@ -292,6 +294,19 @@ class ModellGenereringTest(SimpleTestCase):
         with self.assertRaises(KIFeil) as fanget:
             sjekk(raatt.tekst, 10)
         self.assertEqual(fanget.exception.kode, "format")
+
+    def test_avkuttet_svar_har_stoppgrunn_max_tokens(self):
+        avkuttet = '{"sprak": "nb", "sporsmal": [{"tekst": "Halv'
+        raatt = self.kjor(
+            FalskKlient(svar=modellsvar(avkuttet, stop_reason="max_tokens"))
+        )
+        self.assertEqual(raatt.stoppgrunn, "max_tokens")
+        with self.assertRaises(KIFeil) as fanget:
+            sjekk(raatt.tekst, 10)
+        self.assertEqual(fanget.exception.kode, "format")
+
+    def test_mock_svar_har_tom_stoppgrunn(self):
+        self.assertEqual(RaattSvar("{}", False, "m", "1").stoppgrunn, "")
 
     def test_json_som_ikke_er_objekt_returneres_uendret(self):
         raatt = self.kjor(FalskKlient(svar=modellsvar("[1, 2]")))
@@ -362,6 +377,29 @@ class VisningsnavnTest(SimpleTestCase):
                 self.assertEqual(visningsnavn(modell), modell)
 
 
+# Fingeravtrykket av prompten for hver PROMPT_VERSJON (AD-11). Endres prompten,
+# skjemaet, nivåene, effort eller brukerturen, feiler testen til versjonen er økt.
+LASTE_FINGERAVTRYKK = {
+    "1": "d38d7dc049742498d319ed4175b84817947f5cc7feb3b1e4738dc82777d6f3d2",
+}
+
+
+def prompt_fingeravtrykk():
+    deler = [
+        generering.SYSTEMPROMPT,
+        json.dumps(generering.SKJEMA, sort_keys=True),
+        json.dumps(generering._NIVAER, sort_keys=True),
+        generering.EFFORT,
+        # Brukerturen: oppgaveteksten og `<notat>`-rammen rundt teksten.
+        json.dumps(
+            generering._innhold_blokker(Innhold("", "txt", "X"), "lett", 1),
+            sort_keys=True,
+            ensure_ascii=False,
+        ),
+    ]
+    return hashlib.sha256("\0".join(deler).encode("utf-8")).hexdigest()
+
+
 class PromptVersjonTest(SimpleTestCase):
     def test_prompt_versjon_er_definert_ett_sted(self):
         treff = [
@@ -372,6 +410,18 @@ class PromptVersjonTest(SimpleTestCase):
         ]
         self.assertEqual(treff, ["generering.py"])
         self.assertIs(ki.PROMPT_VERSJON, generering.PROMPT_VERSJON)
+
+    def test_prompten_er_last_til_prompt_versjon(self):
+        faktisk = prompt_fingeravtrykk()
+        self.assertEqual(
+            faktisk,
+            LASTE_FINGERAVTRYKK.get(generering.PROMPT_VERSJON),
+            "SYSTEMPROMPT, SKJEMA, _NIVAER, EFFORT eller _innhold_blokker er endret "
+            "uten ny "
+            "PROMPT_VERSJON. Øk PROMPT_VERSJON i ki/generering.py, legg "
+            f'"<ny versjon>": "{faktisk}" i LASTE_FINGERAVTRYKK i denne testen, og '
+            "lag mock-svarene på nytt med `uv run python manage.py lag_mocksvar`.",
+        )
 
 
 class EkteMockfilerTest(SimpleTestCase):

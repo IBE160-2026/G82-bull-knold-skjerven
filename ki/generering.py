@@ -103,12 +103,17 @@ SKJEMA = {
 
 @dataclass(frozen=True)
 class RaattSvar:
-    """`tekst` er JSON som `sjekk` leser direkte."""
+    """`tekst` er JSON som `sjekk` leser direkte.
+
+    `stoppgrunn` er `stop_reason` fra modellen, så et avkuttet svar (`max_tokens`)
+    kan skilles fra andre formatfeil. Den er tom for mock-svar.
+    """
 
     tekst: str
     forhandslagret: bool
     modell: str
     prompt_versjon: str
+    stoppgrunn: str = ""
 
 
 def generer(innhold, vanskelighetsgrad, antall, timeout):
@@ -236,6 +241,7 @@ def _fra_modell(innhold, vanskelighetsgrad, antall, timeout):
         forhandslagret=False,
         modell=svar.model,
         prompt_versjon=PROMPT_VERSJON,
+        stoppgrunn=str(svar.stop_reason or ""),
     )
 
 
