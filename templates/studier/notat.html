@@ -10,6 +10,9 @@
   knappen «Fortsett» (FR-18). Er alle spørsmålene i quizen meldt som feil og ingen forsøk
   påbegynt, er knappen låst med aria-disabled (ikke disabled, så den kan nås med tastatur),
   og serveren sender tilbake til S7 (FR-31).
+  Historikken nederst: leverte forsøk, nyeste først, med lenke til S11 (FR-26). Under md
+  er hver rad ett kort, og fra md er den en tabell. Begge ligger i HTML-en, og CSS skjuler
+  den ene (UX-DR29).
 {% endcomment %}
 
 {% block title %}{{ notat.originalnavn }}{% endblock %}
@@ -100,4 +103,42 @@
   </div>
   <button type="submit" class="min-h-11 rounded-md bg-accent-strong px-4 py-2 font-semibold text-surface hover:bg-accent-hover">Lag quiz</button>
 </form>
+
+<section aria-labelledby="historikk-overskrift" class="mt-8">
+  <h2 id="historikk-overskrift" class="mb-3 text-lg font-semibold">Historikk</h2>
+  {% if historikk %}
+  <ul class="flex flex-col gap-2 md:hidden">
+    {% for okt in historikk %}
+    <li>
+      <a href="{% url 'studier:resultat' okt.pk %}" class="block min-h-11 rounded-lg border border-border-subtle bg-surface p-3 no-underline text-ink shadow-md hover:shadow-lg">
+        <span class="block font-semibold">{{ okt.levert_tidspunkt|date:"j. F Y \k\l. H:i" }}</span><span class="sr-only">, </span>
+        <span class="block text-sm text-ink-secondary">{{ okt.quiz.get_vanskelighetsgrad_display }}, {{ okt.quiz.antall_sporsmal }} spørsmål</span><span class="sr-only">, </span>
+        <span class="block text-sm font-semibold tabular-nums">{{ okt.poengsum }} av {{ okt.antall }}</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  <table class="hidden w-full border-collapse text-left md:table">
+    <caption class="mb-2 text-left text-sm text-ink-secondary">Forsøk, nyeste først</caption>
+    <thead>
+      <tr class="border-b border-border-subtle">
+        <th scope="col" class="py-2 pr-4 font-semibold">Dato</th>
+        <th scope="col" class="py-2 pr-4 font-semibold">Quiz</th>
+        <th scope="col" class="py-2 font-semibold">Poengsum</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for okt in historikk %}
+      <tr class="border-b border-border-subtle">
+        <th scope="row" class="py-2 pr-4 font-normal"><a href="{% url 'studier:resultat' okt.pk %}" class="underline">{{ okt.levert_tidspunkt|date:"j. F Y \k\l. H:i" }}</a></th>
+        <td class="py-2 pr-4">{{ okt.quiz.get_vanskelighetsgrad_display }}, {{ okt.quiz.antall_sporsmal }} spørsmål</td>
+        <td class="py-2 font-semibold tabular-nums">{{ okt.poengsum }} av {{ okt.antall }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>Ingen forsøk ennå. Ta en quiz for å se historikken.</p>
+  {% endif %}
+</section>
 {% endblock %}

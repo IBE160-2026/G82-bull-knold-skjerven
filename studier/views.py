@@ -269,7 +269,7 @@ def _dekning(notat):
 
 @require_http_methods(["GET", "HEAD", "POST"])
 def notat(request, pk):
-    """S7: dekningsgraden (FR-24), quizkortene og skjemaet for ny quiz (FR-11). POST lager eller gjenbruker jobben (FR-14)."""
+    """S7: dekningsgraden (FR-24), quizkortene, skjemaet for ny quiz (FR-11) og historikken (FR-26). POST lager eller gjenbruker jobben (FR-14)."""
     objekt = hent_egen(Notat, pk, request.user)
     if request.method == "POST":
         form = NyQuizForm(request.POST)
@@ -310,6 +310,16 @@ def notat(request, pk):
                 f"spørsmål {max(pabegynt.antall_svar, 1)} av {len(pabegynt.innhold)}"
             )
         quiz.alle_meldt = not quiz.har_ikke_meldt and pabegynt is None
+    # Historikken: bare leverte forsøk, nyeste først. Aldri påbegynte eller øving (FR-26, AD-6).
+    historikk = list(
+        egne(Okt, request.user)
+        .filter(notat=objekt, type=Okttype.FORSOK, status=Oktstatus.LEVERT)
+        .order_by("-levert_tidspunkt", "-pk")
+    )
+    # Quizene er alt hentet til kortene, så raden får samme nivå og antall som kortet.
+    quiz_per_pk = {quiz.pk: quiz for quiz in quizer}
+    for okt in historikk:
+        okt.quiz = quiz_per_pk[okt.quiz_id]
     return render(
         request,
         "studier/notat.html",
@@ -322,6 +332,7 @@ def notat(request, pk):
             "aktiv_jobb": aktiv_jobb(objekt),
             "ov": _ov_knapp(objekt, request.user),
             "dekning": _dekning(objekt),
+            "historikk": historikk,
             **_emne_kontekst(objekt.emne, objekt.originalnavn),
         },
     )

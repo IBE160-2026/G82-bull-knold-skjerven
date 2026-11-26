@@ -59,8 +59,8 @@ class QuizkortTest(TaPaNyttTestCase):
         html = self.client.get(self.notat_url).content.decode()
         self.assertEqual(self._kortknapp(html), "Ta på nytt")
         self.assertEqual(self._kortknapp(html, annen), "Ta quiz")
-        # Annoteringen dobler ikke antall spørsmål.
-        self.assertEqual(html.count("Middels, 5 spørsmål"), 2)
+        # Annoteringen dobler ikke antall spørsmål. Bare quizkortene telles, ikke historikken (5.3).
+        self.assertEqual(html.count("Middels, 5 spørsmål</h3>"), 2)
 
 
 class NyttForsokTest(TaPaNyttTestCase):
