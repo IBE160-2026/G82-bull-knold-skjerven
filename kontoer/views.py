@@ -13,6 +13,7 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
 
 from farequiz import feilmeldinger
+from kontoer import testbruker
 from kontoer.forms import LoggInnForm, RegistrerForm
 from studier.services.vilkar import godta_vilkar
 
@@ -43,6 +44,9 @@ class LoggInnView(UtenUtloggingSomMalMixin, LoginView):
         neste = kontekst[self.redirect_field_name]
         if neste and neste != "/":
             kontekst["okt_utlopt"] = feilmeldinger.OKT_UTLOPT
+        # Malen viser dem bare i testmodus (FR-28).
+        kontekst["testbruker_epost"] = testbruker.EPOST
+        kontekst["testbruker_passord"] = testbruker.PASSORD
         return kontekst
 
 

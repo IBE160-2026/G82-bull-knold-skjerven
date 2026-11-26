@@ -75,8 +75,10 @@ development_status:
   5-3-historikk-per-notat: review
   epic-5-retrospective: optional
 
-  epic-6: backlog
-  6-1-testbruker-med-eksempeldata: backlog
+  epic-6: in-progress
+  # 6.1 venter også på mock-filene fra 2.2: kjør `manage.py seed_testdata` på ekte
+  # når ki/mock/ er committet, før 6.1 settes til done.
+  6-1-testbruker-med-eksempeldata: review
   6-2-readme-og-test-med-ny-klone: backlog
   6-3-sluttkontroll-av-tilgang-og-universell-utforming: backlog
   6-4-ki-kvalitet-og-genereringstid: backlog
