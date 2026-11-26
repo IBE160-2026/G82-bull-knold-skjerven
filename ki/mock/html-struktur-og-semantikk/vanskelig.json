@@ -1,0 +1,277 @@
+{
+  "sprak": "nb",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "Hvilken av disse kodebitene er riktig nøstet?",
+      "begrunnelse": "Elementer må lukkes i motsatt rekkefølge av den de ble åpnet i. <em> åpnes sist og må derfor lukkes først.",
+      "alternativer": [
+        {"tekst": "<p><em>Viktig</em></p>", "er_riktig": true},
+        {"tekst": "<p><em>Viktig</p></em>", "er_riktig": false},
+        {"tekst": "<em><p>Viktig</em></p>", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En side har <h1>Nettbutikk</h1>, deretter <h2>Tilbud</h2> og så <h4>Sko</h4> fordi <h4> har passe størrelse. Hva er problemet?",
+      "begrunnelse": "Man skal ikke hoppe over nivåer og aldri velge nivå ut fra tekststørrelse. «Sko» er en underoverskrift til «Tilbud» og bør være <h3>, mens størrelsen styres med CSS.",
+      "alternativer": [
+        {"tekst": "Ingenting, overskriftsnivå kan velges fritt etter ønsket størrelse", "er_riktig": false},
+        {"tekst": "Siden burde hatt en ny <h1> for hver kategori i butikken", "er_riktig": false},
+        {"tekst": "Nivå <h3> er hoppet over; «Sko» bør være <h3>, og størrelsen styres med CSS", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "En side ligger på /kurs/html/oppgaver.html. Hvilken fil peker den relative stien ../index.html til?",
+      "begrunnelse": "../ går én mappe opp fra mappen siden ligger i. Fra /kurs/html/ kommer man til /kurs/, så stien peker til /kurs/index.html.",
+      "alternativer": [
+        {"tekst": "/index.html", "er_riktig": false},
+        {"tekst": "/kurs/index.html", "er_riktig": true},
+        {"tekst": "/kurs/html/index.html", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Fra samme side, /kurs/html/oppgaver.html, lenker du til /kontakt/. Hvor havner brukeren?",
+      "begrunnelse": "En sti som begynner med skråstrek er relativ til roten av nettstedet, uansett hvilken mappe siden ligger i.",
+      "alternativer": [
+        {"tekst": "/kurs/html/kontakt/", "er_riktig": false},
+        {"tekst": "/kurs/kontakt/", "er_riktig": false},
+        {"tekst": "/kontakt/ rett under roten av nettstedet", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Et lite ikon er bare pynt ved siden av firmanavnet, som allerede står som tekst. Hvordan bør alt-attributtet settes?",
+      "begrunnelse": "Et rent dekorativt bilde skal ha tom alt-tekst, alt=\"\", slik at skjermlesere hopper over det. Mangler alt helt, leser mange skjermlesere opp filnavnet.",
+      "alternativer": [
+        {"tekst": "alt=\"\"", "er_riktig": true},
+        {"tekst": "Utelate alt-attributtet helt", "er_riktig": false},
+        {"tekst": "alt=\"ikon.png\"", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "I en rapport står et diagram som viser at salget doblet seg i løpet av året. Hvilken alt-tekst er best?",
+      "begrunnelse": "Alt-teksten skal beskrive hva bildet formidler i sammenhengen, ikke bare hva det er.",
+      "alternativer": [
+        {"tekst": "alt=\"Diagram\"", "er_riktig": false},
+        {"tekst": "alt=\"Diagram: salget doblet seg i løpet av året\"", "er_riktig": true},
+        {"tekst": "alt=\"salgsdiagram.png\"", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Du lager et søkefelt for en nettbutikk. Hvilken method passer best, og hvorfor?",
+      "begrunnelse": "Med GET legges dataene i adressen som en spørrestreng, og det passer for søk.",
+      "alternativer": [
+        {"tekst": "POST, fordi søkeord alltid må sendes i selve forespørselen", "er_riktig": false},
+        {"tekst": "GET, fordi søket legges i adressen som en spørrestreng", "er_riktig": true},
+        {"tekst": "POST, fordi GET bare kan brukes på vanlige lenker", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Et registreringsskjema skal opprette en ny bruker i databasen. Hvilken method passer?",
+      "begrunnelse": "POST sender dataene i selve forespørselen og brukes når noe skal lagres eller endres.",
+      "alternativer": [
+        {"tekst": "GET, fordi brukeren da kan bokmerke registreringen", "er_riktig": false},
+        {"tekst": "GET, fordi det er standardvalget for alle skjemaer", "er_riktig": false},
+        {"tekst": "POST, fordi noe skal lagres", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Et felt er skrevet som <input type=\"email\" required>. En student mener derfor at tjeneren ikke trenger å sjekke e-postadressen. Stemmer det?",
+      "begrunnelse": "Riktig type og required gir innebygd sjekk i nettleseren, men den sjekken er bare en hjelp. Tjeneren må alltid sjekke dataene på nytt.",
+      "alternativer": [
+        {"tekst": "Nei, sjekken i nettleseren er bare en hjelp, og tjeneren må alltid sjekke på nytt", "er_riktig": true},
+        {"tekst": "Ja, type=\"email\" sammen med required garanterer en gyldig adresse", "er_riktig": false},
+        {"tekst": "Ja, så lenge skjemaet bruker method=\"post\"", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Et blogginnlegg skal vises i sin helhet på forsiden og gi mening alene. Hvilket element passer best rundt innlegget?",
+      "begrunnelse": "<article> brukes for innhold som gir mening alene, som et blogginnlegg eller en nyhetssak.",
+      "alternativer": [
+        {"tekst": "<section>", "er_riktig": false},
+        {"tekst": "<article>", "er_riktig": true},
+        {"tekst": "<div>", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Ved siden av en nyhetssak står en faktaboks som bare er løst knyttet til saken. Hvilket element passer best?",
+      "begrunnelse": "<aside> er innhold som bare er løst knyttet til resten, som en faktaboks.",
+      "alternativer": [
+        {"tekst": "<section>", "er_riktig": false},
+        {"tekst": "<article>", "er_riktig": false},
+        {"tekst": "<aside>", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva er galt med koden <label>E-post</label><input id=\"epost\" type=\"email\">?",
+      "begrunnelse": "Etiketten kobles til feltet ved at attributtet for på <label> peker til feltets id. Her mangler for=\"epost\", så etiketten er ikke koblet til feltet.",
+      "alternativer": [
+        {"tekst": "<label> mangler for=\"epost\", så etiketten er ikke koblet til feltet", "er_riktig": true},
+        {"tekst": "<input> mangler en sluttagg", "er_riktig": false},
+        {"tekst": "<label> må stå etter <input> for å virke", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En utvikler har laget <div class=\"knapp\" onclick=\"send()\">Send</div>. Tastaturbrukere får ikke trykket på den. Hva er den beste løsningen?",
+      "begrunnelse": "En knapp skal være en <button> og ikke en <div> med klikkhendelse, fordi <button> kan nås med tastaturet og annonseres riktig.",
+      "alternativer": [
+        {"tekst": "Gi elementet class=\"button\" i stedet for class=\"knapp\"", "er_riktig": false},
+        {"tekst": "Bytte <div> ut med <span>", "er_riktig": false},
+        {"tekst": "Bruke <button>, som kan nås med tastaturet og annonseres riktig", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Du vil lenke til en seksjon på samme side som har id=\"skjemaer\". Hvilken href er riktig?",
+      "begrunnelse": "En lenke til et sted på samme side bruker et fragment med emneknagg, for eksempel href=\"#skjemaer\", og målet er elementet med den id-en.",
+      "alternativer": [
+        {"tekst": "href=\"skjemaer\"", "er_riktig": false},
+        {"tekst": "href=\"#skjemaer\"", "er_riktig": true},
+        {"tekst": "href=\".skjemaer\"", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "I en setning skal ett ord ha trykk når det leses, og et latinsk fremmedord skal stå i kursiv. Hvilke elementer passer?",
+      "begrunnelse": "<em> betyr trykk eller betoning. <i> gir kursiv uten den betydningen og brukes for eksempel til fremmedord.",
+      "alternativer": [
+        {"tekst": "<em> for ordet med trykk og <i> for fremmedordet", "er_riktig": true},
+        {"tekst": "<i> for ordet med trykk og <em> for fremmedordet", "er_riktig": false},
+        {"tekst": "<em> for begge, siden begge vises i kursiv", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvor skal <caption> stå i en tabell?",
+      "begrunnelse": "Elementet <caption> gir tabellen en tittel og skal stå rett etter starttaggen til <table>.",
+      "alternativer": [
+        {"tekst": "Rett etter starttaggen til <table>", "er_riktig": true},
+        {"tekst": "Inne i <thead>, før første rad", "er_riktig": false},
+        {"tekst": "Rett etter </table>, under tabellen", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En timeplan har ukedagene som overskrifter øverst i hver kolonne. Hvilken scope bør <th>-cellene med ukedagene ha?",
+      "begrunnelse": "scope=\"col\" sier at overskriften gjelder en kolonne, slik at skjermlesere leser opp riktig ukedag sammen med hver celle.",
+      "alternativer": [
+        {"tekst": "scope=\"row\", fordi ukedagene står på samme rad", "er_riktig": false},
+        {"tekst": "Ingen scope, fordi <th> alltid gjelder en kolonne", "er_riktig": false},
+        {"tekst": "scope=\"col\", fordi hver ukedag er overskrift for en kolonne", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvilket utsagn om HTML5 stemmer med notatet?",
+      "begrunnelse": "HTML utvikles som en levende standard uten store versjonsnummer. Når folk sier HTML5, mener de som regel denne moderne HTML-en.",
+      "alternativer": [
+        {"tekst": "HTML5 er den siste store versjonen, og HTML6 er neste", "er_riktig": false},
+        {"tekst": "HTML5 brukes som regel om moderne HTML, som nå er en levende standard uten store versjonsnummer", "er_riktig": true},
+        {"tekst": "HTML5 er en egen standard ved siden av HTML Living Standard, og nettleserne velger én av dem", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En instruksjonsvideo med tale skal settes inn. Hvilken oppbygging følger rådene i notatet?",
+      "begrunnelse": "controls gir avspillingsknapper, <source> tilbyr flere filformater, og video med tale bør ha teksting, som legges til med <track>.",
+      "alternativer": [
+        {"tekst": "<video controls> med et <audio>-element inni for talen", "er_riktig": false},
+        {"tekst": "<video controls> med <source> for flere formater og <track> for teksting", "er_riktig": true},
+        {"tekst": "<video> i en <figure>, der <figcaption> fungerer som teksting", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En side har ett <main> rundt artikkelen og et nytt <main> rundt sidekolonnen. Hva er riktig vurdering?",
+      "begrunnelse": "<main> er hovedinnholdet og skal bare finnes én gang per side. Sidekolonnen passer heller i et <aside>.",
+      "alternativer": [
+        {"tekst": "Det er greit, så lenge begge har en overskrift", "er_riktig": false},
+        {"tekst": "Det er greit, så lenge begge ligger inne i <body>", "er_riktig": false},
+        {"tekst": "Det er feil, fordi <main> bare skal finnes én gang per side", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "En utvikler bruker en tabell for å plassere menyen til venstre og innholdet til høyre. Hva er riktig vurdering?",
+      "begrunnelse": "Tabeller skal bare brukes til data i rader og kolonner, ikke til å lage sideoppsett. Utseende og plassering styres med CSS.",
+      "alternativer": [
+        {"tekst": "Feil, tabeller er for data i rader og kolonner, og oppsett lages med CSS", "er_riktig": true},
+        {"tekst": "Greit, så lenge tabellen har en <caption>", "er_riktig": false},
+        {"tekst": "Greit, så lenge menyen står i <th>-celler", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilken skrivemåte for linjeskift er gyldig i HTML?",
+      "begrunnelse": "<br> er et tomt element uten sluttagg. I eldre XHTML skrev man <br />, men i HTML er skråstreken valgfri, så begge er gyldige.",
+      "alternativer": [
+        {"tekst": "Bare <br />, slik som i XHTML", "er_riktig": false},
+        {"tekst": "Både <br> og <br />, fordi skråstreken er valgfri", "er_riktig": true},
+        {"tekst": "Bare <br></br>, fordi alle elementer må lukkes", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En utvikler skriver <P>Hei</P> med store bokstaver. Hva gjelder?",
+      "begrunnelse": "Tagg-navn er ikke følsomme for store og små bokstaver, så koden virker. Det er likevel vanlig og anbefalt å skrive dem med små bokstaver.",
+      "alternativer": [
+        {"tekst": "Nettleseren tolker <P> som et ukjent element, fordi tagg-navn skiller mellom store og små bokstaver", "er_riktig": false},
+        {"tekst": "Det virker bare hvis siden tolkes i quirks mode", "er_riktig": false},
+        {"tekst": "Det virker, fordi tagg-navn ikke skiller mellom store og små bokstaver, men små bokstaver er vanlig praksis", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "En side mangler <!DOCTYPE html> øverst. Hva kan følgen bli?",
+      "begrunnelse": "Dokumenttypen forteller nettleseren at siden skal tolkes etter moderne standard. Uten den kan nettleseren falle tilbake til den gamle quirks mode.",
+      "alternativer": [
+        {"tekst": "Nettleseren kan tolke siden i quirks mode i stedet for etter moderne standard", "er_riktig": true},
+        {"tekst": "Nettleseren nekter å vise siden", "er_riktig": false},
+        {"tekst": "Tegnsettet faller tilbake fra UTF-8 til ASCII", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Et skjema skal la brukeren laste opp et profilbilde og skrive et passord. Hvilke verdier for type passer?",
+      "begrunnelse": "Notatet nevner file og password blant verdiene for type på <input>. Riktig type gir riktig felt og innebygd hjelp i nettleseren.",
+      "alternativer": [
+        {"tekst": "type=\"image\" og type=\"text\"", "er_riktig": false},
+        {"tekst": "type=\"upload\" og type=\"secret\"", "er_riktig": false},
+        {"tekst": "type=\"file\" og type=\"password\"", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvorfor er <input type=\"email\"> bedre enn type=\"text\" for et e-postfelt?",
+      "begrunnelse": "Riktig type gir bedre tastatur på mobil og innebygd sjekk i nettleseren. Tjeneren må likevel sjekke dataene selv.",
+      "alternativer": [
+        {"tekst": "Adressen krypteres før den sendes", "er_riktig": false},
+        {"tekst": "Det gir bedre tastatur på mobil og innebygd sjekk i nettleseren", "er_riktig": true},
+        {"tekst": "Tjeneren slipper å sjekke adressen selv", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En lenke må åpnes i en ny fane med target=\"_blank\". Hva anbefaler notatet i tillegg?",
+      "begrunnelse": "Hvis target=\"_blank\" brukes, bør det stå i lenketeksten at lenken åpnes i en ny fane.",
+      "alternativer": [
+        {"tekst": "At det står i lenketeksten at lenken åpnes i en ny fane", "er_riktig": true},
+        {"tekst": "Ingenting, fordi nettleseren alltid varsler brukeren om nye faner", "er_riktig": false},
+        {"tekst": "At target=\"_blank\" erstattes med en mailto:-lenke", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilket utsagn om <head> og <body> stemmer?",
+      "begrunnelse": "Et dokument har nøyaktig ett <head> og ett <body>. <title> hører hjemme i <head>, selv om tittelen vises i fanen.",
+      "alternativer": [
+        {"tekst": "Et dokument kan ha flere <body> når innholdet er delt i seksjoner", "er_riktig": false},
+        {"tekst": "<title> skal stå i <body>, fordi tittelen vises for brukeren", "er_riktig": false},
+        {"tekst": "Et dokument har nøyaktig ett <head> og ett <body>, og <title> står i <head>", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvilken av disse er en absolutt URL?",
+      "begrunnelse": "En absolutt URL inneholder hele adressen med protokoll og domene. /om.html er relativ til roten av nettstedet, og ../om.html er relativ til siden.",
+      "alternativer": [
+        {"tekst": "/om.html", "er_riktig": false},
+        {"tekst": "https://www.example.com/om.html", "er_riktig": true},
+        {"tekst": "../om.html", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Notatet anbefaler å teste siden med tastaturet alene. Hva er det viktigst å sjekke?",
+      "begrunnelse": "Du bør kunne nå alle lenker og knapper med Tab og se hvor fokuset er.",
+      "alternativer": [
+        {"tekst": "At alle lenker og knapper kan nås med Tab, og at man ser hvor fokuset er", "er_riktig": true},
+        {"tekst": "At siden kan rulles med piltastene", "er_riktig": false},
+        {"tekst": "At hvert skjemafelt har en plassholdertekst som forklarer feltet", "er_riktig": false}
+      ]
+    }
+  ]
+}

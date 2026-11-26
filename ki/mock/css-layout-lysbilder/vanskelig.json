@@ -1,0 +1,277 @@
+{
+  "sprak": "nb",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "Et element har box-sizing: border-box, width: 300px, padding: 20px, border: 2px og margin: 10px. Hvor mye vannrett plass tar det til sammen?",
+      "begrunnelse": "Med border-box er padding og border med i de 300px. Margin er luft utenfor kanten og kommer i tillegg på begge sider: 300 + 2 · 10 = 320px.",
+      "alternativer": [
+        {"tekst": "320px", "er_riktig": true},
+        {"tekst": "300px", "er_riktig": false},
+        {"tekst": "364px", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En grid-beholder er 500px bred og har grid-template-columns: 200px 1fr 2fr, uten gap. Hvor brede blir kolonnene?",
+      "begrunnelse": "fr deler den ledige plassen, ikke hele beholderen. Etter 200px er det 300px igjen, som deles i 3 fr: 1fr = 100px og 2fr = 200px.",
+      "alternativer": [
+        {"tekst": "200px, 167px og 333px", "er_riktig": false},
+        {"tekst": "200px, 150px og 150px", "er_riktig": false},
+        {"tekst": "200px, 100px og 200px", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "En flex-beholder har flex-direction: column. Du vil midtstille elementene vannrett uten å endre retningen. Hva bruker du?",
+      "begrunnelse": "Med column går hovedaksen loddrett og kryssaksen vannrett. align-items plasserer langs kryssaksen, så align-items: center midtstiller vannrett.",
+      "alternativer": [
+        {"tekst": "justify-content: center", "er_riktig": false},
+        {"tekst": "align-items: center", "er_riktig": true},
+        {"tekst": "justify-content: space-around", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Tre flex-elementer har flex-basis: 100px og flex-grow 1, 1 og 2. Beholderen er 600px bred uten gap. Hvor bredt blir det siste elementet?",
+      "begrunnelse": "Elementene starter på 300px til sammen, så 300px er ledig. Den deles 1 : 1 : 2, og det siste får 150px i tillegg til flex-basis: 100 + 150 = 250px.",
+      "alternativer": [
+        {"tekst": "300px", "er_riktig": false},
+        {"tekst": "250px", "er_riktig": true},
+        {"tekst": "200px", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En header skal ha logoen helt til venstre og lenkemenyen helt til høyre, på én rad. Hva passer best?",
+      "begrunnelse": "Dette er én dimensjon, en rad, som flexbox er laget for. justify-content fordeler langs hovedaksen, og space-between skyver de to elementene ut mot hver sin side. space-between er ikke en verdi for align-items.",
+      "alternativer": [
+        {"tekst": "Flexbox med justify-content: space-between", "er_riktig": true},
+        {"tekst": "Flexbox med align-items: space-between", "er_riktig": false},
+        {"tekst": "Grid med grid-template-areas, fordi en header er todimensjonal", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En beholder er 700px bred og har grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)), uten gap. Hvor mange kolonner blir det?",
+      "begrunnelse": "Kolonnene blir aldri smalere enn 200px. Fire kolonner ville gitt 175px, som er for smalt. Tre får plass, og 1fr lar dem dele resten, så hver blir omtrent 233px.",
+      "alternativer": [
+        {"tekst": "4 kolonner på 175px", "er_riktig": false},
+        {"tekst": "2 kolonner på 350px", "er_riktig": false},
+        {"tekst": "3 kolonner på omtrent 233px", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "En regel står inni @media (min-width: 600px) { ... }. Når gjelder den?",
+      "begrunnelse": "min-width: 600px betyr at bredden må være minst 600px. I mobil først er grunnstilen for liten skjerm, og denne regelen utvider oppsettet når skjermen er 600px eller bredere.",
+      "alternativer": [
+        {"tekst": "Når skjermen er 600px eller bredere", "er_riktig": true},
+        {"tekst": "Når skjermen er smalere enn 600px", "er_riktig": false},
+        {"tekst": "Bare når skjermen er nøyaktig 600px", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Forelesningen sier at flexbox passer for innhold som bestemmer størrelsen. Hvilket eksempel passer best til det?",
+      "begrunnelse": "En rad med knapper der hver knapp er så bred som teksten sin, er én dimensjon der innholdet bestemmer størrelsen, akkurat som menyeksempelet. Sideoppsett og like store ruter i to retninger passer bedre for grid.",
+      "alternativer": [
+        {"tekst": "En side med header, sidemeny, innhold og footer", "er_riktig": false},
+        {"tekst": "En rad med knapper der hver knapp er så bred som teksten sin", "er_riktig": true},
+        {"tekst": "Et rutenett av bilder med like store ruter i rader og kolonner", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En ul har display: flex, og hver li inneholder en lenke. Du setter flex-grow: 1 på lenkene, men ingenting skjer. Hva er den beste forklaringen?",
+      "begrunnelse": "Det er barna til flex-beholderen som blir flex-elementer. Lenkene er barn av li, ikke av ul, så flex-grow på dem har ingen flex-beholder å virke i.",
+      "alternativer": [
+        {"tekst": "Lenkene er inline-elementer, og flex-grow virker bare på block", "er_riktig": false},
+        {"tekst": "flex-grow virker bare når flex-wrap: wrap er satt", "er_riktig": false},
+        {"tekst": "Lenkene er ikke barn av ul, så de er ikke flex-elementer", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Et element har width: 400px, padding: 15px, border: 3px og margin: 20px, og box-sizing er ikke satt. Hvor bred er boksen fra kant til kant, uten margin?",
+      "begrunnelse": "Som standard gjelder width bare innholdet, så padding og border legges til på begge sider: 400 + 2 · 15 + 2 · 3 = 436px. Margin ligger utenfor kanten og er ikke med.",
+      "alternativer": [
+        {"tekst": "400px", "er_riktig": false},
+        {"tekst": "476px", "er_riktig": false},
+        {"tekst": "436px", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "En lenke midt i et avsnitt skal få width: 200px og height: 50px, men skal fortsatt stå i tekstlinjen. Hvilken display-verdi gir det?",
+      "begrunnelse": "inline virker ikke med width, og block bryter ut på en ny linje og tar hele bredden. inline-block står i teksten, men kan få width og height.",
+      "alternativer": [
+        {"tekst": "display: block", "er_riktig": false},
+        {"tekst": "display: inline-block", "er_riktig": true},
+        {"tekst": "display: inline", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "To flex-elementer med lite innhold har flex-basis: 200px og flex-shrink: 1. Beholderen er 300px bred og har ikke wrap. Hvor brede blir de?",
+      "begrunnelse": "Elementene trenger 400px, men har 300px. Når plassen er for liten, krymper de etter flex-shrink. Med lik flex-basis og lik flex-shrink krymper de like mye, 50px hver, og blir 150px.",
+      "alternativer": [
+        {"tekst": "150px hver", "er_riktig": true},
+        {"tekst": "200px hver, og det andre stikker utenfor", "er_riktig": false},
+        {"tekst": "100px og 200px", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Fire elementer i en flex-rad har flex: 1. Du setter display: none på ett av dem. Hva skjer?",
+      "begrunnelse": "Et element med display: none tar ingen plass. Da er det tre elementer igjen, og flex: 1 betyr at de deler den ledige plassen likt mellom seg.",
+      "alternativer": [
+        {"tekst": "De tre andre deler plassen likt og blir bredere", "er_riktig": true},
+        {"tekst": "Det blir et tomt hull der elementet stod", "er_riktig": false},
+        {"tekst": "De tre andre beholder bredden de hadde", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvorfor står minmax(200px, 1fr) inni repeat(auto-fit, ...) i stedet for bare 1fr?",
+      "begrunnelse": "Det er minstebredden på 200px som gjør at antall kolonner kan regnes ut: så mange som får plass uten å bli smalere enn 200px. 1fr lar kolonnene dele resten av plassen.",
+      "alternativer": [
+        {"tekst": "Fordi minmax gjør kolonnene faste på 200px", "er_riktig": false},
+        {"tekst": "Fordi 1fr alene ville gitt kolonner som aldri blir bredere enn 200px", "er_riktig": false},
+        {"tekst": "Fordi minstebredden på 200px avgjør hvor mange kolonner som får plass", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "En student sier: «Flexbox kan bare lage rader.» Hva er det beste svaret?",
+      "begrunnelse": "flex-direction kan være row eller column, så flexbox kan også legge elementene i en kolonne. Men flexbox arbeider fortsatt i én dimensjon om gangen, i motsetning til grid.",
+      "alternativer": [
+        {"tekst": "Det stemmer, kolonner krever grid", "er_riktig": false},
+        {"tekst": "Feil: med flex-direction: column lager flexbox en kolonne, men fortsatt bare én dimensjon om gangen", "er_riktig": true},
+        {"tekst": "Feil: flexbox lager rader og kolonner samtidig, akkurat som grid", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Ett element i en flex-rad skal aldri bli smalere enn startstørrelsen sin, selv når plassen blir for liten. Hva setter du?",
+      "begrunnelse": "flex-shrink bestemmer hvor mye et element krymper når plassen er for liten. Med verdien 0 krymper det ikke. flex-grow gjelder vekst, og flex-basis er bare startstørrelsen.",
+      "alternativer": [
+        {"tekst": "flex-shrink: 0", "er_riktig": true},
+        {"tekst": "flex-grow: 0", "er_riktig": false},
+        {"tekst": "flex-basis: 0", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Et grid har grid-template-columns: 200px 1fr. Beholderen vokser fra 600px til 1000px. Hva skjer med kolonnene?",
+      "begrunnelse": "200px er fast, mens 1fr tar den ledige plassen som er igjen. Den andre kolonnen går derfor fra 400px til 800px, og den første er 200px hele tiden.",
+      "alternativer": [
+        {"tekst": "Begge kolonnene vokser like mye", "er_riktig": false},
+        {"tekst": "Begge kolonnene vokser i samme forhold som før", "er_riktig": false},
+        {"tekst": "Den første er fortsatt 200px, den andre vokser fra 400px til 800px", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Et kort har box-sizing: border-box og width: 100%. Du legger til padding: 1rem. Hva skjer?",
+      "begrunnelse": "Med border-box er padding med i width. Kortet beholder derfor bredden til forelderen, og det er innholdsområdet som blir smalere.",
+      "alternativer": [
+        {"tekst": "Kortet blir bredere enn forelderen og stikker utenfor", "er_riktig": false},
+        {"tekst": "Kortet beholder bredden, og innholdet blir smalere", "er_riktig": true},
+        {"tekst": "Paddingen legges utenfor kanten, slik at nabokortene skyves bort", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Et kortgalleri kan lages med flex-wrap: wrap eller med repeat(auto-fit, minmax(200px, 1fr)). Hva er den viktigste forskjellen?",
+      "begrunnelse": "Grid styrer rader og kolonner samtidig, så kortene står i kolonner rett under hverandre. Flexbox er endimensjonal, så hver linje fordeles for seg og kan bli ulik linjen over.",
+      "alternativer": [
+        {"tekst": "Med grid står kortene i faste kolonner under hverandre, med flexbox fordeles hver linje for seg", "er_riktig": true},
+        {"tekst": "Bare flexbox kan gi kort over flere linjer", "er_riktig": false},
+        {"tekst": "Med flexbox står kortene i faste kolonner under hverandre, med grid fordeles hver linje for seg", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En student sier at flex-basis er minstestørrelsen til et flex-element. Stemmer det?",
+      "begrunnelse": "Lysbildet sier at flex-basis er startstørrelsen før vekst og krymping. Elementet kan altså både vokse over og krympe under den. Det er minmax i grid som har en minsteverdi.",
+      "alternativer": [
+        {"tekst": "Ja, elementet kan aldri bli mindre enn flex-basis", "er_riktig": false},
+        {"tekst": "Nei, flex-basis er startstørrelsen, og elementet kan både vokse og krympe fra den", "er_riktig": true},
+        {"tekst": "Nei, flex-basis er den største størrelsen elementet kan få", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva er forskjellen på å plassere et element med grid-template-areas og med grid-column: 1 / 3?",
+      "begrunnelse": "grid-template-areas gir navn til områder, så elementer kan plasseres etter navn. grid-column bruker tall som sier hvor elementet starter og slutter, og 1 / 3 strekker det over to kolonner.",
+      "alternativer": [
+        {"tekst": "grid-template-areas virker bare i flexbox", "er_riktig": false},
+        {"tekst": "grid-column gir navn til områder, grid-template-areas bruker tall", "er_riktig": false},
+        {"tekst": "grid-template-areas plasserer etter navngitte områder, grid-column etter tall", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Ordet em dukker opp i to ulike roller på lysbildene. Hvilke?",
+      "begrunnelse": "På lysbildet om display er em et eksempel på et inline-element, sammen med span og a. På lysbildet om responsiv design er em en relativ enhet, sammen med rem, %, vw og vh.",
+      "alternativer": [
+        {"tekst": "Et inline-element og en relativ enhet", "er_riktig": true},
+        {"tekst": "Et block-element og en relativ enhet", "er_riktig": false},
+        {"tekst": "Et inline-element og en fast enhet som px", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "En utvikler lager hele sideoppsettet (header, sidemeny, innhold og footer) med én flex-beholder på body. Hva er det beste rådet ut fra forelesningen?",
+      "begrunnelse": "Forelesningen anbefaler grid for sideoppsett, fordi det styrer rader og kolonner samtidig, og flexbox for innhold som en meny. De kan godt kombineres.",
+      "alternativer": [
+        {"tekst": "Behold flexbox, fordi flexbox og grid ikke kan kombineres", "er_riktig": false},
+        {"tekst": "Bytt til inline-block på alle områdene", "er_riktig": false},
+        {"tekst": "Bruk grid til sideoppsettet og eventuelt flexbox inni områdene, for eksempel i menyen", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Kort med flex-basis: 200px og flex-grow: 1 står i en flex-beholder med flex-wrap: wrap. Hvorfor kan et kort som står alene på siste linje, bli mye bredere enn de andre?",
+      "begrunnelse": "Flexbox er endimensjonal, så hver linje fordeler sin egen ledige plass. Står kortet alene på linjen, får det all ledig plass der gjennom flex-grow.",
+      "alternativer": [
+        {"tekst": "Fordi gap bare virker på den første linjen", "er_riktig": false},
+        {"tekst": "Fordi hver linje fordeler sin egen ledige plass, og kortet er alene om den", "er_riktig": true},
+        {"tekst": "Fordi flex-basis bare gjelder for den første linjen", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilken beskrivelse passer for et element med display: inline?",
+      "begrunnelse": "inline flyter i teksten, og width virker ikke. Å starte på ny linje er block, og å stå i teksten med width og height er inline-block.",
+      "alternativer": [
+        {"tekst": "Det starter på ny linje, men width virker ikke", "er_riktig": false},
+        {"tekst": "Det står i teksten og kan få width og height", "er_riktig": false},
+        {"tekst": "Det flyter i teksten, og width virker ikke", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Et grid har grid-template-columns: repeat(3, 1fr). Et element får grid-column: 2 / 4. Hvor havner det?",
+      "begrunnelse": "På samme måte som 1 / 3 strekker et element over to kolonner, strekker 2 / 4 det over to kolonner, nemlig den andre og den tredje.",
+      "alternativer": [
+        {"tekst": "Over den andre og den tredje kolonnen", "er_riktig": true},
+        {"tekst": "Over den andre, tredje og fjerde kolonnen", "er_riktig": false},
+        {"tekst": "Bare i den andre kolonnen", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Et element uten box-sizing har width: 100% og padding: 20px. Hva skjer?",
+      "begrunnelse": "Som standard gjelder width bare innholdet. Innholdet blir like bredt som forelderen, og padding kommer i tillegg på begge sider, så boksen blir 40px bredere enn forelderen.",
+      "alternativer": [
+        {"tekst": "Det blir nøyaktig like bredt som forelderen", "er_riktig": false},
+        {"tekst": "Det blir 40px bredere enn forelderen", "er_riktig": true},
+        {"tekst": "Det blir 20px bredere enn forelderen", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilken grid-template-columns endrer antall kolonner etter skjermbredden uten at du skriver en media query?",
+      "begrunnelse": "auto-fit sammen med minmax tilpasser antall kolonner til plassen. repeat(3, 1fr) og 200px 1fr 2fr har alltid tre kolonner, og trenger media queries for å endre det.",
+      "alternativer": [
+        {"tekst": "repeat(3, 1fr)", "er_riktig": false},
+        {"tekst": "200px 1fr 2fr", "er_riktig": false},
+        {"tekst": "repeat(auto-fit, minmax(200px, 1fr))", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva er forholdet mellom grid-template-columns: 1fr 1fr 1fr og grid-template-columns: repeat(3, 1fr)?",
+      "begrunnelse": "repeat(3, 1fr) gjentar 1fr tre ganger. Begge gir derfor tre like kolonner.",
+      "alternativer": [
+        {"tekst": "De gir det samme: tre like kolonner", "er_riktig": true},
+        {"tekst": "repeat(3, 1fr) gir tre rader, 1fr 1fr 1fr gir tre kolonner", "er_riktig": false},
+        {"tekst": "1fr 1fr 1fr gir tre like kolonner, repeat(3, 1fr) gir én kolonne som er 3fr", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Med repeat(auto-fit, minmax(200px, 1fr)) blir kolonnene ofte bredere enn 200px. Hvorfor?",
+      "begrunnelse": "200px er bare minstebredden. Den øvre grensen er 1fr, så når det ikke er plass til enda en kolonne, deler kolonnene resten av plassen mellom seg.",
+      "alternativer": [
+        {"tekst": "Fordi minmax(200px, 1fr) betyr at 200px er største bredde", "er_riktig": false},
+        {"tekst": "Fordi 1fr lar kolonnene dele plassen som er igjen når det ikke er plass til enda en kolonne", "er_riktig": true},
+        {"tekst": "Fordi auto-fit alltid dobler bredden på kolonnene", "er_riktig": false}
+      ]
+    }
+  ]
+}

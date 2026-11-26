@@ -64,7 +64,7 @@ Testmodus er på når `ANTHROPIC_API_KEY` er tom, slik den er uten `.env`, eller
 
 > Testmodus: quizene bruker mock-svar, ingen KI kalles.
 
-Det betyr at quizene hentes fra forhåndslagrede svar i `ki/mock/`, laget med ekte modell fra de fem filene i `testdokumenter/`. Laster du opp en egen fil som ikke er et testdokument, får du quizen fra et standard testdokument, og quizsiden har en merknad om det.
+Det betyr at quizene hentes fra forhåndslagrede svar i `ki/mock/`, laget av KI fra de fem filene i `testdokumenter/`. Laster du opp en egen fil som ikke er et testdokument, får du quizen fra et standard testdokument, og quizsiden har en merknad om det.
 
 ## Ekte modell
 
@@ -98,13 +98,11 @@ Brannmuren kan spørre om tilgang første gang.
 
 ## For gruppa
 
-Mock-svarene lages med ekte modell av den som har gruppas nøkkel:
+Mock-svarene som ligger i `ki/mock/` nå, er skrevet av Claude Opus 5.5 utenfor appen, ikke med appens prompt. Den som har gruppas nøkkel, kan erstatte dem med ekte genereringer:
 
     uv run python manage.py lag_mocksvar
 
 Kommandoen nekter å kjøre i testmodus, så sett `ANTHROPIC_API_KEY` og `TESTMODUS=0` i `.env` først. Den skriver `ki/mock/` (filene og `manifest.json`), som så committes. Det er 30 spørsmål per dokument og nivå, og appen bruker de første N. Kjør den på nytt når et testdokument, prompten eller `PROMPT_VERSJON` endres.
-
-Filene er ikke committet ennå. Til noen med gruppas nøkkel har kjørt `lag_mocksvar` og committet `ki/mock/`, feiler generering og `seed_testdata` i testmodus.
 
 Når du endrer avhengigheter, oppdaterer du `requirements.txt` slik. CI feiler hvis den ikke er i takt med `uv.lock`.
 

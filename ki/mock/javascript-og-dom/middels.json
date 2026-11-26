@@ -1,0 +1,547 @@
+{
+  "sprak": "en",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "Why can a script in <head> without defer or async fail to find elements in the body?",
+      "begrunnelse": "A script in <head> runs before the body has been parsed, so the elements it looks for do not exist in the DOM yet.",
+      "alternativer": [
+        {
+          "tekst": "Scripts in <head> do not have access to the document object",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The browser blocks DOM access from <head> for security reasons",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It runs before the body has been parsed, so the elements do not exist yet",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "What is the difference between event.target and event.currentTarget?",
+      "begrunnelse": "event.target is the element where the event started, and event.currentTarget is the element the listener is attached to.",
+      "alternativer": [
+        {
+          "tekst": "target is where the event started; currentTarget is the element the listener is attached to",
+          "er_riktig": true
+        },
+        {
+          "tekst": "target is the element the listener is attached to; currentTarget is where the event started",
+          "er_riktig": false
+        },
+        {
+          "tekst": "target is always the document; currentTarget is the element that was clicked",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Why does event delegation also work for list items that are added later?",
+      "begrunnelse": "The listener sits on the list. Events from new items bubble up to it, so no new listeners are needed.",
+      "alternativer": [
+        {
+          "tekst": "addEventListener automatically attaches itself to new elements with the same tag",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The listener is on the parent list, and events from new items bubble up to it",
+          "er_riktig": true
+        },
+        {
+          "tekst": "The browser runs all scripts again each time the DOM changes",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Why is innerHTML dangerous with user input while textContent is not?",
+      "begrunnelse": "innerHTML treats the string as HTML, so injected tags like <img onerror=...> may run code (XSS). textContent only sets text.",
+      "alternativer": [
+        {
+          "tekst": "innerHTML treats the string as HTML, so injected tags can run code; textContent only sets text",
+          "er_riktig": true
+        },
+        {
+          "tekst": "innerHTML saves the string permanently in the HTML source file",
+          "er_riktig": false
+        },
+        {
+          "tekst": "textContent removes all script elements from the page before it inserts the text",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "What is the difference between defer and async on a script?",
+      "begrunnelse": "Both download in parallel. defer runs after the whole document has been parsed, in order; async runs as soon as the script is ready, in any order.",
+      "alternativer": [
+        {
+          "tekst": "defer downloads in parallel, while async stops parsing until the script has downloaded",
+          "er_riktig": false
+        },
+        {
+          "tekst": "async runs after parsing in document order, while defer runs as soon as the script is ready",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Both download in parallel; defer runs after parsing in order, async runs when ready in any order",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Why is it faster to insert many elements through a DocumentFragment?",
+      "begrunnelse": "Each change to the DOM can make the browser recalculate the layout. A fragment lets you insert all the elements in one change.",
+      "alternativer": [
+        {
+          "tekst": "Elements in a fragment are protected against XSS",
+          "er_riktig": false
+        },
+        {
+          "tekst": "createElement cannot add elements directly to the page",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Each DOM change can trigger a layout recalculation, and the fragment is inserted in one change",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "How does the NodeList from querySelectorAll differ from the HTMLCollection from getElementsByClassName?",
+      "begrunnelse": "querySelectorAll returns a static NodeList, while getElementsByClassName returns a live HTMLCollection that updates when the document changes.",
+      "alternativer": [
+        {
+          "tekst": "The NodeList is live, while the HTMLCollection is static",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The NodeList is static, while the HTMLCollection updates when the document changes",
+          "er_riktig": true
+        },
+        {
+          "tekst": "The NodeList holds only the first match, while the HTMLCollection holds all matches",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Why does a submit handler often call event.preventDefault()?",
+      "begrunnelse": "Calling preventDefault stops the normal form submission, so the script can send the data with fetch instead of reloading the page.",
+      "alternativer": [
+        {
+          "tekst": "So the script can send the data with fetch instead of reloading the page",
+          "er_riktig": true
+        },
+        {
+          "tekst": "So the submit event does not bubble up to the document",
+          "er_riktig": false
+        },
+        {
+          "tekst": "So all the fields are cleared before the data is sent",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "How do the input and change events differ on a text field?",
+      "begrunnelse": "input fires on every keystroke, while change fires when the user leaves the field after changing it.",
+      "alternativer": [
+        {
+          "tekst": "change fires on every keystroke, while input fires when the user leaves the field",
+          "er_riktig": false
+        },
+        {
+          "tekst": "input fires on every keystroke, while change fires when the user leaves the field after changing it",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Both fire only when the form is submitted",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Why are querySelector and querySelectorAll called the most flexible ways to find elements?",
+      "begrunnelse": "The notes say they are the most flexible because they accept any CSS selector.",
+      "alternativer": [
+        {
+          "tekst": "They accept any CSS selector",
+          "er_riktig": true
+        },
+        {
+          "tekst": "They always return live collections",
+          "er_riktig": false
+        },
+        {
+          "tekst": "They are the only methods that can find an element by id",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "In what sense is the DOM a live tree?",
+      "begrunnelse": "JavaScript can read and change the tree, and the browser updates the page on screen right away.",
+      "alternativer": [
+        {
+          "tekst": "It is downloaded again from the server every second",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Changes to the tree are saved back to the HTML file automatically",
+          "er_riktig": false
+        },
+        {
+          "tekst": "When a script changes the tree, the browser updates the page on screen right away",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Why should a script move focus to an error message with element.focus()?",
+      "begrunnelse": "The notes say to move focus to the error after showing it, so keyboard users know what happened.",
+      "alternativer": [
+        {
+          "tekst": "To stop the form from being submitted again",
+          "er_riktig": false
+        },
+        {
+          "tekst": "So keyboard users know what happened",
+          "er_riktig": true
+        },
+        {
+          "tekst": "So the error event bubbles up to the document",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Which problem does a region with aria-live=\"polite\" solve?",
+      "begrunnelse": "When a script updates part of the page, screen readers may not notice. An aria-live=\"polite\" region makes the screen reader announce the change.",
+      "alternativer": [
+        {
+          "tekst": "Keyboard users cannot reach updated content with the Tab key",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Screen readers may not notice when a script updates part of the page",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Updated content is not shown on screen until the page is reloaded",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "What is the main drawback of using a <div> with a click listener instead of a <button>?",
+      "begrunnelse": "A real <button> can be reached with Tab and activated with Enter and Space without extra code. A <div> does not get this for free.",
+      "alternativer": [
+        {
+          "tekst": "A <div> cannot receive click events at all",
+          "er_riktig": false
+        },
+        {
+          "tekst": "A <button> runs the handler twice for each click",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The <div> cannot be reached with Tab or activated with Enter and Space without extra code",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Why is toggling a class usually cleaner than setting element.style.display = \"none\"?",
+      "begrunnelse": "The notes say it is usually cleaner to toggle a class and keep the styling in CSS.",
+      "alternativer": [
+        {
+          "tekst": "The styling stays in CSS, and the script only switches the class",
+          "er_riktig": true
+        },
+        {
+          "tekst": "The style property only works on elements made with createElement",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The browser ignores inline styles set by scripts",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A <script type=\"module\"> is placed in <head>. Can it find elements in the body when it runs?",
+      "begrunnelse": "Module scripts are deferred by default, so they run after the whole document has been parsed.",
+      "alternativer": [
+        {
+          "tekst": "No, because every script in <head> runs before the body is parsed",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Only if it also has the async attribute",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Yes, because module scripts are deferred by default",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Why should event.stopPropagation() be used with care?",
+      "begrunnelse": "It stops the bubbling, so listeners higher up, such as a delegated listener on a parent, never receive the event.",
+      "alternativer": [
+        {
+          "tekst": "Listeners on parent elements, such as a delegated listener, will not receive the event",
+          "er_riktig": true
+        },
+        {
+          "tekst": "It also cancels the browser's default action, such as following a link",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It permanently removes all listeners from the element",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Why can the Elements panel show something different from the HTML file?",
+      "begrunnelse": "The Elements panel shows the current DOM, which includes the browser's fixes of HTML errors and all changes made by scripts.",
+      "alternativer": [
+        {
+          "tekst": "The Elements panel shows a cached copy from the last visit",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It shows the current DOM, including error fixes and changes made by scripts",
+          "er_riktig": true
+        },
+        {
+          "tekst": "The HTML file is compressed, so the panel shows a shorter version",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Which group of methods can insert an element made with createElement into the page?",
+      "begrunnelse": "A new element is added with append, prepend, before or after (or the older appendChild).",
+      "alternativer": [
+        {
+          "tekst": "getElementById, querySelector and querySelectorAll",
+          "er_riktig": false
+        },
+        {
+          "tekst": "setAttribute, getAttribute and classList.add",
+          "er_riktig": false
+        },
+        {
+          "tekst": "append, prepend, before and after",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "With event delegation and one listener on a <ul>, how does the handler know which <li> was clicked?",
+      "begrunnelse": "event.target is the element where the event started. event.currentTarget would be the <ul> itself.",
+      "alternativer": [
+        {
+          "tekst": "By checking event.target",
+          "er_riktig": true
+        },
+        {
+          "tekst": "By checking event.currentTarget",
+          "er_riktig": false
+        },
+        {
+          "tekst": "By calling getElementById with the position of the click",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "In which order do several scripts with defer run?",
+      "begrunnelse": "Deferred scripts run after the whole document has been parsed, in the order they appear.",
+      "alternativer": [
+        {
+          "tekst": "In the order they appear in the document",
+          "er_riktig": true
+        },
+        {
+          "tekst": "In the order they finish downloading",
+          "er_riktig": false
+        },
+        {
+          "tekst": "In a random order chosen by the browser",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "The HTML source is missing a closing tag. What will the DOM contain?",
+      "begrunnelse": "The browser fixes errors in the HTML when it builds the tree, so the DOM is a corrected tree that can differ from the source.",
+      "alternativer": [
+        {
+          "tekst": "Exactly the same error as the source",
+          "er_riktig": false
+        },
+        {
+          "tekst": "A corrected tree, because the browser fixes errors when it builds the DOM",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Nothing, because the DOM stays empty until the error is fixed",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A link has a click listener that calls event.preventDefault(). What happens when the link is clicked?",
+      "begrunnelse": "The handler runs, but preventDefault stops the default action, which for a link is to follow it.",
+      "alternativer": [
+        {
+          "tekst": "The handler does not run",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The link is followed, but the event does not bubble",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The handler runs, but the browser does not follow the link",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "What does element.classList.toggle(\"open\") do?",
+      "begrunnelse": "toggle switches the class: it adds it if it is missing and removes it if it is there. classList.contains is what checks for a class.",
+      "alternativer": [
+        {
+          "tekst": "It always adds the class open",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It adds the class if it is missing and removes it if it is there",
+          "er_riktig": true
+        },
+        {
+          "tekst": "It checks whether the element has the class and returns true or false",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "When are event.target and event.currentTarget the same element?",
+      "begrunnelse": "target is where the event started and currentTarget is where the listener is. They match when the event starts on the element that has the listener.",
+      "alternativer": [
+        {
+          "tekst": "Never, they always point to different elements",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Only after event.stopPropagation() has been called",
+          "er_riktig": false
+        },
+        {
+          "tekst": "When the event starts on the element that has the listener",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Which call finds the same element as document.getElementById(\"menu\")?",
+      "begrunnelse": "querySelector accepts any CSS selector, and #menu is the CSS selector for the element with id menu.",
+      "alternativer": [
+        {
+          "tekst": "document.querySelector(\"#menu\")",
+          "er_riktig": true
+        },
+        {
+          "tekst": "document.querySelectorAll(\"menu\")",
+          "er_riktig": false
+        },
+        {
+          "tekst": "document.getElementsByClassName(\"menu\")",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Why is the event object that a handler receives useful?",
+      "begrunnelse": "The event object tells the handler about the event, for example event.target, and gives methods such as preventDefault and stopPropagation.",
+      "alternativer": [
+        {
+          "tekst": "It contains a full copy of the DOM tree",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It tells where the event started and has methods such as preventDefault",
+          "er_riktig": true
+        },
+        {
+          "tekst": "It lets the handler run before the event happens",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Every element, attribute and piece of text becomes a node. What does this mean for the text inside a <p>?",
+      "begrunnelse": "Since every piece of text becomes a node, the text inside the <p> is a node of its own in the tree.",
+      "alternativer": [
+        {
+          "tekst": "The text is not part of the tree, only the <p> element is",
+          "er_riktig": false
+        },
+        {
+          "tekst": "All text on the page is stored as one string in the document object",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The text is a node of its own in the tree",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Why is async risky for scripts that depend on each other?",
+      "begrunnelse": "async scripts run as soon as they are ready, in any order, so a script can run before the script it depends on.",
+      "alternativer": [
+        {
+          "tekst": "They run in any order, so a script may run before the one it depends on",
+          "er_riktig": true
+        },
+        {
+          "tekst": "async scripts are not downloaded in parallel",
+          "er_riktig": false
+        },
+        {
+          "tekst": "async scripts cannot read or change the DOM",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A form has a submit listener on the <form>. What happens when the user clicks the submit button?",
+      "begrunnelse": "The submit event fires on the <form>, not on the button, so the listener on the form runs.",
+      "alternativer": [
+        {
+          "tekst": "Nothing, only a click listener on the button can react",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The submit event fires on the form, and the form's listener runs",
+          "er_riktig": true
+        },
+        {
+          "tekst": "The submit event fires on the button and never reaches the form",
+          "er_riktig": false
+        }
+      ]
+    }
+  ]
+}

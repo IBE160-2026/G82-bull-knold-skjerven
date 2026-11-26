@@ -1,0 +1,547 @@
+{
+  "sprak": "nb",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "På en side har både brødteksten og de store overskriftene en kontrast på 4:1 mot bakgrunnen. Hva gjelder etter kravene i notatet?",
+      "begrunnelse": "Kravet er minst 4,5:1 for vanlig tekst og 3:1 for stor tekst (1.4.3). 4:1 er nok for overskriftene, men for lite for brødteksten.",
+      "alternativer": [
+        {
+          "tekst": "Både brødteksten og overskriftene oppfyller kravet",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Overskriftene oppfyller kravet, men brødteksten gjør det ikke",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Verken brødteksten eller overskriftene oppfyller kravet",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Et skjema viser feil bare ved å gjøre rammen rundt feltet rød. Hvilke to krav fra notatet bryter dette?",
+      "begrunnelse": "Feilen vises bare med farge, som bryter 1.4.1, og den er ikke beskrevet i tekst, som bryter 3.3.1. Notatet bruker nettopp en feil i et skjema som eksempel.",
+      "alternativer": [
+        {
+          "tekst": "Kontrastkravet (1.4.3) og kravet om synlig fokus (2.4.7)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Kravet om ledetekster (3.3.2) og kravet om klikkflater (2.5.8)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Kravet om at farge ikke er eneste virkemiddel (1.4.1) og kravet om at feil beskrives i tekst (3.3.1)",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "En utvikler lager en lagreknapp som <div role=\"button\" aria-label=\"Lagre\">. Hva er det beste rådet ut fra notatet?",
+      "begrunnelse": "Den første regelen for ARIA er å la være å bruke det når et vanlig HTML-element gjør jobben. Notatet sier at en <button> alltid er bedre enn en <div> med role=\"button\".",
+      "alternativer": [
+        {
+          "tekst": "Bytt til <button>Lagre</button>, fordi et vanlig HTML-element gjør jobben",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Legg også til aria-describedby, slik at skjermleseren får mer informasjon",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Behold løsningen, fordi role=\"button\" gjør div-en likeverdig med en <button>",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Lighthouse gir en side full score for tilgjengelighet. Hva kan du konkludere med?",
+      "begrunnelse": "Automatiske verktøy finner bare anslagsvis 30 til 40 prosent av feilene. Full score betyr bare at verktøyet ikke fant feil av typene det kan oppdage, så manuell testing er fortsatt nødvendig.",
+      "alternativer": [
+        {
+          "tekst": "Bare at verktøyet ikke fant feil det kan oppdage; manuell testing trengs fortsatt",
+          "er_riktig": true
+        },
+        {
+          "tekst": "At siden oppfyller nivå AA og dermed lovkravet",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At siden oppfyller nivå A, men ikke nødvendigvis nivå AA",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Et skjema har ledetekster på alle felt. Ved feil vises bare meldingen «Noe gikk galt» øverst, uten å si hvilket felt som er feil. Hvilket krav er dårligst oppfylt?",
+      "begrunnelse": "Ledetekstene (3.3.2) er på plass, og meldingen er i tekst, ikke bare farge. Men 3.3.1 krever at feilen beskrives i tekst, og «Noe gikk galt» sier verken hvilket felt det gjelder eller hva som er feil.",
+      "alternativer": [
+        {
+          "tekst": "Skjemafelt skal ha ledetekster (3.3.2)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Farge skal ikke være eneste måte å vise informasjon på (1.4.1)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Feil skal beskrives i tekst (3.3.1)",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "En nedtrekksmeny åpnes bare når musepekeren holdes over den. Hvilket krav bryter dette?",
+      "begrunnelse": "Menyen kan ikke åpnes uten mus, så den bryter kravet om at all funksjonalitet skal kunne brukes med tastaturet (2.1.1). Synlig fokus forutsetter at man først kan nå menyen.",
+      "alternativer": [
+        {
+          "tekst": "Fokus skal være synlig (2.4.7)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "All funksjonalitet skal kunne brukes med tastaturet (2.1.1)",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Klikkflater skal være minst 24 x 24 CSS-piksler (2.5.8)",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Et ikon har en klikkflate på 20 x 20 CSS-piksler. Hvordan vurderes det etter notatet?",
+      "begrunnelse": "Suksesskriterium 2.5.8, som er nytt i WCAG 2.2, krever klikkflater på minst 24 x 24 CSS-piksler. 20 x 20 er for lite.",
+      "alternativer": [
+        {
+          "tekst": "Det bryter kravet om minst 24 x 24 CSS-piksler (2.5.8), som kom med WCAG 2.2",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Det oppfyller kravet, siden grensen er 16 x 16 CSS-piksler",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Det bryter kravet om synlig fokus (2.4.7), fordi små ikoner ikke kan få fokus",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Notatet sier at bilder som formidler noe, skal ha alt-tekst (1.1.1). Hva følger av dette for et bilde som bare er pynt?",
+      "begrunnelse": "Kravet gjelder bilder som formidler noe. Et rent dekorativt bilde formidler ingen informasjon og trenger derfor ingen beskrivende alt-tekst. I praksis gis det en tom alt-tekst, slik at skjermleseren hopper over det.",
+      "alternativer": [
+        {
+          "tekst": "Det må ha en like grundig alt-tekst som bilder med innhold",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Det må beskrives med aria-live i stedet for alt-tekst",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Det trenger ingen beskrivende alt-tekst, fordi det ikke formidler noe",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Overskriftene på en side er laget som <div class=\"stor-tekst\"> i stedet for <h2>. Hvorfor er dette et problem for skjermleserbrukere?",
+      "begrunnelse": "Skjermleseren bruker strukturen i HTML-en, blant annet overskrifter. Ser de bare store ut via CSS, er de ikke overskrifter for skjermleseren, og brukeren kan ikke navigere etter dem.",
+      "alternativer": [
+        {
+          "tekst": "Skjermleseren bruker HTML-strukturen og oppfatter ikke div-ene som overskrifter",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Skjermleseren leser ikke opp tekst som står i div-elementer",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Div-ene bryter kontrastkravet fordi de styles med CSS-klasser",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken testplan følger anbefalingene i notatet best?",
+      "begrunnelse": "Notatet sier at automatiske verktøy bare finner en del av feilene, og anbefaler å bruke siden bare med tastatur, zoome til 200 prosent, teste med skjermleser og helst teste med ekte brukere.",
+      "alternativer": [
+        {
+          "tekst": "Kjøre WAVE, axe og Lighthouse; når alle tre er uten feil, er siden ferdig testet",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Teste med NVDA, JAWS og VoiceOver, siden skjermlesere avdekker alle typer feil",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Kjøre et automatisk verktøy, bruke siden bare med tastatur, zoome til 200 prosent, teste med skjermleser og helst med ekte brukere",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "En norsk nettside har lang=\"en\" i HTML-en. Hva er den mest sannsynlige konsekvensen for en skjermleserbruker?",
+      "begrunnelse": "Skjermleseren leser opp innholdet med syntetisk tale og bruker lang-attributtet (3.1.1) til å velge språk. Står det engelsk, blir den norske teksten lest med engelsk uttale.",
+      "alternativer": [
+        {
+          "tekst": "Skjermleseren leser den norske teksten med engelsk uttale",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Nettleseren oversetter siden automatisk til engelsk",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Skjermleseren hopper over all tekst på siden",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "En side fungerer godt i Chrome på Windows, men knappene blir ikke lest opp riktig av VoiceOver på iPhone. Hvilket prinsipp er dårligst ivaretatt?",
+      "begrunnelse": "«Robust» betyr at innholdet skal fungere med ulike nettlesere og hjelpemidler, som skjermlesere. Her fungerer siden i én kombinasjon, men ikke i en annen.",
+      "alternativer": [
+        {
+          "tekst": "Mulig å oppfatte",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Robust",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Forståelig",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "En kommune har en nettside som oppfyller alle krav på nivå A, men ikke alle på nivå AA. Oppfyller den lovkravet?",
+      "begrunnelse": "A er bare minimumskravene. Lovverket i Norge og EU viser til nivå AA, så siden oppfyller ikke lovkravet.",
+      "alternativer": [
+        {
+          "tekst": "Ja, nivå A er nivået lovverket viser til",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Ja, så lenge siden også er testet med et automatisk verktøy",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Nei, lovverket viser til nivå AA, og A er bare minimumskravene",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "I notatet har kravene om alt-tekst (1.1.1) og kontrast (1.4.3) førstesiffer 1, mens kravene om tastatur (2.1.1) og synlig fokus (2.4.7) har førstesiffer 2. Førstesifferet følger rekkefølgen på de fire prinsippene. Hvilket prinsipp hører kravet om ledetekster (3.3.2) til?",
+      "begrunnelse": "Prinsippene står i rekkefølgen oppfatte, betjene, forståelig, robust. Førstesiffer 3 gir «Forståelig», og det passer med at ledetekster gjør skjemaet lett å forstå.",
+      "alternativer": [
+        {
+          "tekst": "Mulig å betjene",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Forståelig",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Robust",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "En student med brukket arm kan i en periode bare bruke tastaturet. Hvilket krav er viktigst for henne?",
+      "begrunnelse": "Hun bruker ikke mus, så det avgjørende er at all funksjonalitet kan brukes med tastaturet (2.1.1). Klikkflater handler om å treffe med peker eller finger, ikke om tastaturbruk.",
+      "alternativer": [
+        {
+          "tekst": "Klikkflater skal være minst 24 x 24 CSS-piksler (2.5.8)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "All funksjonalitet skal kunne brukes med tastaturet (2.1.1)",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Bilder som formidler noe, skal ha alt-tekst (1.1.1)",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Når du zoomer til 200 prosent under testing, hvilke brukere etterligner du først og fremst?",
+      "begrunnelse": "Zoom forstørrer innholdet slik personer med nedsatt syn ofte gjør. Blinde skjermleserbrukere ser ikke skjermen, og zoom tester ikke tastatur- eller pekerbruk.",
+      "alternativer": [
+        {
+          "tekst": "Personer med nedsatt syn som forstørrer innholdet",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Blinde brukere som bruker skjermleser",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Personer med nedsatt motorikk som trenger større klikkflater",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Store overskrifter på en side har en kontrast på 2:1 mot bakgrunnen. Hvordan vurderes det?",
+      "begrunnelse": "Stor tekst har et lavere krav enn vanlig tekst, men det er fortsatt minst 3:1 (1.4.3). 2:1 er for lite.",
+      "alternativer": [
+        {
+          "tekst": "Det oppfyller kravet, fordi stor tekst er unntatt fra kontrastkravet",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Det bryter kravet, fordi stor tekst må ha minst 3:1",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Det oppfyller kravet, fordi kravet for stor tekst er 2:1",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken kobling mellom prinsipp og eksempel er riktig?",
+      "begrunnelse": "Notatet nevner teksting av video under «Mulig å oppfatte». Nok tid hører til «Mulig å betjene», og tekstalternativ til bilder hører til «Mulig å oppfatte».",
+      "alternativer": [
+        {
+          "tekst": "Robust: brukeren skal ha nok tid",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Forståelig: tekstalternativ til bilder",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Mulig å oppfatte: teksting av video",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "En podkast legges ut på en nettside bare som lydfil. Hvilket prinsipp utfordres, og for hvem?",
+      "begrunnelse": "«Mulig å oppfatte» krever at informasjon kan oppfattes med minst én sans. En ren lydfil krever hørsel, så personer med nedsatt hørsel får ikke med seg innholdet.",
+      "alternativer": [
+        {
+          "tekst": "Mulig å oppfatte, for personer med nedsatt hørsel",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Mulig å betjene, for personer med nedsatt hørsel",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Robust, for personer som bruker skjermleser",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "En bruker blir logget ut uten forvarsel etter kort tid mens hun fyller ut et langt skjema. Hvilket prinsipp brytes, og hvorfor?",
+      "begrunnelse": "Notatet plasserer «brukeren skal ha nok tid» under «Mulig å betjene». En kort tidsgrense uten forvarsel bryter dette.",
+      "alternativer": [
+        {
+          "tekst": "Forståelig, fordi brukeren skal ha nok tid",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Mulig å betjene, fordi brukeren skal ha nok tid",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Robust, fordi økten skal fungere i alle nettlesere",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "En virksomhet sier: «Vi lager en egen tilgjengelig versjon av nettstedet for brukere med funksjonsnedsettelser.» Hvorfor stemmer dette dårlig med definisjonen i notatet?",
+      "begrunnelse": "Universell utforming betyr at en løsning kan brukes av så mange som mulig, uten at den må tilpasses den enkelte. En egen versjon for enkelte grupper er nettopp en særtilpasning.",
+      "alternativer": [
+        {
+          "tekst": "Fordi universell utforming betyr at samme løsning skal kunne brukes av flest mulig uten tilpasning",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Fordi loven forbyr at et nettsted har mer enn én versjon",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Det stemmer godt med definisjonen, så lenge den egne versjonen oppfyller nivå AA",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken påstand om forholdet mellom nivåene A, AA og AAA er riktig?",
+      "begrunnelse": "A er minimumskravene, AA er strengere og AAA strengest. Nivåene bygger på hverandre, så en side som oppfyller AA, må også oppfylle kravene på nivå A.",
+      "alternativer": [
+        {
+          "tekst": "AA og AAA er alternative nivåer, og man velger ett av dem",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En side kan oppfylle AA selv om den bryter et krav på nivå A",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En side som oppfyller AA, må også oppfylle kravene på nivå A",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Alt på en side kan nås med tastaturet, så den oppfyller 2.1.1. Kan den likevel bryte 2.4.7?",
+      "begrunnelse": "2.1.1 handler om at funksjonaliteten kan brukes med tastatur, 2.4.7 om at fokus er synlig. En side kan la seg betjene med tastatur selv om brukeren ikke ser hvor fokus er, for eksempel hvis fokusmarkeringen er fjernet i CSS.",
+      "alternativer": [
+        {
+          "tekst": "Nei, 2.1.1 omfatter også at fokus er synlig",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Ja, alt kan nås med tastatur uten at brukeren ser hvilket element som har fokus",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Nei, 2.4.7 gjelder bare for brukere som bruker mus",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er det laveste kontrastforholdet som oppfyller kravet både for vanlig og for stor tekst?",
+      "begrunnelse": "Vanlig tekst krever minst 4,5:1 og stor tekst minst 3:1. Den laveste verdien som dekker begge, er 4,5:1.",
+      "alternativer": [
+        {
+          "tekst": "4,5:1",
+          "er_riktig": true
+        },
+        {
+          "tekst": "3:1",
+          "er_riktig": false
+        },
+        {
+          "tekst": "7:1",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken av disse feilene er det minst sannsynlig at et automatisk verktøy som axe finner?",
+      "begrunnelse": "Et verktøy kan sjekke om et alt-attributt eller lang-attributt finnes, men ikke om alt-teksten beskriver bildet riktig. Slike feil er blant dem som krever manuell testing.",
+      "alternativer": [
+        {
+          "tekst": "Et bilde som mangler alt-attributt",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En side som mangler lang-attributt",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En alt-tekst som finnes, men som beskriver bildet feil",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "En utvikler legger role=\"link\" og en aria-label med samme tekst som lenken på en vanlig <a href>-lenke, «for sikkerhets skyld». Hvordan bør dette vurderes?",
+      "begrunnelse": "Den første regelen for ARIA er å la være å bruke det når et vanlig HTML-element gjør jobben. En vanlig lenke gir allerede hjelpemidlene den informasjonen de trenger.",
+      "alternativer": [
+        {
+          "tekst": "Det er god praksis, fordi skjermlesere ikke kjenner igjen lenker uten role",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Det er unødvendig, fordi et vanlig HTML-element allerede gjør jobben",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Det er påkrevd for å oppfylle prinsippet Robust",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Alle undersidene i en nettbutikk har tittelen «Hjem». Hvordan vurderes dette?",
+      "begrunnelse": "Kravet om beskrivende tittel (2.4.2) betyr at tittelen skal fortelle hva siden handler om. Når alle sider heter «Hjem», kan brukeren ikke skille dem fra hverandre, for eksempel i faner eller med skjermleser.",
+      "alternativer": [
+        {
+          "tekst": "Det bryter 2.4.2, fordi en tittel må bestå av minst tre ord",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Det er greit, fordi kravet om tittel bare gjelder forsiden",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Det bryter kravet om beskrivende tittel (2.4.2), fordi tittelen ikke forteller hvilken side man er på",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken beskrivelse av rollene til W3C, forskriften og Digdir er riktig?",
+      "begrunnelse": "WCAG kommer fra W3C, kravene i forskriften bygger på WCAG, og tilsynet med forskriften ligger hos Digdir.",
+      "alternativer": [
+        {
+          "tekst": "W3C utvikler WCAG, forskriften bygger på WCAG, og Digdir fører tilsyn",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Digdir utvikler WCAG, og W3C fører tilsyn med norske nettsteder",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Forskriften erstatter WCAG i Norge, og W3C fører tilsyn med forskriften",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "En nettbutikk viser «på lager» med en grønn prikk og «utsolgt» med en rød prikk, uten tekst. Hvem får problemer, og hvorfor?",
+      "begrunnelse": "Farge er her eneste måte å vise informasjonen på, som bryter 1.4.1. Den som ikke skiller rødt og grønt, ser ikke forskjell, uansett hvor god kontrasten mot bakgrunnen er.",
+      "alternativer": [
+        {
+          "tekst": "Ingen, så lenge prikkene har god kontrast mot bakgrunnen (1.4.3)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Brukere som ikke skiller rødt og grønt, fordi farge er eneste måte informasjonen vises på (1.4.1)",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Bare brukere med nedsatt motorikk, fordi prikkene er for små klikkflater (2.5.8)",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket av disse er IKKE et brudd på kravene i notatet?",
+      "begrunnelse": "En knapp på 30 x 30 CSS-piksler er over grensen på 24 x 24 (2.5.8), og synlig fokus oppfyller 2.4.7. Et felt uten ledetekst bryter 3.3.2, og feil språk i lang-attributtet bryter 3.1.1.",
+      "alternativer": [
+        {
+          "tekst": "Et skjemafelt som bare har en grå plassholdertekst og ingen ledetekst",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En norskspråklig side med lang=\"en\"",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En knapp på 30 x 30 CSS-piksler med synlig fokusmarkering",
+          "er_riktig": true
+        }
+      ]
+    }
+  ]
+}

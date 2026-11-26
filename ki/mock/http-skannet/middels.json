@@ -1,0 +1,547 @@
+{
+  "sprak": "nb",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "Hvorfor trengs informasjonskapsler for å holde en bruker innlogget?",
+      "begrunnelse": "HTTP er tilstandsløs: hver forespørsel står alene. Informasjonskapsler som sendes med forespørslene, gjør at tjeneren likevel kan kjenne igjen brukeren.",
+      "alternativer": [
+        {
+          "tekst": "Fordi HTTPS sletter innloggingen etter hver forespørsel",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi tjeneren bare husker brukere som har sendt en POST",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi HTTP er tilstandsløs, så tjeneren husker ingenting mellom forespørslene",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva betyr det at en HTTP-metode er idempotent?",
+      "begrunnelse": "Notatet definerer idempotent som at det å sende samme forespørsel flere ganger gir samme resultat som å sende den én gang. Å ikke endre noe er definisjonen av trygg, ikke idempotent.",
+      "alternativer": [
+        {
+          "tekst": "At samme forespørsel sendt flere ganger gir samme resultat som å sende den én gang",
+          "er_riktig": true
+        },
+        {
+          "tekst": "At forespørselen aldri endrer noe på tjeneren",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At forespørselen bare kan sendes én gang",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva betyr det at en metode er trygg?",
+      "begrunnelse": "Trygg betyr ifølge notatet at metoden ikke endrer noe på tjeneren, slik som GET og HEAD. Kryptering handler om HTTPS, og samme resultat ved gjentakelse er idempotens.",
+      "alternativer": [
+        {
+          "tekst": "At forbindelsen er kryptert med TLS",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At den ikke endrer noe på tjeneren",
+          "er_riktig": true
+        },
+        {
+          "tekst": "At den gir samme resultat uansett hvor mange ganger den sendes",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er forskjellen på PUT og PATCH?",
+      "begrunnelse": "Notatet sier at PUT erstatter en ressurs, mens PATCH endrer deler av den.",
+      "alternativer": [
+        {
+          "tekst": "PUT sletter en ressurs, mens PATCH lager en ny",
+          "er_riktig": false
+        },
+        {
+          "tekst": "PUT erstatter hele ressursen, mens PATCH endrer deler av den",
+          "er_riktig": true
+        },
+        {
+          "tekst": "PUT endrer deler av ressursen, mens PATCH erstatter hele",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva skiller 4xx-koder fra 5xx-koder?",
+      "begrunnelse": "Ifølge notatet betyr 4xx feil hos klienten, som 404 Not Found, og 5xx feil hos tjeneren, som 500 Internal Server Error.",
+      "alternativer": [
+        {
+          "tekst": "4xx er omdirigeringer, mens 5xx er vellykkede svar",
+          "er_riktig": false
+        },
+        {
+          "tekst": "4xx betyr feil hos tjeneren, mens 5xx betyr feil hos klienten",
+          "er_riktig": false
+        },
+        {
+          "tekst": "4xx betyr feil hos klienten, mens 5xx betyr feil hos tjeneren",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er forskjellen på 401 Unauthorized og 403 Forbidden ifølge notatet?",
+      "begrunnelse": "Notatet forklarer 401 Unauthorized som ikke logget inn og 403 Forbidden som ikke tilgang.",
+      "alternativer": [
+        {
+          "tekst": "401 betyr at brukeren ikke er logget inn, 403 at brukeren ikke har tilgang",
+          "er_riktig": true
+        },
+        {
+          "tekst": "401 betyr at ressursen ikke finnes, 403 at tjeneren har en feil",
+          "er_riktig": false
+        },
+        {
+          "tekst": "401 betyr at brukeren ikke har tilgang, 403 at brukeren ikke er logget inn",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva forteller det første sifferet i en statuskode?",
+      "begrunnelse": "Notatet sier at det første sifferet viser hvilken gruppe koden hører til, for eksempel 4 for feil hos klienten.",
+      "alternativer": [
+        {
+          "tekst": "Hvilken HTTP-versjon svaret bruker",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Hvor mange headere svaret har",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Hvilken gruppe koden hører til, for eksempel feil hos klienten",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvordan går en informasjonskapsel mellom tjener og nettleser?",
+      "begrunnelse": "Tjeneren sender informasjonskapselen med headeren Set-Cookie, og nettleseren sender den tilbake i headeren Cookie.",
+      "alternativer": [
+        {
+          "tekst": "Nettleseren lager den med Set-Cookie, og tjeneren sender den tilbake i Cookie",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Tjeneren sender den med Set-Cookie, og nettleseren sender den tilbake i Cookie",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Tjeneren sender den i Location, og nettleseren lagrer den i fragmentet",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken påstand om POST stemmer?",
+      "begrunnelse": "Notatet sier rett ut at POST er verken trygg eller idempotent.",
+      "alternativer": [
+        {
+          "tekst": "POST er verken trygg eller idempotent",
+          "er_riktig": true
+        },
+        {
+          "tekst": "POST er trygg, men ikke idempotent",
+          "er_riktig": false
+        },
+        {
+          "tekst": "POST er idempotent, men ikke trygg",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva oppnår krypteringen i HTTPS?",
+      "begrunnelse": "Ifølge notatet krypteres forbindelsen slik at ingen underveis kan lese eller endre dataene.",
+      "alternativer": [
+        {
+          "tekst": "At ingen underveis kan lese eller endre dataene",
+          "er_riktig": true
+        },
+        {
+          "tekst": "At siden lastes raskere fordi dataene blir mindre",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At tjeneren kan huske brukeren mellom forespørsler",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva menes med multipleksing i HTTP/2?",
+      "begrunnelse": "Notatet forklarer multipleksing som at HTTP/2 kan sende mange forespørsler samtidig over én forbindelse.",
+      "alternativer": [
+        {
+          "tekst": "At meldingene sendes som ren tekst",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At hver forespørsel får sin egen forbindelse",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At mange forespørsler kan sendes samtidig over én forbindelse",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilke to metoder kaller notatet trygge?",
+      "begrunnelse": "Notatet sier at GET og HEAD er trygge, det vil si at de ikke endrer noe på tjeneren. PUT er idempotent, men ikke trygg.",
+      "alternativer": [
+        {
+          "tekst": "GET og PUT",
+          "er_riktig": false
+        },
+        {
+          "tekst": "GET og HEAD",
+          "er_riktig": true
+        },
+        {
+          "tekst": "POST og HEAD",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva skiller headerne fra kroppen i en HTTP-melding?",
+      "begrunnelse": "Notatet sier at det etter headerne kommer en tom linje, og deretter eventuelt en kropp.",
+      "alternativer": [
+        {
+          "tekst": "En tom linje",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Statuslinjen",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Headeren Content-Type",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er den første linjen i svaret i notatets eksempel?",
+      "begrunnelse": "Svaret starter med statuslinjen HTTP/1.1 200 OK. GET /index.html HTTP/1.1 er første linje i forespørselen, og Host er en header.",
+      "alternativer": [
+        {
+          "tekst": "GET /index.html HTTP/1.1",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Host: www.example.com",
+          "er_riktig": false
+        },
+        {
+          "tekst": "HTTP/1.1 200 OK",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er forskjellen på HTTP/1.1 og HTTP/2 når det gjelder formatet på meldingene?",
+      "begrunnelse": "Notatet sier at HTTP/1.1 er tekstbasert, mens HTTP/2 er binær.",
+      "alternativer": [
+        {
+          "tekst": "HTTP/1.1 er binær, mens HTTP/2 er tekstbasert",
+          "er_riktig": false
+        },
+        {
+          "tekst": "HTTP/1.1 er tekstbasert, mens HTTP/2 er binær",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Begge er tekstbaserte, men HTTP/2 er alltid kryptert",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilke metoder er idempotente ifølge notatet?",
+      "begrunnelse": "Notatet nevner GET, PUT og DELETE som idempotente. POST er verken trygg eller idempotent.",
+      "alternativer": [
+        {
+          "tekst": "GET, POST og DELETE",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Bare POST og PATCH",
+          "er_riktig": false
+        },
+        {
+          "tekst": "GET, PUT og DELETE",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva brukes headeren Location til?",
+      "begrunnelse": "Ifølge notatet står den nye adressen i headeren Location ved omdirigering.",
+      "alternativer": [
+        {
+          "tekst": "Å oppgi den nye adressen ved en omdirigering",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Å si hvor i verden tjeneren står",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Å fortelle hvilket fragment nettleseren skal hoppe til",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken av disse kodene hører til samme gruppe som 302 Found?",
+      "begrunnelse": "302 Found og 304 Not Modified er begge omdirigeringer i 3xx-gruppen. 201 er vellykket, og 403 er feil hos klienten.",
+      "alternativer": [
+        {
+          "tekst": "201 Created",
+          "er_riktig": false
+        },
+        {
+          "tekst": "304 Not Modified",
+          "er_riktig": true
+        },
+        {
+          "tekst": "403 Forbidden",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva gjør spørrestrengen q=html i adressen https://www.example.com/sok?q=html?",
+      "begrunnelse": "Spørrestrengen er en del av adressen og sendes med til tjeneren. Det er fragmentet som bare brukes i nettleseren.",
+      "alternativer": [
+        {
+          "tekst": "Den bestemmer hvilken port forbindelsen bruker",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Den sender verdien html til tjeneren som en del av adressen",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Den brukes bare i nettleseren og sendes aldri til tjeneren",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er forskjellen på headerne Accept og Content-Type?",
+      "begrunnelse": "Accept sier hva klienten kan ta imot, mens Content-Type sier hva slags innhold meldingen faktisk har, for eksempel text/html.",
+      "alternativer": [
+        {
+          "tekst": "Begge sier hvilken nettleser klienten bruker",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Accept sier hva innholdet er, mens Content-Type sier hva klienten kan ta imot",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Accept sier hva klienten kan ta imot, mens Content-Type sier hva innholdet faktisk er",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva forteller headeren Host: www.example.com i eksempelforespørselen?",
+      "begrunnelse": "www.example.com er verten, så Host-headeren angir hvilken vert forespørselen gjelder. User-Agent beskriver klienten, og Accept sier hva den kan ta imot.",
+      "alternativer": [
+        {
+          "tekst": "Hvilken vert forespørselen gjelder",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Hvilken nettleser som sender forespørselen",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Hvilket innhold klienten kan ta imot",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva har 200 OK og 201 Created til felles, og hva skiller dem?",
+      "begrunnelse": "Begge hører til 2xx-gruppen og betyr vellykket. Navnet Created viser at 201 brukes når noe nytt er laget.",
+      "alternativer": [
+        {
+          "tekst": "Begge er omdirigeringer, men 201 er permanent",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Begge er feil hos klienten, men 201 gjelder skjemaer",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Begge er vellykkede, men 201 forteller at noe nytt ble laget",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken påstand om headere stemmer ifølge notatet?",
+      "begrunnelse": "Notatet sier at både forespørsler og svar har headere, som er navn og verdi, og at de kommer før den tomme linjen og kroppen.",
+      "alternativer": [
+        {
+          "tekst": "Både forespørsler og svar har headere, som består av navn og verdi",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Bare svar har headere, mens forespørsler bare har en kropp",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Headerne kommer etter kroppen i en HTTP-melding",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva finnes i et HTTP-svar, men ikke i en forespørsel?",
+      "begrunnelse": "Svaret starter med en statuslinje med statuskode, for eksempel HTTP/1.1 200 OK. Både forespørsler og svar har headere og en tom linje etter dem.",
+      "alternativer": [
+        {
+          "tekst": "Headere",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En statuskode i første linje",
+          "er_riktig": true
+        },
+        {
+          "tekst": "En tom linje etter headerne",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva slags koder hører til 1xx-gruppen?",
+      "begrunnelse": "Notatet sier at 1xx-kodene er informasjon. Omdirigering er 3xx, og feil hos tjeneren er 5xx.",
+      "alternativer": [
+        {
+          "tekst": "Omdirigeringer",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Feil hos tjeneren",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Informasjon",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken del av en URL avgjør om nettleseren bruker HTTP eller HTTPS?",
+      "begrunnelse": "Skjemaet er første del av URL-en, for eksempel https, og angir hvilken protokoll som brukes.",
+      "alternativer": [
+        {
+          "tekst": "Skjemaet",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Stien",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fragmentet",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvorfor kan :443 i https://www.example.com:443/sok vanligvis sløyfes?",
+      "begrunnelse": "443 er standardporten for HTTPS, så nettleseren bruker den uansett når skjemaet er https.",
+      "alternativer": [
+        {
+          "tekst": "Fordi porten bare brukes i nettleseren og aldri når tjeneren",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi 443 er standardporten for HTTPS",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Fordi porten alltid står i headeren User-Agent",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken forespørsel har typisk en kropp?",
+      "begrunnelse": "Etter headerne kommer eventuelt en kropp. POST sender data, for eksempel fra et skjema, mens GET og HEAD bare henter.",
+      "alternativer": [
+        {
+          "tekst": "En HEAD-forespørsel",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En GET som henter /index.html",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En POST som sender data fra et skjema",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er /index.html i eksempelforespørselen GET /index.html HTTP/1.1?",
+      "begrunnelse": "/index.html er stien til ressursen som hentes. Verten står i Host-headeren, og HTTP/1.1 er versjonen.",
+      "alternativer": [
+        {
+          "tekst": "Stien til ressursen som hentes",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Verten forespørselen sendes til",
+          "er_riktig": false
+        },
+        {
+          "tekst": "HTTP-versjonen som brukes",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er rollen til HTTP ifølge notatet?",
+      "begrunnelse": "Notatet beskriver HTTP som protokollen nettleseren og tjeneren snakker sammen med. Krypteringen kommer først med TLS i HTTPS.",
+      "alternativer": [
+        {
+          "tekst": "Et språk for å beskrive innholdet på en nettside",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Protokollen nettleseren og tjeneren snakker sammen med",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Et system for å kryptere data på nett",
+          "er_riktig": false
+        }
+      ]
+    }
+  ]
+}

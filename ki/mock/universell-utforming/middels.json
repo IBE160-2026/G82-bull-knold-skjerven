@@ -1,0 +1,547 @@
+{
+  "sprak": "nb",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "Hvorfor er manuell testing nødvendig selv om du kjører verktøy som axe og Lighthouse?",
+      "begrunnelse": "Notatet sier at automatiske verktøy bare finner anslagsvis 30 til 40 prosent av feilene, og at manuell testing derfor er nødvendig.",
+      "alternativer": [
+        {
+          "tekst": "Fordi automatiske verktøy bare kan teste sider som allerede er publisert",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi resultatene fra automatiske verktøy ikke godtas av Digdir",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi automatiske verktøy bare finner en del av feilene, anslagsvis 30 til 40 prosent",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvorfor sier notatet at mange har nytte av universell utforming, ikke bare personer med varig nedsatt funksjonsevne?",
+      "begrunnelse": "Notatet bruker eksempler som mobil i sterkt sollys, brukket arm og å lese på et annet språk enn morsmålet. Slike midlertidige eller situasjonsbestemte begrensninger gjør det også vanskeligere å bruke en side.",
+      "alternativer": [
+        {
+          "tekst": "Fordi også midlertidige eller situasjonsbestemte begrensninger, som sterkt sollys eller en brukket arm, gjør en side vanskeligere å bruke",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Fordi universelt utformede sider alltid laster raskere for alle brukere",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi lovverket krever at alle nettsider oppfyller nivå AAA",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva betyr kravet om at farge ikke skal være eneste måte å vise informasjon på (1.4.1)?",
+      "begrunnelse": "Kravet betyr at informasjon som vises med farge, også må komme fram på en annen måte. Notatet bruker en feil i et skjema som eksempel: den må ikke bare vises med farge.",
+      "alternativer": [
+        {
+          "tekst": "At sider ikke skal bruke farger for å markere feil",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At informasjon som vises med farge, også må vises på en annen måte, for eksempel med tekst",
+          "er_riktig": true
+        },
+        {
+          "tekst": "At alle farger på siden må ha en kontrast på minst 4,5:1 mot hverandre",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva bruker en skjermleser for å gjøre innholdet på en side forståelig for brukeren?",
+      "begrunnelse": "Notatet sier at skjermleseren bruker strukturen i HTML-en: overskrifter, landemerker, lister og etiketter.",
+      "alternativer": [
+        {
+          "tekst": "Den visuelle plasseringen av elementene, slik CSS-en tegner dem",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Strukturen i HTML-en, som overskrifter, landemerker, lister og etiketter",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Fargene og skriftstørrelsene på siden",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken påstand om ARIA stemmer med notatet?",
+      "begrunnelse": "ARIA er attributter som gir ekstra informasjon til hjelpemidler, men den første regelen er å la være å bruke det når et vanlig HTML-element gjør jobben.",
+      "alternativer": [
+        {
+          "tekst": "ARIA gir hjelpemidler ekstra informasjon, men skal ikke brukes når et vanlig HTML-element gjør jobben",
+          "er_riktig": true
+        },
+        {
+          "tekst": "ARIA gjør semantiske HTML-elementer overflødige, så lenge alle elementer får en rolle",
+          "er_riktig": false
+        },
+        {
+          "tekst": "ARIA er en skjermleser som følger med Windows",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvordan henger WCAG sammen med kravene i Norge?",
+      "begrunnelse": "Notatet sier at kravene bygger på WCAG fra W3C, og at AA er nivået lovverket i Norge og EU viser til.",
+      "alternativer": [
+        {
+          "tekst": "WCAG er en norsk forskrift som Digdir har skrevet",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Norge krever at alle nettsteder oppfyller WCAG på nivå AAA",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Kravene bygger på WCAG fra W3C, og lovverket viser til nivå AA",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvorfor kreves nivå AAA sjelden for hele nettsteder?",
+      "begrunnelse": "Notatet sier at AAA er det strengeste nivået og sjelden kreves for hele nettsteder, mens lovverket viser til AA.",
+      "alternativer": [
+        {
+          "tekst": "Fordi AAA bare gjelder for mobilapper",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi AAA ble fjernet i WCAG 2.2",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi AAA er det strengeste nivået, og lovverket viser til AA",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "En side kan bare brukes med mus. Hvilket prinsipp bryter den først og fremst?",
+      "begrunnelse": "Prinsippet «Mulig å betjene» sier at alt skal kunne brukes med tastatur. En side som krever mus, bryter dette.",
+      "alternativer": [
+        {
+          "tekst": "Mulig å betjene",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Robust",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Forståelig",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "En video på en side har tale, men ingen teksting. Hvilket prinsipp bryter dette først og fremst?",
+      "begrunnelse": "«Mulig å oppfatte» sier at informasjon skal kunne oppfattes med minst én sans, og notatet nevner teksting av video som eksempel. Uten teksting når talen ikke fram til den som ikke hører.",
+      "alternativer": [
+        {
+          "tekst": "Mulig å betjene",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Mulig å oppfatte",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Robust",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket av kravene i notatet er nytt i WCAG 2.2?",
+      "begrunnelse": "Notatet merker suksesskriterium 2.5.8, klikkflater på minst 24 x 24 CSS-piksler, som nytt i WCAG 2.2.",
+      "alternativer": [
+        {
+          "tekst": "Klikkflater på minst 24 x 24 CSS-piksler (2.5.8)",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Synlig fokus (2.4.7)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Alt-tekst på bilder (1.1.1)",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er hensikten med kravet om synlig fokus (2.4.7)?",
+      "begrunnelse": "Kravet står sammen med kravet om tastaturbetjening. Den som bruker tastaturet, må kunne se hvilket element som har fokus for å vite hvor på siden hun er.",
+      "alternativer": [
+        {
+          "tekst": "At musepekeren alltid skal være godt synlig",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At tastaturbrukere skal kunne se hvilket element som har fokus",
+          "er_riktig": true
+        },
+        {
+          "tekst": "At det viktigste innholdet skal stå øverst på siden",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er en leselist?",
+      "begrunnelse": "Notatet sier at en skjermleser kan vise innholdet på en leselist i punktskrift, som et alternativ til syntetisk tale.",
+      "alternativer": [
+        {
+          "tekst": "En liste over alle lenkene på en side",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Et program som leser opp teksten med syntetisk tale",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En enhet som viser innholdet fra skjermleseren i punktskrift",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva betyr det at informasjon skal kunne oppfattes «med minst én sans»?",
+      "begrunnelse": "Informasjonen må ikke være avhengig av én bestemt sans. Notatet nevner tekstalternativ til bilder og teksting av video, slik at innholdet også når dem som ikke ser eller hører.",
+      "alternativer": [
+        {
+          "tekst": "At informasjonen ikke må være avhengig av én bestemt sans, for eksempel synet",
+          "er_riktig": true
+        },
+        {
+          "tekst": "At all informasjon skal gis både som tekst, lyd og video",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At informasjonen skal kunne oppfattes uten noen form for hjelpemidler",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvorfor er det viktig at siden har riktig språk i lang-attributtet?",
+      "begrunnelse": "Skjermlesere leser opp innholdet med syntetisk tale. Språket i lang-attributtet forteller hvilket språk teksten skal leses med, slik at uttalen blir riktig.",
+      "alternativer": [
+        {
+          "tekst": "Slik at nettleseren velger riktig tegnsett for æ, ø og å",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Slik at søkemotorer automatisk oversetter siden",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Slik at skjermleseren leser teksten med riktig språk og uttale",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvorfor anbefaler notatet å prøve å bruke siden bare med tastaturet?",
+      "begrunnelse": "Automatiske verktøy finner bare en del av feilene. Ved å bruke tastaturet selv ser du om alt kan brukes uten mus og om fokus er synlig, slik kravene 2.1.1 og 2.4.7 sier.",
+      "alternativer": [
+        {
+          "tekst": "For å måle hvor raskt siden laster",
+          "er_riktig": false
+        },
+        {
+          "tekst": "For å avdekke om alt kan brukes uten mus og om fokus er synlig",
+          "er_riktig": true
+        },
+        {
+          "tekst": "For å sjekke at kontrasten mellom tekst og bakgrunn er høy nok",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilke grupper nevner notatet at universell utforming på nett særlig skal hjelpe?",
+      "begrunnelse": "Notatet nevner personer med nedsatt syn, hørsel, motorikk eller kognisjon.",
+      "alternativer": [
+        {
+          "tekst": "Bare personer med nedsatt syn",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Personer med nedsatt syn, hørsel, motorikk eller kognisjon",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Personer med nedsatt syn og hørsel, men ikke kognisjon",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken påstand om skjermlesere stemmer med notatet?",
+      "begrunnelse": "Notatet nevner NVDA og JAWS på Windows og VoiceOver på Mac og iPhone.",
+      "alternativer": [
+        {
+          "tekst": "NVDA og JAWS brukes på Windows, mens VoiceOver brukes på Mac og iPhone",
+          "er_riktig": true
+        },
+        {
+          "tekst": "VoiceOver brukes på Windows, mens NVDA brukes på Mac",
+          "er_riktig": false
+        },
+        {
+          "tekst": "JAWS er et automatisk testverktøy på linje med axe",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvorfor skal bilder som formidler noe, ha en alt-tekst?",
+      "begrunnelse": "Alt-teksten er et tekstalternativ som gjør at informasjonen kan oppfattes også av dem som ikke ser bildet, for eksempel når en skjermleser leser den opp.",
+      "alternativer": [
+        {
+          "tekst": "For at bildet skal laste raskere",
+          "er_riktig": false
+        },
+        {
+          "tekst": "For at bildet skal vises med høyere kontrast",
+          "er_riktig": false
+        },
+        {
+          "tekst": "For at informasjonen skal nå dem som ikke ser bildet, for eksempel via skjermleser",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket prinsipp hjelper mest en som leser på et annet språk enn morsmålet?",
+      "begrunnelse": "«Forståelig» handler om at tekst og betjening skal være forutsigbar og lett å forstå, noe som særlig hjelper den som leser på et annet språk enn morsmålet.",
+      "alternativer": [
+        {
+          "tekst": "Forståelig",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Robust",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Mulig å betjene",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Kravet om at brukeren skal ha nok tid, hører til hvilket prinsipp?",
+      "begrunnelse": "Notatet plasserer «brukeren skal ha nok tid» under prinsippet «Mulig å betjene».",
+      "alternativer": [
+        {
+          "tekst": "Forståelig",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Mulig å betjene",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Mulig å oppfatte",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket prinsipp handler mest direkte om at innholdet skal fungere sammen med skjermlesere?",
+      "begrunnelse": "Notatet sier at «Robust» betyr at innholdet skal fungere med ulike nettlesere og hjelpemidler, som skjermlesere.",
+      "alternativer": [
+        {
+          "tekst": "Mulig å oppfatte",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Forståelig",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Robust",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket krav hjelper særlig personer med nedsatt motorikk som har vanskelig for å treffe små knapper?",
+      "begrunnelse": "Kravet om at klikkflater skal være minst 24 x 24 CSS-piksler (2.5.8) gjør knapper lettere å treffe for den som har nedsatt motorikk.",
+      "alternativer": [
+        {
+          "tekst": "Kontrast på minst 4,5:1 for vanlig tekst (1.4.3)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Riktig språk i lang-attributtet (3.1.1)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Klikkflater på minst 24 x 24 CSS-piksler (2.5.8)",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket krav handler om at hver side skal ha en tittel som forteller hva siden handler om?",
+      "begrunnelse": "Notatet sier at siden skal ha en beskrivende tittel (2.4.2).",
+      "alternativer": [
+        {
+          "tekst": "Ledetekster på skjemafelt (3.3.2)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Beskrivende tittel (2.4.2)",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Riktig språk i lang-attributtet (3.1.1)",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvordan skiller kontrastkravet for stor tekst seg fra kravet for vanlig tekst?",
+      "begrunnelse": "Stor tekst er lettere å lese, så kravet er lavere: 3:1 for stor tekst mot 4,5:1 for vanlig tekst (1.4.3).",
+      "alternativer": [
+        {
+          "tekst": "Stor tekst har et lavere krav, 3:1 mot 4,5:1 for vanlig tekst",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Stor tekst har et strengere krav enn vanlig tekst",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Begge har samme krav, 4,5:1",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket av eksemplene i notatet har særlig nytte av god kontrast mellom tekst og bakgrunn?",
+      "begrunnelse": "Notatet nevner en som bruker mobil i sterkt sollys. I sterkt lys blir tekst med lav kontrast vanskelig å lese, så kontrastkravet (1.4.3) hjelper.",
+      "alternativer": [
+        {
+          "tekst": "En med brukket arm som bare bruker tastaturet",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En som bruker mobil i sterkt sollys",
+          "er_riktig": true
+        },
+        {
+          "tekst": "En som lytter til siden med en skjermleser",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er hensikten med ledetekster på skjemafelt (3.3.2)?",
+      "begrunnelse": "Ledetekster forteller hva som skal fylles inn i feltet. Skjermleseren bruker etiketter i HTML-en, så også den som ikke ser skjemaet, får vite hva feltet er til.",
+      "alternativer": [
+        {
+          "tekst": "At feltene skal ha høy nok kontrast mot bakgrunnen",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At feil i feltet skal vises med rød farge",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At brukeren, også med skjermleser, skal vite hva som skal fylles inn i feltet",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er forskjellen på verktøy som axe og skjermlesere som NVDA?",
+      "begrunnelse": "Notatet beskriver axe som et automatisk verktøy som finner en del av feilene, mens en skjermleser er et hjelpemiddel som leser opp innholdet for brukeren.",
+      "alternativer": [
+        {
+          "tekst": "axe finner tilgjengelighetsfeil automatisk, mens NVDA er et hjelpemiddel som leser opp innholdet",
+          "er_riktig": true
+        },
+        {
+          "tekst": "axe leser opp innholdet på Mac, mens NVDA gjør det samme på Windows",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Begge er automatiske verktøy, men NVDA finner flere feil enn axe",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva innebærer kravet om at all funksjonalitet skal kunne brukes med tastaturet (2.1.1)?",
+      "begrunnelse": "Kravet betyr at alt brukeren kan gjøre med mus, også skal kunne gjøres med tastaturet alene.",
+      "alternativer": [
+        {
+          "tekst": "At alt som kan gjøres med mus, også skal kunne gjøres med tastaturet alene",
+          "er_riktig": true
+        },
+        {
+          "tekst": "At siden skal ha egne tastatursnarveier for hver funksjon",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At siden skal vise et skjermtastatur på mobil",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken påstand om det norske regelverket stemmer med notatet?",
+      "begrunnelse": "Notatet sier at universell utforming av IKT er lovpålagt gjennom likestillings- og diskrimineringsloven og forskriften om universell utforming av IKT-løsninger, med Digdir som tilsyn.",
+      "alternativer": [
+        {
+          "tekst": "Universell utforming er en frivillig anbefaling fra W3C uten lovkrav i Norge",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Det er lovpålagt gjennom likestillings- og diskrimineringsloven og en egen forskrift, med Digdir som tilsyn",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Det er bare lovpålagt for sider som behandler personopplysninger",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken feil vil en skjermleserbruker sannsynligvis merke, men ikke en seende musbruker?",
+      "begrunnelse": "Et bilde uten alt-tekst ser helt normalt ut for den som ser, men skjermleseren har ingen tekst å lese opp, så informasjonen i bildet går tapt.",
+      "alternativer": [
+        {
+          "tekst": "Lav kontrast mellom tekst og bakgrunn",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Klikkflater som er mindre enn 24 x 24 CSS-piksler",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Et bilde som formidler noe, men mangler alt-tekst",
+          "er_riktig": true
+        }
+      ]
+    }
+  ]
+}

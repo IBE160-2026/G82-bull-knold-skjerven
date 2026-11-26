@@ -1,0 +1,547 @@
+{
+  "sprak": "nb",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "Hva står forkortelsen HTTP for?",
+      "begrunnelse": "Notatet forklarer at HTTP står for HyperText Transfer Protocol, protokollen nettleseren og tjeneren snakker sammen med.",
+      "alternativer": [
+        {
+          "tekst": "HyperText Transmission Program",
+          "er_riktig": false
+        },
+        {
+          "tekst": "HyperText Transfer Protocol",
+          "er_riktig": true
+        },
+        {
+          "tekst": "High Transfer Text Protocol",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva betyr det at HTTP er tilstandsløs?",
+      "begrunnelse": "Ifølge notatet står hver forespørsel alene, og tjeneren husker ingenting mellom to forespørsler.",
+      "alternativer": [
+        {
+          "tekst": "At forbindelsen alltid er kryptert",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At tjeneren ikke sender statuskoder",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At hver forespørsel står alene, og tjeneren husker ingenting mellom dem",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva brukes for å huske for eksempel en innlogging, når HTTP selv ikke husker noe?",
+      "begrunnelse": "Notatet sier at informasjonskapsler (cookies) brukes for å huske for eksempel en innlogging.",
+      "alternativer": [
+        {
+          "tekst": "Informasjonskapsler (cookies)",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Fragmentet i URL-en",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Statuskoder",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken HTTP-metode henter en ressurs og skal ikke endre noe?",
+      "begrunnelse": "Notatet beskriver GET som metoden som henter en ressurs og ikke skal endre noe.",
+      "alternativer": [
+        {
+          "tekst": "DELETE",
+          "er_riktig": false
+        },
+        {
+          "tekst": "POST",
+          "er_riktig": false
+        },
+        {
+          "tekst": "GET",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken metode brukes for å sende data, for eksempel fra et skjema?",
+      "begrunnelse": "Ifølge notatet sender POST data, for eksempel fra et skjema, og lager ofte noe nytt.",
+      "alternativer": [
+        {
+          "tekst": "HEAD",
+          "er_riktig": false
+        },
+        {
+          "tekst": "POST",
+          "er_riktig": true
+        },
+        {
+          "tekst": "DELETE",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva betyr statuskoden 404?",
+      "begrunnelse": "404 Not Found er en av klientfeilene i 4xx-gruppen og betyr at ressursen ikke ble funnet.",
+      "alternativer": [
+        {
+          "tekst": "Not Found: ressursen ble ikke funnet",
+          "er_riktig": true
+        },
+        {
+          "tekst": "OK: forespørselen var vellykket",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Internal Server Error: feil hos tjeneren",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva betyr det når en statuskode begynner på 5?",
+      "begrunnelse": "Koder i 5xx-gruppen betyr feil hos tjeneren, for eksempel 500 Internal Server Error og 503 Service Unavailable.",
+      "alternativer": [
+        {
+          "tekst": "Det er en feil hos tjeneren",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Forespørselen var vellykket",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Det er en omdirigering",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er HTTPS?",
+      "begrunnelse": "Notatet beskriver HTTPS som HTTP over TLS, der forbindelsen krypteres.",
+      "alternativer": [
+        {
+          "tekst": "En raskere versjon av HTTP uten headere",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Et eget språk for å skrive nettsider",
+          "er_riktig": false
+        },
+        {
+          "tekst": "HTTP over TLS, med kryptert forbindelse",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken header bruker tjeneren for å sende en informasjonskapsel til nettleseren?",
+      "begrunnelse": "Tjeneren sender informasjonskapsler med headeren Set-Cookie, står det i notatet.",
+      "alternativer": [
+        {
+          "tekst": "Content-Type",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Set-Cookie",
+          "er_riktig": true
+        },
+        {
+          "tekst": "User-Agent",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken metode sletter en ressurs?",
+      "begrunnelse": "Notatet sier at DELETE sletter en ressurs.",
+      "alternativer": [
+        {
+          "tekst": "PATCH",
+          "er_riktig": false
+        },
+        {
+          "tekst": "GET",
+          "er_riktig": false
+        },
+        {
+          "tekst": "DELETE",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken port bruker HTTPS som standard?",
+      "begrunnelse": "Ifølge notatet bruker HTTPS port 443 som standard, mens HTTP bruker port 80.",
+      "alternativer": [
+        {
+          "tekst": "443",
+          "er_riktig": true
+        },
+        {
+          "tekst": "80",
+          "er_riktig": false
+        },
+        {
+          "tekst": "8000",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken header sier hva slags innhold et svar har, for eksempel text/html?",
+      "begrunnelse": "Content-Type sier hva slags innhold det er, for eksempel text/html eller application/json.",
+      "alternativer": [
+        {
+          "tekst": "Location",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Content-Type",
+          "er_riktig": true
+        },
+        {
+          "tekst": "User-Agent",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "I adressen https://www.example.com:443/sok?q=html#treff, hva kalles delen treff?",
+      "begrunnelse": "Notatet kaller treff for fragmentet. Det sendes aldri til tjeneren og brukes bare i nettleseren.",
+      "alternativer": [
+        {
+          "tekst": "Stien",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fragmentet",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Verten",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "I adressen https://www.example.com:443/sok?q=html#treff, hva er www.example.com?",
+      "begrunnelse": "Notatet sier at www.example.com er verten i denne adressen.",
+      "alternativer": [
+        {
+          "tekst": "Verten",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Skjemaet",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Spørrestrengen",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken metode er som GET, men gir bare headerne?",
+      "begrunnelse": "Notatet sier at HEAD er som GET, men gir bare headerne.",
+      "alternativer": [
+        {
+          "tekst": "PUT",
+          "er_riktig": false
+        },
+        {
+          "tekst": "POST",
+          "er_riktig": false
+        },
+        {
+          "tekst": "HEAD",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva betyr en statuskode i 2xx-gruppen?",
+      "begrunnelse": "2xx betyr vellykket, for eksempel 200 OK og 201 Created.",
+      "alternativer": [
+        {
+          "tekst": "Feil hos klienten",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Informasjon",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At forespørselen var vellykket",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken gruppe statuskoder brukes for omdirigering?",
+      "begrunnelse": "3xx er omdirigering, for eksempel 301 Moved Permanently, 302 Found og 304 Not Modified.",
+      "alternativer": [
+        {
+          "tekst": "1xx",
+          "er_riktig": false
+        },
+        {
+          "tekst": "3xx",
+          "er_riktig": true
+        },
+        {
+          "tekst": "5xx",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken port bruker vanlig HTTP som standard?",
+      "begrunnelse": "Notatet sier at HTTP bruker port 80 som standard, og HTTPS port 443.",
+      "alternativer": [
+        {
+          "tekst": "80",
+          "er_riktig": true
+        },
+        {
+          "tekst": "443",
+          "er_riktig": false
+        },
+        {
+          "tekst": "22",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "I adressen https://www.example.com:443/sok?q=html#treff, hva kalles q=html?",
+      "begrunnelse": "Notatet kaller q=html for spørrestrengen i denne adressen.",
+      "alternativer": [
+        {
+          "tekst": "Porten",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fragmentet",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Spørrestrengen",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvor mange sifre har en HTTP-statuskode?",
+      "begrunnelse": "Svaret starter med en statuskode på tre sifre, og det første sifferet viser hvilken gruppe koden hører til.",
+      "alternativer": [
+        {
+          "tekst": "Tre",
+          "er_riktig": true
+        },
+        {
+          "tekst": "To",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fire",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva heter statuskoden 201?",
+      "begrunnelse": "201 Created er en av de vellykkede kodene i 2xx-gruppen.",
+      "alternativer": [
+        {
+          "tekst": "Not Modified",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Created",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Forbidden",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken header sier hva klienten kan ta imot?",
+      "begrunnelse": "Notatet sier at Accept forteller hva klienten kan ta imot.",
+      "alternativer": [
+        {
+          "tekst": "Accept",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Set-Cookie",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Location",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva viser tjeneren i HTTPS for å bevise at den er den den sier den er?",
+      "begrunnelse": "Ifølge notatet viser tjeneren et sertifikat som beviser at den er den den sier den er.",
+      "alternativer": [
+        {
+          "tekst": "En informasjonskapsel",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En statuskode",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Et sertifikat",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken header beskriver klienten?",
+      "begrunnelse": "Notatet sier at User-Agent beskriver klienten.",
+      "alternativer": [
+        {
+          "tekst": "Cache-Control",
+          "er_riktig": false
+        },
+        {
+          "tekst": "User-Agent",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Content-Type",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken header styrer hvor lenge et svar kan mellomlagres?",
+      "begrunnelse": "Notatet sier at Cache-Control styrer hvor lenge svaret kan mellomlagres.",
+      "alternativer": [
+        {
+          "tekst": "Host",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Cache-Control",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Accept",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket år kom HTTP/2?",
+      "begrunnelse": "Notatet sier at HTTP/2 kom i 2015.",
+      "alternativer": [
+        {
+          "tekst": "1997",
+          "er_riktig": false
+        },
+        {
+          "tekst": "2022",
+          "er_riktig": false
+        },
+        {
+          "tekst": "2015",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva går HTTP/3 over?",
+      "begrunnelse": "Ifølge notatet ble HTTP/3 standard i 2022 og går over QUIC.",
+      "alternativer": [
+        {
+          "tekst": "QUIC",
+          "er_riktig": true
+        },
+        {
+          "tekst": "FTP",
+          "er_riktig": false
+        },
+        {
+          "tekst": "SMTP",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket år kom HTTP/1.1?",
+      "begrunnelse": "Notatet sier at HTTP/1.1 kom i 1997 og er tekstbasert.",
+      "alternativer": [
+        {
+          "tekst": "2010",
+          "er_riktig": false
+        },
+        {
+          "tekst": "2022",
+          "er_riktig": false
+        },
+        {
+          "tekst": "1997",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvem sender forespørselen i HTTP?",
+      "begrunnelse": "Klienten, ofte nettleseren, sender en forespørsel, og tjeneren sender et svar.",
+      "alternativer": [
+        {
+          "tekst": "Klienten, ofte nettleseren",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Tjeneren",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Sertifikatet",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva betyr statuskoden 200?",
+      "begrunnelse": "200 OK er en vellykket kode i 2xx-gruppen, og den står i statuslinjen i notatets eksempel.",
+      "alternativer": [
+        {
+          "tekst": "Not Found",
+          "er_riktig": false
+        },
+        {
+          "tekst": "OK",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Bad Request",
+          "er_riktig": false
+        }
+      ]
+    }
+  ]
+}

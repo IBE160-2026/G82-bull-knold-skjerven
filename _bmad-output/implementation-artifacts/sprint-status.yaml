@@ -46,8 +46,9 @@ development_status:
 
   epic-2: in-progress
   2-1-lese-filen-og-sjekke-quizutkastet: done
-  # 2.2 venter på mock-filene: Magnus konfigurerer API-nøkkelen og kjører
-  # `manage.py lag_mocksvar` når de andre storyene er gjennomført, og committer ki/mock/.
+  # ki/mock/ er committet 26.11, men håndskrevet av Claude Opus 5.5 utenfor appen (Magnus' valg),
+  # i strid med spec-ens «ikke håndskrevne mock-svar». 2.2 står i review til `lag_mocksvar`
+  # er kjørt med ekte nøkkel og har erstattet filene.
   2-2-generere-med-modellen-eller-mock-svar: review
   2-3-laste-opp-notat: done
   2-4-lage-quiz-med-fremdrift: review
@@ -76,11 +77,10 @@ development_status:
   epic-5-retrospective: optional
 
   epic-6: in-progress
-  # 6.1 venter også på mock-filene fra 2.2: kjør `manage.py seed_testdata` på ekte
-  # når ki/mock/ er committet, før 6.1 settes til done.
-  6-1-testbruker-med-eksempeldata: review
+  # 6.1: seed_testdata kjørt på ekte mot ki/mock/ 26.11.
+  6-1-testbruker-med-eksempeldata: done
   # 6.2 venter på den manuelle testen med ny klone (Windows og macOS/Linux, av en som ikke
-  # skrev README-en) og på ki/mock/, så CI-seed kjører på ekte.
+  # skrev README-en).
   6-2-readme-og-test-med-ny-klone: review
   6-3-sluttkontroll-av-tilgang-og-universell-utforming: backlog
   6-4-ki-kvalitet-og-genereringstid: backlog

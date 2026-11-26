@@ -1,0 +1,10 @@
+{
+  "standard": "html-struktur-og-semantikk",
+  "filer": {
+    "ebaf924e8eb6d8ea06c520e0e4f2182d8d90ade6e5f5d72a0236e2429904bf62": "css-layout-lysbilder",
+    "e4cb05b72bbc3ff7165d741bba11fd5ebcbb523967d1569b982513a143b1cc2d": "html-struktur-og-semantikk",
+    "c0f7a49c14d1ab5f224ac0e342561921d57ee74e007470c6b447ef040da0b0f3": "http-skannet",
+    "f85a328360c2c428b4eaece99f4e040535d3fcd0a4d8261b5c4c780980769be1": "javascript-og-dom",
+    "e2594a1bd112e9a8b878251f3f11dc907359b18c6c095914f1701e182472f983": "universell-utforming"
+  }
+}

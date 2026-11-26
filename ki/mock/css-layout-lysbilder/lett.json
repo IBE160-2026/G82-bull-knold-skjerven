@@ -1,0 +1,277 @@
+{
+  "sprak": "nb",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "Hva gjør box-sizing: border-box?",
+      "begrunnelse": "Lysbildet om boksmodellen sier at box-sizing: border-box tar med padding og border i width. Som standard gjelder width bare innholdet.",
+      "alternativer": [
+        {"tekst": "Den fjerner kanten rundt elementet", "er_riktig": false},
+        {"tekst": "Den tar med padding og border i width", "er_riktig": true},
+        {"tekst": "Den legger margin til i width", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva er forskjellen på padding og margin?",
+      "begrunnelse": "Ifølge lysbildet er padding luft innenfor kanten (border), mens margin er luft utenfor.",
+      "alternativer": [
+        {"tekst": "Padding er luft innenfor kanten, margin er luft utenfor", "er_riktig": true},
+        {"tekst": "Padding er luft utenfor kanten, margin er luft innenfor", "er_riktig": false},
+        {"tekst": "Begge er navn på tykkelsen til selve kanten", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvor setter du display: flex?",
+      "begrunnelse": "display: flex settes på forelderen, som da blir flex-beholderen. Barna blir flex-elementer.",
+      "alternativer": [
+        {"tekst": "På hvert av barna som skal plasseres", "er_riktig": false},
+        {"tekst": "Alltid på body, uansett hvor elementene står", "er_riktig": false},
+        {"tekst": "På forelderen, som da blir flex-beholderen", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva er hovedforskjellen på flexbox og grid ifølge forelesningen?",
+      "begrunnelse": "Lysbildet «Flexbox eller grid?» sier at flexbox arbeider i én dimensjon (en rad eller en kolonne), mens grid arbeider i to dimensjoner, rader og kolonner samtidig.",
+      "alternativer": [
+        {"tekst": "Flexbox er bare for tekst, grid er bare for bilder", "er_riktig": false},
+        {"tekst": "Flexbox og grid er to navn på samme teknikk", "er_riktig": false},
+        {"tekst": "Flexbox arbeider i én dimensjon, grid i to", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva betyr enheten fr i grid?",
+      "begrunnelse": "Lysbildet om grid sier at fr er en brøkdel av den ledige plassen.",
+      "alternativer": [
+        {"tekst": "En fast bredde målt i piksler", "er_riktig": false},
+        {"tekst": "En brøkdel av den ledige plassen", "er_riktig": true},
+        {"tekst": "Én rad i rutenettet", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva gjør justify-content i en flex-beholder?",
+      "begrunnelse": "justify-content fordeler elementene langs hovedaksen, med verdier som flex-start, center, space-between og space-around.",
+      "alternativer": [
+        {"tekst": "Den fordeler elementene langs hovedaksen", "er_riktig": true},
+        {"tekst": "Den bestemmer skrifttypen i elementene", "er_riktig": false},
+        {"tekst": "Den gir navn til områder i beholderen", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva skjer med et element som får display: none?",
+      "begrunnelse": "Ifølge lysbildet om display vises ikke elementet, og det tar heller ingen plass.",
+      "alternativer": [
+        {"tekst": "Det havner på en ny linje og tar hele bredden", "er_riktig": false},
+        {"tekst": "Det vises ikke og tar ingen plass", "er_riktig": true},
+        {"tekst": "Det blir usynlig, men beholder plassen sin", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva betyr «mobil først» i responsiv design?",
+      "begrunnelse": "Lysbildet om responsiv design sier: lag for liten skjerm, og utvid for stor.",
+      "alternativer": [
+        {"tekst": "Å lage en egen app for mobil før nettsiden", "er_riktig": false},
+        {"tekst": "Å bare teste siden på mobil", "er_riktig": false},
+        {"tekst": "Å lage for liten skjerm først og utvide for stor", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva betyr det når alle flex-elementene har flex: 1?",
+      "begrunnelse": "Lysbildet om størrelse i flexbox sier at flex: 1 betyr at alle deler den ledige plassen likt.",
+      "alternativer": [
+        {"tekst": "Alle deler den ledige plassen likt", "er_riktig": true},
+        {"tekst": "Bare det første elementet vokser", "er_riktig": false},
+        {"tekst": "Alle elementene blir 1 piksel brede", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva gjør grid-column: 1 / 3 med et element?",
+      "begrunnelse": "Lysbildet om plassering i grid sier at grid-column: 1 / 3 strekker et element over to kolonner.",
+      "alternativer": [
+        {"tekst": "Det strekker elementet over to kolonner", "er_riktig": true},
+        {"tekst": "Det gjør elementet en tredjedel så bredt", "er_riktig": false},
+        {"tekst": "Det skjuler elementet i kolonne 1 til 3", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilken display-verdi gir et element som starter på ny linje og tar hele bredden?",
+      "begrunnelse": "display: block gir ny linje og tar hele bredden, som div, p og h1.",
+      "alternativer": [
+        {"tekst": "inline", "er_riktig": false},
+        {"tekst": "none", "er_riktig": false},
+        {"tekst": "block", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva gjør align-items i en flex-beholder?",
+      "begrunnelse": "Ifølge lysbildet om justering plasserer align-items elementene langs kryssaksen.",
+      "alternativer": [
+        {"tekst": "Den bestemmer hvor mange kolonner det blir", "er_riktig": false},
+        {"tekst": "Den plasserer elementene langs kryssaksen", "er_riktig": true},
+        {"tekst": "Den lar elementene gå over flere linjer", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva er standardverdien for flex-direction?",
+      "begrunnelse": "Lysbildet sier at flex-direction kan være row, som er standard, eller column.",
+      "alternativer": [
+        {"tekst": "row", "er_riktig": true},
+        {"tekst": "column", "er_riktig": false},
+        {"tekst": "wrap", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva gir grid-template-columns: repeat(3, 1fr)?",
+      "begrunnelse": "Lysbildet om grid sier at repeat(3, 1fr) gir tre like kolonner.",
+      "alternativer": [
+        {"tekst": "Én kolonne som er tre ganger så bred", "er_riktig": false},
+        {"tekst": "Tre like kolonner", "er_riktig": true},
+        {"tekst": "Tre rader som hver er 1 piksel høye", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva skjer hvis du setter width på et inline-element som span?",
+      "begrunnelse": "Inline-elementer flyter i teksten, og ifølge lysbildet virker ikke width på dem.",
+      "alternativer": [
+        {"tekst": "Bredden dobles", "er_riktig": false},
+        {"tekst": "Elementet hopper til en ny linje", "er_riktig": false},
+        {"tekst": "Ingenting, width virker ikke på inline-elementer", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva brukes en media query til?",
+      "begrunnelse": "Oppsummeringen sier at media queries tilpasser oppsettet til skjermen, for eksempel med @media (min-width: 600px) { ... }.",
+      "alternativer": [
+        {"tekst": "Å spille av video på siden", "er_riktig": false},
+        {"tekst": "Å tilpasse oppsettet til skjermen", "er_riktig": true},
+        {"tekst": "Å hente data fra en database", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva betyr minmax(200px, 1fr) for en kolonne i grid?",
+      "begrunnelse": "Lysbildet sier at minmax(200px, 1fr) betyr at kolonnen aldri blir smalere enn 200px.",
+      "alternativer": [
+        {"tekst": "Kolonnen er alltid nøyaktig 200px", "er_riktig": false},
+        {"tekst": "Kolonnen blir aldri bredere enn 200px", "er_riktig": false},
+        {"tekst": "Kolonnen blir aldri smalere enn 200px", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva må du huske å ha i head for at responsiv design skal virke?",
+      "begrunnelse": "Lysbildet om responsiv design minner om å ha viewport-meta i head.",
+      "alternativer": [
+        {"tekst": "Viewport-meta", "er_riktig": true},
+        {"tekst": "Et skript som laster inn grid", "er_riktig": false},
+        {"tekst": "En tabell over skjermstørrelser", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva gjør gap i flexbox?",
+      "begrunnelse": "Lysbildet om justering sier at gap gir mellomrom mellom elementene.",
+      "alternativer": [
+        {"tekst": "Den lager en kant rundt hvert element", "er_riktig": false},
+        {"tekst": "Den skjuler elementer som ikke får plass", "er_riktig": false},
+        {"tekst": "Den gir mellomrom mellom elementene", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva gjør flex-wrap: wrap?",
+      "begrunnelse": "Ifølge lysbildet lar flex-wrap: wrap elementene gå over flere linjer.",
+      "alternativer": [
+        {"tekst": "Den pakker elementene inn i en ramme", "er_riktig": false},
+        {"tekst": "Den lar elementene gå over flere linjer", "er_riktig": true},
+        {"tekst": "Den gjør alle elementene like brede", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva beskriver flex-basis?",
+      "begrunnelse": "Lysbildet sier at flex-basis er startstørrelsen før vekst og krymping.",
+      "alternativer": [
+        {"tekst": "Startstørrelsen før vekst og krymping", "er_riktig": true},
+        {"tekst": "Avstanden mellom elementene", "er_riktig": false},
+        {"tekst": "Hvor mange linjer elementene kan bruke", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva styrer flex-grow?",
+      "begrunnelse": "Lysbildet sier at flex-grow avgjør hvor mye et element vokser av den ledige plassen.",
+      "alternativer": [
+        {"tekst": "Hvor mye et element vokser av den ledige plassen", "er_riktig": true},
+        {"tekst": "Hvor stor skriften i elementet blir", "er_riktig": false},
+        {"tekst": "Hvor mange nye elementer som legges til", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Når kommer flex-shrink til nytte?",
+      "begrunnelse": "flex-shrink bestemmer hvor mye et element krymper når plassen er for liten.",
+      "alternativer": [
+        {"tekst": "Når elementet skal skjules på mobil", "er_riktig": false},
+        {"tekst": "Når det er ledig plass som skal fylles", "er_riktig": false},
+        {"tekst": "Når plassen er for liten og elementene må krympe", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva brukes grid-template-areas til?",
+      "begrunnelse": "Lysbildet om plassering i grid sier at grid-template-areas gir navn til områder.",
+      "alternativer": [
+        {"tekst": "Å sette bakgrunnsfarge på rutenettet", "er_riktig": false},
+        {"tekst": "Å gi navn til områder i rutenettet", "er_riktig": true},
+        {"tekst": "Å telle hvor mange elementer det er", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva gjør repeat(auto-fit, minmax(200px, 1fr))?",
+      "begrunnelse": "Ifølge lysbildet tilpasser repeat(auto-fit, minmax(200px, 1fr)) antall kolonner etter plassen.",
+      "alternativer": [
+        {"tekst": "Den lager alltid 200 kolonner", "er_riktig": false},
+        {"tekst": "Den tilpasser antall kolonner etter plassen", "er_riktig": true},
+        {"tekst": "Den låser rutenettet til tre kolonner", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva skiller inline-block fra inline?",
+      "begrunnelse": "inline-block står i teksten som inline, men kan i tillegg få width og height.",
+      "alternativer": [
+        {"tekst": "inline-block kan ikke stå i teksten", "er_riktig": false},
+        {"tekst": "inline-block skjuler elementet", "er_riktig": false},
+        {"tekst": "inline-block står i teksten, men kan få width og height", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvilken teknikk anbefaler forelesningen for sideoppsett?",
+      "begrunnelse": "Lysbildet «Flexbox eller grid?» sier grid for sideoppsett.",
+      "alternativer": [
+        {"tekst": "Grid", "er_riktig": true},
+        {"tekst": "display: inline", "er_riktig": false},
+        {"tekst": "display: none", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilke elementer nevnes som eksempler på display: block?",
+      "begrunnelse": "Lysbildet om display nevner div, p og h1 som eksempler på block. span, a og em er eksempler på inline.",
+      "alternativer": [
+        {"tekst": "span, a og em", "er_riktig": false},
+        {"tekst": "rem, vw og vh", "er_riktig": false},
+        {"tekst": "div, p og h1", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvilke relative enheter nevnes på lysbildet om responsiv design?",
+      "begrunnelse": "Lysbildet nevner rem, em, %, vw og vh som relative enheter.",
+      "alternativer": [
+        {"tekst": "rem, em, %, vw og vh", "er_riktig": true},
+        {"tekst": "Bare px", "er_riktig": false},
+        {"tekst": "block, inline og none", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilke deler består boksen til et element av i boksmodellen?",
+      "begrunnelse": "Ifølge lysbildet er hvert element en boks med innhold, padding, border og margin.",
+      "alternativer": [
+        {"tekst": "Rad, kolonne, celle og rutenett", "er_riktig": false},
+        {"tekst": "Innhold, padding, border og margin", "er_riktig": true},
+        {"tekst": "Skrift, farge, bakgrunn og bilde", "er_riktig": false}
+      ]
+    }
+  ]
+}

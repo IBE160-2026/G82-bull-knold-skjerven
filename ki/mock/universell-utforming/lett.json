@@ -1,0 +1,547 @@
+{
+  "sprak": "nb",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "Hva betyr universell utforming ifølge notatet?",
+      "begrunnelse": "Notatet definerer universell utforming som at en løsning kan brukes av så mange som mulig, uten at den må tilpasses den enkelte.",
+      "alternativer": [
+        {
+          "tekst": "At en nettside ser lik ut i alle nettlesere",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At en løsning kan brukes av så mange som mulig, uten at den må tilpasses den enkelte",
+          "er_riktig": true
+        },
+        {
+          "tekst": "At en nettside er oversatt til flere språk",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvem står bak WCAG?",
+      "begrunnelse": "Notatet sier at WCAG, Web Content Accessibility Guidelines, kommer fra W3C.",
+      "alternativer": [
+        {
+          "tekst": "W3C",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Digitaliseringsdirektoratet (Digdir)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "EU-kommisjonen",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket WCAG-nivå viser lovverket i Norge og EU til?",
+      "begrunnelse": "Ifølge notatet er AA nivået lovverket i Norge og EU viser til. A er minimumskravene, og AAA er det strengeste.",
+      "alternativer": [
+        {
+          "tekst": "A",
+          "er_riktig": false
+        },
+        {
+          "tekst": "AAA",
+          "er_riktig": false
+        },
+        {
+          "tekst": "AA",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva står forkortelsen WCAG for?",
+      "begrunnelse": "Notatet skriver det ut: WCAG står for Web Content Accessibility Guidelines.",
+      "alternativer": [
+        {
+          "tekst": "Web Compliance and Access Guidelines",
+          "er_riktig": false
+        },
+        {
+          "tekst": "World Content Accessibility Group",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Web Content Accessibility Guidelines",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvem fører tilsyn med forskriften om universell utforming av IKT-løsninger?",
+      "begrunnelse": "Notatet sier at tilsynet med forskriften ligger hos Digitaliseringsdirektoratet (Digdir).",
+      "alternativer": [
+        {
+          "tekst": "Datatilsynet",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Digitaliseringsdirektoratet (Digdir)",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Forbrukertilsynet",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvor stor må kontrasten mellom tekst og bakgrunn minst være for vanlig tekst?",
+      "begrunnelse": "Suksesskriterium 1.4.3 krever minst 4,5:1 for vanlig tekst. Kravet 3:1 gjelder stor tekst.",
+      "alternativer": [
+        {
+          "tekst": "4,5:1",
+          "er_riktig": true
+        },
+        {
+          "tekst": "3:1",
+          "er_riktig": false
+        },
+        {
+          "tekst": "10:1",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvor stor må kontrasten minst være for stor tekst?",
+      "begrunnelse": "Notatet sier at kontrasten skal være minst 3:1 for stor tekst (1.4.3).",
+      "alternativer": [
+        {
+          "tekst": "2:1",
+          "er_riktig": false
+        },
+        {
+          "tekst": "3:1",
+          "er_riktig": true
+        },
+        {
+          "tekst": "4,5:1",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken forkortelse brukes ofte om de fire prinsippene i WCAG?",
+      "begrunnelse": "Notatet sier at de fire prinsippene ofte forkortes POUR.",
+      "alternativer": [
+        {
+          "tekst": "ARIA",
+          "er_riktig": false
+        },
+        {
+          "tekst": "IKT",
+          "er_riktig": false
+        },
+        {
+          "tekst": "POUR",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket prinsipp sier at alt skal kunne brukes med tastatur?",
+      "begrunnelse": "Under «Mulig å betjene» står det at alt skal kunne brukes med tastatur, og at brukeren skal ha nok tid.",
+      "alternativer": [
+        {
+          "tekst": "Mulig å betjene",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Mulig å oppfatte",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Robust",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket WCAG-nivå inneholder minimumskravene?",
+      "begrunnelse": "Notatet sier at A er minimumskravene. AA er nivået lovverket viser til, og AAA er det strengeste.",
+      "alternativer": [
+        {
+          "tekst": "A",
+          "er_riktig": true
+        },
+        {
+          "tekst": "AA",
+          "er_riktig": false
+        },
+        {
+          "tekst": "AAA",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva skal bilder som formidler noe, ha ifølge suksesskriterium 1.1.1?",
+      "begrunnelse": "Notatet sier at bilder som formidler noe, skal ha en alt-tekst (1.1.1).",
+      "alternativer": [
+        {
+          "tekst": "En tykk ramme",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Høy oppløsning",
+          "er_riktig": false
+        },
+        {
+          "tekst": "En alt-tekst",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvor store skal klikkflater minst være etter WCAG 2.2?",
+      "begrunnelse": "Suksesskriterium 2.5.8, som er nytt i WCAG 2.2, krever klikkflater på minst 24 x 24 CSS-piksler.",
+      "alternativer": [
+        {
+          "tekst": "10 x 10 CSS-piksler",
+          "er_riktig": false
+        },
+        {
+          "tekst": "24 x 24 CSS-piksler",
+          "er_riktig": true
+        },
+        {
+          "tekst": "100 x 100 CSS-piksler",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket år kom WCAG 2.2?",
+      "begrunnelse": "Notatet sier at WCAG 2.2 kom i 2023.",
+      "alternativer": [
+        {
+          "tekst": "2008",
+          "er_riktig": false
+        },
+        {
+          "tekst": "2023",
+          "er_riktig": true
+        },
+        {
+          "tekst": "2018",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er den første regelen for ARIA?",
+      "begrunnelse": "Notatet sier at den første regelen for ARIA er å la være å bruke det når et vanlig HTML-element gjør jobben.",
+      "alternativer": [
+        {
+          "tekst": "Å la være å bruke ARIA når et vanlig HTML-element gjør jobben",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Å bruke ARIA på alle elementer på siden",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Å bruke ARIA i stedet for alt-tekst på bilder",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvor stor del av feilene finner automatiske verktøy, ifølge notatet?",
+      "begrunnelse": "Notatet anslår at automatiske verktøy som WAVE, axe og Lighthouse bare finner 30 til 40 prosent av feilene.",
+      "alternativer": [
+        {
+          "tekst": "Nesten alle feilene",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Omtrent 5 prosent",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Anslagsvis 30 til 40 prosent",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken lov gjør universell utforming av IKT lovpålagt i Norge?",
+      "begrunnelse": "Notatet sier at universell utforming av IKT er lovpålagt gjennom likestillings- og diskrimineringsloven og en egen forskrift.",
+      "alternativer": [
+        {
+          "tekst": "Personopplysningsloven",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Likestillings- og diskrimineringsloven",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Markedsføringsloven",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket av disse er en skjermleser?",
+      "begrunnelse": "Notatet nevner NVDA, JAWS og VoiceOver som skjermlesere. WAVE og Lighthouse er automatiske testverktøy.",
+      "alternativer": [
+        {
+          "tekst": "WAVE",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Lighthouse",
+          "er_riktig": false
+        },
+        {
+          "tekst": "NVDA",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva gjør en skjermleser?",
+      "begrunnelse": "Notatet sier at en skjermleser leser opp innholdet med syntetisk tale eller viser det på en leselist i punktskrift.",
+      "alternativer": [
+        {
+          "tekst": "Leser opp innholdet med syntetisk tale eller viser det i punktskrift",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Finner tilgjengelighetsfeil automatisk i koden",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Øker kontrasten på skjermen",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva står forkortelsen ARIA for?",
+      "begrunnelse": "Notatet skriver at ARIA står for Accessible Rich Internet Applications.",
+      "alternativer": [
+        {
+          "tekst": "Accessible Rich Internet Applications",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Automatic Review of Internet Accessibility",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Advanced Reading Interface for Assistive tools",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket prinsipp sier at innholdet skal fungere med ulike nettlesere og hjelpemidler?",
+      "begrunnelse": "Ifølge notatet betyr «Robust» at innholdet skal fungere med ulike nettlesere og hjelpemidler, som skjermlesere.",
+      "alternativer": [
+        {
+          "tekst": "Forståelig",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Robust",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Mulig å betjene",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket attributt skal angi riktig språk på siden (3.1.1)?",
+      "begrunnelse": "Notatet sier at siden skal ha riktig språk i lang-attributtet (3.1.1).",
+      "alternativer": [
+        {
+          "tekst": "alt",
+          "er_riktig": false
+        },
+        {
+          "tekst": "title",
+          "er_riktig": false
+        },
+        {
+          "tekst": "lang",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket er det strengeste nivået i WCAG?",
+      "begrunnelse": "Notatet sier at AAA er det strengeste nivået og sjelden kreves for hele nettsteder.",
+      "alternativer": [
+        {
+          "tekst": "A",
+          "er_riktig": false
+        },
+        {
+          "tekst": "AA",
+          "er_riktig": false
+        },
+        {
+          "tekst": "AAA",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er ifølge notatet alltid bedre enn en <div> med role=\"button\"?",
+      "begrunnelse": "Notatet sier at en <button> alltid er bedre enn en <div> med role=\"button\", fordi et vanlig HTML-element gjør jobben.",
+      "alternativer": [
+        {
+          "tekst": "En <button>",
+          "er_riktig": true
+        },
+        {
+          "tekst": "En <span> med role=\"button\"",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Et bilde med alt-tekst",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken skjermleser brukes på Mac og iPhone?",
+      "begrunnelse": "Notatet nevner VoiceOver på Mac og iPhone, mens NVDA og JAWS brukes på Windows.",
+      "alternativer": [
+        {
+          "tekst": "NVDA",
+          "er_riktig": false
+        },
+        {
+          "tekst": "VoiceOver",
+          "er_riktig": true
+        },
+        {
+          "tekst": "JAWS",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvor mye bør du zoome inn når du tester siden manuelt?",
+      "begrunnelse": "Notatet anbefaler å zoome til 200 prosent som en del av den manuelle testingen.",
+      "alternativer": [
+        {
+          "tekst": "110 prosent",
+          "er_riktig": false
+        },
+        {
+          "tekst": "200 prosent",
+          "er_riktig": true
+        },
+        {
+          "tekst": "1000 prosent",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er det beste når du skal teste tilgjengeligheten til en side, ifølge notatet?",
+      "begrunnelse": "Notatet avslutter med at det beste er å teste med ekte brukere.",
+      "alternativer": [
+        {
+          "tekst": "Å teste med ekte brukere",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Å bare kjøre Lighthouse",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Å bare lese gjennom koden",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket prinsipp nevner tekstalternativ til bilder og teksting av video som eksempler?",
+      "begrunnelse": "Under «Mulig å oppfatte» står det at informasjon skal kunne oppfattes med minst én sans, for eksempel med tekstalternativ til bilder og teksting av video.",
+      "alternativer": [
+        {
+          "tekst": "Robust",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Forståelig",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Mulig å oppfatte",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hva skal skjemafelt ha ifølge suksesskriterium 3.3.2?",
+      "begrunnelse": "Notatet sier at skjemafelt skal ha ledetekster (3.3.2).",
+      "alternativer": [
+        {
+          "tekst": "Rød bakgrunnsfarge",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Automatisk utfylling",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Ledetekster",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket av disse er et automatisk testverktøy for tilgjengelighet?",
+      "begrunnelse": "Notatet nevner WAVE, axe og Lighthouse som automatiske verktøy. JAWS og VoiceOver er skjermlesere.",
+      "alternativer": [
+        {
+          "tekst": "JAWS",
+          "er_riktig": false
+        },
+        {
+          "tekst": "axe",
+          "er_riktig": true
+        },
+        {
+          "tekst": "VoiceOver",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilket prinsipp sier at tekst og betjening skal være forutsigbar og lett å forstå?",
+      "begrunnelse": "Notatet beskriver prinsippet «Forståelig» som at tekst og betjening skal være forutsigbar og lett å forstå.",
+      "alternativer": [
+        {
+          "tekst": "Forståelig",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Robust",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Mulig å oppfatte",
+          "er_riktig": false
+        }
+      ]
+    }
+  ]
+}

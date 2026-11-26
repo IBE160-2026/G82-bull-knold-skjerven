@@ -1,0 +1,277 @@
+{
+  "sprak": "nb",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "Hva står forkortelsen HTML for?",
+      "begrunnelse": "Notatet sier at HTML står for HyperText Markup Language, språket som beskriver strukturen i en nettside.",
+      "alternativer": [
+        {"tekst": "HyperText Modeling Language", "er_riktig": false},
+        {"tekst": "HyperText Markup Language", "er_riktig": true},
+        {"tekst": "High Transfer Markup Language", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva slags språk er HTML ifølge notatet?",
+      "begrunnelse": "HTML er ikke et programmeringsspråk, men et markeringsspråk. Det sier hva innholdet er, ikke hvordan det skal se ut eller oppføre seg.",
+      "alternativer": [
+        {"tekst": "Et markeringsspråk", "er_riktig": true},
+        {"tekst": "Et programmeringsspråk", "er_riktig": false},
+        {"tekst": "Et spørrespråk for databaser", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilke tre lag består en nettside vanligvis av?",
+      "begrunnelse": "Notatet beskriver tre lag: HTML for struktur, CSS for presentasjon og JavaScript for oppførsel.",
+      "alternativer": [
+        {"tekst": "HTML for oppførsel, CSS for struktur og JavaScript for presentasjon", "er_riktig": false},
+        {"tekst": "HTML, HTTP og URL", "er_riktig": false},
+        {"tekst": "HTML for struktur, CSS for presentasjon og JavaScript for oppførsel", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva skal stå på den første linjen i et HTML-dokument?",
+      "begrunnelse": "Den første linjen er dokumenttypen, <!DOCTYPE html>, som forteller nettleseren at siden skal tolkes etter moderne standard.",
+      "alternativer": [
+        {"tekst": "<html lang=\"nb\">", "er_riktig": false},
+        {"tekst": "<head>", "er_riktig": false},
+        {"tekst": "<!DOCTYPE html>", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvilket element inneholder alt som vises på siden?",
+      "begrunnelse": "Elementet <body> inneholder alt som vises på siden, som overskrifter, tekst, bilder, lenker og skjemaer.",
+      "alternativer": [
+        {"tekst": "<head>", "er_riktig": false},
+        {"tekst": "<body>", "er_riktig": true},
+        {"tekst": "<title>", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilket attributt på <img> gir en tekstlig erstatning for bildet?",
+      "begrunnelse": "Attributtet alt gir en tekstlig erstatning som leses opp av skjermlesere og vises hvis bildet ikke kan lastes.",
+      "alternativer": [
+        {"tekst": "alt", "er_riktig": true},
+        {"tekst": "src", "er_riktig": false},
+        {"tekst": "width", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvor mange nivåer av overskrifter har HTML?",
+      "begrunnelse": "HTML har seks nivåer av overskrifter, fra <h1> til <h6>.",
+      "alternativer": [
+        {"tekst": "Fire", "er_riktig": false},
+        {"tekst": "Seks", "er_riktig": true},
+        {"tekst": "Åtte", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilket element brukes for å lage en lenke?",
+      "begrunnelse": "Lenker lages med elementet <a>, som står for anchor.",
+      "alternativer": [
+        {"tekst": "<link>", "er_riktig": false},
+        {"tekst": "<href>", "er_riktig": false},
+        {"tekst": "<a>", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvilket tegnsett bør en nettside alltid bruke ifølge notatet?",
+      "begrunnelse": "Notatet sier at tegnsettet alltid bør være UTF-8, slik at siden kan vise æ, ø og å og tegn fra andre språk.",
+      "alternativer": [
+        {"tekst": "UTF-8", "er_riktig": true},
+        {"tekst": "ASCII", "er_riktig": false},
+        {"tekst": "Base64", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilket attributt på <html> angir hvilket språk siden er skrevet på?",
+      "begrunnelse": "Rotelementet <html> bør ha attributtet lang, for eksempel lang=\"nb\" for norsk bokmål.",
+      "alternativer": [
+        {"tekst": "lang", "er_riktig": true},
+        {"tekst": "charset", "er_riktig": false},
+        {"tekst": "country", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvem laget den første versjonen av HTML?",
+      "begrunnelse": "Tim Berners-Lee laget den første versjonen av HTML ved CERN rundt 1991, sammen med HTTP og den første nettleseren.",
+      "alternativer": [
+        {"tekst": "Bill Gates ved Microsoft", "er_riktig": false},
+        {"tekst": "Steve Jobs ved Apple", "er_riktig": false},
+        {"tekst": "Tim Berners-Lee ved CERN", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvilket element lager en punktliste der rekkefølgen ikke betyr noe?",
+      "begrunnelse": "En punktliste lages med <ul>, unordered list, og brukes når rekkefølgen ikke betyr noe.",
+      "alternativer": [
+        {"tekst": "<ol>", "er_riktig": false},
+        {"tekst": "<ul>", "er_riktig": true},
+        {"tekst": "<pl>", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilket element brukes for hvert punkt i en <ul> eller <ol>?",
+      "begrunnelse": "Hvert punkt i begge listetypene er et <li>-element.",
+      "alternativer": [
+        {"tekst": "<td>", "er_riktig": false},
+        {"tekst": "<li>", "er_riktig": true},
+        {"tekst": "<p>", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva gjør attributtet href på en lenke?",
+      "begrunnelse": "Attributtet href sier hvor lenken går.",
+      "alternativer": [
+        {"tekst": "Det sier hvor lenken går", "er_riktig": true},
+        {"tekst": "Det bestemmer fargen på lenken", "er_riktig": false},
+        {"tekst": "Det gir lenken en tooltip-tekst", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilket element gir et skjemafelt en ledetekst?",
+      "begrunnelse": "Hvert felt skal ha en ledetekst med <label>, som kobles til feltet med attributtet for.",
+      "alternativer": [
+        {"tekst": "<title>", "er_riktig": false},
+        {"tekst": "<caption>", "er_riktig": false},
+        {"tekst": "<label>", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvordan skrives en kommentar i HTML?",
+      "begrunnelse": "Kommentarer skrives mellom <!-- og -->.",
+      "alternativer": [
+        {"tekst": "// kommentar", "er_riktig": false},
+        {"tekst": "<!-- kommentar -->", "er_riktig": true},
+        {"tekst": "# kommentar", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilket semantisk element er sidens hovedinnhold og skal bare finnes én gang per side?",
+      "begrunnelse": "<main> er hovedinnholdet og skal bare finnes én gang per side.",
+      "alternativer": [
+        {"tekst": "<nav>", "er_riktig": false},
+        {"tekst": "<footer>", "er_riktig": false},
+        {"tekst": "<main>", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvilket element gir siden tittelen som vises i fanen i nettleseren?",
+      "begrunnelse": "Tittelen settes med <title> i <head>, og den vises i fanen i nettleseren og i søkeresultater.",
+      "alternativer": [
+        {"tekst": "<title>", "er_riktig": true},
+        {"tekst": "<h1>", "er_riktig": false},
+        {"tekst": "<header>", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva skal tabeller brukes til ifølge notatet?",
+      "begrunnelse": "Tabeller skal bare brukes til data i rader og kolonner, ikke til å lage sideoppsett.",
+      "alternativer": [
+        {"tekst": "Data i rader og kolonner", "er_riktig": true},
+        {"tekst": "Sideoppsett med flere kolonner", "er_riktig": false},
+        {"tekst": "Navigasjonsmenyer øverst på siden", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilket element lager en vanlig celle i en tabell?",
+      "begrunnelse": "En rad er <tr>, og en celle er <td>.",
+      "alternativer": [
+        {"tekst": "<tr>", "er_riktig": false},
+        {"tekst": "<td>", "er_riktig": true},
+        {"tekst": "<tc>", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilket element brukes til lengre tekst i et skjema?",
+      "begrunnelse": "Lengre tekst skrives i <textarea>.",
+      "alternativer": [
+        {"tekst": "<select>", "er_riktig": false},
+        {"tekst": "<option>", "er_riktig": false},
+        {"tekst": "<textarea>", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvilket element brukes for å sette inn video?",
+      "begrunnelse": "Video og lyd settes inn med <video> og <audio>.",
+      "alternativer": [
+        {"tekst": "<movie>", "er_riktig": false},
+        {"tekst": "<media>", "er_riktig": false},
+        {"tekst": "<video>", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva betyr det at et element som <img> eller <br> er tomt?",
+      "begrunnelse": "Tomme elementer har ingen sluttagg, fordi de ikke kan ha innhold.",
+      "alternativer": [
+        {"tekst": "Det har ingen sluttagg fordi det ikke kan ha innhold", "er_riktig": true},
+        {"tekst": "Det vises ikke på siden", "er_riktig": false},
+        {"tekst": "Det kan ikke ha attributter", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva skjer med flere mellomrom og linjeskift i kildekoden til et vanlig avsnitt når siden vises?",
+      "begrunnelse": "Flere mellomrom og linjeskift i kildekoden slås sammen til ett mellomrom når siden vises.",
+      "alternativer": [
+        {"tekst": "De vises nøyaktig slik de står", "er_riktig": false},
+        {"tekst": "De slås sammen til ett mellomrom", "er_riktig": true},
+        {"tekst": "De gir en feilmelding i nettleseren", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvem vedlikeholder HTML Living Standard?",
+      "begrunnelse": "HTML utvikles i dag som HTML Living Standard, som vedlikeholdes av WHATWG.",
+      "alternativer": [
+        {"tekst": "WHATWG", "er_riktig": true},
+        {"tekst": "CERN", "er_riktig": false},
+        {"tekst": "Hver nettleserprodusent for seg", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilket attributt på <form> sier hvor dataene sendes?",
+      "begrunnelse": "Attributtet action sier hvor dataene sendes, mens method sier om det skjer med GET eller POST.",
+      "alternativer": [
+        {"tekst": "method", "er_riktig": false},
+        {"tekst": "target", "er_riktig": false},
+        {"tekst": "action", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvilket attributt gjør et skjemafelt påkrevd?",
+      "begrunnelse": "Attributtet required gjør feltet påkrevd, og nettleseren sjekker det før skjemaet sendes.",
+      "alternativer": [
+        {"tekst": "disabled", "er_riktig": false},
+        {"tekst": "required", "er_riktig": true},
+        {"tekst": "mandatory", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvordan ser sluttaggen til et avsnitt ut?",
+      "begrunnelse": "Sluttaggen har en skråstrek foran navnet, så avsnittet <p> lukkes med </p>.",
+      "alternativer": [
+        {"tekst": "</p>", "er_riktig": true},
+        {"tekst": "<p/>", "er_riktig": false},
+        {"tekst": "<end p>", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilket verktøy nevner notatet for å validere HTML-kode?",
+      "begrunnelse": "Notatet anbefaler å validere koden, for eksempel med W3Cs validator på validator.w3.org.",
+      "alternativer": [
+        {"tekst": "Nettleserens bokmerkeliste", "er_riktig": false},
+        {"tekst": "Stavekontrollen i tekstbehandleren", "er_riktig": false},
+        {"tekst": "W3Cs validator på validator.w3.org", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvilket element gir en <figure> en bildetekst?",
+      "begrunnelse": "Med <figcaption> får figuren en bildetekst.",
+      "alternativer": [
+        {"tekst": "<alt>", "er_riktig": false},
+        {"tekst": "<figcaption>", "er_riktig": true},
+        {"tekst": "<subtitle>", "er_riktig": false}
+      ]
+    }
+  ]
+}

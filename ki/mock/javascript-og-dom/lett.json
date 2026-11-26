@@ -1,0 +1,547 @@
+{
+  "sprak": "en",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "What is the DOM?",
+      "begrunnelse": "The notes define the Document Object Model as the browser's representation of an HTML page as a tree of objects.",
+      "alternativer": [
+        {
+          "tekst": "A JavaScript library for building web pages",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The browser's representation of an HTML page as a tree of objects",
+          "er_riktig": true
+        },
+        {
+          "tekst": "The HTML source file stored on the server",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Which method returns all elements that match a CSS selector?",
+      "begrunnelse": "document.querySelectorAll returns all matches as a static NodeList, while querySelector returns only the first.",
+      "alternativer": [
+        {
+          "tekst": "document.querySelectorAll",
+          "er_riktig": true
+        },
+        {
+          "tekst": "document.getElementById",
+          "er_riktig": false
+        },
+        {
+          "tekst": "document.createElement",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "What is the main risk of using innerHTML with user input?",
+      "begrunnelse": "If a user can put <script> or <img onerror=...> into the string, the code may run. The notes call this cross-site scripting (XSS).",
+      "alternativer": [
+        {
+          "tekst": "It removes all classes from the element",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It makes the page load more slowly",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Code in the input may run, which is called cross-site scripting (XSS)",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "What does event.preventDefault() do?",
+      "begrunnelse": "The notes say event.preventDefault() stops the browser's default action, such as following a link or submitting a form.",
+      "alternativer": [
+        {
+          "tekst": "It removes the event listener from the element",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It deletes the element that fired the event",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It stops the browser's default action, such as following a link",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "What does the defer attribute on a <script> element do?",
+      "begrunnelse": "defer tells the browser to download the script in parallel and run it after the whole document has been parsed.",
+      "alternativer": [
+        {
+          "tekst": "It downloads the script in parallel and runs it after the whole document has been parsed",
+          "er_riktig": true
+        },
+        {
+          "tekst": "It waits to run the script until the user clicks on the page",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It stops the script from running at all",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Which property should you use to put text from users into an element?",
+      "begrunnelse": "The notes say to use textContent for text from users, because innerHTML can run code (XSS).",
+      "alternativer": [
+        {
+          "tekst": "innerHTML",
+          "er_riktig": false
+        },
+        {
+          "tekst": "textContent",
+          "er_riktig": true
+        },
+        {
+          "tekst": "style",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Which object is the root of the DOM tree?",
+      "begrunnelse": "The notes state that the document object is the root of the tree.",
+      "alternativer": [
+        {
+          "tekst": "The document object",
+          "er_riktig": true
+        },
+        {
+          "tekst": "The <body> element",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The first <script> element",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "What does it mean that events bubble?",
+      "begrunnelse": "After an event fires on an element, it travels up through the parents to the document.",
+      "alternativer": [
+        {
+          "tekst": "The event is fired twice on the same element",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The event is sent to the server before the handler runs",
+          "er_riktig": false
+        },
+        {
+          "tekst": "After the event fires on an element, it travels up through the parents to the document",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "What is the recommended way to add and remove CSS classes on an element?",
+      "begrunnelse": "The notes say classes are best handled with classList: add, remove, toggle and contains.",
+      "alternativer": [
+        {
+          "tekst": "getElementById",
+          "er_riktig": false
+        },
+        {
+          "tekst": "classList",
+          "er_riktig": true
+        },
+        {
+          "tekst": "textContent",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "What does document.getElementById(\"menu\") return if no element has the id menu?",
+      "begrunnelse": "getElementById returns the element with that id, or null if there is none.",
+      "alternativer": [
+        {
+          "tekst": "null",
+          "er_riktig": true
+        },
+        {
+          "tekst": "An empty NodeList",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The <html> element",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "What does document.createElement(\"li\") do?",
+      "begrunnelse": "createElement creates a new element that is not yet part of the page. It must be added with for example append.",
+      "alternativer": [
+        {
+          "tekst": "It finds the first <li> element on the page",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It creates a new <li> element that is not yet part of the page",
+          "er_riktig": true
+        },
+        {
+          "tekst": "It removes all <li> elements from the page",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Which method takes an element out of the DOM tree?",
+      "begrunnelse": "The notes say element.remove() takes an element out of the tree.",
+      "alternativer": [
+        {
+          "tekst": "element.append()",
+          "er_riktig": false
+        },
+        {
+          "tekst": "document.createElement()",
+          "er_riktig": false
+        },
+        {
+          "tekst": "element.remove()",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "On which element does the submit event fire?",
+      "begrunnelse": "The notes state that the submit event fires on the <form>, not on the button.",
+      "alternativer": [
+        {
+          "tekst": "On the <form> element",
+          "er_riktig": true
+        },
+        {
+          "tekst": "On the submit button",
+          "er_riktig": false
+        },
+        {
+          "tekst": "On the <head> element",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Which fields does new FormData(form) collect?",
+      "begrunnelse": "new FormData(form) collects all fields that have a name attribute.",
+      "alternativer": [
+        {
+          "tekst": "Only the field that has focus",
+          "er_riktig": false
+        },
+        {
+          "tekst": "All buttons in the form",
+          "er_riktig": false
+        },
+        {
+          "tekst": "All fields that have a name attribute",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "When does the input event fire on a text field?",
+      "begrunnelse": "The notes say the input event fires on every keystroke.",
+      "alternativer": [
+        {
+          "tekst": "Only when the form is submitted",
+          "er_riktig": false
+        },
+        {
+          "tekst": "On every keystroke",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Only when the page has finished loading",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Where can you see the current DOM of a page?",
+      "begrunnelse": "The notes say to open the Elements panel in the browser's developer tools to see the current DOM.",
+      "alternativer": [
+        {
+          "tekst": "By opening the HTML file in a text editor",
+          "er_riktig": false
+        },
+        {
+          "tekst": "In the browser's address bar",
+          "er_riktig": false
+        },
+        {
+          "tekst": "In the Elements panel in the browser's developer tools",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "What does document.querySelector(\".card\") return?",
+      "begrunnelse": "querySelector returns the first element that matches the CSS selector.",
+      "alternativer": [
+        {
+          "tekst": "The first element that matches the selector .card",
+          "er_riktig": true
+        },
+        {
+          "tekst": "All elements with the class card as a live HTMLCollection",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The element with the id card",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "What happens to the HTML source file when a script changes the DOM?",
+      "begrunnelse": "The notes say that when a script changes the DOM, the source file stays the same.",
+      "alternativer": [
+        {
+          "tekst": "The file is rewritten automatically",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The file stays the same",
+          "er_riktig": true
+        },
+        {
+          "tekst": "The file is deleted and replaced by the DOM",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Which attribute makes a screen reader announce changes in a region when the user is idle?",
+      "begrunnelse": "A region with aria-live=\"polite\" makes the screen reader announce the change when the user is idle.",
+      "alternativer": [
+        {
+          "tekst": "defer",
+          "er_riktig": false
+        },
+        {
+          "tekst": "type=\"module\"",
+          "er_riktig": false
+        },
+        {
+          "tekst": "aria-live=\"polite\"",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Why should you use real <button> elements for things that can be clicked?",
+      "begrunnelse": "Real buttons can be reached with the Tab key and activated with Enter and Space without extra code.",
+      "alternativer": [
+        {
+          "tekst": "They can be reached with Tab and activated with Enter and Space without extra code",
+          "er_riktig": true
+        },
+        {
+          "tekst": "They load faster than other elements",
+          "er_riktig": false
+        },
+        {
+          "tekst": "They send form data with fetch automatically",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "What does element.addEventListener(\"click\", handler) do?",
+      "begrunnelse": "addEventListener runs the handler function every time the event happens.",
+      "alternativer": [
+        {
+          "tekst": "It runs the handler only the first time the element is clicked",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It runs the handler every time the element is clicked",
+          "er_riktig": true
+        },
+        {
+          "tekst": "It clicks the element automatically",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "How do scripts with type=\"module\" behave by default?",
+      "begrunnelse": "The notes say scripts with type=\"module\" are deferred by default.",
+      "alternativer": [
+        {
+          "tekst": "They are deferred",
+          "er_riktig": true
+        },
+        {
+          "tekst": "They run before the <head> is parsed",
+          "er_riktig": false
+        },
+        {
+          "tekst": "They are never run",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Which method changes the value of an attribute on an element?",
+      "begrunnelse": "Attributes are changed with setAttribute and read with getAttribute.",
+      "alternativer": [
+        {
+          "tekst": "getAttribute",
+          "er_riktig": false
+        },
+        {
+          "tekst": "classList.contains",
+          "er_riktig": false
+        },
+        {
+          "tekst": "setAttribute",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "What is event.target in an event handler?",
+      "begrunnelse": "The notes say event.target is the element where the event started.",
+      "alternativer": [
+        {
+          "tekst": "The handler function that runs",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The element where the event started",
+          "er_riktig": true
+        },
+        {
+          "tekst": "The last element in the document",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "What does the browser do if the HTML contains errors?",
+      "begrunnelse": "The notes say the browser fixes errors in the HTML when it builds the tree.",
+      "alternativer": [
+        {
+          "tekst": "It fixes them when it builds the DOM tree",
+          "er_riktig": true
+        },
+        {
+          "tekst": "It refuses to show the page",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It shows the errors as text on the page",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "What is a faster way to add many new elements to the page?",
+      "begrunnelse": "The notes say it is faster to build many elements in a DocumentFragment and insert the fragment once.",
+      "alternativer": [
+        {
+          "tekst": "Reload the page after adding each element",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Use getElementsByClassName for each new element",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Build them in a DocumentFragment and insert the fragment once",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "What does getElementsByClassName return?",
+      "begrunnelse": "The notes say getElementsByClassName returns a live HTMLCollection that updates when the document changes.",
+      "alternativer": [
+        {
+          "tekst": "A single element or null",
+          "er_riktig": false
+        },
+        {
+          "tekst": "A live HTMLCollection",
+          "er_riktig": true
+        },
+        {
+          "tekst": "A string of HTML",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "What does the async attribute on a <script> element do?",
+      "begrunnelse": "async downloads the script in parallel and runs it as soon as it is ready, in any order.",
+      "alternativer": [
+        {
+          "tekst": "It downloads the script in parallel and runs it as soon as it is ready",
+          "er_riktig": true
+        },
+        {
+          "tekst": "It waits to run the script until the user scrolls",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It runs the script on the server instead of in the browser",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "What does event.stopPropagation() do?",
+      "begrunnelse": "The notes say event.stopPropagation() stops the bubbling, and that it should be used with care.",
+      "alternativer": [
+        {
+          "tekst": "It stops the page from loading",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It removes the element from the DOM",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It stops the event from bubbling up to the parents",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Which element is document.documentElement?",
+      "begrunnelse": "The notes say document.documentElement is the <html> element.",
+      "alternativer": [
+        {
+          "tekst": "The <head> element",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The <html> element",
+          "er_riktig": true
+        },
+        {
+          "tekst": "The element that has focus",
+          "er_riktig": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,277 @@
+{
+  "sprak": "nb",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "Hvorfor skal man ikke velge overskriftsnivå ut fra hvor stor teksten blir?",
+      "begrunnelse": "Overskriftene danner en innholdsfortegnelse som mange skjermleserbrukere navigerer etter. Nivået skal derfor følge strukturen, og størrelsen styres med CSS.",
+      "alternativer": [
+        {"tekst": "Fordi store overskrifter gjør at siden laster tregere", "er_riktig": false},
+        {"tekst": "Fordi nettleseren ignorerer størrelsen på <h4> til <h6>", "er_riktig": false},
+        {"tekst": "Fordi overskriftene viser sidens struktur, og størrelsen skal styres med CSS", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvorfor er lenketeksten «Les mer om skjemaer» bedre enn «klikk her»?",
+      "begrunnelse": "Lenketeksten bør beskrive målet, fordi den da gir mening også når den leses alene, slik skjermlesere ofte gjør.",
+      "alternativer": [
+        {"tekst": "Den gir mening også når den leses alene, slik skjermlesere ofte gjør", "er_riktig": true},
+        {"tekst": "Lenker med kort tekst kan ikke ha et href-attributt", "er_riktig": false},
+        {"tekst": "Nettleseren viser lenker med kort tekst i en annen farge", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva er forskjellen på <strong> og <b>?",
+      "begrunnelse": "<strong> betyr at teksten er spesielt viktig. <b> gir fet skrift uten denne betydningen og brukes for eksempel til nøkkelord.",
+      "alternativer": [
+        {"tekst": "<strong> gir fet skrift, mens <b> gir kursiv", "er_riktig": false},
+        {"tekst": "<strong> sier at teksten er spesielt viktig, mens <b> bare gir fet skrift uten den betydningen", "er_riktig": true},
+        {"tekst": "<b> er fjernet fra moderne HTML og skal ikke brukes", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvorfor bør <meta charset=\"utf-8\"> stå tidlig i <head>?",
+      "begrunnelse": "Nettleseren må vite tegnsettet før den leser resten av dokumentet.",
+      "alternativer": [
+        {"tekst": "Fordi tittelen ellers ikke vises i søkeresultater", "er_riktig": false},
+        {"tekst": "Fordi nettleseren må vite tegnsettet før den leser resten", "er_riktig": true},
+        {"tekst": "Fordi meta-elementer som står etter <link> blir ignorert", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvorfor er det lurt å sette width og height på bilder?",
+      "begrunnelse": "Da kan nettleseren sette av riktig plass før bildet er lastet, og siden hopper ikke når bildet dukker opp.",
+      "alternativer": [
+        {"tekst": "Bildet blir skarpere på skjermer med høy oppløsning", "er_riktig": false},
+        {"tekst": "Bildefilen blir mindre og lastes raskere", "er_riktig": false},
+        {"tekst": "Nettleseren kan sette av plass før bildet er lastet, så siden ikke hopper", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Når passer det å bruke method=\"get\" i et skjema?",
+      "begrunnelse": "Med GET legges dataene i adressen som en spørrestreng, og det passer for søk.",
+      "alternativer": [
+        {"tekst": "Ved søk, fordi dataene legges i adressen som en spørrestreng", "er_riktig": true},
+        {"tekst": "Når noe skal lagres, fordi dataene sendes i selve forespørselen", "er_riktig": false},
+        {"tekst": "Når skjemaet har et passordfelt, fordi dataene da skjules", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva oppnår man ved å sette attributtet for på en <label>?",
+      "begrunnelse": "for kobles til feltets id. Da leser skjermleseren opp etiketten, og et klikk på etiketten flytter fokus til feltet.",
+      "alternativer": [
+        {"tekst": "Etiketten knyttes til riktig <form> når siden har flere skjemaer", "er_riktig": false},
+        {"tekst": "Etiketten vises som plassholdertekst inne i feltet", "er_riktig": false},
+        {"tekst": "Etiketten kobles til feltets id, så skjermleseren leser den opp og et klikk flytter fokus til feltet", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva er gevinsten ved å holde HTML, CSS og JavaScript adskilt?",
+      "begrunnelse": "Notatet sier at adskilte lag gjør koden enklere å vedlikeholde og gjør det lettere å endre utseendet uten å røre innholdet.",
+      "alternativer": [
+        {"tekst": "Nettlesere kan ikke lese de tre språkene i samme fil", "er_riktig": false},
+        {"tekst": "Koden blir enklere å vedlikeholde, og utseendet kan endres uten å røre innholdet", "er_riktig": true},
+        {"tekst": "Hvert lag kan da lastes fra sin egen tjener", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvorfor er det ikke nok at nettleseren sjekker et felt med required?",
+      "begrunnelse": "Sjekken i nettleseren er bare en hjelp. Tjeneren må alltid sjekke dataene på nytt.",
+      "alternativer": [
+        {"tekst": "Sjekken i nettleseren er bare en hjelp, så tjeneren må alltid sjekke dataene på nytt", "er_riktig": true},
+        {"tekst": "required virker bare sammen med method=\"post\"", "er_riktig": false},
+        {"tekst": "required sjekkes først etter at skjemaet er sendt", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva skjer ofte hvis et <img>-element mangler alt-attributtet helt?",
+      "begrunnelse": "Mangler alt helt, leser mange skjermlesere opp filnavnet i stedet.",
+      "alternativer": [
+        {"tekst": "Bildet blir ikke vist", "er_riktig": false},
+        {"tekst": "Skjermleseren hopper over bildet, som ved alt=\"\"", "er_riktig": false},
+        {"tekst": "Mange skjermlesere leser opp filnavnet i stedet", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvorfor bør en knapp lages med <button> og ikke med en <div> som har en klikkhendelse?",
+      "begrunnelse": "<button> kan nås med tastaturet og annonseres riktig av skjermlesere.",
+      "alternativer": [
+        {"tekst": "<button> kan nås med tastaturet og annonseres riktig", "er_riktig": true},
+        {"tekst": "En <div> kan ikke få klikkhendelser", "er_riktig": false},
+        {"tekst": "En <div> kan ikke styles slik at den ser ut som en knapp", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvorfor bør man validere HTML-koden, selv om nettleseren viser siden?",
+      "begrunnelse": "Nettlesere er tilgivende, men hver nettleser kan rette feil på sin egen måte, så resultatet blir uforutsigbart.",
+      "alternativer": [
+        {"tekst": "Hver nettleser kan rette feil på sin egen måte, så resultatet blir uforutsigbart", "er_riktig": true},
+        {"tekst": "Søkemotorer viser ikke sider som ikke er validert", "er_riktig": false},
+        {"tekst": "Nettleseren slutter å vise sider med feil etter en stund", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva betyr det at HTML er en levende standard?",
+      "begrunnelse": "Standarden oppdateres fortløpende når nettleserne blir enige om nye funksjoner, og det kommer ikke lenger store versjonsnummer.",
+      "alternativer": [
+        {"tekst": "Siden kan endre HTML-en sin mens den kjører", "er_riktig": false},
+        {"tekst": "Standarden oppdateres fortløpende, uten store versjonsnummer", "er_riktig": true},
+        {"tekst": "Hver nettleser vedlikeholder sin egen versjon av HTML", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva hører hjemme i <head>?",
+      "begrunnelse": "<head> inneholder informasjon om dokumentet som ikke vises direkte på siden, som tegnsett, viewport, <title> og lenker til stilark.",
+      "alternativer": [
+        {"tekst": "Toppen av siden med logo og hovedmeny", "er_riktig": false},
+        {"tekst": "Sidens hovedoverskrift i <h1>", "er_riktig": false},
+        {"tekst": "Informasjon om dokumentet som ikke vises direkte, som tegnsett, tittel og stilark", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva er hensikten med scope=\"col\" og scope=\"row\" på <th>?",
+      "begrunnelse": "scope sier om overskriften gjelder en kolonne eller en rad, slik at skjermlesere kan lese opp riktig overskrift sammen med hver celle.",
+      "alternativer": [
+        {"tekst": "Å slå sammen flere celler til én", "er_riktig": false},
+        {"tekst": "Å fortelle skjermlesere om overskriften gjelder en kolonne eller en rad", "er_riktig": true},
+        {"tekst": "Å bestemme bredden på kolonnen eller høyden på raden", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva skiller <article> fra <section>?",
+      "begrunnelse": "<article> brukes for innhold som gir mening alene. <section> er en tematisk del av et dokument og bør som regel ha en overskrift.",
+      "alternativer": [
+        {"tekst": "<section> er for blogginnlegg, mens <article> er for tematiske deler av en side", "er_riktig": false},
+        {"tekst": "Det er ingen forskjell i betydning, bare i navn", "er_riktig": false},
+        {"tekst": "<article> gir mening alene, mens <section> er en tematisk del som bør ha en overskrift", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvorfor bruker man <fieldset> og <legend> rundt radioknapper som hører sammen?",
+      "begrunnelse": "<fieldset> grupperer felt som hører sammen, og <legend> gir gruppen en overskrift.",
+      "alternativer": [
+        {"tekst": "For å gruppere feltene og gi gruppen en overskrift", "er_riktig": true},
+        {"tekst": "Fordi man ellers kan velge flere radioknapper samtidig", "er_riktig": false},
+        {"tekst": "Fordi <legend> erstatter <label> for hver enkelt knapp", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva gjør <source>-elementer inne i et <video>-element?",
+      "begrunnelse": "Med <source> kan man tilby flere filformater, og nettleseren velger det første den støtter.",
+      "alternativer": [
+        {"tekst": "De legger til teksting for tale i videoen", "er_riktig": false},
+        {"tekst": "De tilbyr flere filformater, og nettleseren velger det første den støtter", "er_riktig": true},
+        {"tekst": "De viser nettleserens knapper for avspilling og volum", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvorfor bør target=\"_blank\" brukes sparsomt?",
+      "begrunnelse": "Å åpne lenker i ny fane kan forvirre brukeren og tar fra brukeren valget.",
+      "alternativer": [
+        {"tekst": "Det virker ikke på mobil", "er_riktig": false},
+        {"tekst": "Det gjør lenken usynlig for søkemotorer", "er_riktig": false},
+        {"tekst": "Det kan forvirre brukeren og tar fra brukeren valget", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva er oppgaven til <!DOCTYPE html>?",
+      "begrunnelse": "Dokumenttypen forteller nettleseren at siden skal tolkes etter moderne standard og ikke i den gamle «quirks mode».",
+      "alternativer": [
+        {"tekst": "Å be nettleseren tolke siden etter moderne standard og ikke i quirks mode", "er_riktig": true},
+        {"tekst": "Å laste ned HTML-standarden fra WHATWG", "er_riktig": false},
+        {"tekst": "Å angi hvilket språk siden er skrevet på", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilken nytte har attributtet lang på <html>?",
+      "begrunnelse": "Språket brukes av skjermlesere til å velge riktig uttale, og av nettleseren til orddeling og stavekontroll.",
+      "alternativer": [
+        {"tekst": "Nettleseren oversetter siden automatisk til brukerens språk", "er_riktig": false},
+        {"tekst": "Skjermlesere velger riktig uttale, og nettleseren bruker det til orddeling og stavekontroll", "er_riktig": true},
+        {"tekst": "Det bestemmer hvilket tegnsett siden bruker", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvorfor er det ofte bedre å dele en komplisert tabell med colspan og rowspan i flere enkle tabeller?",
+      "begrunnelse": "Kompliserte tabeller er vanskelige å lese med skjermleser.",
+      "alternativer": [
+        {"tekst": "Fordi colspan og rowspan ikke støttes i moderne nettlesere", "er_riktig": false},
+        {"tekst": "Fordi en tabell med sammenslåtte celler ikke kan ha <caption>", "er_riktig": false},
+        {"tekst": "Fordi kompliserte tabeller er vanskelige å lese med skjermleser", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva er forskjellen på attributtene id og class?",
+      "begrunnelse": "En id skal bare brukes én gang på siden, mens class kan brukes på mange elementer.",
+      "alternativer": [
+        {"tekst": "En id skal være unik på siden, mens class kan brukes på mange elementer", "er_riktig": true},
+        {"tekst": "class skal være unik på siden, mens id kan brukes på mange elementer", "er_riktig": false},
+        {"tekst": "id brukes bare i JavaScript, og class brukes bare i CSS", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva sier notatet om plassholdertekst i attributtet placeholder?",
+      "begrunnelse": "Hvert felt skal ha en ledetekst med <label>, og plassholdertekst er ikke en erstatning for en etikett.",
+      "alternativer": [
+        {"tekst": "Den kan brukes i stedet for <label> når feltet er kort", "er_riktig": false},
+        {"tekst": "Den er påkrevd på alle felt som har required", "er_riktig": false},
+        {"tekst": "Den er ikke en erstatning for en etikett med <label>", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hvordan hjelper landemerkene <header>, <nav>, <main> og <footer> skjermleserbrukere?",
+      "begrunnelse": "Skjermlesere bruker landemerkene til å hoppe rett til en del av siden.",
+      "alternativer": [
+        {"tekst": "Skjermleseren leser opp hele siden raskere", "er_riktig": false},
+        {"tekst": "Brukeren kan hoppe rett til en bestemt del av siden", "er_riktig": true},
+        {"tekst": "Navigasjonen skjules slik at bare hovedinnholdet leses opp", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hva er riktig om <div> og <span>?",
+      "begrunnelse": "De har ingen betydning i seg selv. <div> er et blokkelement og <span> et linjeelement, og de brukes når ingen semantiske elementer passer.",
+      "alternativer": [
+        {"tekst": "De har ingen betydning i seg selv; <div> er et blokkelement og <span> et linjeelement", "er_riktig": true},
+        {"tekst": "<div> betyr en seksjon av siden, og <span> betyr fremhevet tekst", "er_riktig": false},
+        {"tekst": "<span> er et blokkelement og <div> et linjeelement", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvilken listetype passer best for trinnene i en oppskrift?",
+      "begrunnelse": "En nummerert liste med <ol> brukes når rekkefølgen betyr noe, som i en oppskrift.",
+      "alternativer": [
+        {"tekst": "<ul>, fordi hvert trinn er et eget punkt", "er_riktig": false},
+        {"tekst": "<ol>, fordi rekkefølgen betyr noe", "er_riktig": true},
+        {"tekst": "<dl>, fordi hvert trinn har en beskrivelse", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Når passer en beskrivelsesliste med <dl>?",
+      "begrunnelse": "<dl> består av par med begrep i <dt> og beskrivelse i <dd>, og passer for ordlister.",
+      "alternativer": [
+        {"tekst": "Når rekkefølgen på punktene er viktig", "er_riktig": false},
+        {"tekst": "Til hovednavigasjonen på siden", "er_riktig": false},
+        {"tekst": "Til ordlister, med begrep i <dt> og beskrivelse i <dd>", "er_riktig": true}
+      ]
+    },
+    {
+      "tekst": "Hva skiller <pre> fra et vanlig avsnitt med <p>?",
+      "begrunnelse": "<pre> er forhåndsformatert tekst der mellomrom beholdes, mens flere mellomrom i et vanlig avsnitt slås sammen til ett.",
+      "alternativer": [
+        {"tekst": "<pre> vises alltid i fet skrift", "er_riktig": false},
+        {"tekst": "I <pre> beholdes mellomrommene, mens de slås sammen i <p>", "er_riktig": true},
+        {"tekst": "<pre> brukes for lengre sitater", "er_riktig": false}
+      ]
+    },
+    {
+      "tekst": "Hvorfor skal passord og andre hemmeligheter aldri stå i HTML-kommentarer?",
+      "begrunnelse": "Kommentarer vises ikke på siden, men alle kan se dem i kildekoden.",
+      "alternativer": [
+        {"tekst": "Kommentarer vises ikke på siden, men alle kan se dem i kildekoden", "er_riktig": true},
+        {"tekst": "Kommentarer sendes automatisk til validatoren", "er_riktig": false},
+        {"tekst": "Kommentarer vises på selve siden i enkelte nettlesere", "er_riktig": false}
+      ]
+    }
+  ]
+}

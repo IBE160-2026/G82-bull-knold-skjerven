@@ -1,0 +1,547 @@
+{
+  "sprak": "en",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "A <ul> has the listener ul.addEventListener(\"click\", e => console.log(e.target, e.currentTarget)). The user clicks an <li> inside the list. What is logged?",
+      "begrunnelse": "event.target is the element where the event started (the <li>), and event.currentTarget is the element the listener is attached to (the <ul>). The event reaches the <ul> by bubbling.",
+      "alternativer": [
+        {
+          "tekst": "Both are the <ul>",
+          "er_riktig": false
+        },
+        {
+          "tekst": "target is the <li>, currentTarget is the <ul>",
+          "er_riktig": true
+        },
+        {
+          "tekst": "target is the <ul>, currentTarget is the <li>",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A page has four elements with class item. A script runs const live = document.getElementsByClassName(\"item\"); const snap = document.querySelectorAll(\".item\"); and then appends a fifth element with class item. What is true now?",
+      "begrunnelse": "getElementsByClassName returns a live HTMLCollection that updates when the document changes, while querySelectorAll returns a static NodeList.",
+      "alternativer": [
+        {
+          "tekst": "Both live.length and snap.length are 5",
+          "er_riktig": false
+        },
+        {
+          "tekst": "snap.length is 5 and live.length is still 4",
+          "er_riktig": false
+        },
+        {
+          "tekst": "live.length is 5 and snap.length is still 4",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "A comment box shows user text with el.innerHTML = comment. A user enters <img src=x onerror=alert(1)>. What happens, and what is the fix?",
+      "begrunnelse": "innerHTML treats the string as HTML, so the onerror code may run. This is XSS, and the notes say to use textContent for text from users.",
+      "alternativer": [
+        {
+          "tekst": "The onerror code can run (XSS); use textContent instead",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Nothing happens, because only <script> tags can run code",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The text is shown as plain text, and textContent would make the code run",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "app.js needs the DOM and must run after library.js. Both scripts are in <head>. Which setup fits best?",
+      "begrunnelse": "defer runs the scripts after the whole document has been parsed, in the order they appear. async runs in any order, and a script without attributes in <head> runs before the body exists.",
+      "alternativer": [
+        {
+          "tekst": "defer on both scripts, with library.js first",
+          "er_riktig": true
+        },
+        {
+          "tekst": "async on both scripts, with library.js first",
+          "er_riktig": false
+        },
+        {
+          "tekst": "async on library.js and no attribute on app.js",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A script in <head> without defer runs document.getElementById(\"menu\").classList.add(\"open\"). The menu is in the body. What happens?",
+      "begrunnelse": "The script runs before the body has been parsed, so getElementById returns null. Using classList on null throws an error.",
+      "alternativer": [
+        {
+          "tekst": "It works, because getElementById waits until the element has been parsed",
+          "er_riktig": false
+        },
+        {
+          "tekst": "getElementById returns null, and using classList on null throws an error",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Nothing happens and no error is thrown, because an empty result is ignored",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "<head> contains <script async src=\"analytics.js\"> and <script defer src=\"app.js\">. Which statement is correct?",
+      "begrunnelse": "A deferred script runs after the whole document has been parsed. An async script runs as soon as it is ready, which can be before parsing is finished.",
+      "alternativer": [
+        {
+          "tekst": "Both scripts wait until the whole document has been parsed",
+          "er_riktig": false
+        },
+        {
+          "tekst": "analytics.js always runs after app.js, because defer has priority",
+          "er_riktig": false
+        },
+        {
+          "tekst": "app.js runs after parsing, while analytics.js may run before parsing is finished",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "A link has a click handler that only calls event.stopPropagation(). What happens when the link is clicked?",
+      "begrunnelse": "stopPropagation only stops the bubbling. The default action, following the link, is stopped only by preventDefault.",
+      "alternativer": [
+        {
+          "tekst": "The link is not followed, and the event does not bubble",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The link is not followed, but the event still bubbles",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The link is still followed, but listeners on parent elements do not get the event",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "A submit handler on a form calls fetch to send the data but never calls event.preventDefault(). What is the problem?",
+      "begrunnelse": "Without preventDefault, the browser's default action still happens: the form is submitted and the page reloads.",
+      "alternativer": [
+        {
+          "tekst": "The handler never runs, because submit fires on the button",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The browser still submits the form the normal way and reloads the page",
+          "er_riktig": true
+        },
+        {
+          "tekst": "fetch cancels the default submit by itself, so there is no problem",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "On page load, a script adds a click listener to each <li> with forEach. Items added later with append do not react to clicks. What is the best fix?",
+      "begrunnelse": "With event delegation, one listener on the list checks event.target. It works for items added later, because their events bubble up to the list.",
+      "alternativer": [
+        {
+          "tekst": "Put one listener on the list and check event.target",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Use getElementsByClassName, since a live collection gives new items the listeners",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Call event.stopPropagation() in each item's handler",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A game should react when the user presses the arrow keys anywhere on the page. Which listener fits best?",
+      "begrunnelse": "keydown fires when a key is pressed. input and change are about the value of form fields changing, not key presses on the page.",
+      "alternativer": [
+        {
+          "tekst": "document.addEventListener(\"input\", handler)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "document.addEventListener(\"keydown\", handler)",
+          "er_riktig": true
+        },
+        {
+          "tekst": "document.addEventListener(\"change\", handler)",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A form contains <input id=\"email\"> and <input name=\"age\">. What does new FormData(form) collect?",
+      "begrunnelse": "FormData collects all fields that have a name attribute. The email field only has an id, so it is left out.",
+      "alternativer": [
+        {
+          "tekst": "Both fields, with the email field stored under its id",
+          "er_riktig": false
+        },
+        {
+          "tekst": "No fields, because FormData only works inside a submit handler",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Only the age field",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Which line removes the element with id old from the DOM tree?",
+      "begrunnelse": "element.remove() takes the element out of the tree. Emptying its text or hiding it with a style leaves the element in the tree.",
+      "alternativer": [
+        {
+          "tekst": "document.getElementById(\"old\").remove()",
+          "er_riktig": true
+        },
+        {
+          "tekst": "document.getElementById(\"old\").textContent = \"\"",
+          "er_riktig": false
+        },
+        {
+          "tekst": "document.getElementById(\"old\").style.display = \"none\"",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A script runs el.textContent = \"<b>Hi</b>\". What does the user see?",
+      "begrunnelse": "textContent sets the text of the element. The string is not treated as HTML, so the tags are shown as text.",
+      "alternativer": [
+        {
+          "tekst": "The word Hi in bold",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Nothing, because textContent rejects strings with HTML",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The literal text <b>Hi</b>",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "After a failed form submit, a script shows an error message in a <div>. What best helps both keyboard and screen reader users?",
+      "begrunnelse": "The notes recommend an aria-live=\"polite\" region so screen readers announce the update, and moving focus to the error with element.focus() so keyboard users know what happened.",
+      "alternativer": [
+        {
+          "tekst": "Only add a red class with classList so the message is easy to see",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Put the message in an aria-live=\"polite\" region and move focus to it with element.focus()",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Move focus to the submit button so the user can try again at once",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A script adds 1000 rows. Version A calls list.append(row) for each row. Version B appends the rows to a DocumentFragment and then appends the fragment to the list. Which is correct?",
+      "begrunnelse": "Each change to the DOM can make the browser recalculate the layout. Version B changes the page only once.",
+      "alternativer": [
+        {
+          "tekst": "B is faster, because the page is changed once instead of 1000 times",
+          "er_riktig": true
+        },
+        {
+          "tekst": "A is faster, because each row appears on screen right away",
+          "er_riktig": false
+        },
+        {
+          "tekst": "They are equally fast, because a fragment is inserted one row at a time anyway",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A menu should open on one click and close on the next. Which line in the click handler does this?",
+      "begrunnelse": "classList.toggle adds the class if it is missing and removes it if it is there. add only opens, and setAttribute replaces all classes.",
+      "alternativer": [
+        {
+          "tekst": "menu.classList.toggle(\"open\")",
+          "er_riktig": true
+        },
+        {
+          "tekst": "menu.classList.add(\"open\")",
+          "er_riktig": false
+        },
+        {
+          "tekst": "menu.setAttribute(\"class\", \"open\")",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "The page has <div id=\"outer\"><button id=\"inner\">Save</button></div>, and both elements have a click listener. The user clicks the button. What happens?",
+      "begrunnelse": "The event fires on the element where it started and then bubbles up through the parents, so the inner listener runs first and then the outer one.",
+      "alternativer": [
+        {
+          "tekst": "The outer listener runs first, then the inner one",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Only the inner listener runs, because an event fires on one element",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The inner listener runs first, then the outer one",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "In the same setup with an outer <div> and an inner button, the inner listener calls event.preventDefault(). Does the outer listener still run?",
+      "begrunnelse": "preventDefault only stops the browser's default action. The bubbling is stopped only by stopPropagation.",
+      "alternativer": [
+        {
+          "tekst": "No, because preventDefault also stops the bubbling",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Yes, because preventDefault does not stop the bubbling",
+          "er_riktig": true
+        },
+        {
+          "tekst": "No, because preventDefault removes the listeners on the parents",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "An element has class=\"card active\". What do el.classList.contains(\"active\") and el.getAttribute(\"class\") === \"active\" give?",
+      "begrunnelse": "classList.contains checks for one class among several. getAttribute returns the whole attribute value, \"card active\", which is not equal to \"active\".",
+      "alternativer": [
+        {
+          "tekst": "Both give true",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Both give false",
+          "er_riktig": false
+        },
+        {
+          "tekst": "contains gives true, and the getAttribute comparison gives false",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Which task needs querySelector or querySelectorAll rather than getElementById or getElementsByClassName?",
+      "begrunnelse": "querySelector accepts any CSS selector, such as nav a.active. Finding by id or by one class can also be done with the older methods.",
+      "alternativer": [
+        {
+          "tekst": "Finding the first <a> with class active inside a <nav>",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Finding the element with id menu",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Finding all elements with class card",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A student removes a banner with element.remove() and says: \"The banner is now gone from index.html.\" What is correct?",
+      "begrunnelse": "When a script changes the DOM, the source file stays the same. The banner is only gone from the DOM, so it comes back when the page is reloaded.",
+      "alternativer": [
+        {
+          "tekst": "It is removed from index.html until the server is restarted",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It is only hidden with display: none and is still in the DOM tree",
+          "er_riktig": false
+        },
+        {
+          "tekst": "It is only gone from the DOM; index.html is unchanged, so the banner is back after a reload",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "A search form has an input and a <button>. The developer adds a click listener on the button that calls preventDefault and sends the data with fetch. What fits the notes better?",
+      "begrunnelse": "The submit event fires on the <form>, not on the button. Listening for submit on the form and calling preventDefault there lets the script send the data with fetch.",
+      "alternativer": [
+        {
+          "tekst": "Listen for change on the button instead",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Listen for input on the form and send the data on every keystroke",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Listen for submit on the <form> and call preventDefault there",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "A sign-up form should check if a username is free when the user leaves the field after editing it, and show a character counter that updates on each keystroke. Which events fit?",
+      "begrunnelse": "change fires when the user leaves the field after changing it, which fits the username check. input fires on every keystroke, which fits the counter.",
+      "alternativer": [
+        {
+          "tekst": "input for both",
+          "er_riktig": false
+        },
+        {
+          "tekst": "change for the username check and input for the counter",
+          "er_riktig": true
+        },
+        {
+          "tekst": "input for the username check and change for the counter",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A page has four elements with class card. A script runs const cards = document.getElementsByClassName(\"card\"); for (let i = 0; i < cards.length; i++) { cards[i].classList.remove(\"card\"); }. What happens?",
+      "begrunnelse": "The HTMLCollection is live, so each element drops out of it when it loses the class. The indexes shift, and only the first and third card are changed.",
+      "alternativer": [
+        {
+          "tekst": "All four cards lose the class",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Only the first and third card lose the class, because the live collection shrinks during the loop",
+          "er_riktig": true
+        },
+        {
+          "tekst": "An error is thrown, because the collection cannot change during a loop",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Given <p>Hi <b>you</b></p>, what do p.textContent and p.innerHTML return?",
+      "begrunnelse": "textContent gives the text of the element without tags, while innerHTML gives the HTML inside it.",
+      "alternativer": [
+        {
+          "tekst": "textContent gives \"Hi you\", and innerHTML gives \"Hi <b>you</b>\"",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Both give \"Hi <b>you</b>\"",
+          "er_riktig": false
+        },
+        {
+          "tekst": "textContent gives \"Hi <b>you</b>\", and innerHTML gives \"Hi you\"",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A script runs const p = document.createElement(\"p\"); p.textContent = \"Saved\"; but the text never shows up. What is the most likely cause?",
+      "begrunnelse": "createElement makes an element that is not yet part of the page. It must be inserted with for example append before it is shown.",
+      "alternativer": [
+        {
+          "tekst": "textContent does not work on new elements, so innerHTML is needed",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The element was never inserted into the page with for example append",
+          "er_riktig": true
+        },
+        {
+          "tekst": "createElement only works in scripts with defer",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "A delegated click listener on <ul id=\"todo\"> runs event.currentTarget.remove(). What is removed when the user clicks an item?",
+      "begrunnelse": "currentTarget is the element the listener is attached to, which is the <ul>. To remove the clicked item, the handler should use event.target.",
+      "alternativer": [
+        {
+          "tekst": "The whole list, because currentTarget is the <ul>",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Only the clicked <li>",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Nothing, because currentTarget is null in delegated listeners",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "An element has class=\"card\". A script runs el.setAttribute(\"class\", \"active\"). What is the result?",
+      "begrunnelse": "setAttribute replaces the whole class attribute, so card is lost. classList.add(\"active\") would have kept both classes.",
+      "alternativer": [
+        {
+          "tekst": "The element has both card and active",
+          "er_riktig": false
+        },
+        {
+          "tekst": "An error is thrown, because classes can only be changed with classList",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The class attribute becomes only active, so card is lost",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "<head> contains <script defer src=\"a.js\">, and the end of <body> contains <script src=\"b.js\"> with no attributes. Which script runs first?",
+      "begrunnelse": "A normal script runs when the parser reaches it, while a deferred script waits until the whole document has been parsed. b.js is reached before parsing is done.",
+      "alternativer": [
+        {
+          "tekst": "a.js, because it comes first and defer keeps the order",
+          "er_riktig": false
+        },
+        {
+          "tekst": "b.js, because a.js waits until the whole document has been parsed",
+          "er_riktig": true
+        },
+        {
+          "tekst": "They run at the same time, because both are downloaded in parallel",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "In form.addEventListener(\"submit\", e => { ... }), which element is e.currentTarget when the user clicks the submit button?",
+      "begrunnelse": "currentTarget is the element the listener is attached to. The listener is on the form, and the submit event fires on the form, not on the button.",
+      "alternativer": [
+        {
+          "tekst": "The <form> element",
+          "er_riktig": true
+        },
+        {
+          "tekst": "The submit button that was clicked",
+          "er_riktig": false
+        },
+        {
+          "tekst": "The document",
+          "er_riktig": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,547 @@
+{
+  "sprak": "nb",
+  "modell": "claude-opus-5-5",
+  "prompt_versjon": "1",
+  "sporsmal": [
+    {
+      "tekst": "En bruker dobbeltklikker på «Betal», og nettleseren sender samme POST-forespørsel to ganger. Hvorfor kan det gi to betalinger?",
+      "begrunnelse": "POST er ikke idempotent. Det betyr at to like forespørsler ikke trenger å gi samme resultat som én, og hver av dem kan lage en ny betaling.",
+      "alternativer": [
+        {
+          "tekst": "Fordi POST ikke er idempotent, så to like forespørsler kan gi et annet resultat enn én",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Fordi POST ikke er trygg, og utrygge forespørsler alltid sendes to ganger",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi HTTP er tilstandsløs, og derfor blir alle forespørsler utført dobbelt",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken metode er idempotent, men ikke trygg?",
+      "begrunnelse": "PUT er blant de idempotente metodene, men den erstatter en ressurs og endrer dermed noe på tjeneren. HEAD er trygg fordi den ikke endrer noe, og POST er verken trygg eller idempotent.",
+      "alternativer": [
+        {
+          "tekst": "HEAD",
+          "er_riktig": false
+        },
+        {
+          "tekst": "POST",
+          "er_riktig": false
+        },
+        {
+          "tekst": "PUT",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "En bruker vil bare endre e-postadressen i profilen sin, mens resten skal stå som før. Hvilken metode passer best?",
+      "begrunnelse": "PATCH endrer deler av en ressurs. PUT erstatter hele ressursen, og POST lager ofte noe nytt.",
+      "alternativer": [
+        {
+          "tekst": "PUT, fordi den endrer en ressurs som finnes fra før",
+          "er_riktig": false
+        },
+        {
+          "tekst": "PATCH, fordi den endrer deler av en ressurs",
+          "er_riktig": true
+        },
+        {
+          "tekst": "POST, fordi den sender data fra et skjema",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "En bruker som ikke er logget inn, prøver å åpne en side som krever innlogging. Hvilken statuskode passer?",
+      "begrunnelse": "Notatet knytter 401 Unauthorized til «ikke logget inn». 403 Forbidden gjelder en bruker som ikke har tilgang, og siden finnes, så 404 passer ikke.",
+      "alternativer": [
+        {
+          "tekst": "401 Unauthorized",
+          "er_riktig": true
+        },
+        {
+          "tekst": "403 Forbidden",
+          "er_riktig": false
+        },
+        {
+          "tekst": "404 Not Found",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "En innlogget bruker uten administratorrettigheter prøver å åpne administrasjonssiden. Hvilken statuskode passer?",
+      "begrunnelse": "Brukeren er logget inn, men har ikke tilgang. Det er 403 Forbidden. 401 gjelder brukere som ikke er logget inn, og 500 er feil hos tjeneren.",
+      "alternativer": [
+        {
+          "tekst": "401 Unauthorized",
+          "er_riktig": false
+        },
+        {
+          "tekst": "403 Forbidden",
+          "er_riktig": true
+        },
+        {
+          "tekst": "500 Internal Server Error",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Brukeren åpner https://www.example.com/sok?q=html#treff. Hva får tjeneren se av adressen etter vertsnavnet?",
+      "begrunnelse": "Fragmentet sendes aldri til tjeneren, men stien og spørrestrengen gjør det. Tjeneren ser derfor /sok?q=html.",
+      "alternativer": [
+        {
+          "tekst": "/sok?q=html#treff",
+          "er_riktig": false
+        },
+        {
+          "tekst": "/sok",
+          "er_riktig": false
+        },
+        {
+          "tekst": "/sok?q=html",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvordan kan tjeneren vite at to forespørsler kommer fra samme innloggede bruker?",
+      "begrunnelse": "HTTP er tilstandsløs, så tjeneren husker ikke brukeren selv. Den setter en informasjonskapsel med Set-Cookie, og nettleseren sender den tilbake i Cookie med hver forespørsel.",
+      "alternativer": [
+        {
+          "tekst": "Tjeneren husker brukeren så lenge forbindelsen er åpen",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Headeren User-Agent forteller hvilken bruker som er logget inn",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Nettleseren sender i Cookie en informasjonskapsel som tjeneren satte med Set-Cookie",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Hvorfor er det feil å slette et notat med en vanlig lenke som sender GET /notater/7/slett?",
+      "begrunnelse": "GET skal hente en ressurs og ikke endre noe; den er trygg. Sletting endrer tjeneren og hører hjemme i DELETE.",
+      "alternativer": [
+        {
+          "tekst": "Fordi GET skal være trygg og ikke endre noe på tjeneren",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Fordi GET ikke er idempotent og derfor kan slette flere notater",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi en GET-forespørsel ikke kan ha et tall i stien",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Du logger inn på et nettsted over et åpent trådløst nett. Hvorfor er det tryggere når adressen starter med https enn med http?",
+      "begrunnelse": "HTTPS er HTTP over TLS. Forbindelsen krypteres, slik at ingen underveis kan lese eller endre dataene. Porten og metoden gir ikke denne beskyttelsen.",
+      "alternativer": [
+        {
+          "tekst": "Fordi port 443 er skjult for andre på samme nett",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi TLS krypterer forbindelsen, så ingen underveis kan lese eller endre dataene",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Fordi HTTPS alltid sender passord med POST i stedet for GET",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Klienten sender Accept: application/json, og tjeneren svarer med JSON. Hvilken header i svaret forteller at kroppen er JSON?",
+      "begrunnelse": "Content-Type sier hva slags innhold meldingen har. Accept i forespørselen sier bare hva klienten kan ta imot, og User-Agent beskriver klienten.",
+      "alternativer": [
+        {
+          "tekst": "Accept: application/json",
+          "er_riktig": false
+        },
+        {
+          "tekst": "User-Agent: application/json",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Content-Type: application/json",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Du får statuskoden 429, som ikke er nevnt i notatet. Hva kan du likevel slutte ut fra notatet?",
+      "begrunnelse": "Det første sifferet sier hvilken gruppe koden hører til. 429 begynner på 4, og 4xx betyr feil hos klienten.",
+      "alternativer": [
+        {
+          "tekst": "At det er en feil hos tjeneren, siden koden er ukjent",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At det er en feil hos klienten, siden koden begynner på 4",
+          "er_riktig": true
+        },
+        {
+          "tekst": "At det er en omdirigering, siden svaret har en statuskode",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "En app sender ugyldig JSON i kroppen, og tjeneren avviser forespørselen. Hvilken kode passer best?",
+      "begrunnelse": "Feilen ligger i forespørselen fra klienten, og slike feil hører til 4xx. 400 Bad Request er koden for en feil forespørsel, mens 5xx er for feil hos tjeneren.",
+      "alternativer": [
+        {
+          "tekst": "400 Bad Request, fordi feilen ligger i forespørselen fra klienten",
+          "er_riktig": true
+        },
+        {
+          "tekst": "500 Internal Server Error, fordi tjeneren ikke klarte å lese dataene",
+          "er_riktig": false
+        },
+        {
+          "tekst": "503 Service Unavailable, fordi tjeneren ikke kunne behandle forespørselen",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvorfor er ikke kryptering alene nok i HTTPS, slik at tjeneren også må vise et sertifikat?",
+      "begrunnelse": "Krypteringen hindrer at andre leser eller endrer dataene underveis. Sertifikatet beviser at tjeneren er den den sier den er, så du ikke sender krypterte data til feil tjener.",
+      "alternativer": [
+        {
+          "tekst": "Fordi det er sertifikatet som krypterer selve dataene",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi sertifikatet gjør forbindelsen raskere",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi du ellers kunne hatt en kryptert forbindelse til feil tjener",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Klienten sender DELETE /notater/7 to ganger fordi svaret på den første ble borte. Hva følger av at DELETE er idempotent?",
+      "begrunnelse": "Idempotent betyr at flere like forespørsler gir samme resultat som én: notat 7 er slettet. DELETE er ikke trygg, for den endrer noe på tjeneren.",
+      "alternativer": [
+        {
+          "tekst": "At den andre forespørselen gjenoppretter notatet",
+          "er_riktig": false
+        },
+        {
+          "tekst": "At resultatet blir det samme som etter én forespørsel: notat 7 er slettet",
+          "er_riktig": true
+        },
+        {
+          "tekst": "At ingen av forespørslene endrer noe, fordi DELETE er trygg",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken påstand om GET og PUT stemmer?",
+      "begrunnelse": "Begge står i lista over idempotente metoder, men bare GET og HEAD er trygge. PUT erstatter en ressurs og endrer altså noe.",
+      "alternativer": [
+        {
+          "tekst": "Begge er idempotente, men bare GET er trygg",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Begge er trygge, men bare PUT er idempotent",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Begge er både trygge og idempotente",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Et skjema lager en ny kommentar på tjeneren. Hvilken kombinasjon av metode og statuskode passer best når det går bra?",
+      "begrunnelse": "POST sender data fra et skjema og lager ofte noe nytt, og 201 Created betyr at noe ble laget. GET skal ikke endre noe, og 301 er en omdirigering.",
+      "alternativer": [
+        {
+          "tekst": "GET og 201 Created",
+          "er_riktig": false
+        },
+        {
+          "tekst": "POST og 201 Created",
+          "er_riktig": true
+        },
+        {
+          "tekst": "POST og 301 Moved Permanently",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Et søkeskjema henter bare treff og endrer ingenting. Hvilken metode passer, og hvorfor?",
+      "begrunnelse": "GET henter en ressurs og skal ikke endre noe, og søket i notatet bruker nettopp en spørrestreng: /sok?q=html. Det er ikke slik at alle skjemaer må bruke POST.",
+      "alternativer": [
+        {
+          "tekst": "POST, fordi alle skjemaer sender data",
+          "er_riktig": false
+        },
+        {
+          "tekst": "PUT, fordi et nytt søk erstatter det forrige",
+          "er_riktig": false
+        },
+        {
+          "tekst": "GET, fordi forespørselen bare henter og ikke endrer noe",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Et notat har fått ny adresse for godt. Hva bør tjeneren svare når noen ber om den gamle adressen?",
+      "begrunnelse": "301 Moved Permanently er en omdirigering for en ressurs som er flyttet for godt, og ved omdirigering står den nye adressen i headeren Location.",
+      "alternativer": [
+        {
+          "tekst": "301 Moved Permanently med den nye adressen i Location",
+          "er_riktig": true
+        },
+        {
+          "tekst": "302 Found med den nye adressen i Content-Type",
+          "er_riktig": false
+        },
+        {
+          "tekst": "404 Not Found med den nye adressen i Set-Cookie",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "En side har mange bilder. Hvorfor kan den lastes raskere over HTTP/2 enn over HTTP/1.1?",
+      "begrunnelse": "HTTP/2 har multipleksing og kan sende mange forespørsler samtidig over én forbindelse. Det er HTTP/3 som bygger på UDP, og HTTP/2 er binær, ikke tekstbasert.",
+      "alternativer": [
+        {
+          "tekst": "Fordi HTTP/2 bygger på UDP i stedet for TCP",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi HTTP/2 er tekstbasert og raskere å lese",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Fordi HTTP/2 kan sende mange forespørsler samtidig over én forbindelse",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Et nettsted holder brukerne innlogget med informasjonskapsler. Hvilken påstand stemmer?",
+      "begrunnelse": "HTTP er fortsatt tilstandsløs, og hver forespørsel står alene. Det er informasjonskapselen, som nettleseren sender med hver gang, som gjør at tjeneren kjenner igjen brukeren.",
+      "alternativer": [
+        {
+          "tekst": "Informasjonskapslene gjør HTTP tilstandsfull, så tjeneren husker forbindelsen",
+          "er_riktig": false
+        },
+        {
+          "tekst": "HTTP er fortsatt tilstandsløs, og tilstanden bæres av informasjonskapsler som sendes med hver forespørsel",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Tjeneren trenger informasjonskapselen bare første gang og husker brukeren etterpå",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Nettleseren får svaret 302 Found med Location: /logg-inn. Hva skjer så?",
+      "begrunnelse": "302 er en omdirigering, og den nye adressen står i Location. Nettleseren følger den ved å sende en ny forespørsel til /logg-inn.",
+      "alternativer": [
+        {
+          "tekst": "Nettleseren sender en ny forespørsel til /logg-inn",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Nettleseren viser en feilside, fordi 302 er en feilkode",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Nettleseren lagrer /logg-inn som en informasjonskapsel",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken påstand om hva HTTP-versjonene bygger på, stemmer?",
+      "begrunnelse": "Notatet sier at HTTP/3 går over QUIC, som bygger på UDP i stedet for TCP. HTTP/2 innførte multipleksing, ikke QUIC.",
+      "alternativer": [
+        {
+          "tekst": "Alle versjonene av HTTP bygger på UDP",
+          "er_riktig": false
+        },
+        {
+          "tekst": "HTTP/2 innførte QUIC over UDP",
+          "er_riktig": false
+        },
+        {
+          "tekst": "HTTP/3 går over QUIC, som bygger på UDP i stedet for TCP",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "I et svar som starter med HTTP/1.1 200 OK, hvor begynner selve HTML-dokumentet?",
+      "begrunnelse": "Svaret består av statuslinjen, så headerne, en tom linje og deretter HTML-dokumentet. Content-Type sier bare hva slags innhold det er.",
+      "alternativer": [
+        {
+          "tekst": "Rett etter statuslinjen",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Etter den tomme linjen som følger headerne",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Inne i headeren Content-Type",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Du vil sjekke Content-Type for en stor fil uten å laste ned selve filen. Hvilken metode passer?",
+      "begrunnelse": "HEAD er som GET, men gir bare headerne. Da får du Content-Type uten selve innholdet. PATCH endrer en ressurs.",
+      "alternativer": [
+        {
+          "tekst": "HEAD",
+          "er_riktig": true
+        },
+        {
+          "tekst": "GET",
+          "er_riktig": false
+        },
+        {
+          "tekst": "PATCH",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hva er porten og spørrestrengen i http://localhost:8000/notater/?side=2?",
+      "begrunnelse": "Porten står etter kolon bak verten, her 8000, og overstyrer standardporten 80. Spørrestrengen er det som står etter spørsmålstegnet, side=2, mens /notater/ er stien.",
+      "alternativer": [
+        {
+          "tekst": "Port 80 og spørrestreng /notater/",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Port 8000 og spørrestreng /notater/?side=2",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Port 8000 og spørrestreng side=2",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "Et nettsted vil at nettleseren skal gjenbruke logoen i en uke uten å hente den på nytt. Hvilken header i svaret styrer det?",
+      "begrunnelse": "Cache-Control styrer hvor lenge svaret kan mellomlagres. Accept sier hva klienten kan ta imot, og Set-Cookie setter en informasjonskapsel.",
+      "alternativer": [
+        {
+          "tekst": "Accept",
+          "er_riktig": false
+        },
+        {
+          "tekst": "Cache-Control",
+          "er_riktig": true
+        },
+        {
+          "tekst": "Set-Cookie",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken påstand om forholdet mellom HTTP og HTTPS stemmer?",
+      "begrunnelse": "HTTPS er HTTP over TLS: det er den samme protokollen med de samme metodene og statuskodene, men hele forbindelsen krypteres.",
+      "alternativer": [
+        {
+          "tekst": "HTTPS er vanlig HTTP over en kryptert TLS-forbindelse, med de samme metodene og statuskodene",
+          "er_riktig": true
+        },
+        {
+          "tekst": "HTTPS er en egen protokoll med egne metoder og statuskoder",
+          "er_riktig": false
+        },
+        {
+          "tekst": "HTTPS krypterer bare passordfeltene, mens resten sendes som vanlig HTTP",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Nettstedet er midlertidig nede for vedlikehold. Hvilken statuskode passer best?",
+      "begrunnelse": "Feilen ligger hos tjeneren, ikke hos klienten, så koden hører til 5xx. 503 Service Unavailable betyr at tjenesten ikke er tilgjengelig.",
+      "alternativer": [
+        {
+          "tekst": "404 Not Found",
+          "er_riktig": false
+        },
+        {
+          "tekst": "400 Bad Request",
+          "er_riktig": false
+        },
+        {
+          "tekst": "503 Service Unavailable",
+          "er_riktig": true
+        }
+      ]
+    },
+    {
+      "tekst": "En feil i koden på tjeneren får visningen til å krasje. Hvilken statuskode passer?",
+      "begrunnelse": "En programfeil på tjeneren er feil hos tjeneren, altså 5xx, og 500 Internal Server Error er koden for det. 400 og 404 er feil hos klienten.",
+      "alternativer": [
+        {
+          "tekst": "400 Bad Request",
+          "er_riktig": false
+        },
+        {
+          "tekst": "500 Internal Server Error",
+          "er_riktig": true
+        },
+        {
+          "tekst": "404 Not Found",
+          "er_riktig": false
+        }
+      ]
+    },
+    {
+      "tekst": "Hvilken rekkefølge for HTTP-versjonene er riktig, fra eldst til nyest?",
+      "begrunnelse": "HTTP/1.1 kom i 1997, HTTP/2 i 2015, og HTTP/3 ble standard i 2022.",
+      "alternativer": [
+        {
+          "tekst": "HTTP/1.1 (1997), HTTP/2 (2015), HTTP/3 (2022)",
+          "er_riktig": true
+        },
+        {
+          "tekst": "HTTP/1.1 (1997), HTTP/3 (2015), HTTP/2 (2022)",
+          "er_riktig": false
+        },
+        {
+          "tekst": "HTTP/2 (1997), HTTP/1.1 (2015), HTTP/3 (2022)",
+          "er_riktig": false
+        }
+      ]
+    }
+  ]
+}
