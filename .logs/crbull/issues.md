@@ -41,3 +41,6 @@
 - [ ] 2026-11-25 [story-4-1-ove-pa-feilbanken](984-2026-11-25-18-10-44-story-4-1-ove-pa-feilbanken.md) — Sjekk S7, S9, S10 og S11 i øvemodus i nettleser (360 px, tastatur, skjermleser)
 - [ ] 2026-11-25 [story-4-1-ove-pa-feilbanken](984-2026-11-25-18-10-44-story-4-1-ove-pa-feilbanken.md) — Story 5.3: historikken skal ikke vise øvingsøkter
 - [ ] 2026-11-25 [story-4-1-ove-pa-feilbanken](984-2026-11-25-18-10-44-story-4-1-ove-pa-feilbanken.md) — Story 4.3: apne_rader og innholdet i nye økter må utelate meldte spørsmål (ikke_meldt())
+- [ ] 2026-11-26 [manuell-test-christian](983-2026-11-26-15-21-15-manuell-test-christian.md) — Manuell test: funn CHR-01 til CHR-05 er åpne, avgjør i gruppa hvilke som rettes før levering
+- [ ] 2026-11-26 [manuell-test-christian](983-2026-11-26-15-21-15-manuell-test-christian.md) — CHR-03: avklar om «Tilbake til notatet» erstattes, og om S11 skal få de samme tre valgene
+- [ ] 2026-11-26 [manuell-test-christian](983-2026-11-26-15-21-15-manuell-test-christian.md) — Fyll inn nettleseren i raden for testøkta i test_feedback_christian.md
